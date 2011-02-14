@@ -89,7 +89,16 @@ void matrix_mult(const int* a, const int* b, int* c, size_t n)
     assert(a != c && b != c); /* Check precondition. */
 
     /* Write here your matrix multiplication. */
-
+	for(int i= 0;i<n;i++)
+	{
+		for(int j = 0;j<n;j++)
+		{
+			for(int k = 0;k<n;k++)
+			{
+				c[i*n+j] += a[i*n+k]*b[k*n+k];
+			}
+		}
+	}
 }
 \end{lstlisting}
 \end{ExerciseList}
