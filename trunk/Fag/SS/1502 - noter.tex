@@ -1,0 +1,123 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[danish]{babel}
+\usepackage[latin1]{inputenc}
+
+\title{Noter}
+\author{2.1.57}
+\date{} % delete this line to display the current date
+
+%%% BEGIN DOCUMENT
+\begin{document}
+\section*{Nondeterministiske endelige automater}
+	\begin{enumerate}
+		\item Et par motiverende eksempler
+		\item Definition af NFA (og indgående begreber)
+		\item Accept for NFA
+		\item NFA'er og DFA er ækvivalente
+		\item De regulære operationer igen
+	\end{enumerate}
+	
+	\subsection*{Lukning under $\circ$}
+	$L_1 \circ L_2 = \{xy|x \in L_1, y \in L_2 \}$
+	Antag at vi har $M_1$ så $L(M_1)=L_1$ og $M_2$ så $$L(M_2)=L_2$
+	
+	En automat for $L_1 = L_2$:
+	%figur her
+	
+	$L_3 = \{w \in \{a,b,c}^*|w starter med a, så kommer b'er 
+	eller w starter med a så kommer c'er\}
+	=\{w \in \{a,b,c}^*|w=ab;i\geq 0 \vee w=ac;i\geq 0 \}$
+	
+	\begin{definition}
+		En NFA er et 5-tupel
+		
+		$(Q,\Sigma,\delta,q_0,F)$
+		$Q:$ Endelig mængde af tilstande
+		$\Sigma:$ Alfabet
+		$\delta:$ Overføringsfunktion - $\delta:Q \times \Sigma \rightarrow P(Q)$
+		$q_0:$ Starttilstand
+		$F:$ Mængde af starttilstande
+	\end{definition}
+	
+	\subsection*{Notation}
+	Lad $A$ være en mængde, så er $P(A)$ mængden af alle delmængder af $A$. $P(A)$ kaldes potensmængden af $A$.
+	Lad $\Sigma$ være et alfabet.
+	Så er $\Sigma_\epsilon=\Sigma \cup \{\epsilon\}$
+	
+	%figur her
+	
+	En NFA er en streng $w$ hvis der findes en føælge af tilstande som kan besøges ved at læse $w$ og som ender i en accepttilstand.
+	
+	\begin{definition}
+		Lad $N=(Q,\Sigma,\delta,q_0,F)$ være en NFA. N accepterer $w$, $w \in \Sigma^*$, hvis der findes en følge
+		$r_0,r_1,........r_x$ og $w$ kan skrives som $w=x_1,x_2,.......x_k$, hvor $x_i \in \Sigma_\epsilon$.
+		
+		Så:
+		\begin{itemize}
+			\item $r_0 = q_0$
+			\item $r_(i+1)\in \delta(r_i,x_(i+1))$ for alle $0\leq i < k$
+			\item $r_k \in F$
+		\end{itemize}
+	\end{definition}
+	
+	\begin{theorem}
+		For enhver NFA $N$,
+		findes der en ækvivalent DFA $M$, dvs. en M så $L(M)=L(N)$.
+	\end{theorem}
+	
+	\begin{proof}
+		Vi viser hvordan vi ud fra $N=(Q_1,\Sigma,\delta_1,q_(01),F_1)$
+		kan konstruere $M=(Q_2,\Sigma,\delta_2,q_(02),F_2)$. \\
+		Først: Betragt tilfældet, hvor $N$ ikke har $\epsilon$-transitioner.
+		
+		Ide: \\
+		%figur
+		Dvs. vores deterministiske udgave har tilstande der er mængder af tilstande, NFA'en kunne havne i.
+		
+		$Q_2 = P(Q)$
+		$q_(02) = \{q_(01\}$
+		$F_2=\{R|R indeholder mindst én tilstand fra F_1 \} = \{R|R \cap F_1 \notin Ø \}$
+		$\delta_2(R,a)= \{s|s\in \delta_1(r,a) for et r \in R \} = \bigcup \limits_(r \in R) \delta(r,a)$
+		
+		Lad $R$ være en mængde af tilstande i $N$,
+		dvs. $R \subsetq Q_1$ \\
+		$E(R)$= mængden af tilstande vi kan nå fra $R$ med $Q$ eller flere $\epsilon$-transitioner
+		
+		Med $\epsilon$-transitioner: \\
+		$\delta_2(R,a) = \bigcup \limits_(r \in R) E (\epsilon(r,a))$ og
+		$q_(02)=E(\{q_(01\})$ \\
+	\end{proof}
+	
+	Eksempel:
+	%figur
+	
+	\begin{theorem}
+		De regulære sprog er lukket under $\cup$ dvs. at hvis $L_1,L_2$ er regulære så er 
+		$L_1 \cup L_2$ også regulært.
+	\end{theorem}
+	\begin{proof}
+		Da $L_1$ er regulært, er der en NFA $N_1$ så $L(N_1)=L_1$
+		og der er tilsvarende en NFA $N_2$ så $L(N_2)=L_2$. VI laver en NFA for $L_1 \cup L_2$
+	\end{proof}	
+	
+	\begin{theorem}
+		De regulære sprog er lukket under $\circ$, dvs. hvis $L_1,L_2$ er regulære så er $L_1 \circ L_2$ regulært.
+	\end{theorem}
+	\begin{proof}
+		Da $L_1$ er regulært findes en NFA $N_1$, så $L(N_1)=L_1$. \\
+		Vi laver en NFA $N$ så $L(N) = L_1 \cup L_2$
+	\end{proof}
+	\begin{theorem}
+		De regulære sprog er lukket under $*$ dvs. hvis $L$ er regulære så er $L^*$ regulært.
+	\end{theorem}
+		\begin{proof}
+		Da $L$ er regulært findes der en NFA $N$, så $L(N)=L$. \\
+		%figur
+		
+		Hvis $N$ accepterer $w$, så kan $w$ skrives som $\epsilon$ eller $w$ kan skives som $w=w_1....w_k$ for et $k >0$.
+		Hver $w$, accepteres af $N$, dvs $w_i \in L$ for alle %hvad står der her
+		
+		Omvendet hvis $w=\epsilon$, accepterer $Nw$.
+		$w=w_1.....w_k$, klart at N accepterer $w$ $w_i \in L$
+	\end{proof}
+\end{document}
