@@ -9,8 +9,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <assert.h>
-#include <sys/time.h>
-#include <sys/times.h>
+#include <time.h>
 
 unsigned long long mem;
 double base_time;
@@ -129,12 +128,22 @@ void mat_mult1(double *a, double *b, double *c, size_t dim)
 }
 
 
-void mat_mult2(double *a, double *b, double *c, size_t dim)
+void matrix_mult(const double* a, const int* b, int* c, size_t n)
 {
-    size_t i, j, k;
-    assert(a != c && b != c);
+    int i, j, k;              /* You will need at least these. */
+    assert(a != c && b != c); /* Check precondition. */
 
-    /* Re-arranged matrix multiplication. */
+    /* Write here your matrix multiplication. */
+	for(i= 0;i<n;i++)
+	{
+		for(j = 0;j<n;j++)
+		{
+			for(k = 0;k<n;k++)
+			{
+				c[i*n+j] += a[i*n+k]*b[k*n+k];
+			}
+		}
+	}
 }
 
 
