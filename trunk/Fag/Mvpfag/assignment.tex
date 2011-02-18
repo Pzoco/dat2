@@ -101,10 +101,12 @@ void matrix_mult(const int* a, const int* b, int* c, size_t n)
 	{
 		for(int j = 0;j<n;j++)
 		{
+			int temp = 0;
 			for(int k = 0;k<n;k++)
 			{
-				c[i*n+j] += a[i*n+k]*b[k*n+k];
+				temp += a[i*n+k]*b[k*n+j];
 			}
+			c[i*n+j] = temp;
 		}
 	}
 }
