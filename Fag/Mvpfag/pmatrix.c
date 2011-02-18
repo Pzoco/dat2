@@ -128,7 +128,7 @@ void mat_mult1(double *a, double *b, double *c, size_t dim)
 }
 
 
-void matrix_mult(const double* a, const int* b, int* c, size_t n)
+void mat_mult2(const double* a, const int* b, int* c, size_t n)
 {
     int i, j, k;              /* You will need at least these. */
     assert(a != c && b != c); /* Check precondition. */
