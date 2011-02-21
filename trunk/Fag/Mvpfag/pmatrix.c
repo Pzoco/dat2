@@ -138,10 +138,12 @@ void mat_mult2(const double* a, const int* b, int* c, size_t n)
 	{
 		for(j = 0;j<n;j++)
 		{
+		    double temp = 0;
 			for(k = 0;k<n;k++)
 			{
-				c[i*n+j] += a[i*n+k]*b[k*n+k];
+                temp+= a[i*n+k]*b[k*n+k];
 			}
+            c[i*n+j] +=temp;
 		}
 	}
 }
@@ -255,7 +257,7 @@ void check_identity(double *a, double *dummy1, double *dummy2, size_t dim)
             double r = i == j ? a[i*dim+j] - 1.0 : a[i*dim+j];
             if (r < -PRECISION || r > PRECISION)
             {
-                fprintf(stderr, "Matrix is not identity.\n");
+                fprintf(stderr, "Matrix is not .\n");
                 abort();
             }
             error += fabs(r);
