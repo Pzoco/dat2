@@ -1,0 +1,69 @@
+Character Set
+-----
+
+[a-z],[A-Z],[0-9],[! " # % & ' ( ) * + , - . / : ; < = > ? [ \ ] _ { } ~], [whitespace],[NULL]
+
+-----
+
+Identifiers
+-----
+
+Consisting of any combination of [a-z] and [A-Z] and _, although not starting with _.
+
+-----
+
+
+
+Operators
+-----
+
++,-,/,*, =, >, <, >=, <=, !=, ==, %, &&, ||, +=, -=, *=, /=, %=, (),
+
+-----
+
+
+Keywords
+-----
+
+break, const, bool, char, else, if, while, for, void, continue, int, float, return, switch, case, default,
+
+-----
+
+
+Elementary Data
+-----
+
+void
+
+NUMBERS:
+int, float, bool,
+
+STRINGS:
+string¨
+
+SYMBOLS:
+char 
+
+
+Delimiters
+-----
+
+{},(),[]," and ",' and ', , ,
+
+-----
+
+
+Comments
+-----
+
+//
+
+-----
+
+
+Blank Space
+-----
+
+Whitespace char (Not to be confused with the infamous blackspace)
+
+-----
