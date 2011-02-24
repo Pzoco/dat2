@@ -1,0 +1,36 @@
+
+Simulation
+{
+
+	Regiment
+	{
+		Name = "A";
+
+		Unit
+		{
+			Name = "Archer";
+			Amount = 10;
+			Behaviour = "Defensive";
+		}
+
+	}
+
+	Regiment
+	{
+		Name = "B";
+	
+		Unit
+		{
+			Name = "Swordsman";
+			Amount = 5;
+			Behaviour = Aggressive;
+		}
+		Unit
+		{
+			Name = "Archer";
+			Amount = 2;
+			Behaviour = "Aggressive";
+		}
+	}
+
+}
