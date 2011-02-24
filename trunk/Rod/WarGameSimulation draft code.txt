@@ -1,28 +1,26 @@
 
 #Simulation
 {
-	GridSize = 512x512;
+	GridWidth = 512;
+	GridHeight = 512;
 	#Team
 	{
+		int ID = 0;
 		#Regiment
 		{
-			ID;
-			Name = "Pirate Booty Specialist";
-			Count = 12;
-			Speed = 2;
-			Behaviour = Defensive;
-			Team = 0
+			string Name = "Pirate Specialist";
+			int Count = 12;
+			int Speed = 2;
+			string Behaviour = Defensive;
 		
 		}
 
 		#Regiment 
 		{
-			ID;
-			Name = "Viking Rapist Specialist";
-			Count = 42;
-			Speed = 3;
-			Behaviour = Agressive;
-			Team = 0
+			string Name = "Viking Specialist";
+			int Count = 42;
+			int Speed = 3;
+			string Behaviour = Agressive;
 		}
 	}
 

@@ -134,21 +134,22 @@ checks that it is the identity.
 \Question
 \emph{Why is the identity check not using simple equality tests
   like $x==0$ or $x==1.0$?}
-\Answer The datatype is double
+\Answer The datatype is double, we use the constant PRECISION to determine if the double is as close to 1 as we want.
 
 \Question
 \emph{Change the PIVOT parameter to 0. Explain the loss in precision.}
 Turn back the parameter to 1 after that question.
-\Answer .. % Your answer here.
+\Answer When PIVOT is set to 0, we don't use pivoting in the Gaussian elimination, therefore we have a risk of numerical instability e.g. when dividing with
+small values.
 
 \Question
 \emph{What is the memory access pattern of your matrix multiplication
   implementation?}
-\Answer .. % Your answer here.
+\Answer The a matrix is read sequential and the b matrix is read column wise.
 
 \Question
 \emph{Why is it bad for the cache?}
-\Answer .. % Your answer here.
+\Answer When reading the b matrix it makes strides, which is bad for the cache.
 
 \Question
 \emph{Modify your matrix multiplication implementation to make it more
