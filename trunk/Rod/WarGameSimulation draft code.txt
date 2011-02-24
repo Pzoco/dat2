@@ -1,35 +1,28 @@
 
-Simulation
+#Simulation
 {
-
-	Regiment
+	GridSize = 512x512;
+	#Team
 	{
-		Name = "A";
-
-		Unit
+		#Regiment
 		{
-			Name = "Archer";
-			Amount = 10;
-			Behaviour = "Defensive";
+			ID;
+			Name = "Pirate Booty Specialist";
+			Count = 12;
+			Speed = 2;
+			Behaviour = Defensive;
+			Team = 0
+		
 		}
 
-	}
-
-	Regiment
-	{
-		Name = "B";
-	
-		Unit
+		#Regiment 
 		{
-			Name = "Swordsman";
-			Amount = 5;
-			Behaviour = Aggressive;
-		}
-		Unit
-		{
-			Name = "Archer";
-			Amount = 2;
-			Behaviour = "Aggressive";
+			ID;
+			Name = "Viking Rapist Specialist";
+			Count = 42;
+			Speed = 3;
+			Behaviour = Agressive;
+			Team = 0
 		}
 	}
 
