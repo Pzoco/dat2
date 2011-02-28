@@ -119,7 +119,7 @@ void gen_mat(double *a, double *dummy1, double *dummy2, size_t dim)
 }
 
 
-void mat_mult1(double *a, double *b, double *c, size_t dim)
+void mat_mult1(double *a, double *b, double *c, size_t n)
 {
     size_t i, j, k;
     assert(a != b && a != c);
