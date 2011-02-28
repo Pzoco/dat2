@@ -43,7 +43,8 @@
 	\item Mutex: A mutex is used to lock some lines of code so that only one thread of a time is allowed to execute the lines.
 	\item Lock Contention: This occurs when two threads tries to acquire a lock at the same time.
 	\item Grandularity: Is the size of the subproblems.
-	\item False Sharing: 
+	\item False Sharing: If two threads shares a cache line, they still need to reload the cache line every time they try to access their value in case that 
+	the other thread might have changed something in the cache line.
 \end{enumerate}
 
 \end{ExerciseList}
