@@ -124,7 +124,18 @@ void mat_mult1(double *a, double *b, double *c, size_t dim)
     size_t i, j, k;
     assert(a != b && a != c);
 
-    /* Standard matrix multiplication. */
+    for(i= 0;i<n;i++)
+	{
+		for(j = 0;j<n;j++)
+		{
+		    double temp = 0;
+			for(k = 0;k<n;k++)
+			{
+                temp+= a[i*n+k]*b[k*n+k];
+			}
+            c[i*n+j] +=temp;
+		}
+	}
 }
 
 
@@ -134,13 +145,13 @@ void mat_mult2(const double* a, const int* b, int* c, size_t n)
     assert(a != c && b != c); /* Check precondition. */
 
     /* Write here your matrix multiplication. */
-	for(i= 0;i<n;i++)
-	{
-		for(j = 0;j<n;j++)
-		{
-		    double temp = 0;
-			for(k = 0;k<n;k++)
-			{
+    for(k = 0;k<n;k++)
+    {
+        for(i= 0;i<n;i++)
+        {
+            double temp = 0;
+            for(j = 0;j<n;j++)
+            {
                 temp+= a[i*n+k]*b[k*n+k];
 			}
             c[i*n+j] +=temp;
@@ -282,9 +293,9 @@ void test(size_t dim)
     timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult2.
-    //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
-    //timed_call(BLUE, "Multiplying2", mat_mult2, a, b, c, dim);
-    //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
+    timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
+    timed_call(BLUE, "Multiplying2", mat_mult2, a, b, c, dim);
+    timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult3.
     //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
