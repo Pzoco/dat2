@@ -193,7 +193,19 @@ void mat_mult2(const int* a, const int* b, int* c, size_t n)
 \Question
 \emph{Test your program with sizes 100, 200, \dots 1000} and report
 the relative improvement compared to the previous version.
-\Answer .. % Your results here.
+\Answer 
+\begin{itemize}
+\item With 100
+\subitem Multiplying1...done!	real: 0.008409s, user: 0.01s, sys: 0s, idle: 0\%
+\subitem Multiplying2...done!	real: 0.007974s, user: 0.01s, sys: 0s, idle: 0\%
+\item With 200
+\subitem Multiplying1...done!	real: 0.061398s, user: 0.06s, sys: 0s, idle: 2.27695\%
+\subitem Multiplying2...done!	real: 0.062984s, user: 0.06s, sys: 0s, idle: 4.73771\%
+\item With 1000
+\subitem Multiplying1...done!	real: 11.7579s, user: 11.7s, sys: 0.02s, idle: 0.32243\%
+\subitem Multiplying2...done!	real: 7.76633s, user: 7.73s, sys: 0s, idle: 0.46784\%
+\end{itemize}
+
 \end{ExerciseList}
 
 \section{Block-Matrix Multiplication}
