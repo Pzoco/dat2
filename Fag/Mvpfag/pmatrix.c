@@ -9,7 +9,8 @@
 #include <unistd.h>
 #include <math.h>
 #include <assert.h>
-#include <time.h>
+#include <sys/time.h>
+#include <sys/times.h>
 
 unsigned long long mem;
 double base_time;
@@ -117,7 +118,6 @@ void gen_mat(double *a, double *dummy1, double *dummy2, size_t dim)
         }
     }
 }
-
 
 void mat_mult1(double *a, double *b, double *c, size_t n)
 {
@@ -268,7 +268,7 @@ void check_identity(double *a, double *dummy1, double *dummy2, size_t dim)
             double r = i == j ? a[i*dim+j] - 1.0 : a[i*dim+j];
             if (r < -PRECISION || r > PRECISION)
             {
-                fprintf(stderr, "Matrix is not .\n");
+                fprintf(stderr, "Matrix is not identity.\n");
                 abort();
             }
             error += fabs(r);
@@ -290,12 +290,12 @@ void test(size_t dim)
 
     timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
     timed_call(BLUE, "Multiplying1", mat_mult1, a, b, c, dim);
-    timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
+    //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult2.
     timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
     timed_call(BLUE, "Multiplying2", mat_mult2, a, b, c, dim);
-    timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
+    //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult3.
     //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
