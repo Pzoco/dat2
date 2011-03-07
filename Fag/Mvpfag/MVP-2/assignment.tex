@@ -1,0 +1,238 @@
+\documentclass{article}
+\usepackage{a4wide}
+\usepackage{listings,color}
+\usepackage[lastexercise]{exercise}
+\renewcommand{\ExerciseListHeader}{ 
+\textbf{Exercise} \ExerciseHeaderNB:\quad} 
+\renewcommand{\QuestionNB}{{\bf Q}:\quad}
+\renewcommand{\AnswerListHeader}{ \textbf{A}:\quad} 
+\pagestyle{empty}
+
+\title{MVP Assignment 2}
+\date{Due date: 24/3/2010}
+\begin{document}
+\maketitle
+
+% Comment this for answering.
+\newcommand{\question}[1]{#1}
+\newcommand{\answer}[1]{}
+
+% Uncomment this for answering.
+%\newcommand{\question}[1]{}
+%\newcommand{\answer}[1]{{#1}}
+
+%
+% Write your group room and group number here.
+%
+\answer{
+\begin{flushleft}
+{\bf Group room:} FIXME\\
+{\bf Group number:} FIXME
+\end{flushleft}
+}
+
+\section{Question}
+
+\begin{ExerciseList}
+\Exercise Exercise in the book.
+\Question \emph{Exercise 3, chapter 6.}
+\Answer .. % Your answer here.
+
+\end{ExerciseList}
+
+\section{Hello World}
+
+\begin{ExerciseList}
+\Exercise Hello world with threads.
+\question{Your program
+\begin{itemize}
+\item starts $n$ threads, $n$ is given as a command line argument,
+\item has every thread print a message of the form
+\texttt{Thread i/n: Hello world!} where \texttt{i} is the ID of the
+thread and \texttt{n} is the total number of threads,
+\item waits for all threads to terminate before terminating.
+\end{itemize}
+You are not allowed to use any global variable for that. The point of
+the exercise is to learn how to prepare data and send them to new
+threads without race.
+}
+
+\Question \emph{Write a ``hello world'' program using pthreads.} 
+
+% Your code goes there.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Hello world with pthreads.},
+label=LST:hello]
+/* Your code goes here - full listing. */
+\end{lstlisting}
+
+\question{
+\textbf{Note:} You have a \texttt{sample-code.c} file where you
+will find basic functions to bootstrap you on pthreads.
+}
+
+\Exercise $[$Optional$]$ Additional exercise in the book.
+\Question $[$Optional$]$ \emph{Exercise 1, chapter 6.}
+\Answer .. % Your optional answer here.
+
+\end{ExerciseList}
+
+\section{Mandelbrot's Set}
+
+\begin{ExerciseList}
+\Exercise
+\answer{Parallel Mandelbrot's set generator.}
+\question{
+In this exercise you parallelize a generator of fractals, here 
+Mandelbrot's set. The image is computed as follows: Every point on the
+picture corresponds to a point in the complex space. We compute the
+following series of numbers: $z_0 = 0$, $z_{n+1} = z_n^2 + c$ where
+$c$ is the constant corresponding to the current coordinate. The color
+$n$ (here modulo 256) is assigned to the pixel whenever $|z|>K$ with $K$
+being some constant value. You can read more on wikipedia if you wish.
+}
+
+\Question \emph{Why is this problem a problem trivial to parallelize?}
+\Answer .. % Your answer here.
+
+\Question \emph{Parallelize it with pthreads using a 1-D partitioning on
+the output data.}
+\question{Your program should use automatically the number of
+physical processors you have. Run this on a multi-core machine for the
+experiment to be meaningful. Your partitioning should allocate a block
+of lines to every processor. You will find some helpful code in
+\texttt{sample-code.c}.}
+
+% Your code goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Parallelized computation of Mandelbrot's set.},
+label=LST:mandelbrot1]
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+
+\Question
+\question{
+When you benchmark this (with the provided script) you will see some
+disappointing results.}
+\emph{First, explain the different outputs of the time command, in
+  particular why user time is greater than real time.}
+\Answer .. % Your answer here.
+
+\Question
+\question{
+The seamingly trivial-to-parallelize program suffers from some very
+important issue.} \emph{What is the problem and where does it come from?}
+\question{Hint: The next question solves ``the problem''.}
+\Answer .. % Your answer here.
+
+\Question
+\emph{Parallelize it again using a 1-D round-robin partitioning on the
+  output data.}
+\question{The round robin partitioning assigns each row to a
+different processor at regular turns. For this exercise, the
+modification to the previous version should be minor.}
+
+% Your code goes there.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Parallelized computation of Mandelbrot's set.},
+label=LST:mandelbrot2]
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+
+\end{ExerciseList}
+
+\section{Parallel Matrix Multiplication}
+
+\begin{ExerciseList}
+\Exercise
+\answer{Parallel matrix multiplication by block.}
+\question{
+Your \texttt{pmatrix.c} from assignment 1 has been updated in this
+assignment. First, copy your block matrix multiplication from
+assignment 1.}
+\Question
+\emph{Write the job function for every thread to compute the
+  multiplication by block.}
+\question{The function
+is already here and is called \texttt{job\_block\_mat\_mult}.
+Hint: Use the macros DECOMPOSE\_BY\_ROW and DECOMPOSE\_BY\_BLOCK to
+ease the programming. This is an easy method. Keen students may
+rewrite their functions to avoid if-statements at every loop.}
+
+% Your code goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Parallelized matrix multiplication by block.},
+label=LST:blockmatmult]
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+
+\end{ExerciseList}
+
+
+\newpage
+\section{Authors}
+I/We have solved these exercises independently, and each of us has actively
+participated in the development of all of the exercise solutions.
+\vspace{1cm}
+
+\noindent
+\begin{tabular}{p{70mm}p{70mm}}
+
+%
+% Replace ``Name x'' by your name.
+%
+
+Name 1 & Name 2 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 3 & Name 4 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 5 & Name 6 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 7 & Name 8 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+\end{tabular}
+
+\end{document}
