@@ -1,0 +1,327 @@
+\documentclass{article}
+\usepackage{a4wide}
+\usepackage{listings,color}
+\usepackage[lastexercise]{exercise}
+\renewcommand{\ExerciseListHeader}{ 
+\textbf{Exercise} \ExerciseHeaderNB:\quad} 
+\renewcommand{\QuestionNB}{{\bf Q}:\quad}
+\renewcommand{\AnswerListHeader}{ \textbf{A}:\quad} 
+\pagestyle{empty}
+
+\title{MVP Assignment 1}
+\date{Due date: 8/3/2010}
+\begin{document}
+\maketitle
+
+% Comment this for answering.
+\newcommand{\question}[1]{#1}
+\newcommand{\answer}[1]{}
+
+% Uncomment this for answering.
+%\newcommand{\question}[1]{}
+%\newcommand{\answer}[1]{{#1}}
+
+%
+% Write your group room and group number here.
+%
+\answer{
+\begin{flushleft}
+{\bf Group room:} FIXME\\
+{\bf Group number:} FIXME
+\end{flushleft}
+}
+
+\section{Question}
+
+\begin{ExerciseList}
+\Exercise Exercise in the book.
+\Question \emph{Exercise 1, chapter 1.}
+\Answer
+\begin{enumerate}
+	\item Thread: When dividing a program, threads can be used to run the program in parallel.
+	\item Race condition: A race condition occurs when two threads race to influence the output first. 
+	\item Mutex: A mutex is used to lock some lines of code so that only one thread of a time is allowed to execute the lines.
+	\item Lock Contention: This occurs when two threads tries to acquire a lock at the same time.
+	\item Grandularity: Is the size of the subproblems.
+	\item False Sharing: If two threads shares a cache line, they still need to reload the cache line every time they try to access their value in case that 
+	the other thread might have changed something in the cache line.
+\end{enumerate}
+
+\end{ExerciseList}
+
+\section{Matrix Multiplication}
+
+\begin{ExerciseList}
+\Exercise
+\answer{Matrix multiplication.}
+\question{
+In this first assignment we will get warmed-up with C and experiment
+with the influence of caches on an apparently simple algorithm. The
+standard formula for computing the matrix multiplication $C=A*B$
+between two matrices of size $n*n$\footnote{We stick to square
+matrices for simplicity here.} is:
+
+\[ (c_{ij})_{1\le i,j \le n} = \sum_{k=1}^{n} a_{ik}*b_{kj} \]
+
+\Question \emph{Write down the straight-forward algorithm for
+computing this formula.}
+% You do not need to give me this algorithm here.
+}
+
+\Question \emph{Implement this algorithm in matrix\_fibo.c.}
+\question{This program serves
+as a test program to help you develop and test your function. It is
+computing Fibonacci numbers using two techniques and it compares the
+results for correctness. Keen students are invited to look at the
+slides that explain the example (given in the source code). You do
+not need to look at this to complete the assignment.
+
+Notes: \texttt{const} means you are not supposed to write the data
+(see the source code). To address element $(i,j)$ in a matrix of
+dimention $n$ declared as \texttt{int* a}, use \texttt{a[i*dim+j]}.}
+
+% Place your function here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Matrix multiplication function.},
+label=LST:MatMulFunc1]
+
+void matrix_mult(const int* a, const int* b, int* c, size_t n)
+{
+    int i, j, k;              /* You will need at least these. */
+    assert(a != c && b != c); /* Check precondition. */
+
+    /* Write here your matrix multiplication. */
+	for(int i= 0;i<n;i++)
+	{
+		for(int j = 0;j<n;j++)
+		{
+			int temp = 0;
+			for(int k = 0;k<n;k++)
+			{
+				temp += a[i*n+k]*b[k*n+j];
+			}
+			c[i*n+j] = temp;
+		}
+	}
+}
+\end{lstlisting}
+\end{ExerciseList}
+
+\section{Re-arranged Matrix-Multiplication}
+
+\begin{ExerciseList}
+\Exercise
+\answer{Studying the cache influence.}
+\question{
+You will test subsequent matrix-multiplication algorithms using
+another test program. It is basically generating a random matrix,
+inverting it, then it multiplies the original with its inverse and
+checks that it is the identity.
+
+\Question
+\emph{Transfer your matrix multiplication implementation to pmatrix.c
+  in the mat\_mult1 function.} You will need to change the data type to
+  double.
+% You don't need to give me this code.
+}
+
+\Question
+\emph{Why is the identity check not using simple equality tests
+  like $x==0$ or $x==1.0$?}
+\Answer The datatype is double, we use the constant PRECISION to determine if the double is as close to 1 as we want.
+
+\Question
+\emph{Change the PIVOT parameter to 0. Explain the loss in precision.}
+Turn back the parameter to 1 after that question.
+\Answer When PIVOT is set to 0, we don't use pivoting in the Gaussian elimination, therefore we have a risk of numerical instability e.g. when dividing with
+small values.
+
+\Question
+\emph{What is the memory access pattern of your matrix multiplication
+  implementation?}
+\Answer The a matrix is read sequential and the b matrix is read column wise.
+
+\Question
+\emph{Why is it bad for the cache?}
+\Answer When reading the b matrix it makes strides, which is bad for the cache.
+
+\Question
+\emph{Modify your matrix multiplication implementation to make it more
+  cache friendly.}
+\question{This modification should only concern the memory access
+  pattern. One very simple change in the loops is enough.}
+
+% Place your function here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Matrix multiplication function.},
+label=LST:MatMulFunc2]
+
+void mat_mult2(const int* a, const int* b, int* c, size_t n)
+{
+    int i, j, k;              /* You will need at least these. */
+    assert(a != c && b != c); /* Check precondition. */
+	for(int k = 0;k<n;k++)
+	{
+		for(int i= 0;i<n;i++)
+		{
+			int temp = 0;
+			for(int j = 0;j<n;j++)
+			{
+				temp += a[i*n+k]*b[k*n+j];
+			}
+			c[i*n+j] = temp;
+		}
+	}
+	
+}
+\end{lstlisting}
+
+\Question
+\emph{Test your program with sizes 100, 200, \dots 1000} and report
+the relative improvement compared to the previous version.
+\Answer 
+\begin{itemize}
+\item With 100
+\subitem Multiplying1...done!	real: 0.008409s, user: 0.01s, sys: 0s, idle: 0\%
+\subitem Multiplying2...done!	real: 0.007974s, user: 0.01s, sys: 0s, idle: 0\%
+\item With 200
+\subitem Multiplying1...done!	real: 0.061398s, user: 0.06s, sys: 0s, idle: 2.27695\%
+\subitem Multiplying2...done!	real: 0.062984s, user: 0.06s, sys: 0s, idle: 4.73771\%
+\item With 1000
+\subitem Multiplying1...done!	real: 11.7579s, user: 11.7s, sys: 0.02s, idle: 0.32243\%
+\subitem Multiplying2...done!	real: 7.76633s, user: 7.73s, sys: 0s, idle: 0.46784\%
+\end{itemize}
+
+\end{ExerciseList}
+
+\section{Block-Matrix Multiplication}
+
+\begin{ExerciseList}
+\Exercise
+\answer{Block matrix multiplication.}
+\question{
+We want to improve our implementation to make it more cache
+friendly. The idea of the block-matrix multiplication is to compute
+the multiplication not by element-wise multiplications but by
+blocks-wise multiplications. Thus the formula becomes:
+
+\[ (C_{ij})_{1\le i,j \le n} = \sum_{k=1}^{n} A_{ik}*B_{kj} \]
+
+\noindent
+where $A_{ij}, B_{ij},$ and $C_{ij}$ are block sub-matrices of
+respectively $A, B,$ and $C$. The multiplication between blocks is the
+standard element-wise multiplication. We note that thanks to the
+associativity of additions this formulation is equivalent to the
+original algorithm.}
+
+\Question
+\emph{What is the point of this reformulation?}
+\Answer .. % Your answer here.
+
+\question{
+\Question
+\emph{Write down the corresponding algorithm.}
+% You do not need to give me this algorith, I will see it in your code.
+}
+
+\Question
+\emph{Implement this algorithm.} Use the BLOCK parameter to tune the
+size of the blocks.
+
+% Place your function here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Matrix multiplication function.},
+label=LST:MatMulFunc3]
+
+void mat_mult3(const int* a, const int* b, int* c, size_t n)
+{
+    int i, j, k;              /* You will need at least these. */
+    assert(a != c && b != c); /* Check precondition. */
+
+    /* Write here your matrix multiplication. */
+
+}
+\end{lstlisting}
+
+\Question
+\emph{Experiment with the BLOCK parameter and find a good value for
+  your machine. Why is it a good value for your machine?}
+\Answer .. % Your result here.
+
+\Question
+\emph{Test your program with sizes 100, 200, \dots 1000} and report
+the relative improvement compared to the previous version.
+\Answer % Your results here.
+
+\Exercise $[$Optional$]$ Micro benchmarks are relatively small
+benchmark programs whose purpose is to stress few aspects of a
+system, here memory. The file \texttt{bench.c} is a simple micro
+benchmark test file.
+\Question $[$Optional$]$
+Study the file, execute it, and deduce the cache hierarchy of your
+system from the output. You should execute it several times to get
+decent results.
+\Answer .. % Your answer here.
+
+\end{ExerciseList}
+
+\newpage
+\section{Authors}
+I/We have solved these exercises independently, and each of us has actively
+participated in the development of all of the exercise solutions.
+\vspace{1cm}
+
+\noindent
+\begin{tabular}{p{70mm}p{70mm}}
+
+%
+% Replace ``Name x'' by your name.
+%
+
+Name 1 & Name 2 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 3 & Name 4 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 5 & Name 6 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 7 & Name 8 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+\end{tabular}
+
+\end{document}
