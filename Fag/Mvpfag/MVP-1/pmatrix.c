@@ -97,7 +97,12 @@ double timed_call(const char* color, const char *title, mat_f f,
 
     return r;
 }
-
+//return min value
+size_t min(size_t *a, size_t *b)
+{
+    if(a > b) { return b;}
+    else{return a;}
+}
 
 // Precision for checking identity.
 #define PRECISION 1e-6
@@ -191,12 +196,7 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
 }
     /* Block-matrix multiplication. */
 
-//return min value
-size_t min(size_t *a, size_t *b)
-{
-    if(a > b) { return b;}
-    else{return a;}
-}
+
 
 /* Check that a divider is not too close to 0. */
 static void check_divider(double x)
