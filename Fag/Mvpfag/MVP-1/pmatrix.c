@@ -160,13 +160,43 @@ void mat_mult2(const double* a, const int* b, int* c, size_t n)
 }
 
 
-void mat_mult3(double *a, double *b, double *c, size_t dim)
+void mat_mult3(double *a, double *b, double *c, size_t n)
 {
     size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
 
-    /* Block-matrix multiplication. */
+    for(bk = 0;bk<n;bk+=n)
+    {
+        maxk = min(bk+n,maxk);
+        for(bi = 0;bi<n;bi+=n)
+        {
+            maxi = min(bi+n,maxi);
+            for(bj = 0;bj < n;bj+=n)
+            {
+                maxj = min(bj+n,maxj);
+                for(k = 0;k<maxk;k++)
+                {
+                    for(i= 0;i<maxi;i++)
+                    {
+                        double temp = 0;
+                        for(j = 0;j<maxj;j++)
+                        {
+                        temp+= a[i*n+k]*b[k*n+k];
+                        }
+                        c[i*n+j] +=temp;
+                    }
+                }
+            }
+        }
+    }
 }
+    /* Block-matrix multiplication. */
 
+//return min value
+size_t min(size_t a, size_t b)
+}
+    if(a > b) { return b;}
+    else{return a;}
+)
 
 /* Check that a divider is not too close to 0. */
 static void check_divider(double x)
