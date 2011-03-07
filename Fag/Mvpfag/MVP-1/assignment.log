@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.11.8)  2 MAR 2011 09:35
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.11.8)  7 MAR 2011 12:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -214,7 +214,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  2510 strings out of 493747
  35582 string characters out of 3143546
- 107907 words of memory out of 3000000
+ 106907 words of memory out of 3000000
  5817 multiletter control sequences out of 15000+200000
  9982 words of font info for 35 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
@@ -240,7 +240,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2010/texmf
 ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2010/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2010/texmf-dis
 t/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb>
-Output written on assignment.pdf (5 pages, 216663 bytes).
+Output written on assignment.pdf (5 pages, 216652 bytes).
 PDF statistics:
  104 PDF objects out of 1000 (max. 8388607)
  75 compressed objects within 1 object stream
