@@ -328,8 +328,8 @@ void test(size_t dim)
     //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult3.
-    //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
-    //timed_call(BLUE, "Multiplying3", mat_mult3, a, b, c, dim);
+    timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
+    timed_call(BLUE, "Multiplying3", mat_mult3, a, b, c, dim);
     //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     free(c);
