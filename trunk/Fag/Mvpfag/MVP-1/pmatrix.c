@@ -192,11 +192,11 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
     /* Block-matrix multiplication. */
 
 //return min value
-size_t min(size_t a, size_t b)
-}
+size_t min(size_t *a, size_t *b)
+{
     if(a > b) { return b;}
     else{return a;}
-)
+}
 
 /* Check that a divider is not too close to 0. */
 static void check_divider(double x)
