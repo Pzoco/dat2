@@ -26,8 +26,8 @@
 %
 \answer{
 \begin{flushleft}
-{\bf Group room:} FIXME\\
-{\bf Group number:} FIXME
+{\bf Group room: 2.1.57}
+{\bf Group number:}
 \end{flushleft}
 }
 
@@ -288,7 +288,7 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
 \Question
 \emph{Experiment with the BLOCK parameter and find a good value for
   your machine. Why is it a good value for your machine?}
-\Answer By experimenting we found that when BLOCK = 128 we had the fastest runtime. 
+\Answer By experimenting we found that when BLOCK = 1000 or 1024 we had the fastest runtime. 
 The idea is to match BLOCK size to the cachelines.
 
 \Question
