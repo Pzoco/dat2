@@ -9,8 +9,6 @@
 #include <unistd.h>
 #include <math.h>
 #include <assert.h>
-#include <sys/time.h>
-#include <sys/times.h>
 
 unsigned long long mem;
 double base_time;
@@ -169,15 +167,15 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
 {
     size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
 
-    for(bk = 0;bk<n;bk+=n)
+    for(bk = 0;bk<n;bk+=BLOCK)
     {
-        maxk = min(bk+n,maxk);
-        for(bi = 0;bi<n;bi+=n)
+        maxk = min(bk+BLOCK,maxk);
+        for(bi = 0;bi<n;bi+=BLOCK)
         {
-            maxi = min(bi+n,maxi);
-            for(bj = 0;bj < n;bj+=n)
+            maxi = min(bi+BLOCK,maxi);
+            for(bj = 0;bj < n;bj+=BLOCK)
             {
-                maxj = min(bj+n,maxj);
+                maxj = min(bj+BLOCK,maxj);
                 for(k = 0;k<maxk;k++)
                 {
                     for(i= 0;i<maxi;i++)
