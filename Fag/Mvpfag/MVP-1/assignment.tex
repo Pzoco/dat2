@@ -258,15 +258,15 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
 {
     size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
 
-    for(bk = 0;bk<n;bk+=n)
+    for(bk = 0;bk<n;bk+=BLOCK)
     {
-        maxk = min(bk+n,maxk);
-        for(bi = 0;bi<n;bi+=n)
+        maxk = min(bk+BLOCK,maxk);
+        for(bi = 0;bi<n;bi+=BLOCK)
         {
-            maxi = min(bi+n,maxi);
-            for(bj = 0;bj < n;bj+=n)
+            maxi = min(bi+BLOCK,maxi);
+            for(bj = 0;bj < n;bj+=BLOCK)
             {
-                maxj = min(bj+n,maxj);
+                maxj = min(bj+BLOCK,maxj);
                 for(k = 0;k<maxk;k++)
                 {
                     for(i= 0;i<maxi;i++)
@@ -288,7 +288,8 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
 \Question
 \emph{Experiment with the BLOCK parameter and find a good value for
   your machine. Why is it a good value for your machine?}
-\Answer .. % Your result here.
+\Answer By experimenting we found that when BLOCK = 128 we had the fastest runtime. 
+The idea is to match BLOCK size to the cachelines.
 
 \Question
 \emph{Test your program with sizes 100, 200, \dots 1000} and report
