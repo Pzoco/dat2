@@ -9,6 +9,8 @@
 #include <unistd.h>
 #include <math.h>
 #include <assert.h>
+#include <sys/time.h>
+#include <sys/times.h>
 
 unsigned long long mem;
 double base_time;
@@ -19,7 +21,7 @@ double base_time;
 #define RANGE(S) (S)
 
 #define PIVOT 1    // Gaussian elimination with or without pivoting.
-#define BLOCK 2000   // Size of the blocks for block-matrix multiplication.
+#define BLOCK 1024   // Size of the blocks for block-matrix multiplication.
 
 #define BLUE "\033[1;34m"
 #define RED  "\033[1;31m"
@@ -95,17 +97,12 @@ double timed_call(const char* color, const char *title, mat_f f,
 
     return r;
 }
-//return min value
-size_t min(size_t *a, size_t *b)
-{
-    if(a > b) { return b;}
-    else{return a;}
-}
+
 
 // Precision for checking identity.
 #define PRECISION 1e-6
 
-/* Random generation, but always the same for
+/* Random generation, but always the same forBLOCK
  * a given size for fair comparison.
  */
 void gen_mat(double *a, double *dummy1, double *dummy2, size_t dim)
@@ -120,6 +117,12 @@ void gen_mat(double *a, double *dummy1, double *dummy2, size_t dim)
             a[i*dim+j] = (z < 10*PRECISION && z > -10*PRECISION) ? 0.0 : z;
         }
     }
+}
+//return min value
+size_t min(size_t *a, size_t *b)
+{
+    if(a > b) { return b;}
+    else{return a;}
 }
 
 void mat_mult1(double *a, double *b, double *c, size_t n)
@@ -192,7 +195,7 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
         }
     }
 }
-    /* Block-matrix multiplication. */
+
 
 
 
@@ -314,20 +317,20 @@ void test(size_t dim)
     double *c = alloc_double(dim*dim);
 
     timed_call(NULL, "Generating A", gen_mat, a, NULL, NULL, dim);
-    //timed_call(BLUE, "Inverting", inv_mat, a, b, c, dim);
+    timed_call(BLUE, "Inverting", inv_mat, a, b, c, dim);
 
     timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
     timed_call(BLUE, "Multiplying1", mat_mult1, a, b, c, dim);
-    //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
+    timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult2.
-    timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
-    timed_call(BLUE, "Multiplying2", mat_mult2, a, b, c, dim);
+    //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
+    //timed_call(BLUE, "Multiplying2", mat_mult2, a, b, c, dim);
     //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult3.
-    timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
-    timed_call(BLUE, "Multiplying3", mat_mult3, a, b, c, dim);
+    //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
+    //timed_call(BLUE, "Multiplying3", mat_mult3, a, b, c, dim);
     //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     free(c);
