@@ -316,13 +316,13 @@ void test(size_t dim)
     timed_call(NULL, "Generating A", gen_mat, a, NULL, NULL, dim);
     //timed_call(BLUE, "Inverting", inv_mat, a, b, c, dim);
 
-    //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
-    //timed_call(BLUE, "Multiplying1", mat_mult1, a, b, c, dim);
+    timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
+    timed_call(BLUE, "Multiplying1", mat_mult1, a, b, c, dim);
     //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult2.
-    //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
-    //timed_call(BLUE, "Multiplying2", mat_mult2, a, b, c, dim);
+    timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
+    timed_call(BLUE, "Multiplying2", mat_mult2, a, b, c, dim);
     //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult3.
