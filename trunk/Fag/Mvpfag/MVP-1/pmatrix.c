@@ -19,7 +19,7 @@ double base_time;
 #define RANGE(S) (S)
 
 #define PIVOT 1    // Gaussian elimination with or without pivoting.
-#define BLOCK 128   // Size of the blocks for block-matrix multiplication.
+#define BLOCK 2000   // Size of the blocks for block-matrix multiplication.
 
 #define BLUE "\033[1;34m"
 #define RED  "\033[1;31m"
