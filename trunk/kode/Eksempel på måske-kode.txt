@@ -1,0 +1,41 @@
+#Begin
+//Min her består af 5 x units, og 7 y units:
+//Mapet er 50x50 grid
+
+
+AddRegiment(5, Archer);
+AddRegiment(7, Pikemen);
+
+Placement[(1,1),(5,1),(Archer)][(1,3),(7,3),(Pikemen)]
+
+
+if ((Regiment(Archer) spotsUnits())
+{
+AttackSpottedUnits();
+	if((Regiment(Archer) getsAttacked())
+	{Retreat();}
+}
+
+
+if ((Regiment(Pikemen) !spotsUnits())
+{
+	moveForward();
+	if((Regiment(Pikemen)) getsAttacked())
+	{
+	GettingAttackedCounterAttack();
+	}
+}
+
+
+
+if (Regiment(Archer),(Pikemen)) reachEnd();
+
+{
+	turnArround();
+}
+
+
+
+
+
+#end
