@@ -2,10 +2,15 @@
 
 /* You need to include this header */
 #include <pthread.h>
+#include <stdio.h>
 
 /* How to start threads. */
 
 typedef void* (*void_f)(void*);
+void helloworld (int id)
+{
+	printf("Thread %d: Hello World!",id);
+}
 
 void start_thread(pthread_t *thread, void_f job, void* arg)
 {
@@ -35,15 +40,12 @@ int main (int argc, char* argv[])
 {
 	int i = 0;
 	int total = argc;
+    pthread_t pth;
 	for(i;i<=total;i++)
 	{
-		pthread_t pth;
-		start_thread(pth,helloworld,i,total);
+		start_thread(pth,helloworld,i);
 	}
 	join_threads(pth,total);
 }
 
-void helloworld (int id, int total)
-{
-	printf("Thread %d/%d: Hello World!",id,total);
-}
+
