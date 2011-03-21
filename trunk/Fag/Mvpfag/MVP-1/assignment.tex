@@ -41,10 +41,10 @@
 \begin{itemize}
 
 	\item Thread: When dividing a program, threads can be used to run the program in parallel. You might say that a thread is a unit of execution.
-	\item Race condition: A race condition occurs when two threads race to influence the output first. If the output of something has been changed by another thread at a time where it should or shouldn't have a race condition may arise.
+	\item Race condition: A race condition occurs when two or more threads race to influence something. When the threads try to influence something at the same time, this is dependant on the interleaving of these threads, and a race condition may raise problems in certain situations.
 	\item Mutex: A mutex is used to lock some lines of code so that only one thread of a time is allowed to execute the lines. If we want to have some critical section of a code executed atomically we use a mutex to make the threads mutually exclude each other. This means that once one thread enters the mutex, it locks it, and no other thread will enter this section until the other has finished its work and unlocks the mutex.
-	\item Lock Contention: This occurs when two threads tries to acquire a lock at the same time. They are contending for the lock in the theoretical situation of reaching it at the same time. Does not happen often in practice but must still be considered for stability.
-	\item Granularity: Is the size of the subproblems. When dividing a program into smaller problem we say the granularity larger if each subproblem is larger ie. the problem is more "coarse"
+	\item Lock Contention: This occurs when two or more threads tries to acquire a lock at the same time, or trying to acquire a lock that should belong to another thread.
+	\item Granularity: Is the size of the subproblems. When talking about granularity if the subproblems are larger we say the problem is more 'coarse'.
 	\item False Sharing: If two threads shares a cache line, they still need to reload the cache line every time they try to access their value in case that 
 	the other thread might have changed something in the cache line. In a sense they are sharing the same data but still reloading the cacheline individually. their value in case that 
 	the other thread might have changed something in the cache line.
@@ -95,22 +95,21 @@ frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Matrix multiplication function.},
 label=LST:MatMulFunc1]
 
-void matrix_mult(const int* a, const int* b, int* c, size_t n)
+void mat_mult1(double *a, double *b, double *c, size_t n)
 {
-    int i, j, k;              /* You will need at least these. */
-    assert(a != c && b != c); /* Check precondition. */
+    size_t i, j, k;
+    assert(a != b && a != c);
 
-    /* Write here your matrix multiplication. */
-	for(i= 0;i<n;i++)
+    for(i= 0;i<n;i++)
 	{
 		for(j = 0;j<n;j++)
 		{
-			int temp = 0;
+		double temp = 0;
 			for(k = 0;k<n;k++)
-			{
-				temp += a[i*n+k]*b[k*n+j];
+			{		
+        	        temp+= a[i*n+k]*b[k*n+j];
 			}
-			c[i*n+j] = temp;
+            	c[i*n+j] +=temp;
 		}
 	}
 }
@@ -138,7 +137,7 @@ checks that it is the identity.
 \Question
 \emph{Why is the identity check not using simple equality tests
   like $x==0$ or $x==1.0$?}
-\Answer The datatype is double, we use the constant PRECISION to determine if the double is as close to 1 as we want.
+\Answer The simple equality checks determine equality on a per-byte basis. If we simply compare whether or not they are equal in byte-sizes, the double may still be considered to be larger since more decimals are stored in the memory.
 
 \Question
 \emph{Change the PIVOT parameter to 0. Explain the loss in precision.}
@@ -153,7 +152,7 @@ small values.
 
 \Question
 \emph{Why is it bad for the cache?}
-\Answer When reading the b matrix it makes strides, which is bad for the cache.
+\Answer The cache is written to and read in strides, therefore we need to change the values in the cache more often, which leads to more operations on a hardware-level. This is bad for the cache because it is unnecessary to update it so frequently.
 
 \Question
 \emph{Modify your matrix multiplication implementation to make it more
@@ -173,23 +172,24 @@ frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Matrix multiplication function.},
 label=LST:MatMulFunc2]
 
-void mat_mult2(const int* a, const int* b, int* c, size_t n)
+void mat_mult2(const double* a, const int* b, int* c, size_t n)
 {
     int i, j, k;              /* You will need at least these. */
     assert(a != c && b != c); /* Check precondition. */
-	for(k = 0;k<n;k++)
-	{
-		for(i= 0;i<n;i++)
-		{
-			int temp = 0;
-			for(j = 0;j<n;j++)
-			{
-				temp += a[i*n+k]*b[k*n+j];
-			}
-			c[i*n+j] = temp;
-		}
+
+    /* Write here your matrix multiplication. */
+    for(i = 0;i<n;i++)
+    {
+        for(k= 0;k<n;k++)
+        {
+            double temp = 0;
+            for(j = 0;j<n;j++)
+            {
+                temp+= a[i*n+k]*b[k*n+j];
+                c[i*n+j] +=temp;
+	    }
+	    }
 	}
-	
 }
 \end{lstlisting}
 
@@ -198,11 +198,11 @@ void mat_mult2(const int* a, const int* b, int* c, size_t n)
 the relative improvement compared to the previous version.
 \Answer 
 \begin{tabular}{l*{2}{r}c}
-MSize            & Last Version	& This version	& Improvement (\%) \\
+MSize            & Mult1	& Mult2	& Improvement (\%) \\
 \hline
-100 			& 0.008409s		& 0.007974s		& $\sim$ 5,45 \\
-200            	& 0.061398s		& 0.062984s		& $\sim$ -2.51 \\
-1000     		& 11.7579s		& 7.76633s		& $\sim$ 51	\\
+100 			& 0.014938s		& 0.023542s		& $\sim$ -36.57 \\
+200            	& 0.21661s		& 0.190523s		& $\sim$ 4.12 \\
+1000     		& 37.6788s		& 23.7741s		& $\sim$ 58.48	\\
 \end{tabular} \\
 
 \end{ExerciseList}
@@ -229,7 +229,7 @@ original algorithm.}
 
 \Question
 \emph{What is the point of this reformulation?}
-\Answer By calculating on the blocks of a matrix, rather than the sequential listed matrix, the calculation becomes more cache-friendly, because the data in the cache is not changed as rapidly. 
+\Answer By calculating on the blocks of the matrix in the cache, rather than the sequentially listed matrix, the calculation becomes more cache-friendly because the data in the cache is not changed as often.
 
 \question{
 \Question
@@ -257,23 +257,23 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
 {
     size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
 
-    for(bk = 0;bk<n;bk+=BLOCK)
+    for(bi = 0;bi<n;bi+=BLOCK)
     {
-        maxk = min(bk+BLOCK,maxk);
-        for(bi = 0;bi<n;bi+=BLOCK)
+        maxi = min(bi+BLOCK,maxi);
+        for(bj = 0;bj<n;bj+=BLOCK)
         {
-            maxi = min(bi+BLOCK,maxi);
-            for(bj = 0;bj < n;bj+=BLOCK)
+            maxj = min(bj+BLOCK,maxj);
+            for(bk = 0;bk < n;bk+=BLOCK)
             {
-                maxj = min(bj+BLOCK,maxj);
-                for(k = 0;k<maxk;k++)
+                maxk = min(bk+BLOCK,maxk);
+                for(i = 0;i<maxi;i++)
                 {
-                    for(i= 0;i<maxi;i++)
+                    for(j= 0;j<maxj;j++)
                     {
                         double temp = 0;
-                        for(j = 0;j<maxj;j++)
+                        for(k = 0;k<maxk;k++)
                         {
-                        temp+= a[i*n+k]*b[k*n+k];
+                        temp+= a[i*n+k]*b[k*n+j];
                         }
                         c[i*n+j] +=temp;
                     }
@@ -282,40 +282,25 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
         }
     }
 }
+
 \end{lstlisting}
 
 \Question
 \emph{Experiment with the BLOCK parameter and find a good value for
   your machine. Why is it a good value for your machine?}
-\Answer By experimenting we found that when BLOCK = 1000 or 1024 we had the fastest runtime. 
-The idea is to match BLOCK size to the cachelines.
+\Answer By experimenting we found that setting the Block size to 40 we achieved the greatest improvement. Actually the improvement from just 39 or 41 was rather staggering. The main idea here is to fit the block in the cache. We are unsure of the cache size on the application server.
 
 \Question
 \emph{Test your program with sizes 100, 200, \dots 1000} and report
 the relative improvement compared to the previous version.
 \Answer 
-\begin{itemize}
-
-\item 100
-\subitem Multiplying1...done!	real: 0.007878s, user: 0s, sys: 0s, idle: 100\%
-\subitem Multiplying2...done!	real: 0.008007s, user: 0.01s, sys: 0s, idle: 0\%
-\subitem Multiplying3...done!	real: 6e-06s, user: 0s, sys: 0s, idle: 100\%
-\subitem Improvement mult2-mult3: real: 0.008001s, user: 0.1s, sys: 0s
-
-\item 200
-\subitem Multiplying1...done!	real: 0.064805s, user: 0.06s, sys: 0s, idle: 7.41455\%
-\subitem Multiplying2...done!	real: 0.062627s, user: 0.06s, sys: 0s, idle: 4.19468\%
-\subitem Multiplying3...done!	real: 5e-06s, user: 0s, sys: 0s, idle: 100\%
-\subitem Improvement mult2-mult3: real: 0.062622s, user: 0.06s, sys: 0s
-
-\item 1000
-\subitem Multiplying1...done!	real: 11.9393s, user: 11.8s, sys: 0.01s, idle: 1.08318\%
-\subitem Multiplying2...done!	real: 7.79532s, user: 7.73s, sys: 0.01s, idle: 0.709644\%
-\subitem Multiplying3...done!	real: 6e-06s, user: 0s, sys: 0s, idle: 100\%
-\subitem Improvement mult2-mult3: real: 7.795314s, user: 7.73s, sys: 0.01s
-
-
-\end{itemize}
+\begin{tabular}{l*{2}{r}c}
+MSize            & Mult2	& Mult3	& Improvement (\%) \\
+\hline
+100 			& 0.023542s		& 0.026063s		& $\sim$ -9.67 \\
+200            	& 0.190523s		& 0.119536s		& $\sim$ 59.38 \\
+1000     		& 23.7741s		& 16.373s		& $\sim$ 45.20	\\
+\end{tabular} \\
 
 \Exercise $[$Optional$]$ Micro benchmarks are relatively small
 benchmark programs whose purpose is to stress few aspects of a
