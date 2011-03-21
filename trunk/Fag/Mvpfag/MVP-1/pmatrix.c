@@ -21,7 +21,7 @@ double base_time;
 #define RANGE(S) (S)
 
 #define PIVOT 1    // Gaussian elimination with or without pivoting.
-#define BLOCK 1024   // Size of the blocks for block-matrix multiplication.
+#define BLOCK 40   // Size of the blocks for block-matrix multiplication.
 
 #define BLUE "\033[1;34m"
 #define RED  "\033[1;31m"
@@ -119,7 +119,7 @@ void gen_mat(double *a, double *dummy1, double *dummy2, size_t dim)
     }
 }
 //return min value
-size_t min(size_t *a, size_t *b)
+size_t min(size_t a, size_t b)
 {
     if(a > b) { return b;}
     else{return a;}
@@ -134,12 +134,12 @@ void mat_mult1(double *a, double *b, double *c, size_t n)
 	{
 		for(j = 0;j<n;j++)
 		{
-		    double temp = 0;
+		double temp = 0;
 			for(k = 0;k<n;k++)
-			{
-                temp+= a[i*n+k]*b[k*n+k];
+			{		
+        	        temp+= a[i*n+k]*b[k*n+j];
 			}
-            c[i*n+j] +=temp;
+            	c[i*n+j] +=temp;
 		}
 	}
 }
@@ -151,17 +151,17 @@ void mat_mult2(const double* a, const int* b, int* c, size_t n)
     assert(a != c && b != c); /* Check precondition. */
 
     /* Write here your matrix multiplication. */
-    for(k = 0;k<n;k++)
+    for(i = 0;i<n;i++)
     {
-        for(i= 0;i<n;i++)
+        for(k= 0;k<n;k++)
         {
             double temp = 0;
             for(j = 0;j<n;j++)
             {
-                temp+= a[i*n+k]*b[k*n+k];
-			}
-            c[i*n+j] +=temp;
-		}
+                temp+= a[i*n+k]*b[k*n+j];
+                c[i*n+j] +=temp;
+	    }
+	    }
 	}
 }
 
@@ -170,23 +170,23 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
 {
     size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
 
-    for(bk = 0;bk<n;bk+=BLOCK)
+    for(bi = 0;bi<n;bi+=BLOCK)
     {
-        maxk = min(bk+BLOCK,maxk);
-        for(bi = 0;bi<n;bi+=BLOCK)
+        maxi = min(bi+BLOCK,maxi);
+        for(bj = 0;bj<n;bj+=BLOCK)
         {
-            maxi = min(bi+BLOCK,maxi);
-            for(bj = 0;bj < n;bj+=BLOCK)
+            maxj = min(bj+BLOCK,maxj);
+            for(bk = 0;bk < n;bk+=BLOCK)
             {
-                maxj = min(bj+BLOCK,maxj);
-                for(k = 0;k<maxk;k++)
+                maxk = min(bk+BLOCK,maxk);
+                for(i = 0;i<maxi;i++)
                 {
-                    for(i= 0;i<maxi;i++)
+                    for(j= 0;j<maxj;j++)
                     {
                         double temp = 0;
-                        for(j = 0;j<maxj;j++)
+                        for(k = 0;k<maxk;k++)
                         {
-                        temp+= a[i*n+k]*b[k*n+k];
+                        temp+= a[i*n+k]*b[k*n+j];
                         }
                         c[i*n+j] +=temp;
                     }
