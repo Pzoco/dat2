@@ -1,8 +1,9 @@
 // -*- mode: C++; c-file-style: "stroustrup"; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 
 /* You need to include this header */
+#include <stdio.h>
+#include <stdlib.h>
 #include <pthread.h>
-#indluce <stdio.h>
 
 /* How to start threads. */
 
@@ -13,6 +14,18 @@ typedef struct whatever
 	int id;
 	int total;
 } storetype;
+
+void helloworld (void *input)
+{
+	storetype *t=input;
+	//To måder at hente en værdi fra structen t.
+	//t->id 
+	//(*t).id
+	int id=(*t).id+1;
+	int total=t->total;
+	printf("Thread %d / %d: Hello World! \n",id,total);
+	return NULL;
+}
 
 void start_thread(pthread_t *thread, void_f job, void* arg)
 {
@@ -41,7 +54,7 @@ void join_threads(pthread_t *threads, size_t n)
 int main (int argc, char* argv[])
 {
 	int i;
-	int total = atoi(argv[1])->int;
+	int total = atoi(argv[1]);
 	pthread_t pths[total];
 	storetype storage[total];
 	for(i=0;i<total;i++)
@@ -52,16 +65,4 @@ int main (int argc, char* argv[])
 	}
 	join_threads(pths,total);
 	exit(EXIT_SUCCESS);
-}
-
-void helloworld (void *input)
-{
-	storetype *t=input;
-	//To måder at hente en værdi fra structen t.
-	//t->id 
-	//(*t).id
-	int id=(*t).id;
-	int total=t->id;
-	printf("Thread %d / %d: Hello World!",id,total);
-	return NULL;
 }
