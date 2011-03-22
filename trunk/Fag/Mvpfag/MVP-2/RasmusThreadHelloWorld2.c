@@ -57,8 +57,9 @@ int main (int argc, char* argv[])
 void helloworld (void *input)
 {
 	storetype *t=input;
-	t->id 
-	(*t).id
+	//To måder at hente en værdi fra structen t.
+	//t->id 
+	//(*t).id
 	int id=(*t).id;
 	int total=t->id;
 	printf("Thread %d / %d: Hello World!",id,total);
