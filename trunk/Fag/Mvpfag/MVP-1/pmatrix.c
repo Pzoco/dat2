@@ -21,7 +21,7 @@ double base_time;
 #define RANGE(S) (S)
 
 #define PIVOT 1    // Gaussian elimination with or without pivoting.
-#define BLOCK 40   // Size of the blocks for block-matrix multiplication.
+#define BLOCK 50   // Size of the blocks for block-matrix multiplication.
 
 #define BLUE "\033[1;34m"
 #define RED  "\033[1;31m"
@@ -136,7 +136,7 @@ void mat_mult1(double *a, double *b, double *c, size_t n)
 		{
 		double temp = 0;
 			for(k = 0;k<n;k++)
-			{		
+			{
         	        temp+= a[i*n+k]*b[k*n+j];
 			}
             	c[i*n+j] +=temp;
