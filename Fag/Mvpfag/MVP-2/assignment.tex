@@ -56,7 +56,7 @@ You are not allowed to use any global variable for that. The point of
 the exercise is to learn how to prepare data and send them to new
 threads without race.
 }
-
+\newpage
 \Question \emph{Write a ``hello world'' program using pthreads.} 
 
 % Your code goes there.
@@ -70,7 +70,39 @@ columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Hello world with pthreads.},
 label=LST:hello]
-/* Your code goes here - full listing. */
+typedef struct whatever
+{
+	int id;
+	int total;
+} storetype;
+
+void helloworld (void *input)
+{
+	storetype *t=input;
+	int id=(*t).id+1;
+	int total=t->total;
+	printf("Thread %d / %d: Hello World! \n",id,total);
+	return NULL;
+}
+
+
+/* start_thread and join_threads functions here */
+
+int main (int argc, char* argv[])
+{
+	int i;
+	int total = atoi(argv[1]);
+	pthread_t pths[total];
+	storetype storage[total];
+	for(i=0;i<total;i++)
+	{
+		storage[i].id=i;
+		storage[i].total=total;
+		start_thread(&pths[i],helloworld,&storage[i]);
+	}
+	join_threads(pths,total);
+	exit(EXIT_SUCCESS);
+}
 \end{lstlisting}
 
 \question{
