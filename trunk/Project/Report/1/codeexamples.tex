@@ -64,4 +64,175 @@ if (Regiment(Archer),(Pikemen)) reachEnd();
 		 	\end{lstlisting}
 
 	\subsection{Code example 2}
+			\subsection{Elements}
+				In this example we have two different files. The config file specifies the rules of the game
+				such as grid size or allowed sizes of regiments. In the team tile a team is specified. In this file
+				a regiment is defined and a hero unit. Inside the regiment file is the stats of the regiment and
+				a behaviour block exists, inside the behaviour of the regiment is defined.
+			\subsection{Code}
+				\subsubsection{Team file}
+					\begin{lstlisting}[basicstyle=\small\sffamily,
+					keywords={break,case,const,continue,default,else,enum,
+					for,if,return,switch,while,do,long,void,int,float,double,
+					char,struct,typedef,include,size\_t},
+					keywordstyle={\color{blue}},
+					comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+					columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+					frameround=fftt, frame=shadowbox, captionpos=b,
+					caption={Team file of code example 3},
+					label=LST:code31]
+Team "Ninja Monkeys"
+
+Regiment "Silent Monkeys"
+//Archers
+{
+	
+	Size = 200;
+	Type = Ranged;
+	Range = 120;
+	Damage = 2;
+	Movement = 30;
+	AttackSpeed = 1;
+	
+	//Defining the behaviour of the regiment
+	Behaviour
+	{
+		(Unit/regiment/whatever) enemy = Search_for_Enemies();
+		if (enemy.Position <= Range && enemy.Type == Melee)
+		{
+			Attack.Position(enemy.Position);
+		}
+		else if (enemy.Position <= Range+Movement)
+		{
+			while(enemyPosition < Range)
+			{
+				MoveTowards(enemy.Position)
+			}
+			Attack.Position(enemy.Position);
+		}
+		if (enemy.position <= Range && enemy.Type == Hero)
+		{
+			MoveAway(enemy.position)
+			if(enemy.position <= Range)
+			{
+				Attack.Enemy(enemy);
+			}
+		}
+	}
+}
+
+Hero "Old Neon Monkey"
+//Hero unit
+{
+	Type=Hero.Melee;
+	Movement = 50;
+	Damage = 30
+	AttackSpeed = 5;
+	Behaviour
+	{
+		Regiment enemy = Search_for_Enemy();
+		if(enemy.Position == MeleeRange)
+		{
+			Attack.Enemy(enemy);
+			Rape(enemy);
+		}
+		else
+		{
+			MoveTowards(enemy.Position);
+		}
+	}
+}
+					\end{lstlisting}
+				\subsubsection{Config file}
+					\begin{lstlisting}[basicstyle=\small\sffamily,
+					keywords={break,case,const,continue,default,else,enum,
+					for,if,return,switch,while,do,long,void,int,float,double,
+					char,struct,typedef,include,size\_t},
+					keywordstyle={\color{blue}},
+					comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+					columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+					frameround=fftt, frame=shadowbox, captionpos=b,
+					caption={Config file of the code example 3},
+					label=LST:code32]
+Config
+
+//Definition of the grid
+Grid "Banana Island"
+{
+	HorizontalSize = 512;
+	VerticalSize = 128;
+	ObstaclesDensity = 2; //Goes from 1-10
+}
+
+Rules
+{
+	//Standards defines the standard fields for regiments
+	//If a regiment haven't defined for example Type it will use the Type in Standards
+	Standards
+	{
+		Size = 200;
+		Type = Melee;
+		Behaviour
+		{
+			//Standard behaviour
+		}
+	}
+	//Rules which the regiments can't exceed
+	Maximums
+	{
+		RegimentSize = 500
+		Heros = 1;
+		Regiments = 4;
+	}
+}
+					\end{lstlisting}				
 	\subsection{Code example 3}
+			\subsection{Elements}
+				This code is resembles the code in code example 2. The biggest difference is that
+				elements found in most normal programming languages are left out, like ; or datatypes
+				(int,string).
+			\subsection{Code}
+				\begin{lstlisting}[basicstyle=\small\sffamily,
+				keywords={break,case,const,continue,default,else,enum,
+				for,if,return,switch,while,do,long,void,int,float,double,
+				char,struct,typedef,include,size\_t},
+				keywordstyle={\color{blue}},
+				comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+				columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+				frameround=fftt, frame=shadowbox, captionpos=b,
+				caption={Code example 3},
+				label=LST:code3]
+unit pirate = 10
+unit soldier = 5
+
+Pirate
+{
+	Speed = 4
+	AttackPower = 1
+	DefensivePower = 2
+	
+	if(Enemy is near)
+	{
+		MoveTowards
+	}
+	else
+	{
+		wait
+	}
+}
+
+Soldier
+{
+	Speed = 1
+	AttackPower = 10
+	DefensivePower = 5
+	if(enemy is inRange)
+	{
+		Attack
+	}
+	else if(Enemy is near)
+	{
+		moveTowards		
+	}
+}
+				\end{lstlisting}				
