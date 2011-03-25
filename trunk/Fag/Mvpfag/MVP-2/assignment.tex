@@ -132,7 +132,7 @@ being some constant value. You can read more on wikipedia if you wish.
 }
 
 \Question \emph{Why is this problem a problem trivial to parallelize?}
-\Answer .. % Your answer here.
+\Answer None of the data is dependant on each other. Since every pixel on the image can be calculated at any given time and placed at the proper coordinate, interleaving is not necessary.
 
 \Question \emph{Parallelize it with pthreads using a 1-D partitioning on
 the output data.}
