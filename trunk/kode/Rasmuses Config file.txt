@@ -1,0 +1,27 @@
+Config
+
+Grid "Banana Island"
+{
+	HorizontalSize = 512;
+	VerticalSize = 128;
+	ObstaclesDensity = 2; //går fra 1-10
+}
+
+Rules
+{
+	Standards
+	{
+		Size = 200;
+		Type = Melee;
+		Behaviour
+		{
+			Trololololol
+		}
+	}
+	Maximums
+	{
+		RegimentSize = 500
+		Heros = 1;
+		Regiments = 4;
+	}
+}
