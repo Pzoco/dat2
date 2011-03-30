@@ -8,6 +8,25 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+size_t count_cpus()
+{
+    char s[256];
+    size_t count = 0;
+    FILE *f = fopen("/proc/stat", "r");
+    if (!f)
+    {
+        fprintf(stderr, "/proc/stat not found!\n");
+        abort();
+    }
+    while(fgets(s,sizeof(s),f) && !strncmp(s,"cpu",3))
+    {
+        count++;
+    }
+    fclose(f);
+    return count > 1 ? count - 1 : count;
+}
+
+typedef void* (*void_f)(void*);
 
 /*****************************************************
  * BMP image handling - you don't need to read this. *
@@ -183,18 +202,93 @@ void generate(const char *mapfilename, const char *outfilename,
         dr:dx,
         max:n
     };
-    size_t x,y;
+
 
     // Compute image.
     // This is the loop to parallelize.
 
-    for(x = 0; x < width; ++x)
+void start_thread(pthread_t *thread, void_f job, void* arg)
+{
+    static size_t id = 0;
+    if (pthread_create(thread, NULL, job, arg))
     {
-        for(y = 0; y < height; ++y)
+        fprintf(stderr, "Could not create thread %d, aborting.\n", id);
+        abort();
+    }
+    id++;
+}
+
+void join_threads(pthread_t *threads, size_t n)
+{
+    size_t i;
+    for(i = 0; i < n; ++i)
+    {
+        if (pthread_join(threads[i], NULL))
         {
-            compute(x, y, &data);
+            fprintf(stderr, "Could not wait for thread %d.\n", i);
+            abort();
         }
     }
+}
+
+size_t cpus = count_cpus();
+
+typedef struct storetypey
+    {
+    int coreid;
+    } storetype;
+
+
+pthread_t pths[cpus];
+storetype storage[cpus];
+
+
+
+void startcomputation(void* input)
+{
+    storetype *t=input;
+    int coreid=t->coreid;
+    size_t x,y;
+    //Test code CPUS 4
+    //printf ("CPUS on this machine is %d \n", cpus);
+    //printf("Height is: %d \n Width is: %d \n", height, width);
+    printf("t is %d",t);
+	for (x=0;x<width;x++)
+	{
+		for (y=(coreid/cpus)*height;y<(coreid+1/cpus)*height; y++)
+		{
+			compute(x, y, &data);
+		}
+	}
+}
+
+
+size_t i;
+for (i=0;i<cpus;i++)
+{
+    storage[i].coreid = i;
+	start_thread(&pths[i], startcomputation, &storage[i]);
+}
+join_threads(pths,cpus);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Save image when the computation is finished.
 
@@ -273,7 +367,7 @@ int main(int argc, char *argv[])
     {
         n = 256;
     }
-    
+
     // Generate the image.
 
     generate(argv[1], argv[2], width, height, x, y, dx, n);
