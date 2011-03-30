@@ -207,12 +207,12 @@ void generate(const char *mapfilename, const char *outfilename,
     // Compute image.
     // This is the loop to parallelize.
 	
-size_t cpucount = count_cpus();
+int cpucount = (int)count_cpus();
 pthread_t threadcount[count_cpus()];
 
 void *startcomputation(void* coreid)
 {
-    size_t thread_id = (size_t)coreid;
+    int thread_id = (int)coreid;
 	printf("Thread %d starting \n", thread_id);
     size_t x,y;
 	for (x=0;x<width;x++)
@@ -225,7 +225,7 @@ void *startcomputation(void* coreid)
 	printf("Thread %d finished work \n", thread_id);
 }
 
-size_t mkthrcount;
+int mkthrcount;
 for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
 {
 	pthread_create(&threadcount[mkthrcount], NULL, startcomputation, (void*)mkthrcount);
