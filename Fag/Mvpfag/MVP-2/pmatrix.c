@@ -190,9 +190,34 @@ void gen_mat(double *a, double *dummy1, double *dummy2, size_t dim)
 }
 
 
-void block_mat_mult(double *a, double *b, double *c, size_t dim)
+void block_mat_mult(double *a, double *b, double *c, size_t n)
 {
-    // Your code goes here.
+    size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
+
+    for(bi = 0;bi<n;bi+=BLOCK)
+    {
+        maxi = min(bi+BLOCK,maxi);
+        for(bj = 0;bj<n;bj+=BLOCK)
+        {
+            maxj = min(bj+BLOCK,maxj);
+            for(bk = 0;bk < n;bk+=BLOCK)
+            {
+                maxk = min(bk+BLOCK,maxk);
+                for(i = 0;i<maxi;i++)
+                {
+                    for(j= 0;j<maxj;j++)
+                    {
+                        double temp = 0;
+                        for(k = 0;k<maxk;k++)
+                        {
+                        temp+= a[i*n+k]*b[k*n+j];
+                        }
+                        c[i*n+j] +=temp;
+                    }
+                }
+            }
+        }
+    }
 }
 
 
@@ -210,13 +235,43 @@ void block_mat_mult(double *a, double *b, double *c, size_t dim)
 typedef struct
 {
     double *a, *b, *c;
-    size_t dim, id;
+    size_t n, id;
 } matmult_data_t;
 
 
 void* job_block_mat_mult(matmult_data_t *data)
 {
-    // Your code goes here.
+    double *a = data->a;
+    double *b = data->b;
+    double *c = data->c;
+    size_t n = data->n;
+    size_t id = data->id;
+    size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
+
+    for(bi = 0;bi<n;bi+=BLOCK)DECOMPOSE_BY_ROW
+    {
+        maxi = min(bi+BLOCK,maxi);
+        for(bj = 0;bj<n;bj+=BLOCK)DECOMPOSE_BY_BLOCK
+        {
+            maxj = min(bj+BLOCK,maxj);
+            for(bk = 0;bk < n;bk+=BLOCK)
+            {
+                maxk = min(bk+BLOCK,maxk);
+                for(i = 0;i<maxi;i++)
+                {
+                    for(j= 0;j<maxj;j++)
+                    {
+                        double temp = 0;
+                        for(k = 0;k<maxk;k++)
+                        {
+                        temp+= a[i*n+k]*b[k*n+j];
+                        }
+                        c[i*n+j] +=temp;
+                    }
+                }
+            }
+        }
+    }
 }
 
 
