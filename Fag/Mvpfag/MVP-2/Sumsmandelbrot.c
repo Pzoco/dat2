@@ -192,13 +192,13 @@ typedef struct storetype
 void startcomputation(void* input)
 {
     cpuinfo* t=input;
-    size_t coreid=(*t).id;
-	size_t cpus=(*t).numb_of_cpus;
-	int height =(*t).height;
-	int width = (*t).width;
-	job_data_t indata=(*t).data;
+    size_t coreid=*(*t).id;
+	size_t cpus=*(*t).numb_of_cpus;
+	int height =*(*t).height;
+	int width = *(*t).width;
+	job_data_t indata=*(*t).data;
     size_t x,y;
-    printf("coreid is %d",coreid);
+    printf("coreid is %zd \n",coreid);
 	for (x=0;x<width;x++)
 	{
 		for (y=(coreid/cpus)*height;y<(coreid+1/cpus)*height; y++)
@@ -213,7 +213,7 @@ void start_thread(pthread_t *thread, void_f job, void* arg)
     static size_t id = 0;
     if (pthread_create(thread, NULL, job, arg))
     {
-        fprintf(stderr, "Could not create thread %d, aborting.\n", id);
+        fprintf(stderr, "Could not create thread %zd, aborting.\n", id);
         abort();
     }
     id++;
@@ -226,7 +226,7 @@ void join_threads(pthread_t *threads, size_t n)
     {
         if (pthread_join(threads[i], NULL))
         {
-            fprintf(stderr, "Could not wait for thread %d.\n", i);
+            fprintf(stderr, "Could not wait for thread %zd.\n", i);
             abort();
         }
     }
