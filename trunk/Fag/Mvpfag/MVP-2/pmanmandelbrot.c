@@ -217,8 +217,8 @@ void *startcomputation(void* coreid)
 {
     size_t thread_id = (size_t)coreid;
 	printf("Thread %d starting \n", thread_id);
-    float x,y;
-	for (y=(thread_id/cpucount)*height;y<((thread_id+1)/cpucount)*height; y++)
+    size_t x,y;
+	for (y=(height/cpucount)*thread_id;y<(height/cpucount)*(thread_id +1); y++)
 	// for (y=0; y<height;y++)
 	// for (y=0; y<512;y++)
 	{
