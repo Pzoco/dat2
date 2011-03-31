@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stddef.h>
+#include <pthread.h>
 
 size_t count_cpus()
 {
@@ -206,18 +208,21 @@ void generate(const char *mapfilename, const char *outfilename,
 
     // Compute image.
     // This is the loop to parallelize.
-	
-int cpucount = (int)count_cpus();
+
 pthread_t threadcount[count_cpus()];
+size_t cpucount = count_cpus();
+
 
 void *startcomputation(void* coreid)
 {
-    int thread_id = (int)coreid;
+    size_t thread_id = (size_t)coreid;
 	printf("Thread %d starting \n", thread_id);
-    size_t x,y;
-	for (x=0;x<width;x++)
+    float x,y;
+	for (y=(thread_id/cpucount)*height;y<((thread_id+1)/cpucount)*height; y++)
+	// for (y=0; y<height;y++)
+	// for (y=0; y<512;y++)
 	{
-		for (y=(thread_id/cpucount)*height;y<(thread_id+1/cpucount)*height; y++)
+		for (x=0;x<width;x++)
 		{
 			compute(x, y, &data);
 		}
@@ -225,12 +230,11 @@ void *startcomputation(void* coreid)
 	printf("Thread %d finished work \n", thread_id);
 }
 
-int mkthrcount;
+size_t mkthrcount;
 for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
 {
 	pthread_create(&threadcount[mkthrcount], NULL, startcomputation, (void*)mkthrcount);
 }
-
 for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
 {
 	pthread_join(threadcount[mkthrcount], NULL);
