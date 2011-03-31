@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stddef.h>
+#include <pthread.h>
 
 size_t count_cpus()
 {
@@ -207,69 +209,35 @@ void generate(const char *mapfilename, const char *outfilename,
     // Compute image.
     // This is the loop to parallelize.
 
-void start_thread(pthread_t *thread, void_f job, void* arg)
+pthread_t threadcount[count_cpus()];
+size_t cpucount = count_cpus();
+
+
+void *startcomputation(void* coreid)
 {
-    static size_t id = 0;
-    if (pthread_create(thread, NULL, job, arg))
-    {
-        fprintf(stderr, "Could not create thread %d, aborting.\n", id);
-        abort();
-    }
-    id++;
-}
-
-void join_threads(pthread_t *threads, size_t n)
-{
-    size_t i;
-    for(i = 0; i < n; ++i)
-    {
-        if (pthread_join(threads[i], NULL))
-        {
-            fprintf(stderr, "Could not wait for thread %d.\n", i);
-            abort();
-        }
-    }
-}
-
-size_t cpus = count_cpus();
-
-typedef struct storetypey
-    {
-    int coreid;
-    } storetype;
-
-
-pthread_t pths[cpus];
-storetype storage[cpus];
-
-
-
-void startcomputation(void* input)
-{
-    storetype *t=input;
-    int coreid=t->coreid;
+    size_t thread_id = (size_t)coreid;
+	printf("Thread %d starting \n", thread_id);
     size_t x,y;
-    //Test code CPUS 4
-    //printf ("CPUS on this machine is %d \n", cpus);
-    //printf("Height is: %d \n Width is: %d \n", height, width);
-    printf("t is %d",t);
-	for (x=0;x<width;x++)
+	for (y=(height/cpucount)*thread_id;y<(height/cpucount)*(thread_id +1); y++)
+	// for (y=0; y<height;y++)
 	{
-		for (y=(coreid/cpus)*height;y<(coreid+1/cpus)*height; y++)
+		for (x=0;x<width;x++)
 		{
 			compute(x, y, &data);
 		}
 	}
+	printf("Thread %d finished work \n", thread_id);
 }
 
-
-size_t i;
-for (i=0;i<cpus;i++)
+size_t mkthrcount;
+for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
 {
-    storage[i].coreid = i;
-	start_thread(&pths[i], startcomputation, &storage[i]);
+	pthread_create(&threadcount[mkthrcount], NULL, startcomputation, (void*)mkthrcount);
 }
-join_threads(pths,cpus);
+for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
+{
+	pthread_join(threadcount[mkthrcount], NULL);
+}
 
 
 
