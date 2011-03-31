@@ -196,7 +196,7 @@ void startcomputation(void* input)
 	size_t cpus=*(*t).numb_of_cpus;
 	int height =*(*t).height;
 	int width = *(*t).width;
-	job_data_t indata=*(*t).data;
+	job_data_t* indata=(*t).data;
     size_t x,y;
     printf("coreid is %zd \n",coreid);
 	for (x=0;x<width;x++)
