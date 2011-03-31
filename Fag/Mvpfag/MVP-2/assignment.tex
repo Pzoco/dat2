@@ -163,8 +163,6 @@ void *startcomputation(void* coreid)
 	printf("Thread %d starting \n", thread_id);
     size_t x,y;
 	for (y=(height/cpucount)*thread_id;y<(height/cpucount)*(thread_id +1); y++)
-	// for (y=0; y<height;y++)
-	// for (y=0; y<512;y++)
 	{
 		for (x=0;x<width;x++)
 		{
@@ -192,14 +190,15 @@ disappointing results.}
 \emph{First, explain the different outputs of the time command, in
   particular why user time is greater than real time.}
 \Answer Real time: The time elapsed since we initiated the application until work is finished. This corresponds with the time that passes if you were to time it with a watch. \newline
-User time: The time the processor spends working on the application
+User time: The time the processor spends working in the application. In thise case since the application is multithreaded, and running on a processor with 4 cores, the User time should be roughly equivalent to a fourth of the real time. \newline
+Sys time: This is the time spent doing system calls, such as opening files, saving files etc.
 
 \Question
 \question{
 The seamingly trivial-to-parallelize program suffers from some very
 important issue.} \emph{What is the problem and where does it come from?}
 \question{Hint: The next question solves ``the problem''.}
-\Answer .. % Your answer here.
+\Answer The problem is that while we expected our Real time to go down to a quarter of the User time, we're only seeing it at about half. The main issue with this is that not all four cores have as much work to do, some parts of the image require a lot more computation than others, which means that the workload is not evenly distributed among the cores using this method.
 
 \Question
 \emph{Parallelize it again using a 1-D round-robin partitioning on the

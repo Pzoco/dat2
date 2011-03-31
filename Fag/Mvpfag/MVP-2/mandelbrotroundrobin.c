@@ -212,14 +212,13 @@ void generate(const char *mapfilename, const char *outfilename,
 pthread_t threadcount[count_cpus()];
 size_t cpucount = count_cpus();
 
-
+#define LINESYNC if(y % cpucount == thread_id)
 void *startcomputation(void* coreid)
 {
     size_t thread_id = (size_t)coreid;
 	printf("Thread %d starting \n", thread_id);
     size_t x,y;
-	for (y=(height/cpucount)*thread_id;y<(height/cpucount)*(thread_id +1); y++)
-	// for (y=0; y<height;y++)
+	for (y=0; y<height;y++)LINESYNC
 	{
 		for (x=0;x<width;x++)
 		{
