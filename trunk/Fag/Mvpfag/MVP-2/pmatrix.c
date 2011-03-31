@@ -429,7 +429,7 @@ void test(size_t n)
 
     timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, n);
     tmul = timed_call(BLUE, "MultiplyingB", block_mat_mult, a, b, c, n);
-    timed_call(NULL, "Checking", check_identity, c, NULL, NULL, n);
+    // timed_call(NULL, "Checking", check_identity, c, NULL, NULL, n);
 
     timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, n);
 
@@ -438,7 +438,7 @@ void test(size_t n)
     timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, n);
     base_time = tmul;
     timed_call(BLUE, "PMultiplyingB", pthread_block_mat_mult, a, b, c, n);
-    timed_call(NULL, "Checking", check_identity, c, NULL, NULL, n);
+    // timed_call(NULL, "Checking", check_identity, c, NULL, NULL, n);
 
     free(c);
     free(b);

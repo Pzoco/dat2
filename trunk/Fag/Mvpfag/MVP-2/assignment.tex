@@ -9,25 +9,25 @@
 \pagestyle{empty}
 
 \title{MVP Assignment 2}
-\date{Due date: 24/3/2010}
+\date{Due date: 1/4/2011}
 \begin{document}
 \maketitle
 
 % Comment this for answering.
-\newcommand{\question}[1]{#1}
-\newcommand{\answer}[1]{}
+%\newcommand{\question}[1]{#1}
+%\newcommand{\answer}[1]{}
 
 % Uncomment this for answering.
-%\newcommand{\question}[1]{}
-%\newcommand{\answer}[1]{{#1}}
+\newcommand{\question}[1]{}
+\newcommand{\answer}[1]{{#1}}
 
 %
 % Write your group room and group number here.
 %
 \answer{
 \begin{flushleft}
-{\bf Group room:} FIXME\\
-{\bf Group number:} FIXME
+{\bf Group room:} 2.1.57\\
+{\bf Group number:} D204a
 \end{flushleft}
 }
 
@@ -115,7 +115,7 @@ will find basic functions to bootstrap you on pthreads.
 \Answer .. % Your optional answer here.
 
 \end{ExerciseList}
-
+\newpage
 \section{Mandelbrot's Set}
 
 \begin{ExerciseList}
@@ -236,7 +236,7 @@ void *startcomputation(void* coreid)
 \end{lstlisting}
 Note: Test times are now roughly a quarter.
 \end{ExerciseList}
-
+\newpage
 \section{Parallel Matrix Multiplication}
 
 \begin{ExerciseList}
@@ -266,7 +266,40 @@ columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Parallelized matrix multiplication by block.},
 label=LST:blockmatmult]
-/* Your relevant code goes here. NOT the whole file. */
+void* job_block_mat_mult(matmult_data_t *data)
+{
+    double *a = data->a;
+    double *b = data->b;
+    double *c = data->c;
+    size_t n = data->n;
+    size_t id = data->id;
+    size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
+
+    for(bi = 0;bi<n;bi+=BLOCK)DECOMPOSE_BY_ROW
+    {
+        maxi = min(bi+BLOCK,n);
+        for(bj = 0;bj<n;bj+=BLOCK)DECOMPOSE_BY_BLOCK
+        {
+            maxj = min(bj+BLOCK,n);
+            for(bk = 0;bk < n;bk+=BLOCK)
+            {
+                maxk = min(bk+BLOCK,n);
+                for(i = 0;i<maxi;i++)
+                {
+                    for(j= 0;j<maxj;j++)
+                    {
+                        double temp = 0;
+                        for(k = 0;k<maxk;k++)
+                        {
+                        temp+= a[i*n+k]*b[k*n+j];
+                        }
+                        c[i*n+j] +=temp;
+                    }
+                }
+            }
+        }
+    }
+}
 \end{lstlisting}
 
 \end{ExerciseList}
@@ -285,13 +318,13 @@ participated in the development of all of the exercise solutions.
 % Replace ``Name x'' by your name.
 %
 
-Mads Carlsen & Rasmus Jacobsen \\
+Mads Vestergaard Carlsen & Rasmus S$\emptyset$gaard Jacobsen \\
 \dots\dotfill\dots & \dots\dotfill\dots \\
  &  \\
 & \\
 & \\
 
-Dan Thoeisen &  \\
+Dan Duus Th$\emptyset$isen &  \\
 \dots\dotfill\dots &  \\
 &  \\
 & \\
