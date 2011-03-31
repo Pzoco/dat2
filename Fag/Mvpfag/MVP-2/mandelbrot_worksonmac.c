@@ -7,8 +7,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -71,6 +69,7 @@ size_t count_cpus()
     fclose(f);
     return count > 1 ? count - 1 : count;
 }
+
 
 typedef void* (*void_f)(void*);
 
@@ -198,6 +197,7 @@ typedef struct
     double r0,i0;  // Lower left (complex) point of the area to compute.
     double dr;     // Width along the real axis of the area to compute (delta).
     size_t max;    // Maximal number of iterations.
+    size_t threadId; //The threads id.
 } job_data_t;
 
 
@@ -231,10 +231,7 @@ void compute(size_t x, size_t y, const job_data_t *data)
  * Go through every pixel and compute its color.  *
  **************************************************/
 
-void generate(const char *mapfilename, const char *outfilename,
-              int width, int height,
-              double x0, double y0, double dx,
-              size_t n)
+void generate(const char *mapfilename, const char *outfilename, int width, int height, double x0, double y0, double dx, size_t n)
 {
     int fd;               // File descriptor
     job_data_t data =     // You can add more here for threads.
@@ -248,56 +245,6 @@ void generate(const char *mapfilename, const char *outfilename,
         dr:dx,
         max:n
     };
-
-
-    // Compute image.
-    // This is the loop to parallelize.
-
-size_t cpucount = count_cores();
-pthread_t threadcount[count_cores()];
-
-void *startcomputation(void* coreid)
-{
-    size_t thread_id = (size_t)coreid;
-	printf("Thread %d starting \n", thread_id);
-    size_t x,y;
-	for (x=0;x<width;x++)
-	{
-		for (y=(thread_id/cpucount)*height;y<(thread_id+1/cpucount)*height; y++)
-		{
-			compute(x, y, &data);
-		}
-	}
-	printf("Thread %d finished work \n", thread_id);
-}
-
-size_t mkthrcount;
-for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
-{
-	pthread_create(&threadcount[mkthrcount], NULL, startcomputation, (void*)mkthrcount);
-}
-
-for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
-{
-	pthread_join(threadcount[mkthrcount], NULL);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -319,6 +266,63 @@ for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
     free(data.bmp);
     fprintf(stdout, "%s written.\n", outfilename);
 }
+
+
+
+
+
+
+
+
+
+    // Compute image.
+    // This is the loop to parallelize.
+
+    size_t cpucount = count_cores();
+    pthread_t threadcount[count_cores()];
+
+    void *startcomputation(void* coreid)
+    {
+        size_t thread_id = (size_t)coreid;
+        printf("Thread %d starting \n", thread_id);
+        size_t x,y;
+        for (x=0;x<width;x++)
+        {
+            for (y=(thread_id/cpucount)*height;y<(thread_id+1/cpucount)*height; y++)
+            {
+                data.threadId = thread_id;
+                compute(x, y, &data);
+            }
+        }
+        printf("Thread %d finished work \n", thread_id);
+    }
+
+    size_t mkthrcount;
+    for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
+    {
+        pthread_create(&threadcount[mkthrcount], NULL, startcomputation, (void*)mkthrcount);
+    }
+
+    for (mkthrcount=0;mkthrcount<cpucount;mkthrcount++)
+    {
+        pthread_join(threadcount[mkthrcount], NULL);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 int main(int argc, char *argv[])
