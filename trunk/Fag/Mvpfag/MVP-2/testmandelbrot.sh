@@ -1,6 +1,6 @@
 #!/bin/sh
 
-gcc -o mandelbrot pmanmandelbrot.c -Wall -O3 -lpthread || exit 1
+gcc -o mandelbrot mandelbrotroundrobin.c -Wall -O3 -lpthread || exit 1
 
 time ./mandelbrot maps/firestrm.map test0.bmp 1024 1024
 time ./mandelbrot maps/blues.map test1.bmp 1280 1280 -1.5 -0.1 0.5 1024
