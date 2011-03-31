@@ -218,7 +218,21 @@ columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Parallelized computation of Mandelbrot's set.},
 label=LST:mandelbrot2]
-/* Your relevant code goes here. NOT the whole file. */
+#define LINESYNC if(y % cpucount == thread_id)
+void *startcomputation(void* coreid)
+{
+    size_t thread_id = (size_t)coreid;
+	printf("Thread %d starting \n", thread_id);
+    size_t x,y;
+	for (y=0; y<height;y++)LINESYNC
+	{
+		for (x=0;x<width;x++)
+		{
+			compute(x, y, &data);
+		}
+	}
+	printf("Thread %d finished work \n", thread_id);
+}
 \end{lstlisting}
 
 \end{ExerciseList}
