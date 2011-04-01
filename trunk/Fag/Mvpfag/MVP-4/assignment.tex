@@ -14,12 +14,12 @@
 \maketitle
 
 % Leave this commented for answering.
-% \newcommand{\question}[1]{#1}
-% \newcommand{\answer}[1]{}
+ \newcommand{\question}[1]{#1}
+ \newcommand{\answer}[1]{}
 
 % Leave this uncommented for answering.
-\newcommand{\question}[1]{}
-\newcommand{\answer}[1]{{#1}}
+%\newcommand{\question}[1]{}
+%\newcommand{\answer}[1]{{#1}}
 
 %
 % Write your group room and group number here.
@@ -78,7 +78,21 @@ columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Your hello-world implementation.},
 label=LST:hello]
-/* The whole file goes here. */
+int main(int argc, char *argv[])
+{
+
+int rank, size;
+
+MPI_Init(&argc, &argv); // Init
+MPI_Comm_size(MPI_COMM_WORLD, &size); // Get the size
+MPI_Comm_rank(MPI_COMM_WORLD, &rank); // Get the rank
+printf("Process number %d of a total of %d says HELLO WORLD! \n", rank, size); // Hello World
+MPI_Finalize();              // Finalize
+
+return 0;
+
+}
+
 \end{lstlisting}
 
 \begin{ExerciseList}
