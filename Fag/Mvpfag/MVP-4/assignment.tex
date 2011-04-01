@@ -1,0 +1,198 @@
+\documentclass{article}
+\usepackage{a4wide}
+\usepackage{listings,color}
+\usepackage[lastexercise]{exercise}
+\renewcommand{\ExerciseListHeader}{ 
+\textbf{Exercise} \ExerciseHeaderNB:\quad} 
+\renewcommand{\QuestionNB}{{\bf Q}:\quad}
+\renewcommand{\AnswerListHeader}{ \textbf{A}:\quad} 
+\pagestyle{empty}
+
+\title{MVP Assignment 4 - MPI}
+\date{Due date: 28/4/2010}
+\begin{document}
+\maketitle
+
+% Leave this commented for answering.
+% \newcommand{\question}[1]{#1}
+% \newcommand{\answer}[1]{}
+
+% Leave this uncommented for answering.
+\newcommand{\question}[1]{}
+\newcommand{\answer}[1]{{#1}}
+
+%
+% Write your group room and group number here.
+%
+\answer{
+\begin{flushleft}
+{\bf Group room:} FIXME\\
+{\bf Group number:} FIXME
+\end{flushleft}
+}
+
+\section{OpenMP}
+
+The idea is to parallelize the matrix
+multiplication with OpenMP in a very easy way.
+
+\begin{ExerciseList}
+\Exercise Copy \texttt{pmatrix.c} from your previous assignment.
+
+\Question \emph{Parallelize the rearranged and the block-matrix
+  multiplications using OpenMP.}
+
+\end{ExerciseList}
+
+% Your code goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Your OpenMP implementation.},
+label=LST:openmp]
+
+/* Your relevant code goes here. */
+\end{lstlisting}
+
+\section{MPI}
+
+\begin{ExerciseList}
+\Exercise Warm-up with a hello-world program.
+\Question \emph{Complete the hello-world program so that every process
+  prints its rank and the size of the (world) communicator.}
+\end{ExerciseList}
+
+% Your code goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Your hello-world implementation.},
+label=LST:hello]
+/* The whole file goes here. */
+\end{lstlisting}
+
+\begin{ExerciseList}
+\Exercise \question{You will experiment blocking and non-blocking
+  communications and deadlock issue. The goal is to have all processes
+  starting with sending to the next process in the ring its own rank
+  (times $n$). Then the processes forward the messages around $size$
+  times.}
+\answer{Blocking communication.}
+  \Question \emph{Complete the cycle-mpi program with MPI\_Send.}
+
+\Exercise
+ \question{As it turns out, the OpenMPI manual states ``This  routine
+  will  block until the message is sent to the destination.'' whereas
+  the LAM manual says `` This  function  may  block until the message
+  is received. Whether or not MPI\_Send blocks depends on factors such
+  as how large the message is, how many messages are pending to the
+  specific destination, whether LAMD or C2C communication is being
+  used, etc.''.}
+\answer{Implementation features.}
+  \Question
+  \emph{Experiment with $n$ to see when the sending
+    becomes really blocking and find the deadlock.}
+
+  \Question \emph{Fix the deadlock by breaking the cycle-dependency.}
+
+  \Exercise
+\question{It is possible to break the deadlock by using non-blocking
+  communication instead.}
+\answer{Non-blocking communication.}
+  \Question \emph{Fix the deadlock by using the non-blocking MPI\_Isend.}
+
+\end{ExerciseList}
+
+% Your code goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Cycle 1: Blocking, deadlock.},
+label=LST:cycle1]
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+
+% Your code goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Cycle 2: Blocking, no deadlock.},
+label=LST:cycle2]
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+
+% Your code goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Cycle 3: Non-blocking, no deadlock.},
+label=LST:cycle3]
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+
+
+
+\newpage
+\section{Authors}
+I/We have solved these exercises independently, and each of us has actively
+participated in the development of all of the exercise solutions.
+\vspace{1cm}
+
+\noindent
+\begin{tabular}{p{70mm}p{70mm}}
+
+%
+% Replace ``Name x'' by your name.
+%
+
+Name 1 & Name 2 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 3 & Name 4 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 5 & Name 6 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 7 & Name 8 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+\end{tabular}
+
+\end{document}
