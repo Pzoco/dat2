@@ -20,7 +20,7 @@ Rules
 	}
 	Maximums
 	{
-		RegimentSize = 500
+		RegimentSize = 500;
 		Heros = 1;
 		Regiments = 4;
 	}
