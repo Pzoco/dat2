@@ -20,13 +20,13 @@ Regiment "Silent Monkeys"
 		{
 			While(enemyPosition < Range)
 			{
-				MoveTowards(enemy.Position)
+				MoveTowards(enemy.Position);
 			}
 			Attack.Position(enemy.Position);
 		}
 		if (enemy.position <= Range && enemy.Type == Hero)
 		{
-			MoveAway(enemy.position)
+			MoveAway(enemy.position);
 			if(enemy.position <= Range)
 			{
 				Attack.Enemy(enemy);

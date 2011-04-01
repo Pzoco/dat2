@@ -12,7 +12,7 @@ Regiment "SilentMonkeys" //Initialization of a Regiment named "Silent Monkeys"
 	AttackSpeed = 1; //The number of attacks the regiment can perform each round.
 	Health = 10; //The amount of HP each unit in the regiment has.
 	Position; //The position of the regiment on the Grid. This should be defined elsewhere.
-	Captain = OldNeonMonkey //A Captain is optional, but provides bonuses to a regiment, which disappear when the captain dies.
+	Captain = OldNeonMonkey; //A Captain is optional, but provides bonuses to a regiment, which disappear when the captain dies.
 	Behaviour //Complex behavoiur instructions. For simplicity, one could have used the "BehaveLib1.lib"-library to use predefined behaviour patterns.
 	{
 		Regiment enemy = Search_for_Enemies(); //Build-in function to find the closest enemy regiment or unit.
@@ -24,13 +24,13 @@ Regiment "SilentMonkeys" //Initialization of a Regiment named "Silent Monkeys"
 		{
 			While(enemyPosition < Range)
 			{
-				MoveTowards(enemy.Position)
+				MoveTowards(enemy.Position);
 			}
 			Attack.Position(enemy.Position);
 		}
 		if (enemy.position <= Range && enemy.Type == Hero)
 		{
-			MoveAway(enemy.position)
+			MoveAway(enemy.position);
 			if(enemy.position <= Range)
 			{
 				Attack.Enemy(enemy);
