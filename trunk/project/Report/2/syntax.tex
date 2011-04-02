@@ -1,0 +1,30 @@
+\section{Syntax}
+	\subsubsection{Terminals}
+		
+		\begin{tabular}{ l c c r}
+			$if  	 $& $\{ 	 $&$ \} 	  $&$ Behaviour$  \\
+		  	$else	 $&$ = 		 $&$ >  	  $&$ Standards$  \\
+		 	$/ 		 $&$ *  	 $&$ -  	  $&$ Maxima$	  \\
+		 	$( 		 $&$ )  	 $&$ ;  	  $&$ < =$		  \\
+		 	$+= 	 $&$ -=   	 $&$ *= 	  $&$ > =$	    \\
+		 	$/= 	 $&$ ,     	 $&$ .  	  $&$ Regiment$   \\
+			$Team	 $&$ Rules   $&$ Config   $&$ Grid$	   \\
+			$>		 $&$   + 	 $&$ //	 	  $&$ while $   \\
+		\end{tabular}
+	\subsubsection{Nonterminals}
+		\begin{tabular}{l c}
+			Program	 		& Command			  \\
+			V-name	 		& Declaration		  \\
+			Operator	    & Single-Command	  \\
+			Integer-Literal	& Single-Declaration  \\
+			Expression		& Primary-Expression  \\
+			Comment			& Behaviour-Block	  \\
+			Regiment-Block  &				   		\\
+			
+		\end{tabular}
+	
+	\subsubsection{BNF}
+		\begin{tabular}{ l c c }
+			Program	&	::=	&	Single-Command	\\
+			Behaviour-Block	&	::=	 & \\
+		\end{tabular}
