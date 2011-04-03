@@ -14,17 +14,23 @@
 	\subsubsection{Nonterminals}
 		\begin{tabular}{l c}
 			Program	 		& Command			  \\
-			V-name	 		& Declaration		  \\
+			StatName	 	& Stat				  \\
 			Operator	    & Single-Command	  \\
 			Integer-Literal	& Single-Declaration  \\
 			Expression		& Primary-Expression  \\
 			Comment			& Behaviour-Block	  \\
-			Regiment-Block  &				   		\\
+			Regiment-Block  & B-Name			  \\
 			
 		\end{tabular}
 	
 	\subsubsection{BNF}
 		\begin{tabular}{ l c c }
 			Program	&	::=	&	Single-Command	\\
-			Behaviour-Block	&	::=	 & \\
+			Behaviour-Block	&	::=	 & Behaviour B-Name \{ Primary-Expression \} \\
+			B-Name			&	::=  & [a-z]([a-z]|[1-9])*
+			Stat			&	::=  & StatName = Value \\
+			StatName		&	::=	 & [a-z]([a-z]|[1-9])* \\
+			Value			&	::=  & [1-9][1-9]*|(\bf{true}|\bf{false})
+			Comment			&	::=	 & //([a-z]|[1-9])*
+			
 		\end{tabular}
