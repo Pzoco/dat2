@@ -23,9 +23,10 @@
 			Maximums-Block	  & MaximumsStat		\\
 			MaximumsStat-Name & Standards-Block	 	\\
 			StandardsStat	  & StandardsStat-Name 	\\
+			Identifier		  & 					\\
 		\end{tabular}
 	
-	\subsubsection{BNF}
+	\subsubsection{EBNF}
 		\begin{tabular}{ l l l }
 			Behaviour-Block	   &	::=	 & Behaviour Block-Name \{Single-Command \} \\
 			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
@@ -35,8 +36,8 @@
 			Single-Command     &	::=  & Control-Structure $\mid$ UnitStat \\
 			UnitStat		   &	::=  & UnitStat-Name = Value; UnitStat $\mid$ UnitStat-Name = Value; \\
 			UnitStat-Name	   &	::=	 & AttackPower$\mid$ DefensePower$\mid$ Speed \\
-			Integer-Literal    &	::=  & [1-9][1-9]* \\
-			Comment			   &	::=	 & \bf{//}([a-z]$\mid$ [1-9])* \\
+			Integer-Literal    &	::=  & Digit | Integer-Literal Digit \\
+			Comment			   &	::=	 & \bf{//} Identifier || \bf{//} \\
 			Team-File		   &	::=	 & \bf{Team} Regiment-Block \\
 			Regiment-Block     &	::=	 & \bf{Regiment} Block-Name	 \bf{\{ } Stat Behaviour-Block \bf{\} }\\
 			Expression		   &	::=  & (Expression) $\mid$ Integer-Literal \\
@@ -46,7 +47,8 @@
 			Grid-Block		   &	::=	 & \bf{Grid} Block-Name	 \bf{\{} GridStat \bf{\}} \\
 			GridStat		   &	::=  & GridStat-Name = Value; GridStat $\mid$ GridStat-Name = Value;   \\
 			GridStat-Name	   &	::=  & HorizontalSize$\mid$ VerticalSize					\\
-			Block-Name		   &	::=  & [a-z]([a-z]$\mid$ [1-9])* 							\\
+			Block-Name		   &	::=  & Identifier							\\
+			Identifier		   &    ::=  & Letter | Identifier Letter | Identifier Integer-Literal \\
 			Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
 			Maximums-Block	   &	::=	 & \bf{Maximums} \bf{\{} MaximumsStat Behaviour-Block \bf{\}}	\\
 			MaximumsStat	   &	::=  & MaximumsStat-Name = Value; MaximumsStat  \\
@@ -60,4 +62,11 @@
 		
 	\subsubsection{EBNF}
 		Several changes was mad to the BNF in order for it to be a EBNF.
-		
+		\begin{tabular}{ l l l }
+			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
+							   &  	     & else \bf{\{ }Single-Command \bf{\} } \\					   
+							   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
+							   
+		\end{tabular}
+							   
+							   
