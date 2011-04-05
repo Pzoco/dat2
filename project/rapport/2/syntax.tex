@@ -13,18 +13,44 @@
 		\end{tabular}
 	\subsubsection{Nonterminals}
 		\begin{tabular}{l c}
-			Program	 		& Command			  \\
-			V-name	 		& Declaration		  \\
+			Regiment-Name	& Config-File		  \\
+			StatName	 	& Stat				  \\
 			Operator	    & Single-Command	  \\
 			Integer-Literal	& Single-Declaration  \\
 			Expression		& Primary-Expression  \\
 			Comment			& Behaviour-Block	  \\
-			Regiment-Block  &				   		\\
-			
+			Regiment-Block  & B-Name			  \\
+			Team-File		& Grid-Block         	\\
+			GridStatName	& Rules-Block			\\
+			GridName	    & 					\\
+			 
 		\end{tabular}
 	
 	\subsubsection{BNF}
 		\begin{tabular}{ l c c }
-			Program	&	::=	&	Single-Command	\\
-			Behaviour-Block	&	::=	 & \\
+			Behaviour-Block	   &	::=	 & Behaviour Block-Name \{Single-Command \} \\
+			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
+							   &		 & | if(Expression) \bf{\{} \bf{\}} else { \bf{\}}Single-Command { \bf{\}} \\
+							   &   		 & | while(Expression)\bf{\{}Single-Command \bf{\}} \\
+			Single-Command     &	::=  & Control-Structure | UnitStat \\
+			UnitStat		   &	::=  & StatName = Value; UnitStat | StatName = Value; \\
+			UnitStatName	   &	::=	 & AttackPower|DefensePower|Speed \\
+			Integer-Literal    &	::=  & [1-9][1-9]* \\
+			Comment			   &	::=	 & //([a-z]|[1-9])* \\
+			Team-File		   &	::=	 & \bf{Team} Regiment-Block \\
+			Regiment-Block     &	::=	 & \bf{Regiment} Block-Name	 \bf{\{} Stat Behaviour-Block \bf{\}}\\
+			Expression		   &	::=  & (Expression) | Integer-Literal | Operator Primary-Expression | StatName \\
+			Operator 		   & 	::=	 & \bf{+}|\bf{-}|\bf{*}|\bf{/}|\bf{<}|\bf{>}|\bf{<=}|\bf{>=}|\bf{==} \\
+			Config-File		   & 	::=  & \bf{Config} Grid-Block Rules-Block  		\\
+			GridBlock		   &	::=	 & \bf{Grid} Block-Name	 \bf{\{} GridStat \bf{\}} \\
+			GridStat		   &	::=  & GridStat-Name = Value; GridStat | GridStat-Name = Value;   \\
+			GridStat-Name	   &	::=  & HorizontalSize|VerticalSize					\\
+			Block-Name		   &	::=  & [a-z]([a-z]|[1-9])* 							\\
+			Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
+			Maximums-Block	   &	::=	 & \bf{Maximums} \bf{\{} MaximumsStat Behaviour-Block \bf{\}}				\\
+			MaximumsStat	   &	::=  & MaximumsStat-Name = Value; MaximumsStat | MaximumsStat-Name = Value;   \\
+			MaximumsStat-Name  &	::=  & HorizontalSize|VerticalSize					\\
+			Standards-Block	   &    ::=  & \bf{Standards} \bf{\{} StandardsStat \bf{\}}	\\
+			StandardsStat	   & 	::=	 & StandardsStat-Name = Integer-Literal;StandardsStat | StandardsStat-Name = Integer-Literal; \\
+			StandardsStat-Name & 	::=	 & RegimentSize	|Regiments \\
 		\end{tabular}
