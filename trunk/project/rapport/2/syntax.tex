@@ -64,9 +64,9 @@
 		Several changes was mad to the BNF in order for it to be a EBNF.
 		\begin{tabular}{ l l l }
 			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
-							   &  	     & else \bf{\{ }Single-Command \bf{\} } \\					   
+							   &  	     & (\epsilon $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
 							   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
-							   
+	  		UnitStat		   &	::=  & UnitStat-Name = Value; (\epsilon \mid UnitStat) \\							   
 		\end{tabular}
 							   
 							   
