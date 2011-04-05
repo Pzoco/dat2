@@ -36,7 +36,7 @@
 			UnitStat		   &	::=  & UnitStat-Name = Value; UnitStat $\mid$ UnitStat-Name = Value; \\
 			UnitStat-Name	   &	::=	 & AttackPower$\mid$ DefensePower$\mid$ Speed \\
 			Integer-Literal    &	::=  & [1-9][1-9]* \\
-			Comment			   &	::=	 & //([a-z]$\mid$ [1-9])* \\
+			Comment			   &	::=	 & \bf{//}([a-z]$\mid$ [1-9])* \\
 			Team-File		   &	::=	 & \bf{Team} Regiment-Block \\
 			Regiment-Block     &	::=	 & \bf{Regiment} Block-Name	 \bf{\{ } Stat Behaviour-Block \bf{\} }\\
 			Expression		   &	::=  & (Expression) $\mid$ Integer-Literal \\
@@ -57,3 +57,7 @@
 							   &		 & $\mid$ StandardsStat-Name = Integer-Literal; \\
 			StandardsStat-Name & 	::=	 & RegimentSize	$\mid$ Regiments \\
 		\end{tabular}
+		
+	\subsubsection{EBNF}
+		Several changes was mad to the BNF in order for it to be a EBNF.
+		
