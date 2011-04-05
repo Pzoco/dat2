@@ -26,7 +26,7 @@
 			Identifier		  & 					\\
 		\end{tabular}
 	
-	\subsubsection{EBNF}
+	\subsubsection{BNF}
 		\begin{tabular}{ l l l }
 			Behaviour-Block	   &	::=	 & Behaviour Block-Name \{Single-Command \} \\
 			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
@@ -36,8 +36,8 @@
 			Single-Command     &	::=  & Control-Structure $\mid$ UnitStat \\
 			UnitStat		   &	::=  & UnitStat-Name = Value; UnitStat $\mid$ UnitStat-Name = Value; \\
 			UnitStat-Name	   &	::=	 & AttackPower$\mid$ DefensePower$\mid$ Speed \\
-			Integer-Literal    &	::=  & Digit | Integer-Literal Digit \\
-			Comment			   &	::=	 & \bf{//} Identifier || \bf{//} \\
+			Integer-Literal    &	::=  & Digit $\mid$ Integer-Literal Digit \\
+			Comment			   &	::=	 & \bf{//} Graphic* eol \\
 			Team-File		   &	::=	 & \bf{Team} Regiment-Block \\
 			Regiment-Block     &	::=	 & \bf{Regiment} Block-Name	 \bf{\{ } Stat Behaviour-Block \bf{\} }\\
 			Expression		   &	::=  & (Expression) $\mid$ Integer-Literal \\
@@ -48,7 +48,7 @@
 			GridStat		   &	::=  & GridStat-Name = Value; GridStat $\mid$ GridStat-Name = Value;   \\
 			GridStat-Name	   &	::=  & HorizontalSize$\mid$ VerticalSize					\\
 			Block-Name		   &	::=  & Identifier							\\
-			Identifier		   &    ::=  & Letter | Identifier Letter | Identifier Integer-Literal \\
+			Identifier		   &    ::=  & Letter $\mid$ Identifier Letter $\mid$ Identifier Integer-Literal \\
 			Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
 			Maximums-Block	   &	::=	 & \bf{Maximums} \bf{\{} MaximumsStat Behaviour-Block \bf{\}}	\\
 			MaximumsStat	   &	::=  & MaximumsStat-Name = Value; MaximumsStat  \\
@@ -61,12 +61,15 @@
 		\end{tabular}
 		
 	\subsubsection{EBNF}
-		Several changes was mad to the BNF in order for it to be a EBNF.
+		Several changes was mad to the BNF in order for it to be a EBNF. First a left factorization was made:
 		\begin{tabular}{ l l l }
 			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
 							   &  	     & (\epsilon $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
 							   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
-	  		UnitStat		   &	::=  & UnitStat-Name = Value; (\epsilon \mid UnitStat) \\							   
+	  		UnitStat		   &	::=  & UnitStat-Name = Value; (\epsilon $\mid$ UnitStat) \\
+			Integer-Literal    &	::=  & Digit Digit* 
+			
+								
 		\end{tabular}
 							   
 							   
