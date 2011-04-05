@@ -27,30 +27,34 @@
 		\end{tabular}
 	
 	\subsubsection{BNF}
-		\begin{tabular}{ l c c }
+		\begin{tabular}{ l l l }
 			Behaviour-Block	   &	::=	 & Behaviour Block-Name \{Single-Command \} \\
 			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
-							   &		 & | if(Expression) \bf{\{} \bf{\}} else { \bf{\}}Single-Command { \bf{\}} \\
-							   &   		 & | while(Expression)\bf{\{}Single-Command \bf{\}} \\
-			Single-Command     &	::=  & Control-Structure | UnitStat \\
-			UnitStat		   &	::=  & StatName = Value; UnitStat | StatName = Value; \\
-			UnitStatName	   &	::=	 & AttackPower|DefensePower|Speed \\
+							   &		 & $\mid$ if(Expression) \bf{\{ }Single-Command \bf{\}} \\
+							   &   		 & else \bf{\{ }Single-Command \bf{\} } \\					   
+							   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
+			Single-Command     &	::=  & Control-Structure $\mid$ UnitStat \\
+			UnitStat		   &	::=  & StatName = Value; UnitStat $\mid$ StatName = Value; \\
+			UnitStatName	   &	::=	 & AttackPower$\mid$ DefensePower$\mid$ Speed \\
 			Integer-Literal    &	::=  & [1-9][1-9]* \\
-			Comment			   &	::=	 & //([a-z]|[1-9])* \\
+			Comment			   &	::=	 & //([a-z]$\mid$ [1-9])* \\
 			Team-File		   &	::=	 & \bf{Team} Regiment-Block \\
-			Regiment-Block     &	::=	 & \bf{Regiment} Block-Name	 \bf{\{} Stat Behaviour-Block \bf{\}}\\
-			Expression		   &	::=  & (Expression) | Integer-Literal | Operator Primary-Expression | StatName \\
-			Operator 		   & 	::=	 & \bf{+}|\bf{-}|\bf{*}|\bf{/}|\bf{<}|\bf{>}|\bf{<=}|\bf{>=}|\bf{==} \\
+			Regiment-Block     &	::=	 & \bf{Regiment} Block-Name	 \bf{\{ } Stat Behaviour-Block \bf{\} }\\
+			Expression		   &	::=  & (Expression) $\mid$ Integer-Literal \\
+							   &		 &	$\mid$ Operator Primary-Expression $\mid$ StatName \\
+			Operator 		   & 	::=	 & \bf{+}$\mid$\bf{-}$\mid$ \bf{*}$\mid$\bf{/}$\mid$\bf{<}$\mid$ \bf{>}$\mid$ \bf{<=}$\mid$ \bf{>=}$\mid$\bf{==}\\
 			Config-File		   & 	::=  & \bf{Config} Grid-Block Rules-Block  		\\
 			GridBlock		   &	::=	 & \bf{Grid} Block-Name	 \bf{\{} GridStat \bf{\}} \\
-			GridStat		   &	::=  & GridStat-Name = Value; GridStat | GridStat-Name = Value;   \\
-			GridStat-Name	   &	::=  & HorizontalSize|VerticalSize					\\
-			Block-Name		   &	::=  & [a-z]([a-z]|[1-9])* 							\\
+			GridStat		   &	::=  & GridStat-Name = Value; GridStat $\mid$ GridStat-Name = Value;   \\
+			GridStat-Name	   &	::=  & HorizontalSize$\mid$ VerticalSize					\\
+			Block-Name		   &	::=  & [a-z]([a-z]$\mid$ [1-9])* 							\\
 			Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
 			Maximums-Block	   &	::=	 & \bf{Maximums} \bf{\{} MaximumsStat Behaviour-Block \bf{\}}				\\
-			MaximumsStat	   &	::=  & MaximumsStat-Name = Value; MaximumsStat | MaximumsStat-Name = Value;   \\
-			MaximumsStat-Name  &	::=  & HorizontalSize|VerticalSize					\\
-			Standards-Block	   &    ::=  & \bf{Standards} \bf{\{} StandardsStat \bf{\}}	\\
-			StandardsStat	   & 	::=	 & StandardsStat-Name = Integer-Literal;StandardsStat | StandardsStat-Name = Integer-Literal; \\
-			StandardsStat-Name & 	::=	 & RegimentSize	|Regiments \\
+			MaximumsStat	   &	::=  & MaximumsStat-Name = Value; MaximumsStat  \\
+							   &		 & $\mid$ MaximumsStat-Name = Value;   \\
+			MaximumsStat-Name  &	::=  & HorizontalSize$\mid$ VerticalSize					\\
+			Standards-Block	   &    ::=  & \bf{Standards} \bf{\{ } StandardsStat \bf{\} }	\\
+			StandardsStat	   & 	::=	 & StandardsStat-Name = Integer-Literal;StandardsStat \\
+							   &		 & $\mid$ StandardsStat-Name = Integer-Literal; \\
+			StandardsStat-Name & 	::=	 & RegimentSize	$\mid$ Regiments \\
 		\end{tabular}
