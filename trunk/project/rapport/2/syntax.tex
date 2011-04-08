@@ -64,9 +64,9 @@
 		Several changes was mad to the BNF in order for it to be a EBNF. First a left factorization was made:
 		\begin{tabular}{ l l l }
 			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
-							   &  	     & (\epsilon $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
+							   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
 							   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
-	  		UnitStat		   &	::=  & UnitStat-Name = Value; (\epsilon $\mid$ UnitStat) \\
+	  		UnitStat		   &	::=  & UnitStat-Name = Value; ($\epsilon$ $\mid$ UnitStat) \\
 			Integer-Literal    &	::=  & Digit Digit* 
 			
 								
