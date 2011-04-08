@@ -10,7 +10,9 @@
 		 	$/= 	 $&$ ,     	 $&$ .  	  $&$ Regiment$   \\
 			$Team	 $&$ Rules   $&$ Config   $&$ Grid$	   \\
 			$>		 $&$   + 	 $&$ //	 	  $&$ while $   \\
-			$ "		 $& 		&			& 		\\
+			$ "		 $&$ Ranged  $&$   Melee  $&$ Size	$	\\
+			$ Type	 $&$ Range  $&$   Damage  $&$ Health	$	\\		
+			$ Movement $&$ AttackSpeed  $&$   RegimentPosition  $&$ Position	$	\\	
 		\end{tabular}
 	\subsubsection{Nonterminals}
 		\begin{tabular}{l c}
@@ -35,10 +37,15 @@
 							   &		 & $\mid$ {\bf if(} Expression {\bf )} {\bf \{ }Single-Command {\bf \}} \\
 							   &   		 & {\bf else } {\bf \{ }Single-Command {\bf \} } \\					   
 							   &   		 & $\mid$ {\bf while (} Expression {\bf )}{\bf \{ } Single-Command {\bf \}} \\
-			Single-Command     &	::=  & Control-Structure{\bf ;} Single-Command $\mid$ UnitStat{\bf ;} Single-Command \\
-							   &		 & $\mid$ Control-Structure{\bf ;} $\mid$ UnitStat{\bf ;} 					\\
-			UnitStat		   &	::=  & UnitStat-Name {\bf =} Value {\bf ;} UnitStat $\mid$ UnitStat-Name {\bf = } Value; \\
-			UnitStat-Name	   &	::=	 & AttackPower$\mid$ DefensePower$\mid$ Speed \\
+			Single-Command     &	::=  & Control-Structure Single-Command $\mid$ UnitStat Single-Command \\
+							   &		 & $\mid$ Control-Structure $\mid$ UnitStat					\\
+			UnitStat		   &	::=  & UnitStat-Name UnitStat \\
+			UnitStat-Name	   &	::=	 & {\bf Size =} Integer-Literal{\bf ;} {\bf Type} = AttackType{\bf ;} \\
+							   &	     & {\bf  Range =} Integer-Literal{\bf;} \\
+							   &	     & {\bf Damage =} Integer-Literal{\bf ;} {\bf Movement = }Integer-Literal{\bf ;} \\
+							   &		 & {\bf AttackSpeed = }Integer-Literal{\bf ;} {\bf Health  = Integer-Literal;} \\
+							   &		 & {\bf RegimentPosition = Position(}Integer-Literal{\bf ,}Integer-Literal{\bf );} \\
+			AttackType		   &    ::=  & {\bf Melee} $\mid$ {\bf Ranged} \\
 			Integer-Literal    &	::=  & Digit $\mid$ Integer-Literal Digit \\
 			Comment			   &	::=	 & {\bf //} Graphic* eol \\
 			Team-File		   &	::=	 & {\bf Team} Regiment-Block \\
