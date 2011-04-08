@@ -10,6 +10,7 @@
 		 	$/= 	 $&$ ,     	 $&$ .  	  $&$ Regiment$   \\
 			$Team	 $&$ Rules   $&$ Config   $&$ Grid$	   \\
 			$>		 $&$   + 	 $&$ //	 	  $&$ while $   \\
+			$ "		 $& 		&			& 		\\
 		\end{tabular}
 	\subsubsection{Nonterminals}
 		\begin{tabular}{l c}
@@ -28,36 +29,38 @@
 	
 	\subsubsection{BNF}
 		\begin{tabular}{ l l l }
-			Behaviour-Block	   &	::=	 & Behaviour Block-Name \{Single-Command \} \\
-			Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
-							   &		 & $\mid$ if(Expression) \bf{\{ }Single-Command \bf{\}} \\
-							   &   		 & else \bf{\{ }Single-Command \bf{\} } \\					   
-							   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
+			Behaviour-Block	   &	::=	 & {\bf Behaviour} Block-Name {\bf \{} Single-Command {\bf \}} \\
+			Control-Structure  &  	::=  & {\bf if( } Expression{\bf )} {\bf \{}Single-Command {\bf \}}  \\
+							   &		 & $\mid$ {\bf if(} Expression {\bf )} {\bf \{ }Single-Command {\bf \}} \\
+							   &   		 & {\bf else } {\bf \{ }Single-Command {\bf \} } \\					   
+							   &   		 & $\mid$ {\bf while (} Expression {\bf )}{\bf \{ } Single-Command {\bf \}} \\
 			Single-Command     &	::=  & Control-Structure $\mid$ UnitStat \\
-			UnitStat		   &	::=  & UnitStat-Name = Value; UnitStat $\mid$ UnitStat-Name = Value; \\
+			UnitStat		   &	::=  & UnitStat-Name {\bf =} Value; UnitStat $\mid$ UnitStat-Name {\bf = } Value; \\
 			UnitStat-Name	   &	::=	 & AttackPower$\mid$ DefensePower$\mid$ Speed \\
 			Integer-Literal    &	::=  & Digit $\mid$ Integer-Literal Digit \\
-			Comment			   &	::=	 & \bf{//} Graphic* eol \\
-			Team-File		   &	::=	 & \bf{Team} Regiment-Block \\
-			Regiment-Block     &	::=	 & \bf{Regiment} Block-Name	 \bf{\{ } Stat Behaviour-Block \bf{\} }\\
+			Comment			   &	::=	 & {\bf //} Graphic* eol \\
+			Team-File		   &	::=	 & {\bf Team} Regiment-Block \\
+			Regiment-Block     &	::=	 & {\bf Regiment} Block-Name {\bf \{ } Stat Behaviour-Block \bf{\} }\\
 			Expression		   &	::=  & (Expression) $\mid$ Integer-Literal \\
 							   &		 &	$\mid$ Operator Primary-Expression $\mid$ StatName \\
-			Operator 		   & 	::=	 & \bf{+}$\mid$\bf{-}$\mid$ \bf{*}$\mid$\bf{/}$\mid$\bf{<}$\mid$ \bf{>}$\mid$ \bf{<=}$\mid$ \bf{>=}$\mid$\bf{==}\\
-			Config-File		   & 	::=  & \bf{Config} Grid-Block Rules-Block  		\\
-			Grid-Block		   &	::=	 & \bf{Grid} Block-Name	 \bf{\{} GridStat \bf{\}} \\
-			GridStat		   &	::=  & GridStat-Name = Value; GridStat $\mid$ GridStat-Name = Value;   \\
+			Operator 		   & 	::=	 & {\bf $+$}$\mid${\bf $-$}$\mid$ {\bf $*$}$\mid$ 
+											{\bf $/$}$\mid${\bf $<$}$\mid$ {\bf $>$}$\mid$ 
+											{\bf $<=$}$\mid$ {\bf $>=$}$\mid${\bf $==$}\\
+			Config-File		   & 	::=  & {\bf Config} Grid-Block Rules-Block  		\\
+			Grid-Block		   &	::=	 & {\bf Grid} Block-Name	 {\bf \{} GridStat \bf{\}} \\
+			GridStat		   &	::=  & GridStat-Name = Value{\bf ;} GridStat $\mid$ GridStat-Name {\bf =} Value{\bf ;}   \\
 			GridStat-Name	   &	::=  & HorizontalSize$\mid$ VerticalSize					\\
 			Block-Name		   &	::=  & Identifier							\\
 			Identifier		   &    ::=  & Letter $\mid$ Identifier Letter $\mid$ Identifier Integer-Literal \\
 			Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
-			Maximums-Block	   &	::=	 & \bf{Maximums} \bf{\{} MaximumsStat Behaviour-Block \bf{\}}	\\
-			MaximumsStat	   &	::=  & MaximumsStat-Name = Value; MaximumsStat  \\
-							   &		 & $\mid$ MaximumsStat-Name = Value;   \\
-			MaximumsStat-Name  &	::=  & HorizontalSize$\mid$ VerticalSize					\\
-			Standards-Block	   &    ::=  & \bf{Standards} \bf{\{ } StandardsStat \bf{\} }	\\
-			StandardsStat	   & 	::=	 & StandardsStat-Name = Integer-Literal;StandardsStat \\
-							   &		 & $\mid$ StandardsStat-Name = Integer-Literal; \\
-			StandardsStat-Name & 	::=	 & RegimentSize	$\mid$ Regiments \\
+			Maximums-Block	   &	::=	 & {\bf Maximums} {\bf \{} MaximumsStat Behaviour-Block {\bf \}}	\\
+			MaximumsStat	   &	::=  & MaximumsStat-Name {\bf = } Value{\bf ;} MaximumsStat  			\\
+							   &		 & $\mid$ MaximumsStat-Name {\bf = } Value {\bf ; }	 			 \\
+			MaximumsStat-Name  &	::=  & HorizontalSize$\mid$ VerticalSize							\\
+			Standards-Block	   &    ::=  & \bf{Standards} {\bf \{ } StandardsStat \bf{\} }					\\
+			StandardsStat	   & 	::=	 & StandardsStat-Name {\bf = } Integer-Literal;StandardsStat 				\\
+							   &		 & $\mid$ StandardsStat-Name {\bf = } Integer-Literal {\bf ; } 		\\
+			StandardsStat-Name & 	::=	 & RegimentSize	$\mid$ Regiments									 \\
 		\end{tabular}
 		
 	\subsubsection{EBNF}
