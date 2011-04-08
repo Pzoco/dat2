@@ -29,24 +29,26 @@
 	
 	\subsubsection{BNF}
 		\begin{tabular}{ l l l }
-			Behaviour-Block	   &	::=	 & {\bf Behaviour} Block-Name {\bf \{} Single-Command {\bf \}} \\
-							   &         & | {\bf Behaviour} {\bf = } Block-Name
-			Control-Structure  &  	::=  & {\bf if( } Expression{\bf )} {\bf \{}Single-Command {\bf \}}  \\
+			Behaviour-Block	   &	::=	 & {\bf Behaviour} Block-Name {\bf \{} Single-Command {\bf \}}  \\
+							   &         & $\mid$ {\bf Behaviour} {\bf = } Block-Name \\
+			Control-Structure  &  	::=  & {\bf if( } Expression{\bf )} {\bf \{ } Single-Command {\bf \} }  \\
 							   &		 & $\mid$ {\bf if(} Expression {\bf )} {\bf \{ }Single-Command {\bf \}} \\
 							   &   		 & {\bf else } {\bf \{ }Single-Command {\bf \} } \\					   
 							   &   		 & $\mid$ {\bf while (} Expression {\bf )}{\bf \{ } Single-Command {\bf \}} \\
-			Single-Command     &	::=  & Control-Structure $\mid$ UnitStat \\
-			UnitStat		   &	::=  & UnitStat-Name {\bf =} Value; UnitStat $\mid$ UnitStat-Name {\bf = } Value; \\
+			Single-Command     &	::=  & Control-Structure{\bf ;} Single-Command $\mid$ UnitStat{\bf ;} Single-Command \\
+							   &		 & $\mid$ Control-Structure{\bf ;} $\mid$ UnitStat{\bf ;} 					\\
+			UnitStat		   &	::=  & UnitStat-Name {\bf =} Value {\bf ;} UnitStat $\mid$ UnitStat-Name {\bf = } Value; \\
 			UnitStat-Name	   &	::=	 & AttackPower$\mid$ DefensePower$\mid$ Speed \\
 			Integer-Literal    &	::=  & Digit $\mid$ Integer-Literal Digit \\
 			Comment			   &	::=	 & {\bf //} Graphic* eol \\
 			Team-File		   &	::=	 & {\bf Team} Regiment-Block \\
 			Regiment-Block     &	::=	 & {\bf Regiment} Block-Name {\bf \{ } Stat Behaviour-Block \bf{\} }\\
-			Expression		   &	::=  & (Expression) $\mid$ Integer-Literal \\
-							   &		 &	$\mid$ Operator Primary-Expression $\mid$ StatName \\
+			Expression 		   &	::=	 & primary-Expression $\mid$ Expression Operator primary-Expression \\
+			Primary-Expression &	::=  & (Expression) $\mid$ Integer-Literal \\
+							   &		 & $\mid$ Operator Primary-Expression $\mid$ StatName \\
 			Operator 		   & 	::=	 & {\bf $+$}$\mid${\bf $-$}$\mid$ {\bf $*$}$\mid$ 
-											{\bf $/$}$\mid${\bf $<$}$\mid$ {\bf $>$}$\mid$ 
-											{\bf $<=$}$\mid$ {\bf $>=$}$\mid${\bf $==$}\\
+										   {\bf $/$}$\mid${\bf $<$}$\mid$ {\bf $>$}$\mid$ 
+										   {\bf $<=$}$\mid$ {\bf $>=$}$\mid${\bf $==$}\\
 			Config-File		   & 	::=  & {\bf Config} Grid-Block Rules-Block  		\\
 			Grid-Block		   &	::=	 & {\bf Grid} Block-Name	 {\bf \{} GridStat \bf{\}} \\
 			GridStat		   &	::=  & GridStat-Name = Value{\bf ;} GridStat $\mid$ GridStat-Name {\bf =} Value{\bf ;}   \\
