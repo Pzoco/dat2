@@ -99,9 +99,9 @@
 				Comment			   &    ::=  & {\bf //} Graphic* eol \\
 				GridStat		   &	::=  & GridStat-Name ($\epsilon \mid$ GridStat)   \\
 				GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height}) = Integer-Literal; \\
-				Identifier 		   &    ::=  & Letter $\mid$ Identifier (Letter $\mid$ Digit)
-				MaximumsStat	   &	::=  & MaximumsStat-Name (MaximumsStat $\mid \epsilon$)\\
-								   &	     & UnitStat-Name (MaximumsStat $\mid \epsilon$)		\				
+				Identifier 		   &    ::=  & Letter $\mid$ Identifier (Letter $\mid$ Digit) \\	
+				MaximumsStat	   &	::=  & MaximumsStat-Name (MaximumsStat $\mid \epsilon$) \\
+								   &	     & UnitStat-Name (MaximumsStat $\mid \epsilon$)		\\				
 			\end{tabular}
 		\end{center}					   
 		Then elimination of left recursion was applied: \\
