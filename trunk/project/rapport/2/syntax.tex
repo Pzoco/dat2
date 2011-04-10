@@ -72,11 +72,11 @@
 				Block-Name		   &	::=  & Identifier							\\
 				Identifier		   &    ::=  & Letter $\mid$ Identifier Digit $\mid$ Identifier Digit \\
 				Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
-				Maximums-Block	   &	::=	 & {\bf Maximums} {\bf \{} MaximumsStat Behaviour-Block {\bf \}}	\\
-				MaximumsStat	   &	::=  & MaximumsStat-Name MaximumsStat $\mid$ MaximumsStat-Name		\\
+				Maximums-Block	   &	::=	 & {\bf Maximums} {\bf \{} MaximumsStat {\bf \}}	\\
+				MaximumsStat	   &	::=  & MaximumsStat-Name MaximumsStat $\mid$ MaximumsStat-Name $\mid$		\\
 								   &	     & UnitStat-Name MaximumsStat $\mid$ UnitStat-Name			\\
 				MaximumsStat-Name  &	::=  & {\bf Regiments = } Integer-Literal{\bf ;} $\mid$ {\bf Teams = } Integer-Literal{\bf ;} \\
-				Standards-Block	   &    ::=  & {\bf Standards} {\bf \{ } UnitStat \bf{\} }		\\
+				Standards-Block	   &    ::=  & {\bf Standards} {\bf \{ } UnitStat Behaviour-Block\bf{\} }		\\
 			\end{tabular}
 		\end{center}
 		
@@ -91,13 +91,14 @@
 								   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
 				Single-Command     &	::=  & (Control-Structure $\mid$ UnitStat) ($\epsilon \mid$ Single-Command)      \\
 		  		UnitStat		   &	::=  & UnitStat-Name ($\epsilon$ $\mid$ UnitStat)   		  \\
-		  		UnitStat-Name	   &	::=	 & ({\bf Size}$\mid${\bf  Range}$\mid${\bf Damage}$\mid$
-		  										{\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;}  \\
+		  		UnitStat-Name	   &	::=	 & ({\bf Size}$\mid${\bf  Range}$\mid${\bf Damage}$\mid$\\
+		  							&		&	{\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;} \\ 
 								   &	     & $\mid$ {\bf RegimentPosition = Position(}Integer-Literal{\bf ,}Integer-Literal{\bf );} \\
 								   &		 & $\mid$ {\bf Type} = AttackType{\bf ;}	     											\\
 				Integer-Literal    &	::=  & Digit Digit* \\
 				Comment			   &    ::=  & {\bf //} Graphic* eol \\
-				GridStat		   &	::=  & GridStat-Name ($\epsilon \mid$ GridStat)   \\
+				Graphic			   &	::=	 & (Digit $\mid$ Letter)* \\
+				GridStat		   &	::=  & GridStat-Name GridStat*   \\
 				GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height}) = Integer-Literal; \\
 				Identifier 		   &    ::=  & Letter $\mid$ Identifier (Letter $\mid$ Digit) \\	
 				MaximumsStat	   &	::=  & MaximumsStat-Name (MaximumsStat $\mid \epsilon$) \\
