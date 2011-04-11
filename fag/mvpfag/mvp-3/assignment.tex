@@ -1,0 +1,247 @@
+\documentclass{article}
+\usepackage{a4wide}
+\usepackage{listings,color}
+\usepackage[lastexercise]{exercise}
+\renewcommand{\ExerciseListHeader}{ 
+\textbf{Exercise} \ExerciseHeaderNB:\quad} 
+\renewcommand{\QuestionNB}{{\bf Q}:\quad}
+\renewcommand{\AnswerListHeader}{ \textbf{A}:\quad} 
+\pagestyle{empty}
+
+\title{MVP Assignment 3 - Matrix Inversion}
+\date{Due date: 19/4/2010}
+\begin{document}
+\maketitle
+
+% Leave this commented for answering.
+% \newcommand{\question}[1]{#1}
+% \newcommand{\answer}[1]{}
+
+% Leave this uncommented for answering.
+\newcommand{\question}[1]{}
+\newcommand{\answer}[1]{{#1}}
+
+%
+% Write your group room and group number here.
+%
+\answer{
+\begin{flushleft}
+{\bf Group room:} FIXME\\
+{\bf Group number:} FIXME
+\end{flushleft}
+}
+
+\section{Analysis}
+
+\question{
+First we will analyse the code from \texttt{pmatrics.c} that you
+discovered in the previous assignment. The example has been updated
+for this assignment. The purpose is to parallize it using
+\emph{pthreads}. The code supplied contains helpful comments.}
+
+\begin{ExerciseList}
+  \Exercise Analysis of \verb+inv_mat(..)+.
+  \Question \emph{Identify the different main phases of the matrix
+    inversion algorithm.}
+  \Answer .. % Your answer here.
+
+  \Question \emph{What are the data dependencies between the phases?}
+  \Answer .. % Your answer here.
+
+\end{ExerciseList}
+
+\section{Preliminaries}
+
+\question{
+Copy your matrix multiplication code from assignments 1 and 2 in the
+relevant matrix multiplication functions place holders.}
+
+\begin{ExerciseList}
+\Exercise We will need a barrier.
+\Question \emph{Implement it.}
+\end{ExerciseList}
+
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Your barrier implementation.},
+label=LST:barrier]
+
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+% Here goes your barrier: data declarations and relevant functions.
+
+\begin{ExerciseList}
+  \Exercise Your threads will be started in
+  \texttt{pthread\_inv\_mat}. The function lists what needs to be done
+  but it is incomplete.
+  \Question \emph{Complete the function.}
+\end{ExerciseList}
+
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Function \texttt{pthread\_inv\_mat}.},
+label=LST:pinvmat]
+
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+% Here goes your pthread_inv_mat.
+
+\question{
+Your thread will run \emph{job\_inv\_mat}. As a preliminatry, copy the
+original matrix inversion code here, skipping its local variable
+declarations. You will modify it later.}
+
+\section{Design and Implementation}
+
+\question{
+You should have identified the different phases of the algorithm in
+the previous question before continuing.}
+
+\begin{ExerciseList}
+
+\Exercise 
+\answer{Starting and ending.}
+\question{We consider thread 0 to be the master thread. We can
+parallelize the initializations (copy and reset) or let the master
+thread do it. Similarly, we can parallelize the final copy at the end
+or not. It does not matter much.}
+\Question \emph{Why is it not important to parallelize the
+  initialization and the final copy?}
+\Answer .. % Your answer here.
+
+\Exercise
+\answer{Synchronization from the master.}
+\question{The master thread will do the computation that is needed for all
+threads to continue.}
+\Question \emph{Use a barrier for synchronization.}
+\Question $[$Optional$]$ \emph{Implement another synchronization where
+  the master thread signals the other thread by a \texttt{sync\_post} on
+  the right \texttt{sync1} (array of) semaphores and the other threads
+  wait for it.}
+
+\Exercise
+\answer{Load balancing.}
+\question{The main computation phase is done in parallel. To avoid load
+balancing issues, let's use a round-robin distribution of the threads
+over the rows (the for-loop on $i$). This can be done simply by
+letting thread $t$ execute an iteration if $i\%N==t$, $N$ being the
+total number of threads. It is also possible to rearrange the loop to
+jump to the right indices directly.}
+\Question \emph{What is the load balancing issue that we are
+  addressing with the round-robin solution?}
+\Answer .. % Your answer here.
+
+\Question \emph{Implement round-robin for the threads.}
+
+\Exercise
+\answer{Synchronization to the master.}
+\question{
+After the main computation phase, the threads need to synchronize
+before looping again for the master thread to do its job first. In the
+first synchronization, if you did the optional question, the ``other''
+threads were waiting for the master but here the master needs to wait
+for all the other threads before proceeding.}
+\Question \emph{Use a barrier for this second synchronization.}
+\Question $[$Optional$]$ \emph{Implement this synchronization with
+  semaphores (this time on the sync2 semaphore).}
+
+\Exercise
+\answer{Back-substitution.}
+\question{The back-substitution can be parallelized too. There is a
+data-dependency between every iteration of the $k$ loop (that you
+explained in a previous question) so you will use a
+barrier.}
+\Question \emph{Parallelize the back-substitution, avoiding load
+  balancing issues using round-robin like previously on the $i$ loop.}
+
+\Exercise $[$Optional$]$
+\answer{timed\_call}
+\question{The program outputs different timing results
+when it executes. You can read the comments in the
+\texttt{timed\_call} function to see what it does.}
+\Question $[$Optional$]$ \emph{Explain the different outputs of the
+  \texttt{timed\_call} functions.}
+\Answer .. % Your answer here.
+
+\end{ExerciseList}
+
+% Your job_inv_mat function goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Matrix inversion with semaphores.},
+label=LST:invmat1]
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+
+% Your job_inv_mat function goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Matrix inversion with barriers.},
+label=LST:invmat2]
+/* Your relevant code goes here. NOT the whole file. */
+\end{lstlisting}
+
+
+\newpage
+\section{Authors}
+I/We have solved these exercises independently, and each of us has actively
+participated in the development of all of the exercise solutions.
+\vspace{1cm}
+
+\noindent
+\begin{tabular}{p{70mm}p{70mm}}
+
+%
+% Replace ``Name x'' by your name.
+%
+
+Name 1 & Name 2 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 3 & Name 4 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 5 & Name 6 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+
+Name 7 & Name 8 \\
+\dots\dotfill\dots & \dots\dotfill\dots \\
+Signature & Signature \\
+& \\
+& \\
+\end{tabular}
+
+\end{document}
