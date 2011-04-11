@@ -273,7 +273,9 @@ void inv_mat(double *input, double *a, double *b, size_t n)
     size_t index[n];
 
     // Init a, b, and index.
+    //Copies the memory
     memcpy(a, input, n*n*sizeof(double));
+    //Sets the memory
     memset(b, 0, n*n*sizeof(double));
     for(i = 0; i < n; ++i)
     {
