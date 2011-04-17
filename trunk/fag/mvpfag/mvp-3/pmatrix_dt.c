@@ -78,7 +78,53 @@ double* alloc_double(size_t size)
     return (double*) safe_malloc(size*sizeof(double));
 }
 
+//COUNT CPUS ON MACINTOSH!!
 
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+
+size_t count_cores(){
+
+    char os[7];
+    char cores_string[3];
+    char* cmd = NULL;
+    FILE* fp = popen("uname","r");
+
+    if (NULL == fp)
+    {
+        perror("popen");
+        abort();
+    }
+
+    fgets(os, 6, fp);
+    pclose(fp);
+
+    if(0 == strcmp("Darwi", os))
+    {
+        cmd = "sysctl hw | grep availcpu | cut -d'=' -f 2";
+    }
+    else if(0 == strcmp("Linux", os))
+    {
+        cmd = "cat /proc/stat | grep cpu[0-9][0-9]* | wc -l";
+    }
+    else
+    {
+        abort();
+    }
+
+    if (NULL == (fp = popen(cmd,"r")))
+    {
+        perror("popen");
+        abort();
+    }
+
+    fgets(cores_string, 3, fp);
+    pclose(fp);
+
+    return atoi(cores_string);
+}
+//DONE COUNTING CPUS ON THE AWESOME MACINTOSHSHS!!
 size_t count_cpus()
 {
     char s[256];
@@ -381,19 +427,20 @@ void sync_post(sem_t *sync)
 */
 
 
-void init_barrier(pthread_t *thread)
+void init_barrier ((*b), int threadcount)
 {
-    //Create a mutex to lock the threads, and then release the threads when alle the threads have have recieved.
-
-    printf("Creating a barrier, sir!\n");
-
-    //pthread_mutex_lock(thread_ID);
-
-
-    pthread_mutex_lock(thread);
-    printf("The thread have been locked\n");
-    pthread_mutex_unlock(thread);
-    printf("The thread have now been unlocked\n");
+	pthread_mutex_lock(&(b -> count_lock));
+	b -> count++;
+	if(b -> count == threadcount)  
+	{ 
+		b -> count = 0;
+		pthread_cond_broadcast(&(b -> ok_to_proceed));
+	}
+	else 
+	{
+		pthread_cond_wait(&(b-> ok_to_proceed), &b->count_lock));
+	}
+	pthread_mutex_unlock(&(b->count_lock));
 }
 
 
@@ -424,11 +471,28 @@ void pthread_inv_mat(double *input, double *a, double *b, size_t n)
     speedup = 1;                        // Inialize the speed-up evaluation.
 
     // Initialize your semaphores.
+	int sem_init(sem_t *sem, int pshared, unsigned int value);
+
     // Initialize your barrier.
+	init_barrier(*threads[nb_threads], nb_threads);
     // Initialize your data.
+    for(i = 0; i < nb_threads; ++i)
+    {
+        data[i].a = a;
+        data[i].b = b;
+        data[i].c = c;
+        data[i].dim = dim;
+        data[i].id = i;
+    }
     // Start your threads.
+    for(i = 1; i < nb_threads; ++i)
+    {
+    start_thread(&threads[nb_threads],pthread_inv_mat,&data[i]);
+    }
     // Join your threads.
+    join_threads(threads, nb_threads);
     // Destroy your semaphores.
+    int sem_destroy(sem_t *sem);
 }
 
 
@@ -511,7 +575,7 @@ int main(int argc, char *argv[])
 
         mem = 0;
         speedup = 0;
-        nb_threads = n < 1 ? count_cpus() : n;
+        nb_threads = n < 1 ? count_cores() : n;
         fprintf(stdout, "Threads: %u\n", nb_threads);
         test((size_t) i);
 
