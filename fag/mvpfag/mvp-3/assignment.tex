@@ -75,7 +75,20 @@ frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Your barrier implementation.},
 label=LST:barrier]
 
-/* Your relevant code goes here. NOT the whole file. */
+void init_barrier(init_barrier_t *b, int threadcount)
+{
+pthread_mutex_lock(&(b -> count_lock));
+b -> count++;
+if(b -> count == threadcount)  { 
+	b -> count = 0;
+	pthread_cond_broadcast(&(b -> ok_to_proceed));
+}else 
+{
+	pthread_cond_wait(&(b-> ok_to_proceed),&b->count_lock));
+}
+pthread_mutex_unlock(&(b->count_lock));
+
+}
 \end{lstlisting}
 % Here goes your barrier: data declarations and relevant functions.
 
@@ -122,7 +135,7 @@ thread do it. Similarly, we can parallelize the final copy at the end
 or not. It does not matter much.}
 \Question \emph{Why is it not important to parallelize the
   initialization and the final copy?}
-\Answer .. % Your answer here.
+\Answer We only need one instance of these initializations.
 
 \Exercise
 \answer{Synchronization from the master.}
