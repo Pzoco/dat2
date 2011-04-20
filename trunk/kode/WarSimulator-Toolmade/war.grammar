@@ -1,0 +1,54 @@
+%header%
+
+GRAMMARTYPE = "LL"
+
+DESCRIPTION = "A grammar for a scripting language called WAR"
+
+AUTHOR      = "d204a"
+VERSION     = "1.0"
+DATE        = "20 April 2011"
+
+
+/** Token definitions **/
+%tokens%
+
+ADD                          = "+"
+SUB                          = "-"
+MUL                          = "*"
+DIV                          = "/"
+LEFT_PAREN                   = "("
+RIGHT_PAREN                  = ")"
+NUMBER                       = <<[0-9]+>>
+IDENTIFIER                   = <<[a-z]>>
+WHITESPACE                   = <<[ \t\n\r]+>> %ignore%
+
+
+
+/** Production definitions **/
+%productions%
+
+
+BehaviourBlock	   	= Behaviour (Block-Name {Single-Command}| = Block-Name);
+
+ControlStructure 	= if(Expression) {Single-Command}
+					\epsilon | else {Single-Command}					   
+					|while(Expression){Single-Command};
+				   
+SingleCommand		= Control-Structure | UnitStat) (\epsilon | Single-Command);
+
+Expression			= Primary-Expression (Operator Primary-Expression)*				
+						UnitStat = UnitStat-Name ($\epsilon$ | UnitStat);
+						
+UnitStatName		= ({Size}|{Range}|{Damage}|
+						{Movement}| {AttackSpeed}|{Health}) = Integer-Literal{;}	
+						|{RegimentPosition = Position(}Integer-Literal{,}Integer-Literal{);}
+								   |{Type} = AttackType{;};
+								   
+IntegerLiteral    =  Digit Digit*;
+Comment			   =  {//} Graphic* eol;
+Graphic			   = (Digit | Letter)*;
+GridStat		   =  GridStat-Name*;
+GridStatName	   =  ({Width} | {Height}) = Integer-Literal;
+Identifier 		   =  Letter | Identifier (Letter | Digit);	
+MaximumsStat	   =  MaximumsStat-Name (MaximumsStat | \epsilon)
+						UnitStat-Name (MaximumsStat | \epsilon);
