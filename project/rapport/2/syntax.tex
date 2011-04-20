@@ -92,9 +92,10 @@
 								   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
 								   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
 				Single-Command     &	::=  & (Control-Structure $\mid$ UnitStat) ($\epsilon \mid$ Single-Command)      \\
+				Expression 		   &	::=	 & Primary-Expression (Operator Primary-Expression)* \\				
 		  		UnitStat		   &	::=  & UnitStat-Name ($\epsilon$ $\mid$ UnitStat)   		  \\
 		  		UnitStat-Name	   &	::=	 & ({\bf Size}$\mid${\bf  Range}$\mid${\bf Damage}$\mid$\\
-		  							&		&	{\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;} \\ 
+		  						   &    	 &	{\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;} \\ 
 								   &	     & $\mid$ {\bf RegimentPosition = Position(}Integer-Literal{\bf ,}Integer-Literal{\bf );} \\
 								   &		 & $\mid$ {\bf Type} = AttackType{\bf ;}	     											\\
 				Integer-Literal    &	::=  & Digit Digit* \\
