@@ -91,8 +91,7 @@
 				Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
 								   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
 								   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
-				Single-Command     &	::=  & (Control-Structure $\mid$ UnitStat) ($\epsilon \mid$ Single-Command)      \\
-				Expression 		   &	::=	 & Primary-Expression (Operator Primary-Expression)* \\				
+				Single-Command     &	::=  & (Control-Structure $\mid$ UnitStat) ($\epsilon \mid$ Single-Command)      \\		
 		  		UnitStat		   &	::=  & UnitStat-Name ($\epsilon$ $\mid$ UnitStat)   		  \\
 		  		UnitStat-Name	   &	::=	 & ({\bf Size}$\mid${\bf  Range}$\mid${\bf Damage}$\mid$\\
 		  						   &    	 &	{\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;} \\ 
@@ -101,16 +100,20 @@
 				Integer-Literal    &	::=  & Digit Digit* \\
 				Comment			   &    ::=  & {\bf //} Graphic* eol \\
 				Graphic			   &	::=	 & (Digit $\mid$ Letter)* \\
-				GridStat		   &	::=  & GridStat-Name*   \\
+				GridStat		   &	::=  & GridStat-Name (GridStat $\mid \epsilon$)  \\
 				GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height}) = Integer-Literal; \\
 				Identifier 		   &    ::=  & Letter $\mid$ Identifier (Letter $\mid$ Digit) \\	
-				MaximumsStat	   &	::=  & MaximumsStat-Name (MaximumsStat $\mid \epsilon$) \\
-								   &	     & UnitStat-Name (MaximumsStat $\mid \epsilon$)		\\				
+				MaximumsStat	   &	::=  & MaximumsStat-Name (MaximumsStat $\mid \epsilon$) $\mid$ \\
+								   &	     & UnitStat-Name (MaximumsStat $\mid \epsilon$)		\\	
+				MaximumsStat-Name  &	::=  & ({\bf Regiments }$\mid$ {\bf Teams}) =  Integer-Literal{\bf ;} \\			
 			\end{tabular}
 		\end{center}					   
 		Then elimination of left recursion was applied: \\
 		\begin{center}
 			\begin{tabular}{ l l l }
+				Expression 		   &	::=	 & Primary-Expression (Operator Primary-Expression)* \\		
 				Identifier 		   &    ::=  & Letter (Letter $\mid$ Digit)* \\
+				MaximumsStat	   &	::=  & (MaximumsStat-Name $\mid$ UnitStat-Name)* \\
+				GridStat		   &	::=  & GridStatName*  		\\
 			\end{tabular}
 		\end{center}   
