@@ -1,0 +1,67 @@
+Team "Ninja Monkeys"
+
+#Use BehaveLib1.lib; //Using a library file, written in WAR-code
+
+Regiment "SilentMonkeys" //Initialization of a Regiment named "Silent Monkeys"
+{
+	Size = 200; //The number of units the regiment consist of
+	Type = Ranged; //Either "Ranged" or "Melee" - determins the attack options for the regiments units. Ranged units will fire shots up to a maximum range, and cannot fire within a minimum range. Melee regminet units can attack adjacent enemies.
+	Range = 120; //The maximum range of the a ranged type regiment
+	Damage = 2; //The damage each unit in the regiment can potentially do
+	Movement = 30; //The movement speed of the regiment units, expressed in ssquares on the grid.
+	AttackSpeed = 1; //The number of attacks the regiment can perform each round.
+	Health = 10; //The amount of HP each unit in the regiment has.
+	Position; //The position of the regiment on the Grid. This should be defined elsewhere.
+	Captain = OldNeonMonkey; //A Captain is optional, but provides bonuses to a regiment, which disappear when the captain dies.
+	Behaviour //Complex behavoiur instructions. For simplicity, one could have used the "BehaveLib1.lib"-library to use predefined behaviour patterns.
+	{
+		Regiment enemy = Search_for_Enemies(); //Build-in function to find the closest enemy regiment or unit.
+		if (enemy.Position <= Range && enemy.Type == Melee)
+		{
+			Attack.Position(enemy.Position); //Attack position does not attack the enemy units, but rather the position
+		}
+		else if (enemy.Position <= Range+Movement)
+		{
+			While(enemyPosition < Range)
+			{
+				MoveTowards(enemy.Position);
+			}
+			Attack.Position(enemy.Position);
+		}
+		if (enemy.position <= Range && enemy.Type == Hero)
+		{
+			MoveAway(enemy.position);
+			if(enemy.position <= Range)
+			{
+				Attack.Enemy(enemy);
+			}
+		}
+	}
+}
+
+Hero "OldNeonMonkey"
+//A Hero unit - could be considered a captain of a regiment, but may also move individually on the Grid. A Regiment is provided bonuses from a hero, as long as the hero is the captain of a regiment. The Hero is no longer considered the captain of a regiment, if the hero moved away from the regiment (is no longer adjacent to the regiment). A hero can become the captain of a regiment, if the hero comes adjacent to the regiment and the regiment does not have a captain. A regiment can only have one captain. If the hero simultaniously become eligible as captain for two regiments, the biggest regiment is chosen. If two regiments are tie in such a situation, the regiment is chosen randomly. 
+{
+	Type=Melee;
+	Movement = 50;
+	Damage = 30
+	AttackSpeed = 5;
+	Bonus //These are the bonuses provided to a regiment with this hero as a captain. A Hero can provide zero bonuses.
+	{
+		Health +=2;
+		AttackSpeed +=1;
+	}
+	Behaviour //The behavoiur of the hero unit. If undefined and the hero is the captain of a regiment, the hero will enherit the behaviour of the regiment. Otherwise the hero will adobt the standard behaviour
+	{
+		Regiment enemy = Search_for_Enemy();
+		if(enemy.Position == MeleeRange)
+		{
+			Attack.Enemy(enemy);
+			Rape(enemy);
+		}
+		else
+		{
+			MoveTowards(enemy.Position);
+		}
+	}
+}
