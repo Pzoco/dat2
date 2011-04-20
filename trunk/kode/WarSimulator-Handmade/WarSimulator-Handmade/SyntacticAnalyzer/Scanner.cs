@@ -9,7 +9,12 @@ namespace WarSimulator_Handmade
     {
         Identifier,
         IntegerLiteral,
+        Operator,
 
+        //Units
+        UnitFunction,
+        UnitStatName,
+      
         //Control Structures
         If,
         Else,
