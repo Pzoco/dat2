@@ -11,14 +11,24 @@ namespace WarSimulator_Handmade
         IntegerLiteral,
         Operator,
         Position,
+        Regiments,
 
         //Units
         UnitFunction,
         UnitStatName,
 
+        //Grid
+        GridStatName,
+        Width,
+        Height,
+
+        //Maximums
+        MaximumsStatName,
+        Teams,
+
         //UnitStatName
-        Size,Range,Damage,
-        Movement,AttackSpeed,Health,
+        Size, Range, Damage,
+        Movement, AttackSpeed, Health,
         RegimentPosition,
         Type,
 
@@ -37,6 +47,7 @@ namespace WarSimulator_Handmade
         Behaviour,
         Config,
         Grid,
+        Standards,
 
         //Signs
         Slash,
