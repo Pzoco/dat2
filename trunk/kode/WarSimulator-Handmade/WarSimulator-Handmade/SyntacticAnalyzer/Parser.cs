@@ -173,7 +173,7 @@ namespace WarSimulator_Handmade
                 case TokenType.Movement:
                 case TokenType.AttackSpeed:
                 case TokenType.Health:
-                    AcceptIt(); 
+                    AcceptIt();
                     Accept(TokenType.Assignment);
                     Accept(TokenType.IntegerLiteral);
                     break;
@@ -218,14 +218,61 @@ namespace WarSimulator_Handmade
         }
         private void ParseGridStat()
         {
-
+            while (currentToken.type == TokenType.GridStatName)
+            {
+                ParseGridStatName();
+            }
         }
-        private void ParseGridStatName();
-        private void ParseRulesBlock();
-        private void ParseMaximumsBlock();
-        private void ParseMaximumsStat();
-        private void ParseMaximumsStatName();
-        private void ParseStandardsBlock();
+        private void ParseGridStatName()
+        {
+            if (currentToken.type == TokenType.Width || currentToken.type == TokenType.Height)
+            {
+                AcceptIt();
+                Accept(TokenType.Assignment);
+                ParseIntegerLiteral();
+                Accept(TokenType.SemiColon);
+            }
+        }
+
+        private void ParseRulesBlock()
+        {
+            ParseStandardsBlock();
+            ParseMaximumsBlock();
+        }
+        private void ParseMaximumsBlock()
+        {
+            Accept(TokenType.Regiments);
+            Accept(TokenType.LeftBracket);
+            ParseMaximumsStat();
+            Accept(TokenType.RightBracket);
+        }
+        private void ParseMaximumsStat()
+        {
+            while (currentToken.type == TokenType.MaximumsStatName || currentToken.type == TokenType.UnitStatName)
+            {
+                if (currentToken.type == TokenType.UnitStatName) { ParseUnitStatName(); }
+                else if (currentToken.type == TokenType.MaximumsStatName) { ParseMaximumsStatName(); }
+            }
+        }
+        private void ParseMaximumsStatName()
+        {
+            if (currentToken.type == TokenType.Regiments ||
+                currentToken.type == TokenType.Teams)
+            {
+                AcceptIt();
+                Accept(TokenType.Assignment);
+                ParseIntegerLiteral();
+                Accept(TokenType.SemiColon);
+            }
+        }
+        private void ParseStandardsBlock()
+        {
+            Accept(TokenType.Standards);
+            Accept(TokenType.LeftBracket);
+            ParseUnitStat();
+            ParseBehaviourBlock();
+            Accept(TokenType.RightBracket);
+        }
         #endregion
 
     }
