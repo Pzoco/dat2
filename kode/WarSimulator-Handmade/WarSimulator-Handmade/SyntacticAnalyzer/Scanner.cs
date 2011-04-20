@@ -5,34 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public enum TokenType
-    {
-        Identifier,
-        IntegerLiteral,
-        Operator,
-
-        //Units
-        UnitFunction,
-        UnitStatName,
-      
-        //Control Structures
-        If,
-        Else,
-        While,
-        
-        //Block Types
-        Team,
-        Regiment,
-        Behaviour,
-
-        //Signs
-        Slash,
-        LeftParen,
-        RightParen,
-        LeftBracket,
-        RightBracket,
-        Assignment,
-    }
+    
     class Scanner
     {
 
@@ -41,6 +14,7 @@ namespace WarSimulator_Handmade
         public bool IsGraphic(Char c);
 
         public void ScanComment();
-        public TokenType Scan();
+        public TokenType ScanToken(); 
+        public Token Scan();
     }
 }

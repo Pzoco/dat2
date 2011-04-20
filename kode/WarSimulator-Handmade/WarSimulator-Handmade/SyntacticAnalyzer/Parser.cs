@@ -7,7 +7,7 @@ namespace WarSimulator_Handmade
 {
     public class Parser
     {
-        private TokenType currentToken;
+        private Token currentToken;
         private Scanner scanner;
 
         #region Constructor
@@ -20,18 +20,18 @@ namespace WarSimulator_Handmade
         #region Accept Methods
         private void Accept(TokenType type)
         {
-            if (currentToken == type)
+            if (currentToken.type == type)
             {
                 currentToken = scanner.Scan();
             }
             else
             {
-                Console.WriteLine("Error - Expected {0}, but got {1}", type, _currentToken);
+                Console.WriteLine("Error - Expected {0}, but got {1}", type, currentToken.type);
             }
         }
         private void AcceptIt()
         {
-            _currentToken = scanner.Scan();
+            currentToken = scanner.Scan();
         }
         #endregion
 
@@ -51,7 +51,7 @@ namespace WarSimulator_Handmade
         private void ParseBehaviourBlock()
         {
             Accept(TokenType.Behaviour);
-            if (currentToken == TokenType.Assignment)
+            if (currentToken.type == TokenType.Assignment)
             {
                 AcceptIt();
                 ParseBlockName();
@@ -83,18 +83,18 @@ namespace WarSimulator_Handmade
         }
         private void ParseSingleCommand()
         {
-            if (currentToken == TokenType.If || currentToken == TokenType.While)
+            if (currentToken.type == TokenType.If || currentToken.type == TokenType.While)
             {
                 ParseControlStructure();
             }
-            else if (currentToken == TokenType.UnitFunction)
+            else if (currentToken.type == TokenType.UnitFunction)
             {
                 ParseUnitFunction();
             }
         }
         private void ParseControlStructure()
         {
-            if (currentToken == TokenType.If)
+            if (currentToken.type == TokenType.If)
             {
                 AcceptIt();
                 Accept(TokenType.LeftParen);
@@ -103,14 +103,14 @@ namespace WarSimulator_Handmade
                 Accept(TokenType.LeftBracket);
                 ParseSingleCommand();
                 Accept(TokenType.RightBracket);
-                if (currentToken == TokenType.Else)
+                if (currentToken.type == TokenType.Else)
                 {
                     Accept(TokenType.LeftBracket);
                     ParseSingleCommand();
                     Accept(TokenType.RightBracket);
                 }
             }
-            else if (currentToken == TokenType.While)
+            else if (currentToken.type == TokenType.While)
             {
                 AcceptIt();
                 Accept(TokenType.LeftParen);
@@ -124,7 +124,7 @@ namespace WarSimulator_Handmade
         private void ParseExpression()
         {
             ParsePrimaryExpression();
-            while (currentToken == TokenType.Operator)
+            while (currentToken.type == TokenType.Operator)
             {
                 ParseOperator();
                 ParsePrimaryExpression();
@@ -132,7 +132,7 @@ namespace WarSimulator_Handmade
         }
         private void ParsePrimaryExpression()
         {
-            switch (currentToken)
+            switch (currentToken.type)
             {
                 case TokenType.IntegerLiteral: ParseIntegerLiteral(); break;
                 case TokenType.Operator: ParseOperator(); ParsePrimaryExpression(); break;
@@ -160,5 +160,7 @@ namespace WarSimulator_Handmade
         private void ParseMaximumsStat();
         private void ParseMaximumsStatName();
         private void ParseStandardsBlock();
+        #endregion
+
     }
 }
