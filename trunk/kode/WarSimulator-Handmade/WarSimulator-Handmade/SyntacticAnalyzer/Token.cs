@@ -10,10 +10,21 @@ namespace WarSimulator_Handmade
         Identifier,
         IntegerLiteral,
         Operator,
+        Position,
 
         //Units
         UnitFunction,
         UnitStatName,
+
+        //UnitStatName
+        Size,Range,Damage,
+        Movement,AttackSpeed,Health,
+        RegimentPosition,
+        Type,
+
+        //Attack Type
+        Melee,
+        Ranged,
 
         //Control Structures
         If,
@@ -24,6 +35,8 @@ namespace WarSimulator_Handmade
         Team,
         Regiment,
         Behaviour,
+        Config,
+        Grid,
 
         //Signs
         Slash,
@@ -31,11 +44,19 @@ namespace WarSimulator_Handmade
         RightParen,
         LeftBracket,
         RightBracket,
+        Comma,
+        SemiColon,
         Assignment,
     }
     class Token
     {
         public TokenType type;
         public string spelling;
+
+        public Token(TokenType type, string spelling)
+        {
+            this.type = type;
+            this.spelling = spelling;
+        }
     }
 }

@@ -142,18 +142,84 @@ namespace WarSimulator_Handmade
         }
         private void ParseOperator()
         {
-            
+            if (currentToken.type == TokenType.Operator)
+            {
+                //More to come here
+                currentToken = scanner.Scan();
+            }
+            else
+            {
+                Console.WriteLine("Error - Expected operator, but got {0}", currentToken);
+            }
         }
-        private void ParseUnitFunction();
-        private void ParseUnitStat();
-        private void ParseUnitStatName();
-        private void ParseAttackType();
+        private void ParseUnitFunction()
+        {
+            //Waiting for this to be written in the BNF
+        }
+        private void ParseUnitStat()
+        {
+            while (currentToken.type == TokenType.UnitStatName)
+            {
+                ParseUnitStatName();
+            }
+        }
+        private void ParseUnitStatName()
+        {
+            switch (currentToken.type)
+            {
+                case TokenType.Size:
+                case TokenType.Range:
+                case TokenType.Damage:
+                case TokenType.Movement:
+                case TokenType.AttackSpeed:
+                case TokenType.Health:
+                    AcceptIt(); 
+                    Accept(TokenType.Assignment);
+                    Accept(TokenType.IntegerLiteral);
+                    break;
+                case TokenType.RegimentPosition:
+                    AcceptIt();
+                    Accept(TokenType.Assignment);
+                    Accept(TokenType.Position);
+                    Accept(TokenType.LeftParen);
+                    ParseIntegerLiteral();
+                    Accept(TokenType.Comma);
+                    ParseIntegerLiteral();
+                    Accept(TokenType.RightParen);
+                    break;
+                case TokenType.Type:
+                    ParseAttackType();
+                    break;
+            }
+        }
+        private void ParseAttackType()
+        {
+            if (currentToken.type == TokenType.Melee || currentToken.type == TokenType.Ranged)
+            {
+                AcceptIt();
+            }
+        }
         #endregion
 
         #region Config File Parse Methods
-        private void ParseConfigFile();
-        private void ParseGridBlock();
-        private void ParseGridStat();
+        private void ParseConfigFile()
+        {
+            Accept(TokenType.Config);
+            ParseGridBlock();
+            ParseRulesBlock();
+        }
+        private void ParseGridBlock()
+        {
+            Accept(TokenType.Grid);
+            ParseBlockName();
+            Accept(TokenType.LeftBracket);
+            ParseGridStat();
+            Accept(TokenType.RightBracket);
+        }
+        private void ParseGridStat()
+        {
+
+        }
         private void ParseGridStatName();
         private void ParseRulesBlock();
         private void ParseMaximumsBlock();
