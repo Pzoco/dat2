@@ -43,6 +43,8 @@
 				Regiment-Block     &	::=	 & {\bf Regiment} Block-Name {\bf \{ } UnitStat Behaviour-Block \bf{\} }\\
 				Behaviour-Block	   &	::=	 & {\bf Behaviour} Block-Name {\bf \{} Single-Command {\bf \}}  \\
 								   &         & $\mid$ {\bf Behaviour} {\bf = } Block-Name \\
+				Regiment-Assignment&    ::=  &{\bf Regiment} Identifier {\bf =} Regiment-Search\\
+				Regiment-Search	   &	::=	 &	 \\
 				Single-Command     &	::=  & Control-Structure Single-Command $\mid$ UnitStat Single-Command \\
 								   &		 & $\mid$ Control-Structure $\mid$ UnitStat					\\
 				Control-Structure  &  	::=  & {\bf if( } Expression{\bf )} {\bf \{ } Single-Command {\bf \} }  \\
