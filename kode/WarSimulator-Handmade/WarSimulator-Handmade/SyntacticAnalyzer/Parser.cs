@@ -83,18 +83,67 @@ namespace WarSimulator_Handmade
         }
         private void ParseSingleCommand()
         {
+            if (currentToken == TokenType.If || currentToken == TokenType.While)
+            {
+                ParseControlStructure();
+            }
+            else if (currentToken == TokenType.UnitFunction)
+            {
+                ParseUnitFunction();
+            }
+        }
+        private void ParseControlStructure()
+        {
             if (currentToken == TokenType.If)
             {
                 AcceptIt();
                 Accept(TokenType.LeftParen);
-
+                ParseExpression();
                 Accept(TokenType.RightParen);
+                Accept(TokenType.LeftBracket);
+                ParseSingleCommand();
+                Accept(TokenType.RightBracket);
+                if (currentToken == TokenType.Else)
+                {
+                    Accept(TokenType.LeftBracket);
+                    ParseSingleCommand();
+                    Accept(TokenType.RightBracket);
+                }
+            }
+            else if (currentToken == TokenType.While)
+            {
+                AcceptIt();
+                Accept(TokenType.LeftParen);
+                ParseExpression();
+                Accept(TokenType.RightParen);
+                Accept(TokenType.LeftBracket);
+                ParseSingleCommand();
+                Accept(TokenType.RightBracket);
             }
         }
-        private void ParseControlStructure();
-        private void ParseExpression();
-        private void ParsePrimaryExpression();
-        private void ParseOperator();
+        private void ParseExpression()
+        {
+            ParsePrimaryExpression();
+            while (currentToken == TokenType.Operator)
+            {
+                ParseOperator();
+                ParsePrimaryExpression();
+            }
+        }
+        private void ParsePrimaryExpression()
+        {
+            switch (currentToken)
+            {
+                case TokenType.IntegerLiteral: ParseIntegerLiteral(); break;
+                case TokenType.Operator: ParseOperator(); ParsePrimaryExpression(); break;
+                case TokenType.UnitStatName: ParseUnitStatName(); break;
+                case TokenType.LeftParen: AcceptIt(); ParseExpression(); Accept(TokenType.RightParen); break;
+            }
+        }
+        private void ParseOperator()
+        {
+            
+        }
         private void ParseUnitFunction();
         private void ParseUnitStat();
         private void ParseUnitStatName();
