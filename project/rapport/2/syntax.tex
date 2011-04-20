@@ -101,7 +101,7 @@
 				Integer-Literal    &	::=  & Digit Digit* \\
 				Comment			   &    ::=  & {\bf //} Graphic* eol \\
 				Graphic			   &	::=	 & (Digit $\mid$ Letter)* \\
-				GridStat		   &	::=  & GridStat-Name GridStat*   \\
+				GridStat		   &	::=  & GridStat-Name*   \\
 				GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height}) = Integer-Literal; \\
 				Identifier 		   &    ::=  & Letter $\mid$ Identifier (Letter $\mid$ Digit) \\	
 				MaximumsStat	   &	::=  & MaximumsStat-Name (MaximumsStat $\mid \epsilon$) \\
@@ -111,6 +111,6 @@
 		Then elimination of left recursion was applied: \\
 		\begin{center}
 			\begin{tabular}{ l l l }
-				Identifier 		   &    ::=  & Letter (Letter $\mid$ Digit)*
+				Identifier 		   &    ::=  & Letter (Letter $\mid$ Digit)* \\
 			\end{tabular}
 		\end{center}   
