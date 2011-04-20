@@ -1,0 +1,32 @@
+Config
+
+Grid "BananaIsland" //Name of the map/grid
+{
+	HorizontalSize = 512; //The horizontal size of the map
+	VerticalSize = 128; //The vertical size of the map
+	ObstaclesDensity = 2; //density of randomly generated obstacles. values from 1-10
+	new Obstacle(42,42,42,42); //Creates an obstacle at the given placement of the given size. VAlues are given as (Horizontal, Vertical, sizeHorizintal,sizeVertical)
+	Placement
+	{
+		//For or while-loop or other code for placing regiments on the grid
+	}
+}
+
+Rules
+{
+	Standards
+	{
+		Size = 200;
+		Type = Melee;
+		Behaviour
+		{
+			//Define default behaviour here
+		}
+	}
+	Maximums
+	{
+		RegimentSize = 500;
+		Heros = 1;
+		Regiments = 4;
+	}
+}
