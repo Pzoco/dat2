@@ -15,6 +15,9 @@ namespace WarSimulator_Handmade
         #endregion
 
         private void Accept()
+        {
+
+        }
 
         #region Basic Parse Methods
         private void ParseBlockName();
