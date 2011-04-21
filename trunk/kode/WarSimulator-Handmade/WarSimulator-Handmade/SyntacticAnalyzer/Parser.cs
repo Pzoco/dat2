@@ -18,17 +18,20 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Accept Methods
-        private void Accept(TokenType type)
+        //Accepts a token if it matches the expected type
+        private void Accept(TokenType expectedType)
         {
-            if (currentToken.type == type)
+            if (currentToken.type == expectedType)
             {
                 currentToken = scanner.Scan();
             }
             else
             {
-                Console.WriteLine("Error - Expected {0}, but got {1}", type, currentToken.type);
+                Console.WriteLine("Error - Expected {0}, but got {1}", expectedType, currentToken.type);
             }
         }
+
+        //Accepts a token
         private void AcceptIt()
         {
             currentToken = scanner.Scan();
@@ -36,72 +39,89 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Basic Parse Methods
-        private void ParseBlockName()
+        private BlockName ParseBlockName()
         {
-            ParseIdentifier();
+            Identifier i = ParseIdentifier();
+            return new BlockName(i);
         }
-        private void ParseIdentifier()
+        private Identifier ParseIdentifier()
         {
+            string spelling = currentToken.spelling;
             Accept(TokenType.Identifier);
+            return new Identifier(spelling);
         }
-        private void ParseIntegerLiteral()
+        private IntegerLiteral ParseIntegerLiteral()
         {
+            string spelling = currentToken.spelling;
             Accept(TokenType.IntegerLiteral);
+            return new IntegerLiteral(spelling);
         }
-        private void ParseBehaviourBlock()
+        private BehaviourBlock ParseBehaviourBlock()
         {
+            BehaviourBlock bb = null;
             Accept(TokenType.Behaviour);
             if (currentToken.type == TokenType.Assignment)
             {
                 AcceptIt();
-                ParseBlockName();
+                BlockName bn = ParseBlockName();
+                Accept(TokenType.SemiColon);
+                bb = new BehaviourAssignment(bn);
             }
             else
             {
-                ParseBlockName();
+                BlockName bn = ParseBlockName();
                 Accept(TokenType.LeftBracket);
-                ParseSingleCommand();
+                SingleCommand sc = ParseSingleCommand();
                 Accept(TokenType.RightBracket);
+                bb = new BehaviourBlock(bn, sc);
             }
+            return bb;
         }
         #endregion
 
         #region Team File Parse Methods
-        private void ParseTeamFile()
+        private TeamFile ParseTeamFile()
         {
             Accept(TokenType.Team);
-            ParseRegimentBlock();
+            RegimentBlock rb = ParseRegimentBlock();
+            return new TeamFile(rb);
         }
-        private void ParseRegimentBlock()
+        private RegimentBlock ParseRegimentBlock()
         {
             Accept(TokenType.Regiment);
-            ParseBlockName();
+            BlockName bn = ParseBlockName();
             Accept(TokenType.LeftBracket);
-            ParseUnitStat();
-            ParseBehaviourBlock();
+            UnitStat us = ParseUnitStat();
+            BehaviourBlock bb = ParseBehaviourBlock();
             Accept(TokenType.RightBracket);
+            return new RegimentBlock(bn, us, bb);
         }
-        private void ParseSingleCommand()
+        private SingleCommand ParseSingleCommand()
         {
+            SingleCommand sc = null;
             if (currentToken.type == TokenType.If || currentToken.type == TokenType.While)
             {
-                ParseControlStructure();
+                sc = ParseControlStructure();
             }
             else if (currentToken.type == TokenType.UnitFunction)
             {
-                ParseUnitFunction();
+                sc = ParseUnitFunction();
             }
+            return sc;
         }
-        private void ParseControlStructure()
+        private SingleCommand ParseControlStructure()
         {
             if (currentToken.type == TokenType.If)
             {
+                Expression e = null;
+                SingleCommand sc1 = null;
+                SingleCommand sc2 = null;
                 AcceptIt();
                 Accept(TokenType.LeftParen);
-                ParseExpression();
+                e = ParseExpression();
                 Accept(TokenType.RightParen);
                 Accept(TokenType.LeftBracket);
-                ParseSingleCommand();
+                sc1 = ParseSingleCommand();
                 Accept(TokenType.RightBracket);
                 if (currentToken.type == TokenType.Else)
                 {
@@ -109,9 +129,12 @@ namespace WarSimulator_Handmade
                     ParseSingleCommand();
                     Accept(TokenType.RightBracket);
                 }
+                return new IfCommand(e, sc1, sc2);
             }
             else if (currentToken.type == TokenType.While)
             {
+                Expression e = null;
+                SingleCommand sc = null;
                 AcceptIt();
                 Accept(TokenType.LeftParen);
                 ParseExpression();
@@ -119,9 +142,11 @@ namespace WarSimulator_Handmade
                 Accept(TokenType.LeftBracket);
                 ParseSingleCommand();
                 Accept(TokenType.RightBracket);
+                return new WhileCommand(e, sc);
             }
+            return null;
         }
-        private void ParseExpression()
+        private Expression ParseExpression()
         {
             ParsePrimaryExpression();
             while (currentToken.type == TokenType.Operator)
@@ -130,7 +155,7 @@ namespace WarSimulator_Handmade
                 ParsePrimaryExpression();
             }
         }
-        private void ParsePrimaryExpression()
+        private Expression ParsePrimaryExpression()
         {
             switch (currentToken.type)
             {
@@ -140,30 +165,36 @@ namespace WarSimulator_Handmade
                 case TokenType.LeftParen: AcceptIt(); ParseExpression(); Accept(TokenType.RightParen); break;
             }
         }
-        private void ParseOperator()
+        private Operator ParseOperator()
         {
-            if (currentToken.type == TokenType.Operator)
-            {
-                //More to come here
-                currentToken = scanner.Scan();
-            }
-            else
-            {
-                Console.WriteLine("Error - Expected operator, but got {0}", currentToken);
-            }
+            string spelling = currentToken.spelling;
+            Accept(TokenType.Operator);
+            return new Operator(spelling);
         }
-        private void ParseUnitFunction()
+        private RegimentAssignment ParseRegimentAssignment()
+        {
+            Accept(TokenType.Regiment);
+            Accept(TokenType.Identifier);
+            Accept(TokenType.Assignment);
+            RegimentSearch rs = ParseRegimentSearch();
+            return new RegimentAssignment(rs);
+        }
+        private RegimentSearch ParseRegimentSearch()
+        {
+            //Waiting for it to be written in the bnf
+        }
+        private SingleCommand ParseUnitFunction()
         {
             //Waiting for this to be written in the BNF
         }
-        private void ParseUnitStat()
+        private UnitStat ParseUnitStat()
         {
             while (currentToken.type == TokenType.UnitStatName)
             {
                 ParseUnitStatName();
             }
         }
-        private void ParseUnitStatName()
+        private UnitStatName ParseUnitStatName()
         {
             switch (currentToken.type)
             {
@@ -176,6 +207,7 @@ namespace WarSimulator_Handmade
                     AcceptIt();
                     Accept(TokenType.Assignment);
                     Accept(TokenType.IntegerLiteral);
+                    Accept(TokenType.SemiColon);
                     break;
                 case TokenType.RegimentPosition:
                     AcceptIt();
@@ -186,13 +218,17 @@ namespace WarSimulator_Handmade
                     Accept(TokenType.Comma);
                     ParseIntegerLiteral();
                     Accept(TokenType.RightParen);
+                    Accept(TokenType.SemiColon);
                     break;
                 case TokenType.Type:
+                    AcceptIt();
+                    Accept(TokenType.Assignment);
                     ParseAttackType();
+                    Accept(TokenType.SemiColon);
                     break;
             }
         }
-        private void ParseAttackType()
+        private AttackType ParseAttackType()
         {
             if (currentToken.type == TokenType.Melee || currentToken.type == TokenType.Ranged)
             {
