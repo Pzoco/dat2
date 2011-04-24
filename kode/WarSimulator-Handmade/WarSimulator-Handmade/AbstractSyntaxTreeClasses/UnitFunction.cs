@@ -5,7 +5,12 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class UnitFunction
+    class UnitFunction:Terminal
     {
+        public UnitFunction(string spelling)
+            : base(spelling)
+        {
+
+        }
     }
 }

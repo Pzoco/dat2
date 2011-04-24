@@ -183,7 +183,11 @@ namespace WarSimulator_Handmade
             }
             return e;
         }
-
+        private SingleCommand ParseUnitFunction()
+        {
+            //Waiting for this to be written
+            return null;
+        }
         private Operator ParseOperator()
         {
             string spelling = currentToken.spelling;
@@ -200,22 +204,22 @@ namespace WarSimulator_Handmade
         }
         private RegimentSearch ParseRegimentSearch()
         {
-            //Waiting for it to be written in the bnf
-            return new RegimentSearch();
-        }
-        private SingleCommand ParseUnitFunction()
-        {
-            //Waiting for this to be written in the BNF
+            string spelling = currentToken.spelling;
+            AcceptIt();
+            return new RegimentSearch(spelling);
         }
         private UnitStat ParseUnitStat()
         {
+            UnitStatName usn = null;
             while (currentToken.type == TokenType.UnitStatName)
             {
-                ParseUnitStatName();
+                usn = ParseUnitStatName();
             }
+            return new UnitStat(usn);
         }
         private UnitStatName ParseUnitStatName()
         {
+            UnitStatName usn = null;
             switch (currentToken.type)
             {
                 case TokenType.Size:
@@ -224,10 +228,12 @@ namespace WarSimulator_Handmade
                 case TokenType.Movement:
                 case TokenType.AttackSpeed:
                 case TokenType.Health:
+                    string spelling = currentToken.spelling;
                     AcceptIt();
                     Accept(TokenType.Assignment);
                     ParseIntegerLiteral();
                     Accept(TokenType.SemiColon);
+                    usn = new UnitStatName(spelling);
                     break;
                 case TokenType.RegimentPosition:
                     AcceptIt();
@@ -247,6 +253,7 @@ namespace WarSimulator_Handmade
                     Accept(TokenType.SemiColon);
                     break;
             }
+            return usn;
         }
         private AttackType ParseAttackType()
         {

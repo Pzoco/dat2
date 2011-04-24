@@ -7,5 +7,12 @@ namespace WarSimulator_Handmade
 {
     class UnitStat
     {
+        public UnitStatName usn;
+
+        public UnitStat(UnitStatName usn)
+        {
+            this.usn = usn;
+        }
+
     }
 }
