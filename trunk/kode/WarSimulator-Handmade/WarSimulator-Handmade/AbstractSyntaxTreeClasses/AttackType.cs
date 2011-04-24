@@ -5,7 +5,11 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class AttackType
+    class AttackType:Terminal
     {
+        public AttackType(string spelling): base(spelling)
+        {
+        
+        }
     }
 }

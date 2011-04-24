@@ -5,13 +5,14 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class BehaviourAssignment:BehaviourBlock
+    class UnitStatNameExpression:Expression
     {
-        private BlockName bn;
+        public UnitStatName usn;
 
-        public BehaviourAssignment(BlockName bn):base(bn,null)
+        public UnitStatNameExpression(UnitStatName usn)
         {
-
+            this.usn = usn;
         }
+
     }
 }

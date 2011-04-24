@@ -5,13 +5,14 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class BehaviourAssignment:BehaviourBlock
+    class IntegerExpression:Expression
     {
-        private BlockName bn;
+        public IntegerLiteral il;
 
-        public BehaviourAssignment(BlockName bn):base(bn,null)
+        public IntegerExpression(IntegerLiteral il)
         {
-
+            this.il = il;
         }
+
     }
 }
