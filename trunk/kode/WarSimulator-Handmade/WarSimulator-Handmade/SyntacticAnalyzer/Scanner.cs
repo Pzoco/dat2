@@ -9,12 +9,12 @@ namespace WarSimulator_Handmade
     class Scanner
     {
 
-        public Scanner();
+        public Scanner() { }
 
-        public bool IsGraphic(Char c);
+        public bool IsGraphic(Char c) { }
 
-        public void ScanComment();
-        public TokenType ScanToken(); 
-        public Token Scan();
+        public void ScanComment() { }
+        public TokenType ScanToken() { }
+        public Token Scan() { }
     }
 }

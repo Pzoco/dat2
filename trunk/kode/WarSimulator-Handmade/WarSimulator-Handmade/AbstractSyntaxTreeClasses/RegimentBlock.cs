@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class RegimentBlock:TeamFile
+    class RegimentBlock
     {
         private BlockName bn;
         private UnitStat us;

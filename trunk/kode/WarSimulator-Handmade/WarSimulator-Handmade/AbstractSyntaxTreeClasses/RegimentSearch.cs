@@ -5,7 +5,11 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class RegimentSearch
+    class RegimentSearch:Terminal
     {
+        public RegimentSearch(string spelling):base(spelling)
+        {
+
+        }
     }
 }
