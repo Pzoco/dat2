@@ -148,23 +148,42 @@ namespace WarSimulator_Handmade
         }
         private Expression ParseExpression()
         {
-            ParsePrimaryExpression();
+            Expression e1 = ParsePrimaryExpression();
             while (currentToken.type == TokenType.Operator)
             {
-                ParseOperator();
-                ParsePrimaryExpression();
+                Operator o = ParseOperator();
+                Expression e2 = ParsePrimaryExpression();
+                e1 = new BinaryExpression(e1, e2, o);
             }
+            return e1;
         }
         private Expression ParsePrimaryExpression()
         {
+            Expression e = null;
             switch (currentToken.type)
             {
-                case TokenType.IntegerLiteral: ParseIntegerLiteral(); break;
-                case TokenType.Operator: ParseOperator(); ParsePrimaryExpression(); break;
-                case TokenType.UnitStatName: ParseUnitStatName(); break;
-                case TokenType.LeftParen: AcceptIt(); ParseExpression(); Accept(TokenType.RightParen); break;
+                case TokenType.IntegerLiteral: 
+                    IntegerLiteral il = ParseIntegerLiteral();
+                    e = new IntegerExpression(il);
+                    break;
+                case TokenType.Operator: 
+                    Operator o = ParseOperator(); 
+                    Expression pe = ParsePrimaryExpression();
+                    e = new UnaryExpression(o, pe);
+                    break;
+                case TokenType.UnitStatName: 
+                    UnitStatName usn = ParseUnitStatName();
+                    e = new UnitStatNameExpression(usn);
+                    break;
+                case TokenType.LeftParen: 
+                    AcceptIt(); 
+                    ParseExpression(); 
+                    Accept(TokenType.RightParen); 
+                    break;
             }
+            return e;
         }
+
         private Operator ParseOperator()
         {
             string spelling = currentToken.spelling;
@@ -182,6 +201,7 @@ namespace WarSimulator_Handmade
         private RegimentSearch ParseRegimentSearch()
         {
             //Waiting for it to be written in the bnf
+            return new RegimentSearch();
         }
         private SingleCommand ParseUnitFunction()
         {
@@ -206,7 +226,7 @@ namespace WarSimulator_Handmade
                 case TokenType.Health:
                     AcceptIt();
                     Accept(TokenType.Assignment);
-                    Accept(TokenType.IntegerLiteral);
+                    ParseIntegerLiteral();
                     Accept(TokenType.SemiColon);
                     break;
                 case TokenType.RegimentPosition:
@@ -232,8 +252,11 @@ namespace WarSimulator_Handmade
         {
             if (currentToken.type == TokenType.Melee || currentToken.type == TokenType.Ranged)
             {
+                string spelling = currentToken.spelling;
                 AcceptIt();
+                return new AttackType(spelling);
             }
+            return null;
         }
         #endregion
 

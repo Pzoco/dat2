@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractSyntaxTreeClasses\BinaryExpression.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\ControlStructure.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\Expression.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\IntegerExpression.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatName.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RegimentBlock.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\SingleCommand.cs" />
@@ -66,6 +68,8 @@
     <Compile Include="AbstractSyntaxTreeClasses\IntegerLiteral.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\BehaviourAssignment.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\IfCommand.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\UnaryExpression.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNameExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RegimentAssignment.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RegimentSearch.cs" />
