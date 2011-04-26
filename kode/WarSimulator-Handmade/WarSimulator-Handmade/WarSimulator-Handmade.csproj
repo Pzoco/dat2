@@ -77,6 +77,7 @@
     <Compile Include="AbstractSyntaxTreeClasses\StandardsBlock.cs" />
     <Compile Include="SyntacticAnalyzer\Parser.cs" />
     <Compile Include="SyntacticAnalyzer\Scanner.cs" />
+    <Compile Include="SyntacticAnalyzer\Source.cs" />
     <Compile Include="SyntacticAnalyzer\Token.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\UnitFunction.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\UnitStat.cs" />
