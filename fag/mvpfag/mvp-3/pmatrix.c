@@ -523,6 +523,16 @@ void pthread_inv_mat(double *input, double *a, double *b, size_t n)
 	
     // Join your threads.
 	join_threads(threads, nb_threads);
+	
+	// Result.
+    for(i = 0; i < n; ++i)
+    {
+        for(j = 0; j < n; ++j)
+        {
+            a[i*n+j] = B(i,j);
+        }
+    }
+	
     // Destroy your semaphores.
 	for(i = 0; i < nb_threads; i++)
 	{
