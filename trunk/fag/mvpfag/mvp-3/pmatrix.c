@@ -375,16 +375,38 @@ void sync_post(sem_t *sync)
 /* The barrier. */
 
 /* Implement a barrier here.
-   1) Declare your variables.
-   2) Write the init function to initialize the variables of your barrier.
+   1) Declare your variables. */
+   pthread_mutex_t barrier_lock;
+   pthread_cond_t barrier_condition;
+   size_t counter, threadcount;
+   
+   /* 2) Write the init function to initialize the variables of your barrier. */
+void init_barrier(size_t arg)
+{
+counter = 0;
+threadcount = arg;
+pthread_mutex_init(&barrier_lock, NULL);
+pthread_cond_init(&barrier_condition, NULL);
+}
+/*
    3) Write the barrier function.
 */
-
-
-void init_barrier()
+void thebarrierfunction()
 {
-    // Here you go.
+pthread_mutex_lock(&barrier_lock);
+counter++;
+if(counter == threadcount)
+{
+	counter = 0;
+	pthread_cond_broadcast(&barrier_condition);
 }
+else
+{
+	pthread_cond_wait(&barrier_condition, &barrier_lock);
+}
+pthread_mutex_unlock(&barrier_lock);
+}
+
 
 
 void* job_inv_mat(invmat_data_t *data)

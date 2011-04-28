@@ -90,19 +90,41 @@ frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Your barrier implementation.},
 label=LST:barrier]
 
-void init_barrier(init_barrier_t *b, int threadcount)
+/* Implement a barrier here.
+   1) Declare your variables. */
+   
+   pthread_mutex_t barrier_lock;
+   pthread_cond_t barrier_condition;
+   size_t counter, threadcount;
+   
+   /* 2) Write the init function to initialize the variables of your barrier. */
+   
+void init_barrier(size_t arg)
 {
-pthread_mutex_lock(&(b -> count_lock));
-b -> count++;
-if(b -> count == threadcount)  { 
-	b -> count = 0;
-	pthread_cond_broadcast(&(b -> ok_to_proceed));
-}else 
-{
-	pthread_cond_wait(&(b-> ok_to_proceed),&b->count_lock));
+counter = 0;
+threadcount = arg;
+pthread_mutex_init(&barrier_lock, NULL);
+pthread_cond_init(&barrier_condition, NULL);
 }
-pthread_mutex_unlock(&(b->count_lock));
 
+/*
+   3) Write the barrier function.
+*/
+
+void thebarrierfunction()
+{
+pthread_mutex_lock(&barrier_lock);
+counter++;
+if(counter == threadcount)
+{
+	counter = 0;
+	pthread_cond_broadcast(&barrier_condition);
+}
+else
+{
+	pthread_cond_wait(&barrier_condition, &barrier_lock);
+}
+pthread_mutex_unlock(&barrier_lock);
 }
 \end{lstlisting}
 % Here goes your barrier: data declarations and relevant functions.
