@@ -28,6 +28,7 @@ namespace WarSimulator_Handmade
                 source = null;
                 currentLine = 0;
             }
+            
         }
         internal char GetSource()
         {
@@ -42,6 +43,23 @@ namespace WarSimulator_Handmade
                 else if (c == EndOfLine)
                 {
                     currentLine++;
+                }
+                return (char)c;
+            }
+            catch (System.IO.IOException s)
+            {
+                return EndOfText;
+            }
+        }
+        internal char PeekSource()
+        {
+            try
+            {
+                int c = source.Peek();
+
+                if (c == -1)
+                {
+                    c = EndOfText;
                 }
                 return (char)c;
             }

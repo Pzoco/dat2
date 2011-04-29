@@ -10,12 +10,14 @@ namespace WarSimulator_Handmade
     {
         private Source SourceFile;
         private char PreviousChar;
+        private char NextChar;
         private char CurrentChar;
         private StringBuilder CurrentSpelling;
         private bool CurrentlyScanningToken;
         private bool IsLetter(char c)
         {
             return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+            
         }
 
         private bool IsDigit(char c)
@@ -55,13 +57,12 @@ namespace WarSimulator_Handmade
             {
                 case '/':
                     {
-                        PreviousChar = CurrentChar;
-                        TakeIt();
-                        if (CurrentChar == '/' && PreviousChar == '/')
+                        if (CurrentChar == '/' && SourceFile.PeekSource() == '/')
                         {
+                            TakeIt();
                             while ((CurrentChar != Source.EndOfLine) && (CurrentChar != Source.EndOfText))
                             {
-                                TakeIt();
+                            TakeIt();
                             }
                             if (CurrentChar == Source.EndOfLine)
                             {
