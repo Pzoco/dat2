@@ -50,7 +50,7 @@
 								   &         &{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
 				Regiment-Search	   &	::=	 &{\bf SearchForEnemies (} Parameter {\bf )} $\mid$\\
 								   &		 & {\bf SearchForFriends(} Parameter {\bf )}	 \\
-				Parameter		   &	::=	 & UnitStat-Type Operator Integer-Literal $\mid$\\
+				Parameters		   &	::=	 & UnitStat-Type Operator Integer-Literal $\mid$\\
 								   &		 & Parameters{\bf ,} UnitStat-Type Operator Integer-Literal\\
 				Single-Command     &	::=  & Control-Structure Single-Command $\mid$ UnitFunction Single-Command \\
 								   &		 & $\mid$ Control-Structure $\mid$ UnitFunction					\\
@@ -70,11 +70,10 @@
 				UnitStat		   &	::=  & UnitStat-Name UnitStat $\mid$ UnitStat-Name \\
 				UnitStat-Name	   &	::=	 & {\bf Size =} Integer-Literal{\bf ;} $\mid$ {\bf Type} = AttackType{\bf ;} $\mid$ \\
 								   &	     & {\bf  Range =} Integer-Literal{\bf;} $\mid$ \\
-								   &	     & {\bf Damage =} Integer-Literal{\bf ;} $\mid$ {\bf Movement = }Integer-Literal{\bf ;} \\								 							  &		 & $\mid$ {\bf Position(} Integer-Literal {\bf ,} Integer-Literal {\bf );}\\
+								   &	     & {\bf Damage =} Integer-Literal{\bf ;} $\mid$ {\bf Movement = }Integer-Literal{\bf ;} \\								 							  &		 & $\mid$ {\bf RegimentPosition = Position(} Integer-Literal {\bf ,} Integer-Literal {\bf );}\\
 				UnitStat-Type	   &	::=	 & {\bf Size} $\mid$ {\bf Type} $\mid$ {\bf  Range} $\mid$ \\
 								   &	     & {\bf Damage} $\mid$ {\bf Movement } $\mid$ \\
 								   &		 & {\bf AttackSpeed} $\mid$ {\bf Health} $\mid$ \\
-								   &		 & {\bf Position(} Integer-Literal {\bf ,}Integer-Literal {\bf );} \\
 				AttackType		   &    ::=  & {\bf Melee} $\mid$ {\bf Ranged} \\
 				Integer-Literal    &	::=  & Digit $\mid$ Integer-Literal Digit \\
 				Comment			   &	::=	 & {\bf //} Graphic-Literal eol \\
@@ -103,7 +102,7 @@
 				Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
 								   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
 								   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
-				Parameter		   &	::=	 & UnitStat-Type Operator Integer-Literal({\bf ,}UnitStat-Type Operator Integer-Literal)* \\
+				Parameters		   &	::=	 & UnitStat-Type Operator Integer-Literal({\bf ,}UnitStat-Type Operator Integer-Literal)* \\
 				Single-Command     &	::=  & (Control-Structure $\mid$ UnitStat)*    				  \\		
 				UnitFunction	   &	::=	 & ({\bf Attack} $\mid$ {\bf MoveTowards} $\mid${\bf MoveAway}){\bf (} Identifier {\bf );} \\
 		  		UnitStat		   &	::=  & UnitStat-Name*   		  \\
