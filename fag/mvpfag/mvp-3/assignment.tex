@@ -301,6 +301,20 @@ frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Matrix inversion with semaphores.},
 label=LST:invmat1]
 
+
+\end{lstlisting}
+
+% Your job_inv_mat function goes here.
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywords={break,case,const,continue,default,else,enum,
+for,if,return,switch,while,do,long,void,int,float,double,
+char,struct,typedef,include,size\_t},
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Matrix inversion with barriers.},
+label=LST:invmat2]
 #define Threadcheck if(i % nb_threads == data->id)
     // Typically you need to read your data.
 
@@ -362,20 +376,6 @@ label=LST:invmat1]
         }
 		thebarrierfunction();
     }
-\end{lstlisting}
-
-% Your job_inv_mat function goes here.
-\begin{lstlisting}[basicstyle=\small\sffamily,
-keywords={break,case,const,continue,default,else,enum,
-for,if,return,switch,while,do,long,void,int,float,double,
-char,struct,typedef,include,size\_t},
-keywordstyle={\color{blue}},
-comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
-columns={[l]flexible}, numbers=left, numberstyle=\tiny,
-frameround=fftt, frame=shadowbox, captionpos=b,
-caption={Matrix inversion with barriers.},
-label=LST:invmat2]
-/* Your relevant code goes here. NOT the whole file. */
 \end{lstlisting}
 
 
