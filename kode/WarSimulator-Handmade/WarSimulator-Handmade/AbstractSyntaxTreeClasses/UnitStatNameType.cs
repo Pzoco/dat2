@@ -5,15 +5,15 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class UnitStatName:UnitStat
+    class UnitStatNameType:UnitStat
     {
         public UnitStatNameVariable sn;
-        public IntegerLiteral il;
+        public AttackType at;
 
-        public UnitStatName(UnitStatNameVariable sn, IntegerLiteral il)
+        public UnitStatNameType(UnitStatNameVariable sn, AttackType at)
         {
             this.sn = sn;
-            this.il = il;
+            this.at = at;
         }
     }
 }
