@@ -7,5 +7,12 @@ namespace WarSimulator_Handmade
 {
     class MaximumsBlock
     {
+        public MaximumsStat ms;
+
+        public MaximumsBlock(MaximumsStat ms)
+        {
+            // TODO: Complete member initialization
+            this.ms = ms;
+        }
     }
 }

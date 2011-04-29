@@ -43,51 +43,148 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractSyntaxTreeClasses\BinaryExpression.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\BinaryGridStatName.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\BinaryUnitStatName.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\ControlStructure.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\Expression.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\IntegerExpression.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatName.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\RegimentBlock.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\SingleCommand.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\StatName.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\TeamFile.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\Operator.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\PrimaryExpression.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\AttackType.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\Program.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\AST.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\ConfigFile.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\GridBlock.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\GridStat.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\GridStatName.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsBlock.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStat.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\BlockName.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\BehaviourBlock.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\Identifier.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\IntegerLiteral.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\BehaviourAssignment.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\IfCommand.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\UnaryExpression.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNameExpression.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNamePosition.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\AST.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\AttackType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BehaviourAssignment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BehaviourBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BinaryExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BinaryGridStatName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BinaryMaximumsStatName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BinaryParameter.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\BinaryUnitStatName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BlockName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\ConfigFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\ControlStructure.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\Expression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\GridBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\GridStat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\GridStatName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\GridStatNameVariable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\Identifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\IfCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\IntegerExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\IntegerLiteral.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\MaximumsBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatNameVariable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\Operator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\Parameter.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\Parameters.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\PrimaryExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\Program.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\RegimentAssignment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\RegimentBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\RegimentSearch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\RulesBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\SingleCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\StandardsBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\TeamFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\Terminal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnaryExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnitFunction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnitFunctionName.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNameExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNamePosition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNameType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNameVariable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatType.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\WhileCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\RegimentAssignment.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\RegimentSearch.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\RulesBlock.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\StandardsBlock.cs" />
     <Compile Include="SyntacticAnalyzer\Parser.cs" />
     <Compile Include="SyntacticAnalyzer\Scanner.cs" />
     <Compile Include="SyntacticAnalyzer\Source.cs" />
     <Compile Include="SyntacticAnalyzer\Token.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\UnitFunction.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStat.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStatName.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\Terminal.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\WhileCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

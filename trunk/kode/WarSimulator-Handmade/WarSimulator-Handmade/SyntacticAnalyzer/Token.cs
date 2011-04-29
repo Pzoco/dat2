@@ -32,6 +32,7 @@ namespace WarSimulator_Handmade
         Movement, AttackSpeed, Health,
         RegimentPosition,
         Type,
+        SearchForEnemies,
 
         //Attack Type
         Melee,
@@ -67,6 +68,10 @@ namespace WarSimulator_Handmade
 
         public Token(TokenType type, string spelling)
         {
+            if (type == TokenType.Identifier)
+            {
+
+            }
             this.type = type;
             this.spelling = spelling;
         }
