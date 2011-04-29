@@ -85,7 +85,8 @@
 				Block-Name		   &	::=  & Identifier							\\
 				Identifier		   &    ::=  & Letter $\mid$ Identifier Digit $\mid$ Identifier Digit \\
 				Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
-				Maximums-Block	   &	::=	 & {\bf Maximums} {\bf \{} MaximumsStat {\bf \}}	\\
+				Maximums-Block	   &	::=	 & {\bf Maximums} {\bf \{} MaximumsStat UnitStat {\bf \}} $\mid$
+				 				   &	::=	 & {\bf Maximums} {\bf \{} UnitStat MaximumsStat {\bf \}}	\\
 				MaximumsStat	   &	::=  & MaximumsStat-Name MaximumsStat $\mid$ MaximumsStat-Name $\mid$		\\
 								   &	     & UnitStat-Name MaximumsStat $\mid$ UnitStat-Name			\\
 				MaximumsStat-Name  &	::=  & {\bf Regiments = } Integer-Literal{\bf ;} $\mid$ {\bf Teams = } Integer-Literal{\bf ;} \\
@@ -103,7 +104,7 @@
 								   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
 								   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
 				Parameters		   &	::=	 & UnitStat-Type Operator Integer-Literal({\bf ,}UnitStat-Type Operator Integer-Literal)* \\
-				Single-Command     &	::=  & (Control-Structure $\mid$ UnitStat)*    				  \\		
+				Single-Command     &	::=  & (Control-Structure $\mid$ UnitFunction)*    				  \\		
 				UnitFunction	   &	::=	 & ({\bf Attack} $\mid$ {\bf MoveTowards} $\mid${\bf MoveAway}){\bf (} Identifier {\bf );} \\
 		  		UnitStat		   &	::=  & UnitStat-Name*   		  \\
 		  		UnitStat-Name	   &	::=	 & ({\bf Size}$\mid${\bf  Range}$\mid${\bf Damage}$\mid$\\
@@ -112,11 +113,13 @@
 								   &		 & $\mid$ {\bf Type} = AttackType{\bf ;}	     											\\
 				Integer-Literal    &	::=  & Digit Digit* \\
 				Comment			   &    ::=  & {\bf //} Graphic* eol \\
-				GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height}) = Integer-Literal; \\
+				GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height} \\
+									&	::=	 & {\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid$\\
+		  						   &    	 & {\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;} \\ 
 				MaximumsStat-Name  &	::=  & ({\bf Regiments }$\mid$ {\bf Teams}) =  Integer-Literal{\bf ;} \\
 				Expression 		   &	::=	 & Primary-Expression (Operator Primary-Expression)* \\		
 				Identifier 		   &    ::=  & Letter (Letter $\mid$ Digit)* \\
-				MaximumsStat	   &	::=  & (MaximumsStat-Name $\mid$ UnitStat-Name)* \\
+				MaximumsStat	   &	::=  & MaximumsStat-Name* \\
 				GridStat		   &	::=  & GridStat-Name*  		\\			
 			\end{tabular}
 		\end{center}					     
