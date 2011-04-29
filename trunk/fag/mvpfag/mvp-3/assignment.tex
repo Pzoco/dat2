@@ -253,7 +253,7 @@ total number of threads. It is also possible to rearrange the loop to
 jump to the right indices directly.}
 \Question \emph{What is the load balancing issue that we are
   addressing with the round-robin solution?}
-\Answer .. % Your answer here.
+\Answer Each time the thread computes one line in the matrix, we don't know how much time it will need. So to avoid this we can use round-robin to expand the problem in smaller problems. By this the thread have less work to do, but more iterations, and can jump from one finished work to another faster.
 
 \Question \emph{Implement round-robin for the threads.}
 
