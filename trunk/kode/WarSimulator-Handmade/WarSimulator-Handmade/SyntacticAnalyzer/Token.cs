@@ -7,61 +7,58 @@ namespace WarSimulator_Handmade
 {
     public enum TokenType
     {
-        IDENTIFIER = 0,
-        INTEGERLITERAL = 1,
-        OPERATOR = 2,
-        POSITION = 3,
-        REGIMENTS = 4,
+        Identifier,
+        IntegerLiteral,
+        Operator,
+        Position,
+        Regiments,
 
         //Units
-        UNITFUNCTION = 5,
-        UNITSTATNAME = 6,
+        UnitFunction,
+        UnitStatName,
 
         //Grid
-        GRIDSTATNAME = 7,
-        WIDTH = 8,
-        HEIGHT = 9,
+        GridStatName,
+        Width,
+        Height,
 
         //Maximums
-        MAXIMUMSTATNAME = 10,
-        TEAMS = 11,
+        Maximums,
+        MaximumsStatName,
+        Teams,
 
         //UnitStatName
-        SIZE = 12, 
-        RANGE = 13,
-        DAMAGE = 14,
-        MOVEMENT = 15,
-        ATTACKSPEED = 16,
-        HEALTH = 17,
-        REGIMENTPOSITION = 18,
-        TYPE = 19,
+        Size, Range, Damage,
+        Movement, AttackSpeed, Health,
+        RegimentPosition,
+        Type,
 
         //Attack Type
-        MELEE = 20,
-        RANGED = 21,
+        Melee,
+        Ranged,
 
         //Control Structures
-        IF = 22,
-        ELSE = 23,
-        WHILE = 24,
+        If,
+        Else,
+        While,
 
         //Block Types
-        TEAM = 25,
-        REGIMENT = 26,
-        BEHAVIOUR = 27,
-        CONFIG = 28,
-        GRID = 29,
-        STANDARDS = 30,
+        Team,
+        Regiment,
+        Behaviour,
+        Config,
+        Grid,
+        Standards,
 
         //Signs
-        SLASH = 31,
-        LEFTPAREN = 32,
-        RIGHTPAREN = 33,
-        LEFTBRACKET = 34,
-        RIGHTBRACKET = 35,
-        COMMA = 36,
-        SEMICOLON = 37,
-        ASSIGNMENT = 38,
+        Slash,
+        LeftParen,
+        RightParen,
+        LeftBracket,
+        RightBracket,
+        Comma,
+        SemiColon,
+        Assignment,
     }
     class Token
     {
