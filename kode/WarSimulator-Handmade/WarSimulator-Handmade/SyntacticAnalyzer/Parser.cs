@@ -162,31 +162,35 @@ namespace WarSimulator_Handmade
             Expression e = null;
             switch (currentToken.type)
             {
-                case TokenType.IntegerLiteral: 
+                case TokenType.IntegerLiteral:
                     IntegerLiteral il = ParseIntegerLiteral();
                     e = new IntegerExpression(il);
                     break;
-                case TokenType.Operator: 
-                    Operator o = ParseOperator(); 
+                case TokenType.Operator:
+                    Operator o = ParseOperator();
                     Expression pe = ParsePrimaryExpression();
                     e = new UnaryExpression(o, pe);
                     break;
-                case TokenType.UnitStatName: 
+                case TokenType.UnitStatName:
                     UnitStat usn = ParseUnitStatName();
                     e = new UnitStatNameExpression(usn);
                     break;
-                case TokenType.LeftParen: 
-                    AcceptIt(); 
-                    e = ParseExpression(); 
-                    Accept(TokenType.RightParen); 
+                case TokenType.LeftParen:
+                    AcceptIt();
+                    e = ParseExpression();
+                    Accept(TokenType.RightParen);
                     break;
             }
             return e;
         }
-        private SingleCommand ParseUnitFunction()
+        private UnitFunction ParseUnitFunction()
         {
-            //Waiting for this to be written
-            return null;
+            UnitFunctionName ufn = new UnitFunctionName(currentToken.spelling);
+            AcceptIt();
+            Accept(TokenType.LeftParen);
+            Identifier i = ParseIdentifier();
+            Accept(TokenType.RightParen);
+            return new UnitFunction(ufn,i);
         }
         private Operator ParseOperator()
         {
@@ -197,16 +201,43 @@ namespace WarSimulator_Handmade
         private RegimentAssignment ParseRegimentAssignment()
         {
             Accept(TokenType.Regiment);
-            Accept(TokenType.Identifier);
+            Identifier i = ParseIdentifier();
             Accept(TokenType.Assignment);
             RegimentSearch rs = ParseRegimentSearch();
-            return new RegimentAssignment(rs);
+            return new RegimentAssignment(i,rs);
         }
         private RegimentSearch ParseRegimentSearch()
         {
+            Accept(TokenType.SearchForEnemies);
+            Accept(TokenType.LeftParen);
+            Parameters p = ParseParameters();
+            Accept(TokenType.RightParen);
+
+            return new RegimentSearch(p);
+        }
+        private Parameters ParseParameters()
+        {
+            UnitStatType ust = ParseUnitStatType();
+            Operator o = ParseOperator();
+            IntegerLiteral il = ParseIntegerLiteral();
+            Parameters p = new Parameter(ust,o,il);
+
+            while (currentToken.type == TokenType.Comma)
+            {
+                UnitStatType ust2 = ParseUnitStatType();
+                Operator o2 = ParseOperator();
+                IntegerLiteral il2 = ParseIntegerLiteral();
+                Parameters p2 = new Parameter(ust2,o2,il2);
+
+                p = new BinaryParameter(p, p2);
+            }
+            return p;
+        }
+        private UnitStatType ParseUnitStatType()
+        {
             string spelling = currentToken.spelling;
             AcceptIt();
-            return new RegimentSearch(spelling);
+            return new UnitStatType(spelling);            
         }
         private UnitStat ParseUnitStat()
         {
@@ -295,7 +326,7 @@ namespace WarSimulator_Handmade
             while (currentToken.type == TokenType.GridStatName)
             {
                 GridStat gsn2 = ParseGridStatName();
-                gsn = new BinaryGridStatName(gsn,gsn2);
+                gsn = new BinaryGridStatName(gsn, gsn2);
             }
             return gsn;
         }
@@ -317,63 +348,35 @@ namespace WarSimulator_Handmade
         {
             MaximumsBlock mb = ParseMaximumsBlock();
             StandardsBlock sb = ParseStandardsBlock();
-            return new RulesBlock(mb,sb);
+            return new RulesBlock(mb, sb);
         }
         private MaximumsBlock ParseMaximumsBlock()
         {
             Accept(TokenType.Maximums);
             Accept(TokenType.LeftBracket);
-            ParseMaximumsStat();
+            MaximumsStat ms = ParseMaximumsStat();
             Accept(TokenType.RightBracket);
 
-            return new MaximumsBlock();
+            return new MaximumsBlock(ms);
         }
         private MaximumsStat ParseMaximumsStat()
         {
-            MaximumsStatName ms = null;
-            UnitStat us = null;
-            while (currentToken.type == TokenType.MaximumsStatName || currentToken.type == TokenType.UnitStatName)
+            MaximumsStat ms = ParseMaximumsStatName();
+            while (currentToken.type == TokenType.MaximumsStatName)
             {
-                if (currentToken.type == TokenType.UnitStatName)
-                {
-                    if (us == null)
-                    {
-                        us = ParseUnitStatName();
-                    }
-                    else
-                    {
-                        UnitStat us2 = ParseUnitStatName();
-                        us = new BinaryUnitStatName(us, us2);
-                    }
-                }
-                else if (currentToken.type == TokenType.MaximumsStatName) 
-                {
-                    if (ms == null)
-                    {
-                        ms = ParseMaximumsStatName();
-                    }
-                    else
-                    {
-                        MaximumsStatName ms2 = ParseMaximumsStatName();
-                        ms = new BinaryMaximumsStatName(ms, ms2);
-                    }
-                }
+                MaximumsStat ms2 = ParseMaximumsStatName();
+                ms = new BinaryMaximumsStatName(ms, ms2);
             }
-            return new MaximumsStat(us,ms);
+            return ms;
         }
-        private MaximumsStatName ParseMaximumsStatName()
+        private MaximumsStat ParseMaximumsStatName()
         {
-            if (currentToken.type == TokenType.Regiments ||
-                currentToken.type == TokenType.Teams)
-            {
-                MaximumsStatNameVariable msv = new MaximumsStatNameVariable(currentToken.spelling);
-                AcceptIt();
-                Accept(TokenType.Assignment);
-                IntegerLiteral il = ParseIntegerLiteral();
-                Accept(TokenType.SemiColon);
-                return new MaximumsStatName(msv, il);
-            }
-            return null;
+            MaximumsStatNameVariable msv = new MaximumsStatNameVariable(currentToken.spelling);
+            AcceptIt();
+            Accept(TokenType.Assignment);
+            IntegerLiteral il = ParseIntegerLiteral();
+            Accept(TokenType.SemiColon);
+            return new MaximumsStatName(msv, il);
         }
         private StandardsBlock ParseStandardsBlock()
         {

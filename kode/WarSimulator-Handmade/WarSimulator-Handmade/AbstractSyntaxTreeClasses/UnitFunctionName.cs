@@ -5,13 +5,12 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class RegimentSearch
+    class UnitFunctionName:Terminal
     {
-        public Parameters p;
-
-        public RegimentSearch(Parameters p)
+        public UnitFunctionName(string spelling)
+            : base(spelling)
         {
-            this.p = p;
+
         }
     }
 }

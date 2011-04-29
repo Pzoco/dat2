@@ -7,10 +7,12 @@ namespace WarSimulator_Handmade
 {
     class RegimentAssignment
     {
+        public Identifier i;
         public RegimentSearch rs;
 
-        public RegimentAssignment(RegimentSearch rs)
+        public RegimentAssignment(Identifier i,RegimentSearch rs)
         {
+            this.i = i;
             this.rs = rs;
         }
     }
