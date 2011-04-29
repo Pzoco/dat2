@@ -35,7 +35,7 @@ namespace WarSimulator_Handmade
         }
         private void takeIt()
         {
-
+            
         }
     }
 }
