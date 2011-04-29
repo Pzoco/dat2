@@ -5,9 +5,9 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class TeamFile
+    class TeamFile:AST
     {
-        private RegimentBlock rb;
+        public RegimentBlock rb;
 
         public TeamFile(RegimentBlock rb)
         {

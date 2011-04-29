@@ -5,9 +5,9 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class BlockName
+    class BlockName:AST
     {
-        private Identifier i;
+        public Identifier i;
 
         public BlockName(Identifier i)
         {

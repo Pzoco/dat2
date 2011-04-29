@@ -5,8 +5,12 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class GridStat:AST
+    class GridStatNameVariable : Terminal
     {
+        public GridStatNameVariable(string spelling)
+            : base(spelling)
+        {
 
+        }
     }
 }

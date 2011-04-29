@@ -7,5 +7,14 @@ namespace WarSimulator_Handmade
 {
     class StandardsBlock
     {
+        public UnitStat us;
+        public BehaviourBlock bb;
+
+        public StandardsBlock(UnitStat us, BehaviourBlock bb)
+        {
+            // TODO: Complete member initialization
+            this.us = us;
+            this.bb = bb;
+        }
     }
 }
