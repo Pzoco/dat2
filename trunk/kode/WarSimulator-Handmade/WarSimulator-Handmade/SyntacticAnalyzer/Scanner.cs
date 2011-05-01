@@ -81,7 +81,7 @@ namespace WarSimulator_Handmade
             }
         }
 
-        private int ScanToken()
+        private Token.TokenType ScanToken()
         {
 
             switch (CurrentChar)
@@ -142,7 +142,7 @@ namespace WarSimulator_Handmade
                     TakeIt();
                     while (IsLetter(CurrentChar) || IsDigit(CurrentChar))
                         TakeIt();
-                    return (int)Token.Tokens.IDENTIFIER;
+                    return Token.TokenType.Identifier;
 
                 case '0':
                 case '1':
@@ -157,7 +157,7 @@ namespace WarSimulator_Handmade
                     TakeIt();
                     while (IsDigit(CurrentChar))
                         TakeIt();
-                    return (int)Token.Tokens.INTLITERAL;
+                    return Token.TokenType.IntegerLiteral;
 
                 case '+':
                 case '-':
@@ -166,85 +166,73 @@ namespace WarSimulator_Handmade
                 case '=':
                 case '<':
                 case '>':
-                case '\\':
+                case '|': // Skal der \ foran | ?
                 case '&':
-                case '@':
-                case '%':
-                case '^':
-                case '?':
                     TakeIt();
                     while (IsOperator(CurrentChar))
                         TakeIt();
-                    return (int)Token.Tokens.OPERATOR;
+                    return Token.TokenType.Operator;
 
-                case '\'':
-                    TakeIt();
-                    TakeIt(); // the quoted character
-                    if (CurrentChar == '\'')
-                    {
-                        TakeIt();
-                        return (int)Token.Tokens.CHARLITERAL;
-                    }
-                    else
-                        return (int)Token.Tokens.ERROR;
-
-                case '.':
-                    TakeIt();
-                    return (int)Token.Tokens.DOT;
-
-                case ':':
-                    TakeIt();
-                    if (CurrentChar == '=')
-                    {
-                        TakeIt();
-                        return (int)Token.Tokens.BECOMES;
-                    }
-                    else
-                        return (int)Token.Tokens.COLON;
-
+              
                 case ';':
                     TakeIt();
-                    return (int)Token.Tokens.SEMICOLON;
+                    return Token.TokenType.SemiColon;
 
                 case ',':
                     TakeIt();
-                    return (int)Token.Tokens.COMMA;
-
-                case '~':
-                    TakeIt();
-                    return (int)Token.Tokens.IS;
+                    return Token.TokenType.Comma;
 
                 case '(':
                     TakeIt();
-                    return (int)Token.Tokens.LPAREN;
+                    return Token.TokenType.LeftParen;
 
                 case ')':
                     TakeIt();
-                    return (int)Token.Tokens.RPAREN;
-
-                case '[':
-                    TakeIt();
-                    return (int)Token.Tokens.LBRACKET;
-
-                case ']':
-                    TakeIt();
-                    return (int)Token.Tokens.RBRACKET;
+                    return Token.TokenType.RightParen;
 
                 case '{':
                     TakeIt();
-                    return (int)Token.Tokens.LCURLY;
+                    return Token.TokenType.LeftBracket;
 
                 case '}':
                     TakeIt();
-                    return (int)Token.Tokens.RCURLY;
+                    return Token.TokenType.RightBracket;
 
-                case Source.EndOfText:
-                    return (int)Token.Tokens.EndOfText;
+                //case Source.EndOfText:
+                //    return (int)Token.Tokens.EndOfText;
 
                 default:
                     TakeIt();
-                    return (int)Token.Tokens.ERROR;
+                    return Token.TokenType.Error ;
             }
         }
+        public Token Scan()
+        {
+            Token tok;
+            SourcePosition pos;
+            Token.TokenType type;
+
+            CurrentlyScanningToken = false;
+            while ((CurrentChar == '/' && SourceFile.PeekSource() == '/') ||
+                    CurrentChar == ' ' ||
+                    CurrentChar == '\n' ||
+                    CurrentChar == '\r' ||
+                    CurrentChar == '\t')
+            {
+                ScanSeparator();
+            }
+            CurrentlyScanningToken = true;
+            CurrentSpelling = new StringBuilder("");
+            pos = new SourcePosition();
+            pos.start = SourceFile.GetCurrentLine();
+            type = ScanToken();
+
+            pos.finish = SourceFile.GetCurrentLine();
+            tok = new Token(type, CurrentSpelling.ToString(), pos);
+            //if (debug)
+            //    Console.WriteLine(tok);
+            return tok;
+        }
+
     }
 }
