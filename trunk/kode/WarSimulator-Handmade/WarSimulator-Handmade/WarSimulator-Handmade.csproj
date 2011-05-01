@@ -121,12 +121,6 @@
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\Parameter.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\Parameters.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\PrimaryExpression.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\Program.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\RegimentAssignment.cs">
       <SubType>Code</SubType>
     </Compile>

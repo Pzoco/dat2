@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class UnitFunction
+    class UnitFunction:SingleCommand
     {
         public UnitFunctionName ufn;
         public Identifier i;

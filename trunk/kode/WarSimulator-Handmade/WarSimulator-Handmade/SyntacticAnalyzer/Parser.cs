@@ -183,7 +183,7 @@ namespace WarSimulator_Handmade
             }
             return e;
         }
-        private UnitFunction ParseUnitFunction()
+        private SingleCommand ParseUnitFunction()
         {
             UnitFunctionName ufn = new UnitFunctionName(currentToken.spelling);
             AcceptIt();

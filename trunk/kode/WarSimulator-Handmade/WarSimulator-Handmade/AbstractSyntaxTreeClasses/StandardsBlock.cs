@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class StandardsBlock
+    class StandardsBlock:AST
     {
         public UnitStat us;
         public BehaviourBlock bb;
