@@ -8,18 +8,40 @@ namespace WarSimulator_Handmade
     
     class Token
     {
-        public TokenType type;
-        public string spelling;
-        public SourcePosition position;
+        public TokenType Type;
+        public string Spelling;
+        public SourcePosition Position;
 
-        public Token(TokenType type, string spelling, SourcePosition position)
+        public Token(TokenType Type, string Spelling, SourcePosition Position)
         {
-            if (type == TokenType.Identifier)
+            if (Type == TokenType.Identifier)
             {
+                TokenType CurrentType = FirstReservedWord;
+                bool Searching = true;
+
+                while (Searching)
+                {
+                    int Comparison = TokenTable[(int)CurrentType].CompareTo(Spelling);
+                    if (Comparison == 0)
+                    {
+                        this.Type = CurrentType;
+                        Searching = false;
+                    }
+                    else if (Comparison > 0 || CurrentType == LastReservedWord)
+                    {
+                        this.Type = Token.TokenType.Identifier;
+                        Searching = false;
+                    }
+                    else
+                    {
+                        CurrentType++;
+                        //USIKKERT OM DETTE ER KORREKT NÅR VI ITERERERERERER IGENNEM EN ENUM
+                    }
+                }
 
             }
-            this.type = type;
-            this.spelling = spelling;
+            this.Type = Type;
+            this.Spelling = Spelling;
         }
 
         public enum TokenType
@@ -120,5 +142,9 @@ namespace WarSimulator_Handmade
             ";",
             "="
         };
+        //OBS: HVIS ATTACK, MOVETOWARDS, MOVEAWAY SKAL MED I TOKENTABLE SKAL FIRSTRESERVED ÆNDRES TIL ATTACK
+        private readonly static TokenType FirstReservedWord = Token.TokenType.AttackSpeed,
+                      LastReservedWord = Token.TokenType.Width;
+        // OBS: DET ER HURTIGERE AT CASTE TIL INTS HER END INDE I WHILE LOOPS, JFV. MINI-TRIANGLE
     }
 }
