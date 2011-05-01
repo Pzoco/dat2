@@ -8,28 +8,28 @@ namespace WarSimulator_Handmade
     
     class Token
     {
-        public TokenType Type;
-        public string Spelling;
-        public SourcePosition Position;
+        public TokenType type;
+        public string spelling;
+        public SourcePosition position;
 
-        public Token(TokenType Type, string Spelling, SourcePosition Position)
+        public Token(TokenType type, string spelling, SourcePosition position)
         {
-            if (Type == TokenType.Identifier)
+            if (type == TokenType.Identifier)
             {
                 TokenType CurrentType = FirstReservedWord;
                 bool Searching = true;
 
                 while (Searching)
                 {
-                    int Comparison = TokenTable[(int)CurrentType].CompareTo(Spelling);
+                    int Comparison = TokenTable[(int)CurrentType].CompareTo(spelling);
                     if (Comparison == 0)
                     {
-                        this.Type = CurrentType;
+                        this.type = CurrentType;
                         Searching = false;
                     }
                     else if (Comparison > 0 || CurrentType == LastReservedWord)
                     {
-                        this.Type = Token.TokenType.Identifier;
+                        this.type = Token.TokenType.Identifier;
                         Searching = false;
                     }
                     else
@@ -40,8 +40,24 @@ namespace WarSimulator_Handmade
                 }
 
             }
-            this.Type = Type;
-            this.Spelling = Spelling;
+            else
+            {
+                this.type = type;
+            }
+            this.spelling = spelling;
+            this.position = position;
+        }
+
+
+        public static String Spell(TokenType Type)
+        {
+            return TokenTable[(int)Type];
+        }
+
+        public override String ToString()
+        {
+            return "Kind=" + type + ", spelling=" + spelling +
+              ", position=" + position;
         }
 
         public enum TokenType
@@ -93,6 +109,9 @@ namespace WarSimulator_Handmade
             Comma,
             SemiColon,
             Assignment,
+
+            //Special dudes
+            Error,
         }
         private static string[] TokenTable = new string[]
         {
@@ -140,7 +159,8 @@ namespace WarSimulator_Handmade
             "}",
             ",",
             ";",
-            "="
+            "=",
+            "<error>"
         };
         //OBS: HVIS ATTACK, MOVETOWARDS, MOVEAWAY SKAL MED I TOKENTABLE SKAL FIRSTRESERVED ÆNDRES TIL ATTACK
         private readonly static TokenType FirstReservedWord = Token.TokenType.AttackSpeed,
