@@ -81,95 +81,58 @@ namespace WarSimulator_Handmade
         private static string[] TokenTable = new string[]
         {
             "<identifier>",
-            "<integer-literal",
+            "<integer-literal>",
             "<operator>",
             "<position>",
-            Regiments,
+            "Regiments", //NON-TERMINAL ELLER TERMINAL? ROFL
 
             //Units
-            UnitFunction,
-            UnitStatName,
+            "<unitfunction>",
+            "<unitstatname>",
 
             //Grid
-            GridStatName,
-            Width,
-            Height,
+            "<gridstatname>",
+            "Width",
+            "Height",
 
             //Maximums
-            Maximums,
-            MaximumsStatName,
-            Teams,
+            "Maximums",
+            "MaximumsStatName",
+            "Teams",
 
             //UnitStatName
-            Size, Range, Damage,
-            Movement, AttackSpeed, Health,
-            RegimentPosition,
-            Type,
-            SearchForEnemies,
+            "Size", "Range", "Damage",
+            "Movement", "AttackSpeed", "Health",
+            "RegimentPosition",
+            "Type",
+            "SearchForEnemies",
 
             //Attack Type
-            Melee,
-            Ranged,
+            "Melee",
+            "Ranged",
 
             //Control Structures
-            If,
-            Else,
-            While,
+            "If",
+            "Else",
+            "While",
 
             //Block Types
-            Team,
-            Regiment,
-            Behaviour,
-            Config,
-            Grid,
-            Standards,
+            "Team",
+            "Regiment",
+            "Behaviour",
+            "Config",
+            "Grid",
+            "Standards",
 
             //Signs
-            Slash,
-            LeftParen,
-            RightParen,
-            LeftBracket,
-            RightBracket,
-            Comma,
-            SemiColon,
-            Assignment,
-            //"<identifier>",
-            //"<operator>",
-            //"<integer-literal>",
-            //"Team",
-            //"Regiment",
-            //"Behaviour",
-            //"SearchForEnemies",
-            //"SearchForFriends",
-            //"Attack",
-            //"MoveTowards",
-            //"MoveAway",
-            //"Size",
-            //"Type",
-            //"AttackSpeed",
-            //"Health",
-            //"Melee",
-            //"Ranged",
-            //"Range",
-            //"Damage",
-            //"Movement",
-            //"RegimentPosition",
-            //"Position",
-            //"Config",
-            //"Grid",
-            //"Width",
-            //"Height",
-
-            //"if",
-            //"else",
-            //"while",
-            //"{",
-            //"}",
-            //"(",
-            //")",
-            //";",
-
-
+            "/",
+            "(",
+            ")",
+            "{",
+            "}",
+            ",",
+            ";",
+            "="
         }
     }
 }
