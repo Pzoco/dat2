@@ -2,21 +2,20 @@
 
 \section{ Description of the WAR\# language }
 
-	This language should we read by a compiler which should simulate the script.
+	The language is intended to be run in a hosting application, the simulation environment. During this simulation our scripting language will be interpreted to the simulation environment, and the simulation will be constructed, and initiated by the script.
 	
-	In a config file made in common from the two participant they can choose how large or how small 
-	they want the grid size of the match,how many unit 	
-	they both may own and when the game should end. 
-	This config file should define the rules of the game, 
-	so you can change rules from game to game.
-	Each participant shall make a script file they will give to the simulator, 
+	The basic rules of the game are defined in the scripting language in a configuration file. This configuration file may be worked out in cooperation by two participants, each representing their own team, to establish ground rules for the war simulation. Such configurations should be, but not limited to, the size of the grid the simulation is going to take place on, how many units each team may own, and when or how the game ends.
+	The thought of this is to allow for some flexibility in altering the simulation from game to game.
+	Each participant will make a script file they will give to the simulator, 
 	which then will interpret the script and simulate the battle. 
-	These script files contain how many units and what kind of units the participant would like to use.
+	These script files contain how many units and what kind of units the participant would like to use. They may also contain information regarding the behaviour of specific regiments.
 
-	The one who made the best script will win the game, so every participant have to script the best script, 
-	and place the units on the best place on the grid.
+	The one who made the best script will win the game, so every participant has to make the best script, 
+	and place the units in the best location on the grid.
 
-When both players are making their scripts, they will provide the scriptfiles with information about their regiment, but if the player choose to leave the information out, or even forgets to specify it, the simulator will give each non provided information a default value. That helps both the young scripters and the forgetful scripters to provide the simulator with decent amout of information.
+When both players are coding their scripts, they will provide the script-files with information about their regiments, but if the player chooses to leave the information out, or even forgets to specify it, the simulator will assign a default value. This helps both the rookie scripters and forgetful scripters to provide the simulator with the amount of information required to initiate the simulation.
+
+It is intended to be rather easy to script in this language, although some very basic knowledge of languages will be required.
 
 
 %\fxnote{}
