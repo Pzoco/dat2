@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class RegimentSearch
+    class RegimentSearch:AST
     {
         public Parameters p;
 

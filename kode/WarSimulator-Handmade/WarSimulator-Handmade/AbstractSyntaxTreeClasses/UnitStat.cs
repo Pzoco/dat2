@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class UnitStat
+    class UnitStat:AST
     {
     }
 }

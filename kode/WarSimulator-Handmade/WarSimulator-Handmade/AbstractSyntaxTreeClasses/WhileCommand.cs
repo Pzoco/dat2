@@ -7,8 +7,10 @@ namespace WarSimulator_Handmade
 {
     class WhileCommand:ControlStructure
     {
-        public WhileCommand(Expression e, SingleCommand sc):base(e,sc,null)
+        SingleCommand sc;
+        public WhileCommand(Expression e, SingleCommand sc):base(e)
         {
+            this.sc = sc;
         }
     }
 }
