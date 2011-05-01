@@ -27,46 +27,40 @@ namespace WarSimulator_Handmade
             Identifier,
             IntegerLiteral,
             Operator,
-            Position,
-            Regiments,
-
-            //Units
             UnitFunction,
             UnitStatName,
-
-            //Grid
             GridStatName,
-            Width,
-            Height,
-
-            //Maximums
-            Maximums,
             MaximumsStatName,
-            Teams,
 
-            //UnitStatName
-            Size, Range, Damage,
-            Movement, AttackSpeed, Health,
-            RegimentPosition,
-            Type,
-            SearchForEnemies,
-
-            //Attack Type
-            Melee,
-            Ranged,
-
-            //Control Structures
-            If,
-            Else,
-            While,
-
-            //Block Types
-            Team,
-            Regiment,
+            //-----ALPHEBETICAL BEGIN-----
+            AttackSpeed,
             Behaviour,
             Config,
+            Damage,
+            Else,
             Grid,
+            Health,
+            Height,
+            If,
+            Maximums,
+            Melee,
+            Movement,
+            Position,
+            Range,
+            Ranged,
+            Regiment,
+            RegimentPosition,
+            Regiments,
+            SearchForEnemies,
+            SearchForFriends,
+            Size,
             Standards,
+            Team,
+            Teams,
+            Type,
+            While,
+            Width,
+            //-----ALPHEBETICAL END-----
 
             //Signs
             Slash,
@@ -83,47 +77,39 @@ namespace WarSimulator_Handmade
             "<identifier>",
             "<integer-literal>",
             "<operator>",
-            "<position>",
-            "Regiments", //NON-TERMINAL ELLER TERMINAL? ROFL
-
-            //Units
-            "<unitfunction>",
+            "<unitfunction>", //Attack, MoveTowards, MoveAway = Tokens, eller?
             "<unitstatname>",
-
-            //Grid
+            "<maximumsstatname>",
             "<gridstatname>",
-            "Width",
-            "Height",
-
-            //Maximums
-            "Maximums",
-            "MaximumsStatName",
-            "Teams",
-
-            //UnitStatName
-            "Size", "Range", "Damage",
-            "Movement", "AttackSpeed", "Health",
-            "RegimentPosition",
-            "Type",
-            "SearchForEnemies",
-
-            //Attack Type
-            "Melee",
-            "Ranged",
-
-            //Control Structures
-            "If",
-            "Else",
-            "While",
-
-            //Block Types
-            "Team",
-            "Regiment",
+                //   ALPHABETICAL START
+            "AttackSpeed",
             "Behaviour",
             "Config",
+            "Damage",
+            "Else",
             "Grid",
+            "Health",
+            "Height",
+            "If",
+            "Maximums",
+            "Melee",
+            "Movement", 
+            "Position",
+            "Range",
+            "Ranged",
+            "Regiment",
+            "Regiments",
+            "RegimentPosition",
+            "SearchForEnemies",
+            "SearchForFriends",
+            "Size", 
             "Standards",
-
+            "Team",
+            "Teams",
+            "Type",
+            "While",
+            "Width",
+                //   ALPHABETICAL END  
             //Signs
             "/",
             "(",
@@ -133,6 +119,6 @@ namespace WarSimulator_Handmade
             ",",
             ";",
             "="
-        }
+        };
     }
 }
