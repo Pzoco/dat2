@@ -48,19 +48,26 @@
 								   &         & $\mid$ {\bf Behaviour} {\bf = } Block-Name {\bf );} \\
 				Regiment-Assignment&    ::=  &{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
 								   &         &{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
-				Regiment-Search	   &	::=	 &{\bf SearchForEnemies (} Parameter {\bf )} $\mid$\\
-								   &		 & {\bf SearchForFriends(} Parameter {\bf )}	 \\
+				Regiment-Search	   &	::=	 &{\bf SearchForEnemies (} Parameters {\bf )} $\mid$\\
+								   &		 & {\bf SearchForFriends(} Parameters {\bf )}	 \\
+				RegimentStat 	   &	::=  & Identifier {\bf.} UnitStat-Type \\
 				Parameters		   &	::=	 & UnitStat-Type Operator Integer-Literal $\mid$\\
 								   &		 & Parameters{\bf ,} UnitStat-Type Operator Integer-Literal\\
-				Single-Command     &	::=  & Control-Structure Single-Command $\mid$ UnitFunction Single-Command \\
-								   &		 & $\mid$ Control-Structure $\mid$ UnitFunction					\\
+				Single-Command     &	::=  & Control-Structure Single-Command $\mid$ UnitFunction Single-Command $\mid$ \\
+								   &		 & Regiment-Assignment Single-Command $\mid$ Control-Structure \\
+								   &		 & $\mid$ UnitFunction $\mid$ Regiment-Assignment \\
+				ElseIf-Structure   &		 & {\bf else if( } Expression{\bf )} {\bf \{ } Single-Command {\bf \} } ElseIf-Structure $\mid$ \\
+								   &  		 & {\bf else if( } Expression{\bf )} {\bf \{ } Single-Command {\bf \} } \\
 				Control-Structure  &  	::=  & {\bf if( } Expression{\bf )} {\bf \{ } Single-Command {\bf \} }  \\
 								   &		 & $\mid$ {\bf if(} Expression {\bf )} {\bf \{ }Single-Command {\bf \}} \\
-								   &   		 & {\bf else } {\bf \{ }Single-Command {\bf \} } \\					   
+								   &   		 & {\bf else } {\bf \{ }Single-Command {\bf \} } \\			
+								   &		 & $\mid$ {\bf if(} Expression {\bf )} {\bf \{ }Single-Command {\bf \}} \\
+								   &   		 & ElseIf-Structure {\bf else } {\bf \{ }Single-Command {\bf \} } \\
+								   &		 & $\mid$ {\bf if(} Expression {\bf )} {\bf \{ }Single-Command {\bf \}} ElseIf-Structure \\				   
 								   &   		 & $\mid$ {\bf while (} Expression {\bf )}{\bf \{ } Single-Command {\bf \}} \\
 				Expression 		   &	::=	 & Primary-Expression $\mid$ Expression Operator Primary-Expression \\
 				Primary-Expression &	::=  & (Expression) $\mid$ Integer-Literal \\
-								   &		 & $\mid$ Operator Primary-Expression $\mid$ UnitStat-Name \\
+								   &		 & $\mid$ Operator Primary-Expression $\mid$ UnitStat-Name $\mid$ RegimentStat \\
 				Operator 		   & 	::=	 & $\boldsymbol {+} \mid \boldsymbol {-} \mid  \boldsymbol {*}\mid 
 											    \boldsymbol {/} \mid \boldsymbol {<} \mid  \boldsymbol {>} \mid
 											    \boldsymbol {<=} \mid  \boldsymbol {>=} \mid \boldsymbol {==} 
@@ -74,7 +81,7 @@
 								   &		 & $\mid$ {\bf RegimentPosition = Position(} Integer-Literal {\bf ,} Integer-Literal {\bf );}\\
 				UnitStat-Type	   &	::=	 & {\bf Size} $\mid$ {\bf Type} $\mid$ {\bf  Range} \\
 								   &	     & {\bf Damage} $\mid$ {\bf Movement } $\mid$ \\
-								   &		 & {\bf AttackSpeed} $\mid$ {\bf Health} $\mid$ \\
+								   &		 & {\bf AttackSpeed} $\mid$ {\bf Health} $\mid$ Distance\\
 				AttackType		   &    ::=  & {\bf Melee} $\mid$ {\bf Ranged} \\
 				Integer-Literal    &	::=  & Digit $\mid$ Integer-Literal Digit \\
 				Comment			   &	::=	 & {\bf //} Graphic-Literal eol \\
@@ -102,19 +109,18 @@
 	Behaviour-Block	   &	::=	 & {\bf Behaviour}(Identifier\bf{\{}Single-Command\bf{\}} $\mid$ {\bf $=$} Identifier)\\
 	Comment			   &    ::=  & {\bf //} Graphic* eol\\
 	Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}\\
-					   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} }\\					   
+					   &  	     & (\bf{else if(}Expression\bf{)\{ }Single-Command\bf{ \}})* \\
+					   &		 & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} }\\					   
 					   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}}\\
 	Expression 		   &	::=	 & Primary-Expression (Operator Primary-Expression)*\\	
 	GridStat		   &	::=  & GridStat-Name*\\	
-	GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height} $\mid$ UnitStat-Type\\
-	
+	GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height} $\mid$ UnitStat-Type\\	
 	Identifier 		   &    ::=  & Letter (Letter $\mid$ Digit)*\\
 	Integer-Literal    &	::=  & Digit Digit*\\
 	MaximumsStat	   &	::=  & MaximumsStat-Name*\\
-	MaximumsStat-Name  &	::=  & ({\bf Regiments }$\mid$ {\bf Teams}) =  Integer-Literal{\bf ;}\\				
-										  						   				
+	MaximumsStat-Name  &	::=  & ({\bf Regiments }$\mid$ {\bf Teams}) =  Integer-Literal{\bf ;}\\		 
 	Parameters		   &	::=	 & UnitStat-Type Operator Integer-Literal({\bf ,}UnitStat-Type Operator Integer-Literal)*\\
-	Single-Command     &	::=  & (Control-Structure $\mid$ UnitFunction)*\\		
+	Single-Command     &	::=  & (Control-Structure $\mid$ UnitFunction $\mid$ Regiment-Assignment)*\\		
 	UnitFunction	   &	::=	 & ({\bf Attack} $\mid$ {\bf MoveTowards} $\mid${\bf MoveAway}){\bf (} Identifier {\bf );}\\
 	UnitStat		   &	::=  & UnitStat-Name*\\
 	UnitStat-Name	   &	::=	 & UnitStat-Type\\ 
