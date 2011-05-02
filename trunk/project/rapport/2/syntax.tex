@@ -99,27 +99,32 @@
 		Left factorization and elimination of left recursion was applied to make the EBNF: \\
 		\begin{center}
 			\begin{tabular}{ l l p{11cm} }
-				Behaviour-Block	   &	::=	 & {\bf Behaviour} (Block-Name {\bf \{} Single-Command {\bf \}}$\mid${\bf = } Block-Name)   \\
-				Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
-								   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
-								   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}} \\
-				Parameters		   &	::=	 & UnitStat-Type Operator Integer-Literal({\bf ,}UnitStat-Type Operator Integer-Literal)* \\
-				Single-Command     &	::=  & (Control-Structure $\mid$ UnitFunction)*    				  \\		
-				UnitFunction	   &	::=	 & ({\bf Attack} $\mid$ {\bf MoveTowards} $\mid${\bf MoveAway}){\bf (} Identifier {\bf );} \\
-		  		UnitStat		   &	::=  & UnitStat-Name*   		  \\
-		  		UnitStat-Name	   &	::=	 & ({\bf Size}$\mid${\bf  Range}$\mid${\bf Damage}$\mid$\\
-		  						   &    	 &	{\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;} \\ 
-								   &	     & $\mid$ {\bf RegimentPosition = Position(}Integer-Literal{\bf ,}Integer-Literal{\bf );} \\
-								   &		 & $\mid$ {\bf Type} = AttackType{\bf ;}	     											\\
-				Integer-Literal    &	::=  & Digit Digit* \\
-				Comment			   &    ::=  & {\bf //} Graphic* eol \\
-				GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height} \\
-									&	::=	 & {\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid$\\
-		  						   &    	 & {\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;} \\ 
-				MaximumsStat-Name  &	::=  & ({\bf Regiments }$\mid$ {\bf Teams}) =  Integer-Literal{\bf ;} \\
-				Expression 		   &	::=	 & Primary-Expression (Operator Primary-Expression)* \\		
-				Identifier 		   &    ::=  & Letter (Letter $\mid$ Digit)* \\
-				MaximumsStat	   &	::=  & MaximumsStat-Name* \\
-				GridStat		   &	::=  & GridStat-Name*  		\\			
+	Behaviour-Block	   &	::=	 & {\bf Behaviour}(Identifier\bf{\{}Single-Command\bf{\}} $\mid$ {\bf $=$} Identifier)\\
+	Comment			   &    ::=  & {\bf //} Graphic* eol\\
+	Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}\\
+					   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} }\\					   
+					   &   		 & $\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}}\\
+	Expression 		   &	::=	 & Primary-Expression (Operator Primary-Expression)*\\	
+	GridStat		   &	::=  & GridStat-Name*\\	
+	GridStat-Name	   &	::=  & ({\bf Width} $\mid$ {\bf Height} $\mid$ UnitStat-Type\\
+	
+	Identifier 		   &    ::=  & Letter (Letter $\mid$ Digit)*\\
+	Integer-Literal    &	::=  & Digit Digit*\\
+	MaximumsStat	   &	::=  & MaximumsStat-Name*\\
+	MaximumsStat-Name  &	::=  & ({\bf Regiments }$\mid$ {\bf Teams}) =  Integer-Literal{\bf ;}\\				
+										  						   				
+	Parameters		   &	::=	 & UnitStat-Type Operator Integer-Literal({\bf ,}UnitStat-Type Operator Integer-Literal)*\\
+	Single-Command     &	::=  & (Control-Structure $\mid$ UnitFunction)*\\		
+	UnitFunction	   &	::=	 & ({\bf Attack} $\mid$ {\bf MoveTowards} $\mid${\bf MoveAway}){\bf (} Identifier {\bf );}\\
+	UnitStat		   &	::=  & UnitStat-Name*\\
+	UnitStat-Name	   &	::=	 & UnitStat-Type\\ 
+					   &	     & $\mid$ {\bf RegimentPosition = Position(}Integer-Literal{\bf ,}Integer-Literal{\bf );}\\
+					   &		 & $\mid$ {\bf Type} = AttackType{\bf ;}\\
+	UnitStat-Type	   &	::=  & ({\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid$\\
+					   &	     & {\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) = Integer-Literal{\bf ;}\\ 
+
+
+
+			
 			\end{tabular}
 		\end{center}					     
