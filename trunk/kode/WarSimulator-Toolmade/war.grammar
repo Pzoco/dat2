@@ -18,9 +18,40 @@ MUL                          = "*"
 DIV                          = "/"
 LEFT_PAREN                   = "("
 RIGHT_PAREN                  = ")"
-NUMBER                       = <<[0-9]+>>
-IDENTIFIER                   = <<[a-z]>>
+Digit                        = <<[0-9]+>>
+Identifier                   = <<[a-z]>>
 WHITESPACE                   = <<[ \t\n\r]+>> %ignore%
+CONFIG				= "Config"
+if					= "if"
+LEFT_CURLY				= "{"
+RIGHT_CURLY			= "}"
+BEHAVIOUR				= "Behaviour"
+else					= "else"
+EQUAL					= "="
+GREATER_THAN			= ">"
+LESS_THAN				= "<"
+STANDARDS				= "Standards"
+MAXIMA				= "Maxima"
+SEMI_COLON				= ";"
+COLON					= ","
+DOT					= "."
+REGIMENT				= "Regiment"
+TEAM					= "Team"
+RULES					= "Rules"
+GRID					= "Grid"
+Comment     			= "//"
+WHILE					= "while"
+RANGED				= "Ranged"
+MELEE					= "Melee"
+SIZE					= "Size"
+TYPE					= "Type"
+RANGE					= "Range"
+DAMAGE				= "Damage"
+HEALTH				= "Health"
+MOVEMENT				= "Movement"
+ATTACK_SPEED			= "AttackSpeed"
+REGIMENT_POSITION		= "RegimentPosition"
+POSITION				= "Position"
 
 
 
@@ -28,27 +59,26 @@ WHITESPACE                   = <<[ \t\n\r]+>> %ignore%
 %productions%
 
 
-BehaviourBlock	   	= Behaviour (Block-Name {Single-Command}| = Block-Name);
 
-ControlStructure 	= if(Expression) {Single-Command}
-					\epsilon | else {Single-Command}					   
-					|while(Expression){Single-Command};
-				   
-SingleCommand		= Control-Structure | UnitStat) (\epsilon | Single-Command);
 
-Expression			= Primary-Expression (Operator Primary-Expression)*				
-						UnitStat = UnitStat-Name ($\epsilon$ | UnitStat);
-						
-UnitStatName		= ({Size}|{Range}|{Damage}|
-						{Movement}| {AttackSpeed}|{Health}) = Integer-Literal{;}	
-						|{RegimentPosition = Position(}Integer-Literal{,}Integer-Literal{);}
-								   |{Type} = AttackType{;};
-								   
-IntegerLiteral    =  Digit Digit*;
-Comment			   =  {//} Graphic* eol;
-Graphic			   = (Digit | Letter)*;
-GridStat		   =  GridStat-Name*;
-GridStatName	   =  ({Width} | {Height}) = Integer-Literal;
-Identifier 		   =  Letter | Identifier (Letter | Digit);	
-MaximumsStat	   =  MaximumsStat-Name (MaximumsStat | \epsilon)
-						UnitStat-Name (MaximumsStat | \epsilon);
+
+BehaviourBlock 		= Behaviour(BlockName{SingleCommands});
+ControlStructure		= if(Expression) {SingleCommand}
+				( | else {SingleCommand}
+				|	while(Expression){SingleCommand};
+Parameter			= UnitStatType Operator IntergetLiteral(,UnitStatType Operator IntergerLiteral)*;
+
+SingleCommand		= (ControlStructure | UnitStat)*;
+UnitFunction		= (Attack | MoveTowards | MoveAway)(Identifier)SEMI_COLON;
+
+
+UnitStat			UnitStatName*;
+IntergerLiteral		= Digit Digit*;
+Comment			= Comment Graphic* eol;
+GridStatName		= (Width | Height) = IntergerLiteral SEMI_COLON;
+Expression			= PrimaryExpression(Operator PrimaryExpression)*;
+Identifier			= Letter (Letter|Digit)*;
+MaximumsStat		= (MaximumsStatName UnitStatName)*;
+GridStat			= GridStatName*;
+
+
