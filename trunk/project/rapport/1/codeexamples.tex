@@ -29,24 +29,25 @@ Regiment "Silent Monkeys"
 	//Defining the behaviour of the regiment
 	Behaviour
 	{
-		if (Search_for_Enemies(Distance <= Range enemy.Type == Melee))
+		Regiment enemy = SearchForEnemies();
+		if (enemy.Distance <= Range enemy.Type == Melee)
 		{
-			Attack(enemy.Position);
+			Attack(enemy);
 		}
-		else if (enemy.Position <= Range+Movement)
+		else if (enemy.Distance <= Range+Movement)
 		{
-			while(enemyPosition < Range)
+			while(enemy.Distance < Range)
 			{
-				MoveTowards(enemy.Position)
+				MoveTowards(enemy)
 			}
-			Attack.Position(enemy.Position);
+			Attack(enemy);
 		}
-		if (enemy.position <= Range && enemy.Type == Hero)
+		if (enemy.position <= Range)
 		{
-			MoveAway(enemy.position)
+			MoveAway(enemy)
 			if(enemy.position <= Range)
 			{
-				Attack.Enemy(enemy);
+				Attack(enemy);
 			}
 		}
 	}
@@ -60,8 +61,8 @@ Regiment HeroMonkey
 	AttackSpeed = 5;
 	Behaviour
 	{
-		Regiment enemy = Search_for_Enemy(Range >= 5);
-		if(enemy != 0)
+		Regiment enemy = SearchForEnemies(Range >= 5);
+		if(enemy)
 		{
 			Attack(enemy);
 		}
