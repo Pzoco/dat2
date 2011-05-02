@@ -11,6 +11,7 @@
 #include <assert.h>
 #include <sys/time.h>
 #include <sys/times.h>
+#include <omp.h>
 
 unsigned long long mem;
 double base_time;
@@ -147,21 +148,28 @@ void mat_mult1(double *a, double *b, double *c, size_t n)
 
 void mat_mult2(const double* a, const int* b, int* c, size_t n)
 {
+  	
     int i, j, k;              /* You will need at least these. */
     assert(a != c && b != c); /* Check precondition. */
 
     /* Write here your matrix multiplication. */
-    for(i = 0;i<n;i++)
-    {
-        for(k= 0;k<n;k++)
-        {
-            double temp = 0;
-            for(j = 0;j<n;j++)
-            {
-                temp+= a[i*n+k]*b[k*n+j];
-                c[i*n+j] +=temp;
-	    }
-	    }
+	#pragma omp parallel shared(a, b, c, n)  private(i, j, k)
+	{
+		#pragma omp parallel for private (i, n)
+		for(i = 0;i<n;i++)
+    		{
+			#pragma omp parallel for private (k, n)
+        		for(k= 0;k<n;k++)
+        		{
+            		double temp = 0;
+				#pragma omp parallel for private (j, n)
+            		for(j = 0;j<n;j++)
+            		{
+                		temp+= a[i*n+k]*b[k*n+j];
+                		c[i*n+j] +=temp;
+	    			}
+	    		}
+		}
 	}
 }
 
@@ -312,15 +320,16 @@ void check_identity(double *a, double *dummy1, double *dummy2, size_t dim)
 
 void test(size_t dim)
 {
+
     double *a = alloc_double(dim*dim);
     double *b = alloc_double(dim*dim);
     double *c = alloc_double(dim*dim);
 
-    timed_call(NULL, "Generating A", gen_mat, a, NULL, NULL, dim);
+    //timed_call(NULL, "Generating A", gen_mat, a, NULL, NULL, dim);
     //timed_call(BLUE, "Inverting", inv_mat, a, b, c, dim);
 
-    timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
-    timed_call(BLUE, "Multiplying1", mat_mult1, a, b, c, dim);
+    //timed_call(NULL, "Randomizing", gen_mat, c, NULL, NULL, dim);
+    //timed_call(BLUE, "Multiplying1", mat_mult1, a, b, c, dim);
     //timed_call(NULL, "Checking", check_identity, c, NULL, NULL, dim);
 
     // Uncomment when you've written mat_mult2.
@@ -348,6 +357,7 @@ int main(int argc, char *argv[])
     }
     else
     {
+
         int i = atoi(argv[1]);
 
         if (i < 1)
