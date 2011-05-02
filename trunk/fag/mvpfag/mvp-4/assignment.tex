@@ -56,7 +56,56 @@ frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Your OpenMP implementation.},
 label=LST:openmp]
 
-/* Your relevant code goes here. */
+void mat_mult2(const double* a, const int* b, int* c, size_t n)
+{
+    int i, j, k;              /* You will need at least these. */
+    assert(a != c && b != c); /* Check precondition. */
+
+    /* Write here your matrix multiplication. */
+    for(i = 0;i<n;i++)
+    {
+        for(k= 0;k<n;k++)
+        {
+            double temp = 0;
+            for(j = 0;j<n;j++)
+            {
+                temp+= a[i*n+k]*b[k*n+j];
+                c[i*n+j] +=temp;
+	    }
+	    }
+	}
+}
+
+
+void mat_mult3(double *a, double *b, double *c, size_t n)
+{
+    size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
+
+    for(bi = 0;bi<n;bi+=BLOCK)
+    {
+        maxi = min(bi+BLOCK,maxi);
+        for(bj = 0;bj<n;bj+=BLOCK)
+        {
+            maxj = min(bj+BLOCK,maxj);
+            for(bk = 0;bk < n;bk+=BLOCK)
+            {
+                maxk = min(bk+BLOCK,maxk);
+                for(i = 0;i<maxi;i++)
+                {
+                    for(j= 0;j<maxj;j++)
+                    {
+                        double temp = 0;
+                        for(k = 0;k<maxk;k++)
+                        {
+                        temp+= a[i*n+k]*b[k*n+j];
+                        }
+                        c[i*n+j] +=temp;
+                    }
+                }
+            }
+        }
+    }
+}
 \end{lstlisting}
 
 \section{MPI}
@@ -86,7 +135,7 @@ int rank, size;
 MPI_Init(&argc, &argv); // Init
 MPI_Comm_size(MPI_COMM_WORLD, &size); // Get the size
 MPI_Comm_rank(MPI_COMM_WORLD, &rank); // Get the rank
-printf("Process number %d of a total of %d says HELLO WORLD! \n", rank, size); // Hello World
+printf("Process number %d of a total of %d says HELLO WORLD! \n", rank+1, size); // Hello World
 MPI_Finalize();              // Finalize
 
 return 0;
