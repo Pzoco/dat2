@@ -62,7 +62,7 @@ void mat_mult2(const double* a, const int* b, int* c, size_t n)
     assert(a != c && b != c); /* Check precondition. */
 
     /* Write here your matrix multiplication. */
-	#pragma omp parallel shared(a, b, c, dim)\
+	#pragma omp parallel shared(a, b, c, n)\
 		private (i , j , k)
 	{
 	#pragma omp parallel for private (i)
@@ -88,20 +88,30 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
 {
     size_t bi, bj, bk, i, j, k, maxi, maxj, maxk;
 
+	#pragma omp parallel shared(a, b, c, n)\
+		private(bi, bj, bk, i, j, k, maxi, maxj, maxk, temp)
+		{
+		#pragma omp parallel for private(bi)
     for(bi = 0;bi<n;bi+=BLOCK)
     {
+	
         maxi = min(bi+BLOCK,maxi);
+		#pragma omp parallel for private(bj)
         for(bj = 0;bj<n;bj+=BLOCK)
         {
             maxj = min(bj+BLOCK,maxj);
+			#pragma omp parallel for private(bk)
             for(bk = 0;bk < n;bk+=BLOCK)
             {
                 maxk = min(bk+BLOCK,maxk);
+				#pragma omp parallel for private(i)
                 for(i = 0;i<maxi;i++)
                 {
+					#pragma omp parallel for private(j)
                     for(j= 0;j<maxj;j++)
                     {
                         double temp = 0;
+						#pragma omp parallel for private(k)
                         for(k = 0;k<maxk;k++)
                         {
                         temp+= a[i*n+k]*b[k*n+j];
@@ -112,6 +122,7 @@ void mat_mult3(double *a, double *b, double *c, size_t n)
             }
         }
     }
+	}
 }
 \end{lstlisting}
 
