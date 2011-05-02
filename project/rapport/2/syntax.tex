@@ -72,7 +72,7 @@
 								   &	     & {\bf  Range =} Integer-Literal{\bf;} $\mid$ \\
 								   &	     & {\bf Damage =} Integer-Literal{\bf ;} $\mid$ {\bf Movement = }Integer-Literal{\bf ;} \\								 							  
 								   &		 & $\mid$ {\bf RegimentPosition = Position(} Integer-Literal {\bf ,} Integer-Literal {\bf );}\\
-				UnitStat-Type	   &	::=	 & {\bf Size} $\mid$ {\bf Type} $\mid$ {\bf  Range} $\mid$ \\
+				UnitStat-Type	   &	::=	 & {\bf Size} $\mid$ {\bf Type} $\mid$ {\bf  Range} \\
 								   &	     & {\bf Damage} $\mid$ {\bf Movement } $\mid$ \\
 								   &		 & {\bf AttackSpeed} $\mid$ {\bf Health} $\mid$ \\
 				AttackType		   &    ::=  & {\bf Melee} $\mid$ {\bf Ranged} \\
@@ -84,7 +84,7 @@
 				GridStat		   &	::=  & GridStat-Name GridStat $\mid$ GridStat-Name   \\
 				GridStat-Name	   &	::=  & {\bf Width = } Integer-Literal; $\mid$ {\bf Height = } Integer-Literal; \\
 				Block-Name		   &	::=  & Identifier							\\
-				Identifier		   &    ::=  & Letter $\mid$ Identifier Digit $\mid$ Identifier Digit \\
+				Identifier		   &    ::=  & Letter $\mid$ Identifier Digit $\mid$ Identifier Letter \\
 				Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
 				Maximums-Block	   &	::=	 & {\bf Maximums} {\bf \{} MaximumsStat {\bf \}} $\mid$ \\
 				MaximumsStat	   &	::=  & MaximumsStat-Name MaximumsStat $\mid$ MaximumsStat-Name $\mid$		\\
@@ -98,7 +98,7 @@
 	\subsubsection{EBNF}
 		Left factorization and elimination of left recursion was applied to make the EBNF: \\
 		\begin{center}
-			\begin{tabular}{ l l l }
+			\begin{tabular}{ l l p{11cm} }
 				Behaviour-Block	   &	::=	 & {\bf Behaviour} (Block-Name {\bf \{} Single-Command {\bf \}}$\mid${\bf = } Block-Name)   \\
 				Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}  \\
 								   &  	     & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} } \\					   
