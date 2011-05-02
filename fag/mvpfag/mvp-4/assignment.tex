@@ -62,17 +62,24 @@ void mat_mult2(const double* a, const int* b, int* c, size_t n)
     assert(a != c && b != c); /* Check precondition. */
 
     /* Write here your matrix multiplication. */
+	#pragma omp parallel shared(a, b, c, dim)\
+		private (i , j , k)
+	{
+	#pragma omp parallel for private (i)
     for(i = 0;i<n;i++)
-    {
+		{
+		#pragma omp parallel for private (k)
         for(k= 0;k<n;k++)
         {
             double temp = 0;
+			#pragma omp parallel for private (j)
             for(j = 0;j<n;j++)
             {
                 temp+= a[i*n+k]*b[k*n+j];
                 c[i*n+j] +=temp;
+			}
 	    }
-	    }
+		}
 	}
 }
 
