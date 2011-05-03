@@ -55,6 +55,7 @@
     <Compile Include="AbstractSyntaxTreeClasses\BehaviourBlock.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BinaryElseIfCommand.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\BinaryExpression.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -77,6 +78,7 @@
     <Compile Include="AbstractSyntaxTreeClasses\ControlStructure.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\ElseIfCommand.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\Expression.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -130,6 +132,8 @@
     <Compile Include="AbstractSyntaxTreeClasses\RegimentSearch.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\RegimentStat.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\RegimentStatExpression.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RulesBlock.cs">
       <SubType>Code</SubType>
     </Compile>

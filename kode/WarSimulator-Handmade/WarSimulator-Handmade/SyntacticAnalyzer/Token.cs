@@ -76,6 +76,7 @@ namespace WarSimulator_Handmade
             Config,
             Damage,
             Else,
+            ElseIf,
             Grid,
             Health,
             Height,
@@ -88,6 +89,7 @@ namespace WarSimulator_Handmade
             Ranged,
             Regiment,
             RegimentPosition,
+            RegimentStat,
             Regiments,
             SearchForEnemies,
             SearchForFriends,
@@ -101,6 +103,7 @@ namespace WarSimulator_Handmade
             //-----ALPHEBETICAL END-----
 
             //Signs
+            Dot,
             Slash,
             LeftParen,
             RightParen,
@@ -128,6 +131,7 @@ namespace WarSimulator_Handmade
             "Config",
             "Damage",
             "Else",
+            "Else if",
             "Grid",
             "Health",
             "Height",
@@ -152,6 +156,7 @@ namespace WarSimulator_Handmade
             "Width",
                 //   ALPHABETICAL END  
             //Signs
+            ".",
             "/",
             "(",
             ")",
