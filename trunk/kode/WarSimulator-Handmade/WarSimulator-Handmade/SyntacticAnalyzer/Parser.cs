@@ -107,6 +107,10 @@ namespace WarSimulator_Handmade
             {
                 sc = ParseUnitFunction();
             }
+            else if (currentToken.type == Token.TokenType.Regiment)
+            {
+                sc = ParseRegimentAssignment();
+            }
             return sc;
         }
         private SingleCommand ParseControlStructure()
@@ -115,6 +119,7 @@ namespace WarSimulator_Handmade
             {
                 Expression e = null;
                 SingleCommand sc1 = null;
+                ControlStructure eif = null;
                 SingleCommand sc2 = null;
                 AcceptIt();
                 Accept(Token.TokenType.LeftParen);
@@ -123,10 +128,33 @@ namespace WarSimulator_Handmade
                 Accept(Token.TokenType.LeftBracket);
                 sc1 = ParseSingleCommand();
                 Accept(Token.TokenType.RightBracket);
+                if (currentToken.type == Token.TokenType.ElseIf)
+                {
+                    AcceptIt();
+                    Accept(Token.TokenType.LeftParen);
+                    Expression eife = ParseExpression();
+                    Accept(Token.TokenType.RightParen);
+                    Accept(Token.TokenType.LeftBracket);
+                    SingleCommand eifsc = ParseSingleCommand();
+                    Accept(Token.TokenType.RightBracket);
+                    eif = new ElseIfCommand(eife, eifsc);
+                }
+                while (currentToken.type == Token.TokenType.ElseIf)
+                {
+                    AcceptIt();
+                    Accept(Token.TokenType.LeftParen);
+                    Expression eife = ParseExpression();
+                    Accept(Token.TokenType.RightParen);
+                    Accept(Token.TokenType.LeftBracket);
+                    SingleCommand eifsc = ParseSingleCommand();
+                    Accept(Token.TokenType.RightBracket);
+                    //eif = new BinaryElseIfCommand(eif, new ElseIfCommand(eife, eifsc));
+                }
                 if (currentToken.type == Token.TokenType.Else)
                 {
+                    AcceptIt();
                     Accept(Token.TokenType.LeftBracket);
-                    ParseSingleCommand();
+                    sc2 = ParseSingleCommand();
                     Accept(Token.TokenType.RightBracket);
                 }
                 return new IfCommand(e, sc1, sc2);
@@ -137,10 +165,10 @@ namespace WarSimulator_Handmade
                 SingleCommand sc = null;
                 AcceptIt();
                 Accept(Token.TokenType.LeftParen);
-                ParseExpression();
+                e = ParseExpression();
                 Accept(Token.TokenType.RightParen);
                 Accept(Token.TokenType.LeftBracket);
-                ParseSingleCommand();
+                sc = ParseSingleCommand();
                 Accept(Token.TokenType.RightBracket);
                 return new WhileCommand(e, sc);
             }
@@ -180,6 +208,11 @@ namespace WarSimulator_Handmade
                     e = ParseExpression();
                     Accept(Token.TokenType.RightParen);
                     break;
+                case Token.TokenType.RegimentStat:
+                    RegimentStat rs = ParseRegimentStat();
+                    e = new RegimentStatExpression(rs);
+                    break;
+
             }
             return e;
         }
@@ -190,7 +223,7 @@ namespace WarSimulator_Handmade
             Accept(Token.TokenType.LeftParen);
             Identifier i = ParseIdentifier();
             Accept(Token.TokenType.RightParen);
-            return new UnitFunction(ufn,i);
+            return new UnitFunction(ufn, i);
         }
         private Operator ParseOperator()
         {
@@ -204,7 +237,14 @@ namespace WarSimulator_Handmade
             Identifier i = ParseIdentifier();
             Accept(Token.TokenType.Assignment);
             RegimentSearch rs = ParseRegimentSearch();
-            return new RegimentAssignment(i,rs);
+            return new RegimentAssignment(i, rs);
+        }
+        private RegimentStat ParseRegimentStat()
+        {
+            Identifier i = ParseIdentifier();
+            Accept(Token.TokenType.Dot);
+            UnitStatType ust = ParseUnitStatType();
+            return new RegimentStat(i, ust);
         }
         private RegimentSearch ParseRegimentSearch()
         {
@@ -220,14 +260,14 @@ namespace WarSimulator_Handmade
             UnitStatType ust = ParseUnitStatType();
             Operator o = ParseOperator();
             IntegerLiteral il = ParseIntegerLiteral();
-            Parameters p = new Parameter(ust,o,il);
+            Parameters p = new Parameter(ust, o, il);
 
             while (currentToken.type == Token.TokenType.Comma)
             {
                 UnitStatType ust2 = ParseUnitStatType();
                 Operator o2 = ParseOperator();
                 IntegerLiteral il2 = ParseIntegerLiteral();
-                Parameters p2 = new Parameter(ust2,o2,il2);
+                Parameters p2 = new Parameter(ust2, o2, il2);
 
                 p = new BinaryParameter(p, p2);
             }
@@ -237,7 +277,7 @@ namespace WarSimulator_Handmade
         {
             string spelling = currentToken.spelling;
             AcceptIt();
-            return new UnitStatType(spelling);            
+            return new UnitStatType(spelling);
         }
         private UnitStat ParseUnitStat()
         {
