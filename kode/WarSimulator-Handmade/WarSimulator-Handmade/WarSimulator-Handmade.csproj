@@ -55,7 +55,6 @@
     <Compile Include="AbstractSyntaxTreeClasses\BehaviourBlock.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\BinaryElseIfCommand.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\BinaryExpression.cs">
       <SubType>Code</SubType>
     </Compile>

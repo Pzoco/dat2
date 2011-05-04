@@ -119,8 +119,8 @@ namespace WarSimulator_Handmade
             {
                 Expression e = null;
                 SingleCommand sc1 = null;
-                ControlStructure eif = null;
                 SingleCommand sc2 = null;
+                List<ElseIfCommand> eifc = new List<ElseIfCommand>();
                 AcceptIt();
                 Accept(Token.TokenType.LeftParen);
                 e = ParseExpression();
@@ -128,36 +128,28 @@ namespace WarSimulator_Handmade
                 Accept(Token.TokenType.LeftBracket);
                 sc1 = ParseSingleCommand();
                 Accept(Token.TokenType.RightBracket);
-                if (currentToken.type == Token.TokenType.ElseIf)
+                while (currentToken.type == Token.TokenType.Else)
                 {
                     AcceptIt();
-                    Accept(Token.TokenType.LeftParen);
-                    Expression eife = ParseExpression();
-                    Accept(Token.TokenType.RightParen);
-                    Accept(Token.TokenType.LeftBracket);
-                    SingleCommand eifsc = ParseSingleCommand();
-                    Accept(Token.TokenType.RightBracket);
-                    eif = new ElseIfCommand(eife, eifsc);
+                    if (currentToken.type == Token.TokenType.If)
+                    {
+                        Accept(Token.TokenType.LeftParen);
+                        Expression eife = ParseExpression();
+                        Accept(Token.TokenType.RightParen);
+                        Accept(Token.TokenType.LeftBracket);
+                        SingleCommand eifsc = ParseSingleCommand();
+                        Accept(Token.TokenType.RightBracket);
+                        eifc.Add(new ElseIfCommand(eife, eifsc));
+                    }
+                    else
+                    {
+                        Accept(Token.TokenType.LeftBracket);
+                        sc2 = ParseSingleCommand();
+                        Accept(Token.TokenType.RightBracket);
+                        break;
+                    }
                 }
-                while (currentToken.type == Token.TokenType.ElseIf)
-                {
-                    AcceptIt();
-                    Accept(Token.TokenType.LeftParen);
-                    Expression eife = ParseExpression();
-                    Accept(Token.TokenType.RightParen);
-                    Accept(Token.TokenType.LeftBracket);
-                    SingleCommand eifsc = ParseSingleCommand();
-                    Accept(Token.TokenType.RightBracket);
-                    //eif = new BinaryElseIfCommand(eif, new ElseIfCommand(eife, eifsc));
-                }
-                if (currentToken.type == Token.TokenType.Else)
-                {
-                    AcceptIt();
-                    Accept(Token.TokenType.LeftBracket);
-                    sc2 = ParseSingleCommand();
-                    Accept(Token.TokenType.RightBracket);
-                }
-                return new IfCommand(e, sc1, sc2);
+                return new IfCommand(e, sc1, sc2,eifc);
             }
             else if (currentToken.type == Token.TokenType.While)
             {
