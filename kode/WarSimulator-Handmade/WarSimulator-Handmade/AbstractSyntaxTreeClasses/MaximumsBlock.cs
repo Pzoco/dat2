@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class MaximumsBlock:AST
+    public class MaximumsBlock:AST
     {
         public MaximumsStat ms;
 

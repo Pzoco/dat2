@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class GridStat:AST
+    public class GridStat:AST
     {
 
     }

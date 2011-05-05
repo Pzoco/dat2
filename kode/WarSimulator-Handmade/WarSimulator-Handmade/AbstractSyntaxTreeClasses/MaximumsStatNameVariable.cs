@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class MaximumsStatNameVariable:Terminal
+    public class MaximumsStatNameVariable:Terminal
     {
         public MaximumsStatNameVariable(string spelling)
             : base(spelling)

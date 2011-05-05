@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class UnaryExpression : Expression
+    public class UnaryExpression : Expression
     {
         public Expression e;
         public Operator o;

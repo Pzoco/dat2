@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class ConfigFile:AST
+    public class ConfigFile:AST
     {
         public GridBlock gb;
         public RulesBlock rb;

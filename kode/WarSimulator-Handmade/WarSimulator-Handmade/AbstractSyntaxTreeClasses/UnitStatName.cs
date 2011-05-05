@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class UnitStatName:UnitStat
+    public class UnitStatName:UnitStat
     {
         public UnitStatNameVariable sn;
         public IntegerLiteral il;

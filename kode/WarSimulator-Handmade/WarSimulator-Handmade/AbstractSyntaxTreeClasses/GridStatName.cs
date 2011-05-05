@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class GridStatName:GridStat
+    public class GridStatName:GridStat
     {
         public GridStatNameVariable gsnv;
         public IntegerLiteral il;

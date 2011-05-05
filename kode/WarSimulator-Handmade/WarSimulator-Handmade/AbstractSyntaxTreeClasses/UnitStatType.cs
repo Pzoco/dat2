@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class UnitStatType:Terminal
+    public class UnitStatType:Terminal
     {
         public UnitStatType(string spelling)
             : base(spelling)

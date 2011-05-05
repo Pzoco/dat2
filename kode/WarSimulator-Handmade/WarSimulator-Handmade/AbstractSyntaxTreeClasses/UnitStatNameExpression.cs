@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class UnitStatNameExpression:Expression
+    public class UnitStatNameExpression:Expression
     {
         public UnitStat usn;
 

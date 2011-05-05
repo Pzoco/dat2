@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class BinaryMaximumsStatName:MaximumsStat
+    public class BinaryMaximumsStatName:MaximumsStat
     {
         MaximumsStat ms1, ms2;
         public BinaryMaximumsStatName(MaximumsStat ms1, MaximumsStat ms2)

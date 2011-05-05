@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class ControlStructure:SingleCommand
+    public class ControlStructure:SingleCommand
     {
         public ControlStructure()
         {

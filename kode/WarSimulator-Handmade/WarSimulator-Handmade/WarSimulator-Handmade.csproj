@@ -177,11 +177,16 @@
     <Compile Include="AbstractSyntaxTreeClasses\WhileCommand.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TestClass.cs" />
+    <Compile Include="ErrorReporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntacticAnalyzer\Parser.cs" />
     <Compile Include="SyntacticAnalyzer\Scanner.cs" />
     <Compile Include="SyntacticAnalyzer\Source.cs" />
     <Compile Include="SyntacticAnalyzer\Token.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class MaximumsStat:AST
+    public class MaximumsStat:AST
     {
     }
 }

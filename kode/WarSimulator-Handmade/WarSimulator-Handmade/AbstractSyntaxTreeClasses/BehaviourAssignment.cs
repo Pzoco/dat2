@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class BehaviourAssignment:BehaviourBlock
+    public class BehaviourAssignment:BehaviourBlock
     {
         private BlockName bn;
 

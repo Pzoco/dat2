@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class RegimentAssignment:SingleCommand
+    public class RegimentAssignment:SingleCommand
     {
         public Identifier i;
         public RegimentSearch rs;

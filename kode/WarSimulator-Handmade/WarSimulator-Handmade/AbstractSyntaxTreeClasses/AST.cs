@@ -5,7 +5,20 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class AST
+    public abstract class AST
     {
+
+        public SourcePosition position;
+
+
+        public SourcePosition GetPosition()
+        {
+            return position;
+        }
+
+        public AST(SourcePosition thePosition)
+        {
+            position = thePosition;
+        }
     }
 }

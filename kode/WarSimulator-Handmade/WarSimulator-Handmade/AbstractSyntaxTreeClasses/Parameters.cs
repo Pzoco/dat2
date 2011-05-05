@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class Parameters:AST
+    public class Parameters:AST
     {
 
     }

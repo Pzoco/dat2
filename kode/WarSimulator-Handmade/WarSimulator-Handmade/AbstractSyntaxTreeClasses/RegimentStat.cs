@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class RegimentStat:AST
+    public class RegimentStat:AST
     {
         Identifier i;
         UnitStatType ust;
