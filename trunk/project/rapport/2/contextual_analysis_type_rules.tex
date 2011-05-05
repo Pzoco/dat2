@@ -1,5 +1,35 @@
 	
-	\subsection{Type rules}
+\subsection{Type rules}
 	These are the rules that checks the expressions form, and the type validity.
 	
+	\subsubsection*{Type rule of $<$}
+		$E1 < E2$ is type correct and of type Boolean
+		if $E1$ and $E2$ are type correct and of type Integer
+	\subsubsection*{Type rule of $>$}
+		$E1 > E2$ is type correct and of type Boolean
+		if $E1$ and $E2$ are type correct and of type Integer
+	\subsubsection*{Type rule of $==$}
+		$E1 == E2$ is type correct and of type Boolean
+		if $E1$ and $E2$ are type correct and of type Integer
+	\subsubsection*{Type rule of $>=$}
+		$E1 >= E2$ is type correct and of type Boolean
+		if $E1$ and $E2$ are type correct and of type Integer
+	\subsubsection*{Type rule of $<=$}
+		$E1 <= E2$ is type correct and of type Boolean
+		if $E1$ and $E2$ are type correct and of type Integer
+	\subsubsection*{Type rule of $while$}
+		$while(E){C}$ is type correct
+		if $E$ is of type Boolean and $C$ is type correct
+	\subsubsection*{Type rule of $if$}
+		$if(E){C}$ is type correct
+		if $E$ is of type Boolean and $C$ is type correct
+	\subsubsection*{Type rule of $else if$}
+		$else if(E){C}$ is type correct
+		if $E$ is of type Boolean and $C$ is type correct
+	\subsubsection*{Type rule of $else$}
+		$else{C}$ is type correct
+		if $C$ is type correct
 	
+	\subsubsection*{Type rule of $Position$}
+		$Position(I1,I2)$ is type correct and of type Position
+		if $I1$ and $I2$ are type correct and of type Integer	
