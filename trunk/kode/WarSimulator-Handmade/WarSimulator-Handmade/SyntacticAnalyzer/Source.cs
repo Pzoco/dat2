@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class Source
+    public class Source
     {
         public const char EndOfLine = '\n';
         public const char EndOfText = '\u0000';

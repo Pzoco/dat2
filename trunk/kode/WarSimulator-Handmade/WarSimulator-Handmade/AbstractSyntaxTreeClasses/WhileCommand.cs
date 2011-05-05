@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class WhileCommand:ControlStructure
+    public class WhileCommand:ControlStructure
     {
         Expression e;
         SingleCommand sc;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class BlockName:AST
+    public class BlockName:AST
     {
         public Identifier i;
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class BinaryParameter:Parameters
+    public class BinaryParameter:Parameters
     {
         public Parameters p1, p2;
 

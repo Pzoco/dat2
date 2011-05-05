@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class GridBlock:AST
+    public class GridBlock:AST
     {
     }
 }

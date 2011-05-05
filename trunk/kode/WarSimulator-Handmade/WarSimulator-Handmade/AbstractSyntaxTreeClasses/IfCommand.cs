@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class IfCommand : ControlStructure
+    public class IfCommand : ControlStructure
     {
         public Expression e;
         public List<ElseIfCommand> eifc = new List<ElseIfCommand>();

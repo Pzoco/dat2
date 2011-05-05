@@ -7,13 +7,17 @@ namespace WarSimulator_Handmade
 {
     public class Parser
     {
-        private Token currentToken;
         private Scanner scanner;
+        private ErrorReporter errorReporter;
+        private Token currentToken;
+        private SourcePosition previousTokenPosition;
 
         #region Constructor
-        public Parser()
+        public Parser(Scanner lexer, ErrorReporter reporter)
         {
-
+            scanner = lexer;
+            errorReporter = reporter;
+            previousTokenPosition = new SourcePosition();
         }
         #endregion
 
@@ -80,11 +84,22 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Team File Parse Methods
-        private TeamFile ParseTeamFile()
+        public TeamFile ParseTeamFile()
         {
-            Accept(Token.TokenType.Team);
-            RegimentBlock rb = ParseRegimentBlock();
-            return new TeamFile(rb);
+            TeamFile tf = null;
+            currentToken = scanner.Scan();
+
+            try
+            {
+                RegimentBlock rb = ParseRegimentBlock();
+                tf = new TeamFile(rb, previousTokenPosition);
+                if (currentToken.type != Token.TokenType.EndOfText)
+                {
+                    Console.WriteLine("Error! File did not end when expected! "+currentToken.spelling);
+                }
+            }
+            catch (Exception ex) { return null; }
+            return tf;
         }
         private RegimentBlock ParseRegimentBlock()
         {

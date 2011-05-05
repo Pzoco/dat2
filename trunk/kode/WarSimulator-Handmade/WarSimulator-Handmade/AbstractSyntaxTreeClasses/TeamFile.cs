@@ -5,14 +5,14 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class TeamFile:AST
+    public class TeamFile:AST
     {
         public RegimentBlock rb;
 
-        public TeamFile(RegimentBlock rb)
+        public TeamFile(RegimentBlock _rb, SourcePosition sp) :base(sp)
         {
             // TODO: Complete member initialization
-            this.rb = rb;
+            rb = _rb;
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class IntegerLiteral:Terminal
+    public class IntegerLiteral:Terminal
     {
         public IntegerLiteral(string spelling):base(spelling)
         {

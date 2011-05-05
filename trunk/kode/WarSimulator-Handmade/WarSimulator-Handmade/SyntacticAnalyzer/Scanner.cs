@@ -6,11 +6,9 @@ using System.Text;
 namespace WarSimulator_Handmade
 {
     
-    class Scanner
+    public class Scanner
     {
         private Source SourceFile;
-        private char PreviousChar;
-        private char NextChar;
         private char CurrentChar;
         private StringBuilder CurrentSpelling;
         private bool CurrentlyScanningToken;

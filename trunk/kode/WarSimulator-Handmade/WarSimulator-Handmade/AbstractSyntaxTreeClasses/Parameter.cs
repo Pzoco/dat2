@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class Parameter:Parameters
+    public class Parameter:Parameters
     {
         public UnitStatType ust;
         public Operator o;

@@ -6,7 +6,7 @@ using System.Text;
 namespace WarSimulator_Handmade
 {
     
-    class Token
+    public class Token
     {
         public TokenType type;
         public string spelling;
@@ -89,8 +89,8 @@ namespace WarSimulator_Handmade
             Ranged,
             Regiment,
             RegimentPosition,
-            RegimentStat,
             Regiments,
+            RegimentStat,
             SearchForEnemies,
             SearchForFriends,
             Size,
@@ -114,7 +114,8 @@ namespace WarSimulator_Handmade
             Assignment,
 
             //Special dudes
-            Error,
+            EndOfText,
+            Error
         }
         private static string[] TokenTable = new string[]
         {
@@ -123,8 +124,8 @@ namespace WarSimulator_Handmade
             "<operator>",
             "<unitfunction>", //Attack, MoveTowards, MoveAway = Tokens, eller?
             "<unitstatname>",
-            "<maximumsstatname>",
             "<gridstatname>",
+            "<maximumsstatname>",
                 //   ALPHABETICAL START
             "AttackSpeed",
             "Behaviour",
@@ -143,8 +144,9 @@ namespace WarSimulator_Handmade
             "Range",
             "Ranged",
             "Regiment",
-            "Regiments",
             "RegimentPosition",
+            "Regiments",
+            "RegimentStat", //Det er jo ikke sådan det fungerer...
             "SearchForEnemies",
             "SearchForFriends",
             "Size", 
@@ -165,6 +167,7 @@ namespace WarSimulator_Handmade
             ",",
             ";",
             "=",
+            "",
             "<error>"
         };
         //OBS: HVIS ATTACK, MOVETOWARDS, MOVEAWAY SKAL MED I TOKENTABLE SKAL FIRSTRESERVED ÆNDRES TIL ATTACK

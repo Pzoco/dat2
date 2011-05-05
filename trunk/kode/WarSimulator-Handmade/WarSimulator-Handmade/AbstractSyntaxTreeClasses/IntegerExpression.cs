@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    class IntegerExpression:Expression
+    public class IntegerExpression:Expression
     {
         public IntegerLiteral il;
 
