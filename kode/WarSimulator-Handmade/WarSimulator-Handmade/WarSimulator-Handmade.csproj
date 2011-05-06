@@ -177,6 +177,7 @@
     <Compile Include="AbstractSyntaxTreeClasses\WhileCommand.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ContextualAnalyzer\Checker.cs" />
     <Compile Include="ContextualAnalyzer\IdentificationTable.cs" />
     <Compile Include="ContextualAnalyzer\IdEntry.cs" />
     <Compile Include="TestClass.cs" />
