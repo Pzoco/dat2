@@ -177,6 +177,8 @@
     <Compile Include="AbstractSyntaxTreeClasses\WhileCommand.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ContextualAnalyzer\IdentificationTable.cs" />
+    <Compile Include="ContextualAnalyzer\IdEntry.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="ErrorReporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -188,6 +190,7 @@
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
