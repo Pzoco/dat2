@@ -1,51 +1,90 @@
 \section{Syntax}
 	\subsubsection{Terminals}
-		\begin{tabular}{ l c c r}
-			$if  	 $	& $\{ 	 $		&$ \} 	  $				&$ Behaviour$  \\
-		  	$else	 $	&$ = 	$		&$ >  	  $				&$ Standards$  \\
-		 	$/ 		 $	&$ *  	 $		&$ -  	  $				&$ Maxima$	  \\
-		 	$( 		 $	&$ )  	 $		&$ ;  	  $				&$ < =$		  \\
-			 			&				&						&$ > =$	    \\
-		 				&$ ,      $		&$ Regiment$			&  \\
-			$Team	 $	&$ Rules   $	&$ Config   $			&$ Grid$	   \\
-			$>		 $	&$   + 	 $		&$ //	 	  $			&$ while $   \\
-			$ "		 $	&$ Ranged  $	&$   Melee  $			&$ Size	$	\\
-			$ Type	 $	&$ Range  $		&$   Damage  $			&$ Health	$	\\		
-			$ Movement $&$ AttackSpeed $&$   RegimentPosition  $&$ Position	$	\\	
-		\end{tabular}
-	\subsubsection{Nonterminals}
-		\begin{tabular}{l c}
-			Behaviour-Block   & Control-Structure   \\
-			Single-Command    & UnitStat 			\\
-			UnitStat-Name	  & Integer-Literal		\\
-			Comment			  & Team-File 			\\
-			Regiment-Block	  & Expression			\\
-			Operator		  & Config-File			\\
-			Grid-Block	      & Rules-Block 		\\
-			Maximums-Block	  & MaximumsStat		\\
-			MaximumsStat-Name & Standards-Block	 	\\
-			StandardsStat	  & StandardsStat-Name 	\\
-			Identifier		  & 					\\
-		\end{tabular}
+		\begin{longtable}[l]{l}
+			$\{$\\
+			$\}$\\
+			$>$\\
+			$<$\\
+			$($\\
+			$)$\\
+			$=$\\
+			$+$\\
+			$-$\\
+			$*$\\
+			$/$\\
+			$\&$\\
+			$|$\\
+			$"$\\
+			$,$\\
+			$.$\\
+			$;$\\
+			$Attack$\\
+			$AttackSpeed$\\
+			$Behaviour$\\
+			$Config$\\
+			$Damage$\\
+			$Distance$\\
+			$else$\\
+			$Grid$\\
+			$Health$\
+			$Height$\\
+			$if$\\
+			$Maxima$\\
+			$Melee$\\
+			$MoveAway$\\
+			$Movement$\\
+			$MoveTowards$\\
+			$Position$\\
+			$Range$\\
+			$Ranged$\\
+			$Regiment$\\
+			$RegimentPosition$\\
+			$Regiments$\\
+			$Rules$\\
+			$SearchForEnemies$\\
+			$SearchForFriends$\\
+			$Size$\\
+			$Standards$\\
+			$Team$\\
+			$Teams$\\
+			$Type$\\
+			$While$\\
+			$Width$\\
+		\end{longtable}
+%	\subsubsection{Nonterminals}
+%		\begin{tabular}{l c}
+%			Behaviour-Block   & Control-Structure   \\
+%			Single-Command    & UnitStat 			\\
+%			UnitStat-Name	  & Integer-Literal		\\
+%			Comment			  & Team-File 			\\
+%			Regiment-Block	  & Expression			\\
+%			Operator		  & Config-File			\\
+%			Grid-Block	      & Rules-Block 		\\
+%			Maximums-Block	  & MaximumsStat		\\
+%			MaximumsStat-Name & Standards-Block	 	\\
+%			StandardsStat	  & StandardsStat-Name 	\\
+%			Identifier		  & 					\\
+%		\end{tabular}
 	
 	\subsubsection{BNF}
 		{\bf Notes}
 		\begin{itemize}
-			\item Digit stands for one of the digits 0 through 9.
-			\item Graphic stands for a space or visible character.
-			\item Letter stands for one of the lower- or uppercase letters 'a','b',.....,or 'z'.
-			\item eol stands for an end-of-line 'character'.
+			\item Digit represents for one of the digits 0 through 9.
+			\item Graphic represents for a space or visible character.
+			\item Letter represents for one of the lower- or upper-case letters 'a','b',.....,or 'z'.
+			\item eol represents for an end-of-line 'character'.
 		\end{itemize}
 		\begin{center}
-				\begin{longtable}{ l l l }
+				\begin{longtable}{l l l}
 				\endfirsthead
 				\endhead
 				Team-File		   &	::=	 & {\bf Team} Regiment-Block \\
 				Identifier		   &    ::=  & Letter $\mid$ Identifier Digit $\mid$ Identifier Letter \\
 				Block-Name		   &	::=  & Identifier							\\
 				Regiment-Block     &	::=	 & {\bf Regiment} Block-Name {\bf \{ } UnitStat Behaviour-Block \bf{\} }\\
+								   &	::=	 & Regiment-Block {\bf Regiment} Block-Name {\bf \{ } UnitStat Behaviour-Block \bf{\} }\\
 				Behaviour-Block	   &	::=	 & {\bf Behaviour} Block-Name {\bf \{} Single-Command {\bf \}}  \\
-								   &         & $\mid$ {\bf Behaviour} {\bf = } Block-Name {\bf );} \\
+								   &         & $\mid$ {\bf Behaviour} {\bf = } Block-Name {\bf ;} \\
 				Regiment-Assignment&    ::=  &{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
 								   &         &{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
 				Regiment-Search	   &	::=	 &{\bf SearchForEnemies (} Parameters {\bf )} $\mid$\\
@@ -92,7 +131,7 @@
 				GridStat-Name	   &	::=  & {\bf Width = } Integer-Literal; $\mid$ {\bf Height = } Integer-Literal; \\
 
 				Rules-Block		   &	::=	 & Standards-Block MaximumsBlock 				\\
-				Maximums-Block	   &	::=	 & {\bf Maximums} {\bf \{} MaximumsStat {\bf \}} $\mid$ \\
+				Maximums-Block	   &	::=	 & {\bf Maxima} {\bf \{} MaximumsStat {\bf \}} $\mid$ \\
 				MaximumsStat	   &	::=  & MaximumsStat-Name MaximumsStat $\mid$ MaximumsStat-Name $\mid$		\\
 								   &	     & UnitStat-Name MaximumsStat $\mid$ UnitStat-Name			\\
 				MaximumsStat-Name  &	::=  & {\bf Regiments = } Integer-Literal{\bf ;} $\mid$ {\bf Teams = } Integer-Literal{\bf ;} \\
