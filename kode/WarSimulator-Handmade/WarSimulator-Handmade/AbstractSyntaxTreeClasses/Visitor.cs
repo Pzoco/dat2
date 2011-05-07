@@ -25,10 +25,10 @@ namespace WarSimulator_Handmade
 
         #region Expressions
         Object VisitBinaryExpression(BinaryExpression ast, Object obj);
-        Object VisitExpression(Expression ast, Object obj);
         Object VisitIntegerExpression(IntegerExpression ast, Object obj);
-        Object VisitRegimentStatExpression(RegimentStat ast, Object obj);
+        Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj);
         Object VisitUnaryExpression(UnaryExpression ast, Object obj);
+        Object VisitUnitStatNameExpression(UnitStatNameExpression ast, Object obj);
         #endregion
 
         #region Files

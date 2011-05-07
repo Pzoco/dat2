@@ -13,6 +13,9 @@ namespace WarSimulator_Handmade
         {
             this.il = il;
         }
-
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitIntegerExpression(this, arg);
+        }
     }
 }

@@ -14,5 +14,9 @@ namespace WarSimulator_Handmade
             // TODO: Complete member initialization
             this.i = i;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitBlockName(this, arg);
+        }
     }
 }

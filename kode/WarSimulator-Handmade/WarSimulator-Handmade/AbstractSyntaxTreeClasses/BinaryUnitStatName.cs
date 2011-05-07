@@ -15,5 +15,9 @@ namespace WarSimulator_Handmade
             this.usn2 = usn2;
 
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitBinaryUnitStatName(this, arg);
+        }
     }
 }

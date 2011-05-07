@@ -14,5 +14,9 @@ namespace WarSimulator_Handmade
             // TODO: Complete member initialization
             this.ms = ms;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitMaximumsBlock(this, arg);
+        }
     }
 }

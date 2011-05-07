@@ -15,5 +15,9 @@ namespace WarSimulator_Handmade
             this.i = i;
             this.rs = rs;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitRegimentAssignment(this, arg);
+        }
     }
 }

@@ -17,5 +17,9 @@ namespace WarSimulator_Handmade
             this.sc2 = sc2;
             this.eifc.AddRange(eifc);
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitIfCommand(this, arg);
+        }
     }
 }

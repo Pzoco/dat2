@@ -10,5 +10,9 @@ namespace WarSimulator_Handmade
         public ControlStructure()
         {
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitControlStructure(this, arg);
+        }
     }
 }

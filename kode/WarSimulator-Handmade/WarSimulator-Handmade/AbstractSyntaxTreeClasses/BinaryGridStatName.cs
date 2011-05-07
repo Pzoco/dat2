@@ -14,5 +14,9 @@ namespace WarSimulator_Handmade
             this.gsn1 = gsn1;
             this.gsn2 = gsn2;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitBinaryGridStatName(this, arg); 
+        }
     }
 }

@@ -7,9 +7,9 @@ namespace WarSimulator_Handmade
 {
     public class RegimentBlock:AST
     {
-        private BlockName bn;
-        private UnitStat us;
-        private BehaviourBlock bb;
+        public BlockName bn;
+        public UnitStat us;
+        public BehaviourBlock bb;
 
         public RegimentBlock(BlockName bn, UnitStat us, BehaviourBlock bb)
         {
@@ -17,6 +17,10 @@ namespace WarSimulator_Handmade
             this.bn = bn;
             this.us = us;
             this.bb = bb;
+        }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitRegimentBlock(this, arg);
         }
     }
 }

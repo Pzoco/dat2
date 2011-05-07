@@ -5,89 +5,278 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
+    public enum DataType { Boolean, Integer}
     public class Checker:Visitor
     {
         IdentificationTable idTable = new IdentificationTable();
+        ErrorReporter reporter = new ErrorReporter();
+        public void Check(TeamFile ast)
+        {
+            ast.Visit(this, null);
+        }
+        public void Check(ConfigFile ast)
+        {
+            ast.Visit(this, null);
+        }
 
         #region Blocks
         public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj) 
-        { 
+        {
+            idTable.Open();
+            ast.bn.Visit(this, null);
+            ast.sc.Visit(this, null);
+            idTable.Close();
             return null; 
         }
-        Object VisitGridBlock(GridBlock ast, Object obj);
-        Object VisitMaximumsBlock(MaximumsBlock ast, Object obj);
-        Object VisitRegimentBlock(RegimentBlock ast, Object obj);
-        Object VisitRulesBlock(RulesBlock ast, Object obj);
-        Object VisitStandardsBlock(StandardsBlock ast, Object obj);
+        public Object VisitGridBlock(GridBlock ast, Object obj)
+        {
+            idTable.Open();
+            ast.bn.Visit(this, null);
+            ast.gs.Visit(this, null);
+            idTable.Close();
+            return null;
+        }
+        public Object VisitMaximumsBlock(MaximumsBlock ast, Object obj)
+        {
+            idTable.Open();
+            ast.ms.Visit(this, null);
+            idTable.Close();
+            return null;
+        }
+        public Object VisitRegimentBlock(RegimentBlock ast, Object obj)
+        {
+            idTable.Open();
+            ast.bn.Visit(this, null);
+            ast.us.Visit(this, null);
+            ast.bb.Visit(this, null);
+            idTable.Close();
+            return null;
+        }
+        public Object VisitRulesBlock(RulesBlock ast, Object obj)
+        {
+            idTable.Open();
+            ast.mb.Visit(this,null);
+            ast.sb.Visit(this,null);
+            idTable.Close();
+            return null;
+        }
+        public Object VisitStandardsBlock(StandardsBlock ast, Object obj)
+        {
+            return null;
+        }
         #endregion
 
         #region Control Structures
-        Object VisitControlStructure(ControlStructure ast, Object obj);
-        Object VisitIfCommand(IfCommand ast, Object obj);
-        Object VisitElseIfCommand(ElseIfCommand ast, Object obj);
-        Object VisitWhileCommand(WhileCommand ast, Object obj);
+        public Object VisitControlStructure(ControlStructure ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitIfCommand(IfCommand ast, Object obj)
+        {
+            DataType type = (DataType)ast.e.Visit(this, null);
+            if (type != DataType.Boolean)
+            {
+                reporter.ReportError("Expression was not of type Boolean", "", ast.e.position);
+            }
+            ast.sc1.Visit(this,null);
+            if(ast.eifc != null){ast.eifc.ForEach(x => x.Visit(this,null));}
+            if (ast.sc2 != null) { ast.sc2.Visit(this, null); }
+            return null;
+        }
+        public Object VisitElseIfCommand(ElseIfCommand ast, Object obj)
+        {
+            DataType type = (DataType)ast.e.Visit(this, null);
+            if (type != DataType.Boolean)
+            {
+                reporter.ReportError("Expression was not of type Boolean", "", ast.e.position);
+            }
+            ast.sc.Visit(this, null);
+            return null;
+        }
+        public Object VisitWhileCommand(WhileCommand ast, Object obj)
+        {
+            DataType type = (DataType)ast.e.Visit(this, null);
+            if (type != DataType.Boolean)
+            {
+                reporter.ReportError("Expression was not of type Boolean", "", ast.e.position);
+            }
+            ast.sc.Visit(this, null);
+            return null;
+        }
         #endregion
 
         #region Expressions
-        Object VisitBinaryExpression(BinaryExpression ast, Object obj);
-        Object VisitExpression(Expression ast, Object obj);
-        Object VisitIntegerExpression(IntegerExpression ast, Object obj);
-        Object VisitRegimentStatExpression(RegimentStat ast, Object obj);
-        Object VisitUnaryExpression(UnaryExpression ast, Object obj);
+        public Object VisitBinaryExpression(BinaryExpression ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitIntegerExpression(IntegerExpression ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnaryExpression(UnaryExpression ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnitStatNameExpression(UnitStatNameExpression ast, Object obj)
+        {
+            return null;
+        }
         #endregion
 
         #region Files
-        Object VisitTeamFile(TeamFile ast, Object obj);
-        Object VisitConfigFile(ConfigFile ast, Object obj);
+        public Object VisitTeamFile(TeamFile ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitConfigFile(ConfigFile ast, Object obj)
+        {
+            return null;
+        }
         #endregion
 
         #region Identifiers etc
-        Object VisitAttackType(AttackType ast, Object obj);
-        Object VisitBlockName(BlockName ast, Object obj);
-        Object VisitIdentifier(Identifier ast, Object obj);
-        Object VisitIntegerLiteral(IntegerLiteral ast, Object obj);
-        Object VisitOperator(Operator ast, Object obj);
+        public Object VisitAttackType(AttackType ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitBlockName(BlockName ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitIdentifier(Identifier ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitIntegerLiteral(IntegerLiteral ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitOperator(Operator ast, Object obj)
+        {
+            return null;
+        }
         #endregion
 
         #region Misc
-        Object VisitSingleCommand(SingleCommand ast, Object obj);
-        Object VisitBehaviourAssignment(BehaviourAssignment ast, Object obj);
+        public Object VisitSingleCommand(SingleCommand ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitBehaviourAssignment(BehaviourAssignment ast, Object obj)
+        {
+            return null;
+        }
         #endregion
 
         #region Regiment assignment related
         //Regiment Assignment
-        Object VisitRegimentAssignment(RegimentAssignment ast, Object obj);
+        public Object VisitRegimentAssignment(RegimentAssignment ast, Object obj)
+        {
+            return null;
+        }
 
         //Regiment Search
-        Object VisitBinaryParameter(BinaryParameter ast, Object obj);
-        Object VisitParameter(Parameter ast, Object obj);
-        Object VisitParameters(Parameters ast, Object obj);
-        Object VisitRegimentSearch(RegimentSearch ast, Object obj);
+        public Object VisitBinaryParameter(BinaryParameter ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitParameter(Parameter ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitParameters(Parameters ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
+        {
+            return null;
+        }
 
         //Unit function
-        Object VisitUnitFunction(UnitFunction ast, Object obj);
-        Object VisitUnitFunctionName(UnitFunctionName ast, Object obj);
+        public Object VisitUnitFunction(UnitFunction ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnitFunctionName(UnitFunctionName ast, Object obj)
+        {
+            return null;
+        }
 
         //Regiment stat
-        Object VisitRegimentStat(RegimentStat ast, Object obj);
-        Object VisitUnitStatType(UnitStatType ast, Object obj);
+        public Object VisitRegimentStat(RegimentStat ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnitStatType(UnitStatType ast, Object obj)
+        {
+            return null;
+        }
         #endregion
 
         #region Stats
-        Object VisitBinaryGridStatName(BinaryGridStatName ast, Object obj);
-        Object VisitBinaryMaximumsStatName(BinaryMaximumsStatName ast, Object obj);
-        Object VisitBinaryUnitStatName(BinaryUnitStatName ast, Object obj);
-        Object VisitGridStat(GridStat ast, Object obj);
-        Object VisitGridStatName(GridStatName ast, Object obj);
-        Object VisitGridStatNameVariable(GridStatNameVariable ast, Object obj);
-        Object VisitMaximumsStat(MaximumsStat ast, Object obj);
-        Object VisitMaximumsStatName(MaximumsStatName ast, Object obj);
-        Object VisitMaximumsStatNameVariable(MaximumsStatNameVariable ast, Object obj);
-        Object VisitUnitStat(UnitStat ast, Object obj);
-        Object VisitUnitStatName(UnitStatName ast, Object obj);
-        Object VisitUnitStatNamePosition(UnitStatNamePosition ast, Object obj);
-        Object VisitUnitStatNameType(UnitStatNameType ast, Object obj);
-        Object VisitUnitStatNameVariable(UnitStatNameVariable ast, Object obj);
+        public Object VisitBinaryGridStatName(BinaryGridStatName ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitBinaryMaximumsStatName(BinaryMaximumsStatName ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitBinaryUnitStatName(BinaryUnitStatName ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitGridStat(GridStat ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitGridStatName(GridStatName ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitGridStatNameVariable(GridStatNameVariable ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitMaximumsStat(MaximumsStat ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitMaximumsStatName(MaximumsStatName ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitMaximumsStatNameVariable(MaximumsStatNameVariable ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnitStat(UnitStat ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnitStatName(UnitStatName ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnitStatNamePosition(UnitStatNamePosition ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnitStatNameType(UnitStatNameType ast, Object obj)
+        {
+            return null;
+        }
+        public Object VisitUnitStatNameVariable(UnitStatNameVariable ast, Object obj)
+        {
+            return null;
+        }
         #endregion
+
     }
 }

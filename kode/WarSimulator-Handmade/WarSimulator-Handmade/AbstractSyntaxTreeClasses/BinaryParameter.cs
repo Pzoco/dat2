@@ -14,5 +14,9 @@ namespace WarSimulator_Handmade
             this.p1 = p1;
             this.p2 = p2;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitBinaryParameter(this, arg);
+        }
     }
 }

@@ -14,5 +14,9 @@ namespace WarSimulator_Handmade
             // TODO: Complete member initialization
             this.spelling = spelling;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return null;
+        }
     }
 }

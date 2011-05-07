@@ -16,5 +16,9 @@ namespace WarSimulator_Handmade
             this.gsnv = gsnv;
             this.il = il;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitGridStatName(this, arg);
+        }
     }
 }

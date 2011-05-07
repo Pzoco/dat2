@@ -18,5 +18,9 @@ namespace WarSimulator_Handmade
             this.o = o;
             this.il = il;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitParameter(this, arg);
+        }
     }
 }
