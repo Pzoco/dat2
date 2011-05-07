@@ -8,12 +8,12 @@ namespace WarSimulator_Handmade
     public class GridBlock:AST
     {
         public BlockName bn;
-        public GridStat gs;
+        public List<GridStatDeclaration> gss = new List<GridStatDeclaration>();
 
-        public GridBlock(BlockName bn,GridStat gs)
+        public GridBlock(BlockName bn, List<GridStatDeclaration> gss)
         {
             this.bn = bn;
-            this.gs = gs;
+            this.gss = gss;
         }
         public override Object Visit(Visitor v, Object arg)
         {

@@ -7,9 +7,9 @@ namespace WarSimulator_Handmade
 {
     public class UnitStatNameExpression:Expression
     {
-        public UnitStatName usn;
+        public UnitStatDeclaration usn;
 
-        public UnitStatNameExpression(UnitStatName usn)
+        public UnitStatNameExpression(UnitStatDeclaration usn)
         {
             this.usn = usn;
         }

@@ -8,14 +8,14 @@ namespace WarSimulator_Handmade
     public class RegimentBlock:AST
     {
         public BlockName bn;
-        public UnitStat us;
+        public List<UnitStatDeclaration> usds;
         public BehaviourBlock bb;
 
-        public RegimentBlock(BlockName bn, UnitStat us, BehaviourBlock bb)
+        public RegimentBlock(BlockName bn, List<UnitStatDeclaration> usds, BehaviourBlock bb)
         {
             // TODO: Complete member initialization
             this.bn = bn;
-            this.us = us;
+            this.usds = usds;
             this.bb = bb;
         }
         public override Object Visit(Visitor v, Object arg)

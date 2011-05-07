@@ -5,12 +5,12 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class MaximumsStatName:MaximumsStat
+    public class MaximumsStatDeclaration:Declaration
     {
         public MaximumsStatNameVariable msv;
         public IntegerLiteral il;
 
-        public MaximumsStatName(MaximumsStatNameVariable msv, IntegerLiteral il)
+        public MaximumsStatDeclaration(MaximumsStatNameVariable msv, IntegerLiteral il)
         {
             this.msv = msv;
             this.il = il;

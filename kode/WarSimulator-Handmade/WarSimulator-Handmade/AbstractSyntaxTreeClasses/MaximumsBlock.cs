@@ -7,12 +7,12 @@ namespace WarSimulator_Handmade
 {
     public class MaximumsBlock:AST
     {
-        public MaximumsStat ms;
+        public List<MaximumsStatDeclaration> msds = new List<MaximumsStatDeclaration>();
 
-        public MaximumsBlock(MaximumsStat ms)
+        public MaximumsBlock(List<MaximumsStatDeclaration> msds)
         {
             // TODO: Complete member initialization
-            this.ms = ms;
+            this.msds = msds;
         }
         public override Object Visit(Visitor v, Object arg)
         {

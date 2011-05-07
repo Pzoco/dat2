@@ -5,12 +5,12 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class GridStatName:GridStat
+    public class GridStatDeclaration:Declaration
     {
-        public GridStatNameVariable gsnv;
+        public GridStatVName gsnv;
         public IntegerLiteral il;
 
-        public GridStatName(GridStatNameVariable gsnv, IntegerLiteral il)
+        public GridStatDeclaration(GridStatVName gsnv, IntegerLiteral il)
         {
             // TODO: Complete member initialization
             this.gsnv = gsnv;
