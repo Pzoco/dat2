@@ -128,7 +128,7 @@ namespace WarSimulator_Handmade
         {
             return null;
         }
-        public Object VisitUnitStatNameExpression(UnitStatVNameExpression ast, Object obj)
+        public Object VisitUnitStatVNameExpression(UnitStatVNameExpression ast, Object obj)
         {
             ast.type = (DataType) ast.usn.Visit(this, null);
             return ast.type;
@@ -181,7 +181,7 @@ namespace WarSimulator_Handmade
 
         #region Regiment assignment related
         //Regiment Assignment
-        public Object VisitRegimentAssignment(RegimentDeclaration ast, Object obj)
+        public Object VisitRegimentDeclaration(RegimentDeclaration ast, Object obj)
         {
             return null;
         }
