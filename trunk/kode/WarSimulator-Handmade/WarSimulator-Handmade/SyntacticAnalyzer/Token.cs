@@ -81,7 +81,7 @@ namespace WarSimulator_Handmade
             Health,
             Height,
             If,
-            Maximums,
+            Maxima,
             Melee,
             Movement,
             Position,
