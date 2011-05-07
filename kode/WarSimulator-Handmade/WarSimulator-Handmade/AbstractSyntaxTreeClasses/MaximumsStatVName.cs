@@ -7,8 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class MaximumsStatVName:Terminal
     {
-        public MaximumsStatVName(string spelling)
-            : base(spelling)
+        public MaximumsStatVName(String spelling, SourcePosition position)
+            : base(spelling, position)
         {
 
         }

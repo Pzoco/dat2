@@ -7,7 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class IntegerLiteral:Terminal
     {
-        public IntegerLiteral(string spelling):base(spelling)
+        public IntegerLiteral(String spelling, SourcePosition position)
+            : base(spelling, position)
         {
 
         }

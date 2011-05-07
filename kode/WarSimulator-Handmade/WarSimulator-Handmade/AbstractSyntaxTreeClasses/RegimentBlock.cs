@@ -7,6 +7,14 @@ namespace WarSimulator_Handmade
 {
     public class RegimentBlock:AST
     {
+        public RegimentBlock(SourcePosition pos)
+            : base(pos)
+        {
+
+        }
+         /*
+          * Hvad er meningen med de her?
+          * */
         public BlockName bn;
         public List<UnitStatDeclaration> usds;
         public BehaviourBlock bb;

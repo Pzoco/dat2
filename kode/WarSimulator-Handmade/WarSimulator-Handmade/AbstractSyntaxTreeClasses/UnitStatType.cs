@@ -7,8 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class UnitStatType:Terminal
     {
-        public UnitStatType(string spelling)
-            : base(spelling)
+        public UnitStatType(String spelling, SourcePosition position)
+            : base(spelling, position)
         {
         }
         public override Object Visit(Visitor v, Object arg)

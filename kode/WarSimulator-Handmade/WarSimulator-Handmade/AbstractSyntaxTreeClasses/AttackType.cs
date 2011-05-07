@@ -7,7 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class AttackType:Terminal
     {
-        public AttackType(string spelling): base(spelling)
+        public AttackType(String spelling, SourcePosition position)
+            : base(spelling, position)
         {
         
         }

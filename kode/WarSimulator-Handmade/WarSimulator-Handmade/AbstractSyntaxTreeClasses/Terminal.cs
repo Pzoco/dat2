@@ -9,7 +9,8 @@ namespace WarSimulator_Handmade
     {
         public string spelling;
 
-        public Terminal(string spelling)
+        public Terminal(String spelling, SourcePosition position)
+            :base(position)
         {
             // TODO: Complete member initialization
             this.spelling = spelling;

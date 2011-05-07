@@ -122,6 +122,7 @@
     <Compile Include="AbstractSyntaxTreeClasses\RulesBlock.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\SequentialRegimentBlock.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\SingleCommand.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -8,9 +8,9 @@ namespace WarSimulator_Handmade
     public class Identifier:Terminal
     {
         DataType type;
-        public Identifier(string spelling):base(spelling)
+        public Identifier(String spelling, SourcePosition position):base(spelling,position)
         {
-
+            this.spelling = spelling;
         }
         public override Object Visit(Visitor v, Object arg)
         {

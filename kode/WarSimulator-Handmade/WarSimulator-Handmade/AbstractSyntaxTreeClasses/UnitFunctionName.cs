@@ -7,8 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class UnitFunctionName:Terminal
     {
-        public UnitFunctionName(string spelling)
-            : base(spelling)
+        public UnitFunctionName(String spelling, SourcePosition position)
+            : base(spelling, position)
         {
 
         }
