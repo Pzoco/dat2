@@ -13,6 +13,9 @@ namespace WarSimulator_Handmade
         {
             this.usn = usn;
         }
-
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitUnitStatNameExpression(this, arg);
+        }
     }
 }

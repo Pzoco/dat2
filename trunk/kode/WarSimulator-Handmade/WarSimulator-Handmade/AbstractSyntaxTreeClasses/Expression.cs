@@ -5,7 +5,8 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class Expression:AST
+    public abstract class Expression:AST
     {
+        public DataType type;
     }
 }

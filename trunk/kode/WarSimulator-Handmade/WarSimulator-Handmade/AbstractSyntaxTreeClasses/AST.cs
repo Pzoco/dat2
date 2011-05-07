@@ -24,5 +24,7 @@ namespace WarSimulator_Handmade
         {
 
         }
+
+        public abstract Object Visit(Visitor v, Object arg);
     }
 }

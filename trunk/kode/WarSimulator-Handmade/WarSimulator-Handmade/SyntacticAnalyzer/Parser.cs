@@ -371,11 +371,11 @@ namespace WarSimulator_Handmade
         private GridBlock ParseGridBlock()
         {
             Accept(Token.TokenType.Grid);
-            ParseBlockName();
+            BlockName bn= ParseBlockName();
             Accept(Token.TokenType.LeftBracket);
-            ParseGridStat();
+            GridStat gs = ParseGridStat();
             Accept(Token.TokenType.RightBracket);
-            return new GridBlock();
+            return new GridBlock(bn,gs);
         }
         private GridStat ParseGridStat()
         {

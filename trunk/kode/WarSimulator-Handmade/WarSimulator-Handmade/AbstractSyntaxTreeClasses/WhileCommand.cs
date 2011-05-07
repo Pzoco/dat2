@@ -7,12 +7,16 @@ namespace WarSimulator_Handmade
 {
     public class WhileCommand:ControlStructure
     {
-        Expression e;
-        SingleCommand sc;
+        public Expression e;
+        public SingleCommand sc;
         public WhileCommand(Expression e, SingleCommand sc)
         {
             this.e = e;
             this.sc = sc;
+        }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitWhileCommand(this, arg);
         }
     }
 }

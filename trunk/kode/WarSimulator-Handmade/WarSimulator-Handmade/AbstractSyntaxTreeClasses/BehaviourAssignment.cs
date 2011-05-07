@@ -11,7 +11,11 @@ namespace WarSimulator_Handmade
 
         public BehaviourAssignment(BlockName bn):base(bn,null)
         {
-
+            this.bn = bn;
+        }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitBehaviourAssignment(this, arg);
         }
     }
 }

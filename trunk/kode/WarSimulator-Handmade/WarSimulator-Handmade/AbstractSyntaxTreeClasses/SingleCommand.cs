@@ -7,5 +7,9 @@ namespace WarSimulator_Handmade
 {
     public class SingleCommand:AST
     {
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitSingleCommand(this, arg);
+        }
     }
 }

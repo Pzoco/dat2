@@ -14,5 +14,9 @@ namespace WarSimulator_Handmade
             // TODO: Complete member initialization
             rb = _rb;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitTeamFile(this, arg);
+        }
     }
 }

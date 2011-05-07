@@ -15,6 +15,9 @@ namespace WarSimulator_Handmade
             this.msv = msv;
             this.il = il;
         }
-
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitMaximumsStatName(this, arg);
+        }
     }
 }

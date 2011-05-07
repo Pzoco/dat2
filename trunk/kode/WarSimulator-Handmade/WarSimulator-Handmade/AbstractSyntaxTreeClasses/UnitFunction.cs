@@ -15,5 +15,9 @@ namespace WarSimulator_Handmade
             this.ufn = ufn;
             this.i = i;
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitUnitFunction(this, arg);
+        }
     }
 }

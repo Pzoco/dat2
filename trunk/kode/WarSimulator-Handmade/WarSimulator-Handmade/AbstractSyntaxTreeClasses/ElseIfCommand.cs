@@ -7,12 +7,16 @@ namespace WarSimulator_Handmade
 {
     public class ElseIfCommand:ControlStructure
     {
-        Expression e;
-        SingleCommand sc;
+        public Expression e;
+        public SingleCommand sc;
         public ElseIfCommand(Expression e, SingleCommand sc)
         {
             this.e = e;
             this.sc = sc;
+        }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitElseIfCommand(this, arg);
         }
     }
 }

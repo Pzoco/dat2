@@ -11,5 +11,9 @@ namespace WarSimulator_Handmade
         {
         
         }
+        public override Object Visit(Visitor v, Object arg)
+        {
+            return v.VisitAttackType(this,arg);
+        }
     }
 }
