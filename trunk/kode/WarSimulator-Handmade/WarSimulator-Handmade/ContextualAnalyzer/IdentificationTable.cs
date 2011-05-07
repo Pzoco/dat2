@@ -5,6 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
+    //ER IKKE KORREKT BLIVER FIXED!
     class IdentificationTable
     {
         private int level = 0;
@@ -20,22 +21,29 @@ namespace WarSimulator_Handmade
             level--;
         }
 
-        public void EnterEntry(RegimentAssignment raEntry)
+        public void EnterEntry(Declaration declaration,string id)
         {
-            bool duplicateFound = entries.Any(x => x.ra == raEntry);
+            bool duplicateFound = entries.Any(x => x.id == id);
             if (duplicateFound)
             {
                 Console.WriteLine("Error: Duplicate found!");
             }
             else
             {
-                entries.Add(new IdEntry(raEntry, level));
+                entries.Add(new IdEntry(declaration, id,level));
             }
         }
-        public void RetrieveEntry(IdEntry entry)
+        public Declaration RetrieveEntry(string id)
         {
-            entries.Add(entry);
+            List<IdEntry> entries = entries.GetRange(x => x.id == id);
+            if (entries[0} != null)
+            {
+                return entries[0];
+            }
+            else
+            {
+                entries.Add(new IdEntry(declaration, id, level));
+            }
         }
-        
     }
 }

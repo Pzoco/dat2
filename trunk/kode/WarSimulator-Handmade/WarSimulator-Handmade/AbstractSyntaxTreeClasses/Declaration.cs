@@ -5,8 +5,8 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public abstract class SingleCommand:AST
+    public abstract class Declaration:AST
     {
-
+        
     }
 }

@@ -45,7 +45,6 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Misc
-        Object VisitSingleCommand(SingleCommand ast, Object obj);
         Object VisitBehaviourAssignment(BehaviourAssignment ast, Object obj);
         #endregion
 

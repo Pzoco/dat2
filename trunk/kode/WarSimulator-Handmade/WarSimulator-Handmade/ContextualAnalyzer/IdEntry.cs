@@ -7,12 +7,14 @@ namespace WarSimulator_Handmade
 {
     class IdEntry
     {
-        public RegimentAssignment ra;
+        public Declaration declaration;
+        public string id;
         public int level;
 
-        public IdEntry(RegimentAssignment ra, int level)
+        public IdEntry(Declaration declaration,string id, int level)
         {
-            this.ra = ra;
+            this.declaration = declaration;
+            this.id = id;
             this.level = level;
         }
     }

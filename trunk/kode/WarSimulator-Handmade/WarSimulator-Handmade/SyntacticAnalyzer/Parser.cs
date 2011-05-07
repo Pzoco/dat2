@@ -75,9 +75,14 @@ namespace WarSimulator_Handmade
             {
                 BlockName bn = ParseBlockName();
                 Accept(Token.TokenType.LeftBracket);
-                SingleCommand sc = ParseSingleCommand();
+                List<SingleCommand> scs = new List<SingleCommand>();
+                while (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While ||
+                        currentToken.type == Token.TokenType.UnitFunction || currentToken.type == Token.TokenType.Regiment)
+                {
+                    scs.Add(ParseSingleCommand());
+                }
                 Accept(Token.TokenType.RightBracket);
-                bb = new BehaviourBlock(bn, sc);
+                bb = new BehaviourBlock(bn, scs);
             }
             return bb;
         }
@@ -207,7 +212,7 @@ namespace WarSimulator_Handmade
                     e = new UnaryExpression(o, pe);
                     break;
                 case Token.TokenType.UnitStatName:
-                    UnitStat usn = ParseUnitStatName();
+                    UnitStatName usn = (UnitStatName)ParseUnitStatName();
                     e = new UnitStatNameExpression(usn);
                     break;
                 case Token.TokenType.LeftParen:
