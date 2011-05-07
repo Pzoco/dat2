@@ -5,16 +5,16 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class UnitStatNameVariable:Terminal
+    public class UnitStatVName:Terminal
     {
-        public UnitStatNameVariable(string spelling)
+        public UnitStatVName(string spelling)
             : base(spelling)
         {
 
         }
         public override Object Visit(Visitor v, Object arg)
         {
-            return v.VisitUnitStatNameVariable(this, arg);
+            return v.VisitUnitStatVName(this, arg);
         }
     }
 }

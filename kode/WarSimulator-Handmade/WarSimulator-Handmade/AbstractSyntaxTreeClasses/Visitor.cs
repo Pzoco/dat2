@@ -68,19 +68,14 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Stats
-        //Object VisitBinaryGridStatName(BinaryGridStatName ast, Object obj);
-        //Object VisitBinaryMaximumsStatName(BinaryMaximumsStatName ast, Object obj);
-        //Object VisitBinaryUnitStatName(BinaryUnitStatName ast, Object obj);
-        Object VisitGridStat(GridStat ast, Object obj);
-        Object VisitGridStatName(GridStatDeclaration ast, Object obj);
-        Object VisitGridStatNameVariable(GridStatVName ast, Object obj);
-        Object VisitMaximumsStat(MaximumsStat ast, Object obj);
-        Object VisitMaximumsStatName(MaximumsStatDeclaration ast, Object obj);
-        Object VisitMaximumsStatNameVariable(MaximumsStatNameVariable ast, Object obj);
+        Object VisitGridStatDeclaration(GridStatDeclaration ast, Object obj);
+        Object VisitGridStatVName(GridStatVName ast, Object obj);
+        Object VisitMaximumsStatDeclaration(MaximumsStatDeclaration ast, Object obj);
+        Object VisitMaximumsStatVName(MaximumsStatVName ast, Object obj);
         Object VisitUnitStatDeclaration(UnitStatDeclaration ast, Object obj);
-        Object VisitUnitStatNamePosition(UnitStatPositionDeclaration ast, Object obj);
-        Object VisitUnitStatNameType(UnitStatTypeDeclaration ast, Object obj);
-        Object VisitUnitStatNameVariable(UnitStatNameVariable ast, Object obj);
+        Object VisitUnitStatPositionDeclaration(UnitStatPositionDeclaration ast, Object obj);
+        Object VisitUnitStatTypeDeclaration(UnitStatTypeDeclaration ast, Object obj);
+        Object VisitUnitStatVName(UnitStatVName ast, Object obj);
         #endregion
     }
 }

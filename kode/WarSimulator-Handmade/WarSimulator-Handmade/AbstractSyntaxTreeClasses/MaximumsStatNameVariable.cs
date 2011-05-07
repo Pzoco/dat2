@@ -5,16 +5,16 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class MaximumsStatNameVariable:Terminal
+    public class MaximumsStatVName:Terminal
     {
-        public MaximumsStatNameVariable(string spelling)
+        public MaximumsStatVName(string spelling)
             : base(spelling)
         {
 
         }
         public override Object Visit(Visitor v, Object arg)
         {
-            return v.VisitMaximumsStatNameVariable(this, arg);
+            return v.VisitMaximumsStatVName(this, arg);
         }
     }
 }
