@@ -7,10 +7,10 @@ namespace WarSimulator_Handmade
 {
     public class UnitStatIntegerDeclaration:UnitStatDeclaration
     {
-        public UnitStatNameVariable sn;
+        public UnitStatVName sn;
         public IntegerLiteral il;
 
-        public UnitStatIntegerDeclaration(UnitStatNameVariable sn, IntegerLiteral il)
+        public UnitStatIntegerDeclaration(UnitStatVName sn, IntegerLiteral il)
         {
             this.sn = sn;
             this.il = il;

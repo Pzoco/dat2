@@ -7,7 +7,7 @@ namespace WarSimulator_Handmade
 {
     public class BehaviourAssignment:BehaviourBlock
     {
-        private BlockName bn;
+        public BlockName bn;
 
         public BehaviourAssignment(BlockName bn):base(bn,null)
         {

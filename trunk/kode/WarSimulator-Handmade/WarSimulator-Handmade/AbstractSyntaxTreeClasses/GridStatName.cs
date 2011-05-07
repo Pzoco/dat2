@@ -18,7 +18,7 @@ namespace WarSimulator_Handmade
         }
         public override Object Visit(Visitor v, Object arg)
         {
-            return v.VisitGridStatName(this, arg);
+            return v.VisitGridStatDeclaration(this, arg);
         }
     }
 }

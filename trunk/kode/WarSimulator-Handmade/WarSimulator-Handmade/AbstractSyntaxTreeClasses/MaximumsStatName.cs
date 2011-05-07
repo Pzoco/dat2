@@ -7,17 +7,17 @@ namespace WarSimulator_Handmade
 {
     public class MaximumsStatDeclaration:Declaration
     {
-        public MaximumsStatNameVariable msv;
+        public MaximumsStatVName msv;
         public IntegerLiteral il;
 
-        public MaximumsStatDeclaration(MaximumsStatNameVariable msv, IntegerLiteral il)
+        public MaximumsStatDeclaration(MaximumsStatVName msv, IntegerLiteral il)
         {
             this.msv = msv;
             this.il = il;
         }
         public override Object Visit(Visitor v, Object arg)
         {
-            return v.VisitMaximumsStatName(this, arg);
+            return v.VisitMaximumsStatDeclaration(this, arg);
         }
     }
 }
