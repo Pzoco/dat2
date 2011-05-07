@@ -20,5 +20,9 @@ namespace WarSimulator_Handmade
         {
             position = thePosition;
         }
+        public AST()
+        {
+
+        }
     }
 }
