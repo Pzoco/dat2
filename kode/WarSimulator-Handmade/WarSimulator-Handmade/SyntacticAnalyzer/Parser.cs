@@ -40,6 +40,16 @@ namespace WarSimulator_Handmade
         {
             currentToken = scanner.Scan();
         }
+
+        void Start(SourcePosition position)
+        {
+            position.start = currentToken.position.start;
+        }
+
+        void Finish(SourcePosition position)
+        {
+            position.finish = previousTokenPosition.finish;
+        }
         #endregion
 
         #region Basic Parse Methods
@@ -75,14 +85,9 @@ namespace WarSimulator_Handmade
             {
                 BlockName bn = ParseBlockName();
                 Accept(Token.TokenType.LeftBracket);
-                List<SingleCommand> scs = new List<SingleCommand>();
-                while (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While ||
-                        currentToken.type == Token.TokenType.UnitFunction || currentToken.type == Token.TokenType.Regiment)
-                {
-                    scs.Add(ParseSingleCommand());
-                }
+                SingleCommand sc = ParseSingleCommand();
                 Accept(Token.TokenType.RightBracket);
-                bb = new BehaviourBlock(bn, scs);
+                bb = new BehaviourBlock(bn, sc);
             }
             return bb;
         }
@@ -106,8 +111,14 @@ namespace WarSimulator_Handmade
             catch (Exception ex) { return null; }
             return tf;
         }
+
         private RegimentBlock ParseRegimentBlock()
         {
+            RegimentBlock regimentBlock = null;
+
+            SourcePosition regimentBlockPosition = new SourcePosition();
+
+            Start(regimentBlockPosition);
             Accept(Token.TokenType.Regiment);
             BlockName bn = ParseBlockName();
             Accept(Token.TokenType.LeftBracket);
@@ -212,7 +223,7 @@ namespace WarSimulator_Handmade
                     e = new UnaryExpression(o, pe);
                     break;
                 case Token.TokenType.UnitStatName:
-                    UnitStatName usn = (UnitStatName)ParseUnitStatName();
+                    UnitStat usn = ParseUnitStatName();
                     e = new UnitStatNameExpression(usn);
                     break;
                 case Token.TokenType.LeftParen:
@@ -414,7 +425,7 @@ namespace WarSimulator_Handmade
         }
         private MaximumsBlock ParseMaximumsBlock()
         {
-            Accept(Token.TokenType.Maximums);
+            Accept(Token.TokenType.Maxima);
             Accept(Token.TokenType.LeftBracket);
             MaximumsStat ms = ParseMaximumsStat();
             Accept(Token.TokenType.RightBracket);
