@@ -85,9 +85,14 @@ namespace WarSimulator_Handmade
             {
                 BlockName bn = ParseBlockName();
                 Accept(Token.TokenType.LeftBracket);
-                SingleCommand sc = ParseSingleCommand();
+                List<SingleCommand> scs = new List<SingleCommand>();
+                while (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While ||
+                        currentToken.type == Token.TokenType.UnitFunction || currentToken.type == Token.TokenType.Regiment)
+                {
+                    scs.Add(ParseSingleCommand());
+                }
                 Accept(Token.TokenType.RightBracket);
-                bb = new BehaviourBlock(bn, sc);
+                bb = new BehaviourBlock(bn, scs);
             }
             return bb;
         }
@@ -105,7 +110,7 @@ namespace WarSimulator_Handmade
                 tf = new TeamFile(rb, previousTokenPosition);
                 if (currentToken.type != Token.TokenType.EndOfText)
                 {
-                    Console.WriteLine("Error! File did not end when expected! "+currentToken.spelling);
+                    Console.WriteLine("Error! File did not end when expected! " + currentToken.spelling);
                 }
             }
             catch (Exception ex) { return null; }
@@ -122,10 +127,27 @@ namespace WarSimulator_Handmade
             Accept(Token.TokenType.Regiment);
             BlockName bn = ParseBlockName();
             Accept(Token.TokenType.LeftBracket);
-            UnitStat us = ParseUnitStat();
+            List<UnitStatDeclaration> usds = new List<UnitStatDeclaration>();
+            bool declarationFound = true;
+            while (declarationFound)
+            {
+                declarationFound = false;
+                switch (currentToken.type)
+                {
+                    case Token.TokenType.Size:
+                    case Token.TokenType.Range:
+                    case Token.TokenType.Damage:
+                    case Token.TokenType.Movement:
+                    case Token.TokenType.AttackSpeed:
+                    case Token.TokenType.Health:
+                    case Token.TokenType.RegimentPosition:
+                    case Token.TokenType.Type:
+                        usds.Add(ParseUnitStatDeclaration()); declarationFound = true; break;
+                }
+            }
             BehaviourBlock bb = ParseBehaviourBlock();
             Accept(Token.TokenType.RightBracket);
-            return new RegimentBlock(bn, us, bb);
+            return new RegimentBlock(bn, usds, bb);
         }
         private SingleCommand ParseSingleCommand()
         {
@@ -180,7 +202,7 @@ namespace WarSimulator_Handmade
                         break;
                     }
                 }
-                return new IfCommand(e, sc1, sc2,eifc);
+                return new IfCommand(e, sc1, sc2, eifc);
             }
             else if (currentToken.type == Token.TokenType.While)
             {
@@ -222,9 +244,16 @@ namespace WarSimulator_Handmade
                     Expression pe = ParsePrimaryExpression();
                     e = new UnaryExpression(o, pe);
                     break;
-                case Token.TokenType.UnitStatName:
-                    UnitStat usn = ParseUnitStatName();
-                    e = new UnitStatNameExpression(usn);
+                case Token.TokenType.Size:
+                case Token.TokenType.Range:
+                case Token.TokenType.Damage:
+                case Token.TokenType.Movement:
+                case Token.TokenType.AttackSpeed:
+                case Token.TokenType.Health:
+                case Token.TokenType.RegimentPosition:
+                case Token.TokenType.Type:
+                    UnitStatDeclaration usd = ParseUnitStatDeclaration();
+                    e = new UnitStatNameExpression(usd);
                     break;
                 case Token.TokenType.LeftParen:
                     AcceptIt();
@@ -241,8 +270,8 @@ namespace WarSimulator_Handmade
                         case Token.TokenType.Movement:
                         case Token.TokenType.AttackSpeed:
                         case Token.TokenType.Distance:
-                        case Token.TokenType.Damage: 
-                            RegimentStat rs = ParseRegimentStat(); 
+                        case Token.TokenType.Damage:
+                            RegimentStat rs = ParseRegimentStat();
                             e = new RegimentStatExpression(rs); break;
                     }
                     break;
@@ -312,19 +341,9 @@ namespace WarSimulator_Handmade
             AcceptIt();
             return new UnitStatType(spelling);
         }
-        private UnitStat ParseUnitStat()
+        private UnitStatDeclaration ParseUnitStatDeclaration()
         {
-            UnitStat usn = ParseUnitStatName();
-            while (currentToken.type == Token.TokenType.UnitStatName)
-            {
-                UnitStat usn2 = ParseUnitStatName();
-                usn = new BinaryUnitStatName(usn, usn2);
-            }
-            return usn;
-        }
-        private UnitStat ParseUnitStatName()
-        {
-            UnitStat usn = null;
+            UnitStatDeclaration usn = null;
             switch (currentToken.type)
             {
                 case Token.TokenType.Size:
@@ -338,7 +357,7 @@ namespace WarSimulator_Handmade
                     Accept(Token.TokenType.Assignment);
                     IntegerLiteral il = ParseIntegerLiteral();
                     Accept(Token.TokenType.SemiColon);
-                    usn = new UnitStatName(sn, il);
+                    usn = new UnitStatIntegerDeclaration(sn, il);
                     break;
                 case Token.TokenType.RegimentPosition:
                     sn = new UnitStatNameVariable(currentToken.spelling);
@@ -351,7 +370,7 @@ namespace WarSimulator_Handmade
                     IntegerLiteral ily = ParseIntegerLiteral();
                     Accept(Token.TokenType.RightParen);
                     Accept(Token.TokenType.SemiColon);
-                    usn = new UnitStatNamePosition(sn, ilx, ily);
+                    usn = new UnitStatPositionDeclaration(sn, ilx, ily);
                     break;
                 case Token.TokenType.Type:
                     sn = new UnitStatNameVariable(currentToken.spelling);
@@ -359,7 +378,7 @@ namespace WarSimulator_Handmade
                     Accept(Token.TokenType.Assignment);
                     AttackType at = ParseAttackType();
                     Accept(Token.TokenType.SemiColon);
-                    usn = new UnitStatNameType(sn, at);
+                    usn = new UnitStatTypeDeclaration(sn, at);
                     break;
             }
             return usn;
@@ -387,32 +406,26 @@ namespace WarSimulator_Handmade
         private GridBlock ParseGridBlock()
         {
             Accept(Token.TokenType.Grid);
-            BlockName bn= ParseBlockName();
+            BlockName bn = ParseBlockName();
             Accept(Token.TokenType.LeftBracket);
-            GridStat gs = ParseGridStat();
-            Accept(Token.TokenType.RightBracket);
-            return new GridBlock(bn,gs);
-        }
-        private GridStat ParseGridStat()
-        {
-            GridStat gsn = ParseGridStatName();
-            while (currentToken.type == Token.TokenType.GridStatName)
+            List<GridStatDeclaration> gsd = new List<GridStatDeclaration>();
+            while (currentToken.type == Token.TokenType.Width || currentToken.type == Token.TokenType.Height)
             {
-                GridStat gsn2 = ParseGridStatName();
-                gsn = new BinaryGridStatName(gsn, gsn2);
+                gsd.Add(ParseGridStatDeclaration());
             }
-            return gsn;
+            Accept(Token.TokenType.RightBracket);
+            return new GridBlock(bn, gsd);
         }
-        private GridStatName ParseGridStatName()
+        private GridStatDeclaration ParseGridStatDeclaration()
         {
             if (currentToken.type == Token.TokenType.Width || currentToken.type == Token.TokenType.Height)
             {
-                GridStatNameVariable gsnv = new GridStatNameVariable(currentToken.spelling);
+                GridStatVName gsnv = new GridStatVName(currentToken.spelling);
                 AcceptIt();
                 Accept(Token.TokenType.Assignment);
                 IntegerLiteral il = ParseIntegerLiteral();
                 Accept(Token.TokenType.SemiColon);
-                return new GridStatName(gsnv, il);
+                return new GridStatDeclaration(gsnv, il);
             }
             return null;
         }
@@ -427,38 +440,67 @@ namespace WarSimulator_Handmade
         {
             Accept(Token.TokenType.Maxima);
             Accept(Token.TokenType.LeftBracket);
-            MaximumsStat ms = ParseMaximumsStat();
+            List<MaximumsStatDeclaration> msds = new List<MaximumsStatDeclaration>();
+            bool declarationFound = true;
+            while (declarationFound)
+            {
+                declarationFound = false;
+                switch (currentToken.type)
+                {
+                    case Token.TokenType.Size:
+                    case Token.TokenType.Range:
+                    case Token.TokenType.Damage:
+                    case Token.TokenType.Movement:
+                    case Token.TokenType.AttackSpeed:
+                    case Token.TokenType.Health:
+                    case Token.TokenType.Regiments:
+                    case Token.TokenType.Teams:
+                        msds.Add(ParseMaximumsStatDeclaration());
+                        declarationFound = true; break;
+                }
+            }
             Accept(Token.TokenType.RightBracket);
 
-            return new MaximumsBlock(ms);
+            return new MaximumsBlock(msds);
         }
-        private MaximumsStat ParseMaximumsStat()
+        private MaximumsStatDeclaration ParseMaximumsStatDeclaration()
         {
-            MaximumsStat ms = ParseMaximumsStatName();
-            while (currentToken.type == Token.TokenType.MaximumsStatName)
+            if (currentToken.type == Token.TokenType.Regiments || currentToken.type == Token.TokenType.Teams)
             {
-                MaximumsStat ms2 = ParseMaximumsStatName();
-                ms = new BinaryMaximumsStatName(ms, ms2);
+                MaximumsStatNameVariable msv = new MaximumsStatNameVariable(currentToken.spelling);
+                AcceptIt();
+                Accept(Token.TokenType.Assignment);
+                IntegerLiteral il = ParseIntegerLiteral();
+                Accept(Token.TokenType.SemiColon);
+                return new MaximumsStatDeclaration(msv, il);
             }
-            return ms;
-        }
-        private MaximumsStat ParseMaximumsStatName()
-        {
-            MaximumsStatNameVariable msv = new MaximumsStatNameVariable(currentToken.spelling);
-            AcceptIt();
-            Accept(Token.TokenType.Assignment);
-            IntegerLiteral il = ParseIntegerLiteral();
-            Accept(Token.TokenType.SemiColon);
-            return new MaximumsStatName(msv, il);
+            return null;
         }
         private StandardsBlock ParseStandardsBlock()
         {
             Accept(Token.TokenType.Standards);
             Accept(Token.TokenType.LeftBracket);
-            UnitStat us = ParseUnitStat();
+            List<UnitStatDeclaration> usds = new List<UnitStatDeclaration>();
+            bool declarationFound = true;
+            while (declarationFound)
+            {
+                declarationFound = false;
+                switch (currentToken.type)
+                {
+                    case Token.TokenType.Size:
+                    case Token.TokenType.Range:
+                    case Token.TokenType.Damage:
+                    case Token.TokenType.Movement:
+                    case Token.TokenType.AttackSpeed:
+                    case Token.TokenType.Health:
+                    case Token.TokenType.RegimentPosition:
+                    case Token.TokenType.Type:
+                        usds.Add(ParseUnitStatDeclaration()); declarationFound = true; break;
+                }
+            }
             BehaviourBlock bb = ParseBehaviourBlock();
             Accept(Token.TokenType.RightBracket);
-            return new StandardsBlock(us, bb);
+            return new StandardsBlock(usds, bb);
         }
         #endregion
 
