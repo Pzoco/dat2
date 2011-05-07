@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public enum DataType { Boolean, Integer}
+    public enum DataType { Boolean, Integer, AttackType, Position, Regiment}
     public class Checker:Visitor
     {
         IdentificationTable idTable = new IdentificationTable();
@@ -24,7 +24,7 @@ namespace WarSimulator_Handmade
         {
             idTable.Open();
             ast.bn.Visit(this, null);
-            ast.sc.Visit(this, null);
+            ast.scs.ForEach(x => x.Visit(this,null));
             idTable.Close();
             return null; 
         }
@@ -62,6 +62,10 @@ namespace WarSimulator_Handmade
         }
         public Object VisitStandardsBlock(StandardsBlock ast, Object obj)
         {
+            idTable.Open();
+            ast.bb.Visit(this, null);
+            ast.us.Visit(this, null);
+            idTable.Close();
             return null;
         }
         #endregion
@@ -112,11 +116,13 @@ namespace WarSimulator_Handmade
         }
         public Object VisitIntegerExpression(IntegerExpression ast, Object obj)
         {
-            return null;
+            ast.type = DataType.Integer;
+            return ast.type;
         }
         public Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj)
         {
-            return null;
+            ast.type = DataType.Regiment;
+            return ast.type;
         }
         public Object VisitUnaryExpression(UnaryExpression ast, Object obj)
         {
@@ -124,17 +130,21 @@ namespace WarSimulator_Handmade
         }
         public Object VisitUnitStatNameExpression(UnitStatNameExpression ast, Object obj)
         {
-            return null;
+            ast.type = (DataType) ast.usn.Visit(this, null);
+            return ast.type;
         }
         #endregion
 
         #region Files
         public Object VisitTeamFile(TeamFile ast, Object obj)
         {
+            ast.rb.Visit(this, null);
             return null;
         }
         public Object VisitConfigFile(ConfigFile ast, Object obj)
         {
+            ast.rb.Visit(this, null);
+            ast.gb.Visit(this, null);
             return null;
         }
         #endregion
@@ -142,7 +152,7 @@ namespace WarSimulator_Handmade
         #region Identifiers etc
         public Object VisitAttackType(AttackType ast, Object obj)
         {
-            return null;
+            return DataType.AttackType;
         }
         public Object VisitBlockName(BlockName ast, Object obj)
         {
@@ -163,10 +173,6 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Misc
-        public Object VisitSingleCommand(SingleCommand ast, Object obj)
-        {
-            return null;
-        }
         public Object VisitBehaviourAssignment(BehaviourAssignment ast, Object obj)
         {
             return null;
