@@ -58,16 +58,7 @@
     <Compile Include="AbstractSyntaxTreeClasses\BinaryExpression.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\BinaryGridStatName.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\BinaryMaximumsStatName.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\BinaryParameter.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\BinaryUnitStatName.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\BlockName.cs">
       <SubType>Code</SubType>
     </Compile>

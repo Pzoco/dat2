@@ -32,14 +32,14 @@ namespace WarSimulator_Handmade
         {
             idTable.Open();
             ast.bn.Visit(this, null);
-            ast.gs.Visit(this, null);
+            ast.gss.ForEach(x=> x.Visit(this, null));
             idTable.Close();
             return null;
         }
         public Object VisitMaximumsBlock(MaximumsBlock ast, Object obj)
         {
             idTable.Open();
-            ast.ms.Visit(this, null);
+            ast.msds.ForEach(x=>x.Visit(this, null));
             idTable.Close();
             return null;
         }
@@ -47,7 +47,7 @@ namespace WarSimulator_Handmade
         {
             idTable.Open();
             ast.bn.Visit(this, null);
-            ast.us.Visit(this, null);
+            ast.usds.ForEach(x=> x.Visit(this, null));
             ast.bb.Visit(this, null);
             idTable.Close();
             return null;
@@ -64,7 +64,7 @@ namespace WarSimulator_Handmade
         {
             idTable.Open();
             ast.bb.Visit(this, null);
-            ast.us.Visit(this, null);
+            ast.usds.ForEach(x=>x.Visit(this, null));
             idTable.Close();
             return null;
         }
@@ -226,7 +226,7 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Stats
-        public Object VisitBinaryGridStatName(BinaryGridStatName ast, Object obj)
+        /*public Object VisitBinaryGridStatName(BinaryGridStatName ast, Object obj)
         {
             return null;
         }
@@ -237,16 +237,16 @@ namespace WarSimulator_Handmade
         public Object VisitBinaryUnitStatName(BinaryUnitStatName ast, Object obj)
         {
             return null;
-        }
+        }*/
         public Object VisitGridStat(GridStat ast, Object obj)
         {
             return null;
         }
-        public Object VisitGridStatName(GridStatName ast, Object obj)
+        public Object VisitGridStatName(GridStatDeclaration ast, Object obj)
         {
             return null;
         }
-        public Object VisitGridStatNameVariable(GridStatNameVariable ast, Object obj)
+        public Object VisitGridStatNameVariable(GridStatVName ast, Object obj)
         {
             return null;
         }
@@ -254,7 +254,7 @@ namespace WarSimulator_Handmade
         {
             return null;
         }
-        public Object VisitMaximumsStatName(MaximumsStatName ast, Object obj)
+        public Object VisitMaximumsStatName(MaximumsStatDeclaration ast, Object obj)
         {
             return null;
         }
@@ -262,19 +262,15 @@ namespace WarSimulator_Handmade
         {
             return null;
         }
-        public Object VisitUnitStat(UnitStat ast, Object obj)
+        public Object VisitUnitStatDeclaration(UnitStatDeclaration ast, Object obj)
         {
             return null;
         }
-        public Object VisitUnitStatName(UnitStatName ast, Object obj)
+        public Object VisitUnitStatNamePosition(UnitStatPositionDeclaration ast, Object obj)
         {
             return null;
         }
-        public Object VisitUnitStatNamePosition(UnitStatNamePosition ast, Object obj)
-        {
-            return null;
-        }
-        public Object VisitUnitStatNameType(UnitStatNameType ast, Object obj)
+        public Object VisitUnitStatNameType(UnitStatTypeDeclaration ast, Object obj)
         {
             return null;
         }

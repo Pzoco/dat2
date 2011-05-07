@@ -35,15 +35,16 @@ namespace WarSimulator_Handmade
         }
         public Declaration RetrieveEntry(string id)
         {
-            List<IdEntry> entries = entries.GetRange(x => x.id == id);
-            if (entries[0} != null)
+            List<IdEntry> getEntries = this.entries.GetRange(0, 1);
+            if (entries[0] != null)
             {
-                return entries[0];
+                return entries[0].declaration;
             }
             else
             {
-                entries.Add(new IdEntry(declaration, id, level));
+                Console.WriteLine("Error: Couldn't retrieve entry");
             }
+            return null;
         }
     }
 }
