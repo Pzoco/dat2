@@ -76,9 +76,6 @@
     <Compile Include="AbstractSyntaxTreeClasses\GridBlock.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\GridStat.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\GridStatName.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -98,9 +95,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\MaximumsBlock.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStat.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatName.cs">

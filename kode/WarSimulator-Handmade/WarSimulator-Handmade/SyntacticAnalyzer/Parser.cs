@@ -352,7 +352,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Movement:
                 case Token.TokenType.AttackSpeed:
                 case Token.TokenType.Health:
-                    UnitStatNameVariable sn = new UnitStatNameVariable(currentToken.spelling);
+                    UnitStatVName sn = new UnitStatVName(currentToken.spelling);
                     AcceptIt();
                     Accept(Token.TokenType.Assignment);
                     IntegerLiteral il = ParseIntegerLiteral();
@@ -360,7 +360,7 @@ namespace WarSimulator_Handmade
                     usn = new UnitStatIntegerDeclaration(sn, il);
                     break;
                 case Token.TokenType.RegimentPosition:
-                    sn = new UnitStatNameVariable(currentToken.spelling);
+                    sn = new UnitStatVName(currentToken.spelling);
                     AcceptIt();
                     Accept(Token.TokenType.Assignment);
                     Accept(Token.TokenType.Position);
@@ -373,7 +373,7 @@ namespace WarSimulator_Handmade
                     usn = new UnitStatPositionDeclaration(sn, ilx, ily);
                     break;
                 case Token.TokenType.Type:
-                    sn = new UnitStatNameVariable(currentToken.spelling);
+                    sn = new UnitStatVName(currentToken.spelling);
                     AcceptIt();
                     Accept(Token.TokenType.Assignment);
                     AttackType at = ParseAttackType();
@@ -467,7 +467,7 @@ namespace WarSimulator_Handmade
         {
             if (currentToken.type == Token.TokenType.Regiments || currentToken.type == Token.TokenType.Teams)
             {
-                MaximumsStatNameVariable msv = new MaximumsStatNameVariable(currentToken.spelling);
+                MaximumsStatVName msv = new MaximumsStatVName(currentToken.spelling);
                 AcceptIt();
                 Accept(Token.TokenType.Assignment);
                 IntegerLiteral il = ParseIntegerLiteral();
