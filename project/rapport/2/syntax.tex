@@ -115,7 +115,7 @@
 				Primary-Expression	&	::=	&(Expression)\\
 									&$\mid$	&Integer-Literal \\
 									&$\mid$	&Operator Primary-Expression\\
-									&$\mid$	&UnitStat-Name \\
+									&$\mid$	&UnitStat-Declaration \\
 									&$\mid$	&RegimentStat \\
 				Operator			&	::=	&$\boldsymbol {+}$\\
 									&$\mid$	&$\boldsymbol {-}$\\
@@ -131,9 +131,9 @@
 				UnitFunction		&	::=	&{\bf Attack(} Identifier {\bf );} \\
 									&$\mid$	&{\bf MoveTowards(}Identifier {\bf );} \\
 									&$\mid$	&{\bf MoveAway(} Identifier {\bf );} \\
-				UnitStat			&	::=	&UnitStat-Name UnitStat \\
-									&$\mid$	&UnitStat-Name \\
-				UnitStat-Name		&	::=	&{\bf Size =} Integer-Literal{\bf ;} \\
+				UnitStat			&	::=	&UnitStat-Declaration UnitStat \\
+									&$\mid$	&UnitStat-Declaration \\
+				UnitStat-Declaration&	::=	&{\bf Size =} Integer-Literal{\bf ;} \\
 									&$\mid$	&{\bf Type} = AttackType{\bf ;}\\
 									&$\mid$	&{\bf  Range =} Integer-Literal{\bf;}\\
 									&$\mid$	&{\bf Damage =} Integer-Literal{\bf ;}\\
@@ -156,19 +156,19 @@
 									&$\mid$	&Graphic\\
 				Config-File			&	::=	&{\bf Config} Grid-Block Rules-Block\\
 				Grid-Block			&	::=	&{\bf Grid} Block-Name	 {\bf \{} GridStat \bf{\}}\\
-				GridStat			&	::=	&GridStat-Name GridStat\\
-									&$\mid$	&GridStat-Name\\
-				GridStat-Name		&	::=	&{\bf Width = } Integer-Literal;\\
+				GridStat			&	::=	&GridStat-Declaration GridStat\\
+									&$\mid$	&GridStat-Declaration \\
+				GridStat-Declaration		&	::=	&{\bf Width = } Integer-Literal;\\
 									&$\mid$	&{\bf Height = } Integer-Literal;\\
 				Rules-Block			&	::=	&Standards-Block MaximumsBlock\\
 				Maximums-Block		&	::=	&{\bf Maxima} {\bf \{} MaximumsStat {\bf \}} \\
-				MaximumsStat		&	::=	&MaximumsStat-Name MaximumsStat\\
-									&$\mid$	&MaximumsStat-Name\\
-									&$\mid$	&UnitStat-Name MaximumsStat\\
-									&$\mid$	&UnitStat-Name\\
-				MaximumsStat-Name	&	::=	&{\bf Regiments = } Integer-Literal{\bf ;}\\
+				MaximumsStat		&	::=	&MaximumsStat-Declaration MaximumsStat\\
+									&$\mid$	&MaximumsStat-Declaration\\
+									&$\mid$	&UnitStat-Declaration MaximumsStat\\
+									&$\mid$	&UnitStat-Declaration\\
+				MaximumsStat-Declaration&	::=	&{\bf Regiments = } Integer-Literal{\bf ;}\\
 									&$\mid$	&{\bf Teams = } Integer-Literal{\bf ;}\\
-				Standards-Block		&	::=	&{\bf Standards} {\bf \{ } UnitStat Behaviour-Block\bf{\} }\\
+				Standards-Block		&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration Behaviour-Block\bf{\} }\\
 				\end{longtable}
 		\end{center}
 		
@@ -183,7 +183,7 @@
 				Block-Name			&	::=	&Identifier							\\
 				Regiment-Block		&	::=	&{\bf Regiment} Block-Name {\bf \{ } UnitStat Behaviour-Block \bf{\} }\\
 				Behaviour-Block		&	::=	&{\bf Behaviour}(Identifier\bf{\{}Single-Command\bf{\}} $\mid$ {\bf $=$} Identifier)\\
-				Regiment-Assignment	&	::=	&{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
+				Regiment-Declaration&	::=	&{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
 									&		&{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
 				Regiment-Search		&	::=	&{\bf SearchForEnemies (} Parameters {\bf )} $\mid$\\
 									&		&{\bf SearchForFriends(} Parameters {\bf )}	 \\
@@ -196,14 +196,13 @@
 									&		&$\mid$ while(Expression)\bf{\{ } Single-Command \bf{\}}\\
 				Expression			&	::=	&Primary-Expression (Operator Primary-Expression)*\\
 				Primary-Expression	&	::=	&(Expression) $\mid$ Integer-Literal \\
-									&		&$\mid$ UnitStat-Name $\mid$ RegimentStat \\	
+									&		&$\mid$ UnitStat-Declaration $\mid$ RegimentStat \\	
 				Operator			&	::=	&$\boldsymbol {+} \mid \boldsymbol {-} \mid  \boldsymbol {*}\mid 
-									\boldsymbol {/} \mid \boldsymbol {<} \mid  \boldsymbol {>} \mid
-									\boldsymbol {<=} \mid  \boldsymbol {>=} \mid \boldsymbol {==} 
-									\mid \boldsymbol {\&\&} \mid \boldsymbol {\|}$\\
+												\boldsymbol {/} \mid \boldsymbol {<} \mid  \boldsymbol {>} \mid
+												\boldsymbol {<=} \mid  \boldsymbol {>=} \mid \boldsymbol {==} 
+												\mid \boldsymbol {\&\&} \mid \boldsymbol {\|}$\\
 				UnitFunction		&	::=	&({\bf Attack} $\mid$ {\bf MoveTowards} $\mid${\bf MoveAway}){\bf (} Identifier {\bf );}\\
-				UnitStat			&	::=	&UnitStat-Name*\\
-				UnitStat-Name		&	::=	&({\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid${\bf Movement}\\ 
+				UnitStat-Declaration&	::=	&({\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid${\bf Movement}\\ 
 									&		&$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) ${\bf = }$ Integer-Literal{\bf ;} \\
 									&		&$\mid$ {\bf RegimentPosition = Position(}Integer-Literal{\bf ,}Integer-Literal{\bf );}\\
 									&		&$\mid$ {\bf Type} = AttackType{\bf ;}\\
@@ -213,13 +212,11 @@
 				Integer-Literal		&	::=	&Digit Digit*\\
 				Comment				&	::=	&{\bf //} Graphic* eol\\
 				Config-File			&	::=	&{\bf Config} Grid-Block Rules-Block  		\\
-				Grid-Block			&	::=	&{\bf Grid} Block-Name	 {\bf \{} GridStat \bf{\}} \\
-				GridStat			&	::=	&GridStat-Name*\\	
-				GridStat-Name		&	::=	&({\bf Width} $\mid$ {\bf Height} $\mid$ UnitStat-Type\\	
+				Grid-Block			&	::=	&{\bf Grid} Block-Name	 {\bf \{} GridStat-Declaration* \bf{\}} \\
+				GridStat-Declaration&	::=	&({\bf Width} $\mid$ {\bf Height})=  Integer-Literal{\bf ;} \\	
 				Rules-Block			&	::=	&Standards-Block MaximumsBlock 				\\
-				Maximums-Block		&	::=	&{\bf Maximums} {\bf \{} MaximumsStat {\bf \}} $\mid$ \\
-				MaximumsStat		&	::=	&MaximumsStat-Name*\\
-				MaximumsStat-Name	&	::=	&({\bf Regiments }$\mid$ {\bf Teams}) =  Integer-Literal{\bf ;}\\		 
-				Standards-Block		&	::=	&{\bf Standards} {\bf \{ } UnitStat Behaviour-Block\bf{\} }		\\
+				Maximums-Block		&	::=	&{\bf Maximums} {\bf \{} (MaximumsStat-Declaration $\mid$ UnitStat-Declaration)* {\bf \}} $\mid$ \\
+				MaximumsStat-Declaration&	::=	&({\bf Regiments }$\mid$ {\bf Teams}) =  Integer-Literal{\bf ;}\\		 
+				Standards-Block		&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration* Behaviour-Block\bf{\} }		\\
 			\end{longtable}
 		\end{center}					     
