@@ -215,11 +215,20 @@ namespace WarSimulator_Handmade
                     e = ParseExpression();
                     Accept(Token.TokenType.RightParen);
                     break;
-                case Token.TokenType.RegimentStat:
-                    RegimentStat rs = ParseRegimentStat();
-                    e = new RegimentStatExpression(rs);
-                    break;
-
+                case Token.TokenType.Identifier:
+                    Accept(Token.TokenType.Dot);
+                    switch (currentToken.type)
+                    {
+                        case Token.TokenType.Range:
+                        case Token.TokenType.Health:
+                        case Token.TokenType.Size:
+                        case Token.TokenType.Movement:
+                        case Token.TokenType.AttackSpeed:
+                        case Token.TokenType.Distance:
+                        case Token.TokenType.Damage: 
+                            RegimentStat rs = ParseRegimentStat(); 
+                            e = new RegimentStatExpression(rs); break;
+                    }
             }
             return e;
         }
