@@ -226,39 +226,20 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Stats
-        /*public Object VisitBinaryGridStatName(BinaryGridStatName ast, Object obj)
+
+        public Object VisitGridStatDeclaration(GridStatDeclaration ast, Object obj)
         {
             return null;
         }
-        public Object VisitBinaryMaximumsStatName(BinaryMaximumsStatName ast, Object obj)
+        public Object VisitGridStatVName(GridStatVName ast, Object obj)
         {
             return null;
         }
-        public Object VisitBinaryUnitStatName(BinaryUnitStatName ast, Object obj)
-        {
-            return null;
-        }*/
-        public Object VisitGridStat(GridStat ast, Object obj)
+        public Object VisitMaximumsStatDeclaration(MaximumsStatDeclaration ast, Object obj)
         {
             return null;
         }
-        public Object VisitGridStatName(GridStatDeclaration ast, Object obj)
-        {
-            return null;
-        }
-        public Object VisitGridStatNameVariable(GridStatVName ast, Object obj)
-        {
-            return null;
-        }
-        public Object VisitMaximumsStat(MaximumsStat ast, Object obj)
-        {
-            return null;
-        }
-        public Object VisitMaximumsStatName(MaximumsStatDeclaration ast, Object obj)
-        {
-            return null;
-        }
-        public Object VisitMaximumsStatNameVariable(MaximumsStatNameVariable ast, Object obj)
+        public Object VisitMaximumsStatVName(MaximumsStatVName ast, Object obj)
         {
             return null;
         }
@@ -266,15 +247,15 @@ namespace WarSimulator_Handmade
         {
             return null;
         }
-        public Object VisitUnitStatNamePosition(UnitStatPositionDeclaration ast, Object obj)
+        public Object VisitUnitStatPositionDeclaration(UnitStatPositionDeclaration ast, Object obj)
         {
             return null;
         }
-        public Object VisitUnitStatNameType(UnitStatTypeDeclaration ast, Object obj)
+        public Object VisitUnitStatTypeDeclaration(UnitStatTypeDeclaration ast, Object obj)
         {
             return null;
         }
-        public Object VisitUnitStatNameVariable(UnitStatNameVariable ast, Object obj)
+        public Object VisitUnitStatVName(UnitStatVName ast, Object obj)
         {
             return null;
         }
