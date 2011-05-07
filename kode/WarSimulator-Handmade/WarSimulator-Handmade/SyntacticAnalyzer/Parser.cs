@@ -229,6 +229,7 @@ namespace WarSimulator_Handmade
                             RegimentStat rs = ParseRegimentStat(); 
                             e = new RegimentStatExpression(rs); break;
                     }
+                    break;
             }
             return e;
         }
