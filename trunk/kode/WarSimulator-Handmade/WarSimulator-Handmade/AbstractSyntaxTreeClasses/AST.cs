@@ -16,9 +16,9 @@ namespace WarSimulator_Handmade
             return position;
         }
         */
-        public AST(SourcePosition thePosition)
+        public AST(SourcePosition inputpos)
         {
-            position = thePosition;
+            position = inputpos;
         }
         public AST()
         {

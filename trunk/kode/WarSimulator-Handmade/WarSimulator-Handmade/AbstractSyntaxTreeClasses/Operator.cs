@@ -7,7 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class Operator:Terminal
     {
-        public Operator(string spelling):base(spelling)
+        public Operator(String spelling, SourcePosition position)
+            : base(spelling, position)
         {
             
         }

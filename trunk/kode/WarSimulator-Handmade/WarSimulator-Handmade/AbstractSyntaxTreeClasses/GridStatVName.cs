@@ -7,8 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class GridStatVName : Terminal
     {
-        public GridStatVName(string spelling)
-            : base(spelling)
+        public GridStatVName(String spelling, SourcePosition position)
+            : base(spelling, position)
         {
 
         }
