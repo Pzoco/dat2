@@ -76,10 +76,10 @@
     <Compile Include="AbstractSyntaxTreeClasses\GridBlock.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\GridStatName.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\GridStatDeclaration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\GridStatNameVariable.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\GridStatVName.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\Identifier.cs">
@@ -97,10 +97,10 @@
     <Compile Include="AbstractSyntaxTreeClasses\MaximumsBlock.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatName.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatDeclaration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatNameVariable.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatVName.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\Operator.cs">
@@ -108,7 +108,7 @@
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\Parameter.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\Parameters.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\RegimentAssignment.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\RegimentDeclaration.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\RegimentBlock.cs">
@@ -141,22 +141,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\UnitFunctionName.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStat.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatDeclaration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStatName.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatIntegerDeclaration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNameExpression.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatVNameExpression.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNamePosition.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatPositionDeclaration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNameType.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatTypeDeclaration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\UnitStatNameVariable.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\UnitStatVName.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\UnitStatType.cs" />

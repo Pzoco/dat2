@@ -28,7 +28,7 @@ namespace WarSimulator_Handmade
         Object VisitIntegerExpression(IntegerExpression ast, Object obj);
         Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj);
         Object VisitUnaryExpression(UnaryExpression ast, Object obj);
-        Object VisitUnitStatNameExpression(UnitStatNameExpression ast, Object obj);
+        Object VisitUnitStatNameExpression(UnitStatVNameExpression ast, Object obj);
         #endregion
 
         #region Files
@@ -50,7 +50,7 @@ namespace WarSimulator_Handmade
 
         #region Regiment assignment related
         //Regiment Assignment
-        Object VisitRegimentAssignment(RegimentAssignment ast, Object obj);
+        Object VisitRegimentAssignment(RegimentDeclaration ast, Object obj);
 
         //Regiment Search
         Object VisitBinaryParameter(BinaryParameter ast, Object obj);
