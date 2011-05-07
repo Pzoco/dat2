@@ -253,7 +253,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.RegimentPosition:
                 case Token.TokenType.Type:
                     UnitStatDeclaration usd = ParseUnitStatDeclaration();
-                    e = new UnitStatNameExpression(usd);
+                    e = new UnitStatVNameExpression(usd);
                     break;
                 case Token.TokenType.LeftParen:
                     AcceptIt();
@@ -293,13 +293,13 @@ namespace WarSimulator_Handmade
             Accept(Token.TokenType.Operator);
             return new Operator(spelling);
         }
-        private RegimentAssignment ParseRegimentAssignment()
+        private RegimentDeclaration ParseRegimentAssignment()
         {
             Accept(Token.TokenType.Regiment);
             Identifier i = ParseIdentifier();
             Accept(Token.TokenType.Assignment);
             RegimentSearch rs = ParseRegimentSearch();
-            return new RegimentAssignment(i, rs);
+            return new RegimentDeclaration(i, rs);
         }
         private RegimentStat ParseRegimentStat()
         {

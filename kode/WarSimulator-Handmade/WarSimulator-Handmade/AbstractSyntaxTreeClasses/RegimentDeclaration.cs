@@ -5,12 +5,12 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class RegimentAssignment:Declaration
+    public class RegimentDeclaration:Declaration
     {
         public Identifier i;
         public RegimentSearch rs;
 
-        public RegimentAssignment(Identifier i,RegimentSearch rs)
+        public RegimentDeclaration(Identifier i,RegimentSearch rs)
         {
             this.i = i;
             this.rs = rs;

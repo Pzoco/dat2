@@ -5,11 +5,11 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class UnitStatNameExpression:Expression
+    public class UnitStatVNameExpression:Expression
     {
         public UnitStatDeclaration usn;
 
-        public UnitStatNameExpression(UnitStatDeclaration usn)
+        public UnitStatVNameExpression(UnitStatDeclaration usn)
         {
             this.usn = usn;
         }
