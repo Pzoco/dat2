@@ -149,14 +149,14 @@
 	Identifier 		   &    ::=  & Letter (Letter $\mid$ Digit)*\\
 	Block-Name		   &	::=  & Identifier							\\
 	Regiment-Block     &	::=	 & {\bf Regiment} Block-Name {\bf \{ } UnitStat Behaviour-Block \bf{\} }\\
-	Behaviour-Block	   &	::=	 & {\bf Behaviour}(Identifier\bf{\{}Single-Command\bf{\}} $\mid$ {\bf $=$} Identifier)\\
+	Behaviour-Block	   &	::=	 & {\bf Behaviour}(Identifier\bf{\{}Single-Command*\bf{\}} $\mid$ {\bf $=$} Identifier)\\
 	Regiment-Assignment&    ::=  &{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
 					   &         &{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
 	Regiment-Search	   &	::=	 &{\bf SearchForEnemies (} Parameters {\bf )} $\mid$\\
 					   &		 & {\bf SearchForFriends(} Parameters {\bf )}	 \\
 	RegimentStat 	   &	::=  & Identifier{\bf.}UnitStat-Type \\
 	Parameters		   &	::=	 & UnitStat-Type Operator Integer-Literal({\bf ,}UnitStat-Type Operator Integer-Literal)*\\
-	Single-Command     &	::=  & (Control-Structure $\mid$ UnitFunction $\mid$ Regiment-Assignment)*\\		
+	Single-Command     &	::=  & (Control-Structure $\mid$ UnitFunction $\mid$ Regiment-Assignment)\\		
 	Control-Structure  &  	::=  & if(Expression) \bf{\{}Single-Command \bf{\}}\\
 					   &  	     & (\bf{else if(}Expression\bf{)\{ }Single-Command\bf{ \}})* \\
 					   &		 & ($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} }\\					   
