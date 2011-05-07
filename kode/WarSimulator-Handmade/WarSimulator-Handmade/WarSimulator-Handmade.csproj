@@ -174,6 +174,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\UnitStatType.cs" />
+    <Compile Include="AbstractSyntaxTreeClasses\Visitor.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\WhileCommand.cs">
       <SubType>Code</SubType>
     </Compile>

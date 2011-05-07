@@ -10,12 +10,12 @@ namespace WarSimulator_Handmade
 
         public SourcePosition position;
 
-
+        /* Hvad er meningen med denne funktion? position er public
         public SourcePosition GetPosition()
         {
             return position;
         }
-
+        */
         public AST(SourcePosition thePosition)
         {
             position = thePosition;
