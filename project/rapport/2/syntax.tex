@@ -78,7 +78,7 @@
 				\begin{longtable}{l l l}
 				\endfirsthead
 				\endhead
-		Team-File					&	::=	&{\bf Team} Regiment-Block\\
+		Team-File					&	::=	&{\bf Team} Identifier Regiment-Block\\
 		Identifier					&	::=	&Letter\\
 									&$\mid$	&Identifier Digit\\
 									&$\mid$	&Identifier Letter\\
@@ -182,10 +182,11 @@
 			\begin{longtable}{ l l l }
 				\endfirsthead
 				\endhead
-		Team-File					&	::=	&{\bf Team} Regiment-Block\\
+		Team-File					&	::=	&{\bf Team} Identifier Regiment-Block*\\
 		Identifier					&	::=	&Letter (Letter $\mid$ Digit)*\\
 		Block-Name					&	::=	&Identifier\\
-		Regiment-Block				&	::=	&{\bf Regiment} Block-Name {\bf \{ } UnitStat-Declaration Behaviour-Block \bf{\} }\\
+		Regiment-Block				&	::=	&{\bf Regiment} Block-Name {\bf \{ } \\
+									&		&UnitStat-Declaration Behaviour-Block \bf{\} }\\
 		Behaviour-Block				&	::=	&{\bf Behaviour}(Identifier\bf{\{}Single-Command\bf{\}} $\mid$ {\bf $=$} Identifier)\\
 		Regiment-Declaration		&	::=	&{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
 									&$\mid$	&{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
