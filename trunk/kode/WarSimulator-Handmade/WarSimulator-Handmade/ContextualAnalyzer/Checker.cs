@@ -71,10 +71,6 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Control Structures
-        public Object VisitControlStructure(ControlStructure ast, Object obj)
-        {
-            return null;
-        }
         public Object VisitIfCommand(IfCommand ast, Object obj)
         {
             DataType type = (DataType)ast.e.Visit(this, null);
@@ -112,7 +108,31 @@ namespace WarSimulator_Handmade
         #region Expressions
         public Object VisitBinaryExpression(BinaryExpression ast, Object obj)
         {
-            return null;
+            DataType eType1 = (DataType) ast.e1.Visit(this,null);
+            DataType eType2 = (DataType) ast.e2.Visit(this,null);
+            Declaration declaration = (Declaration) ast.o.Visit(this, null);
+            if (declaration != null)
+            {
+                if (!(declaration is BinaryOperatorDeclaration))
+                {
+                    reporter.ReportError("Operator was not a binary operator declaration", "", ast.o.position);
+                }
+                BinaryOperatorDeclaration bod = (BinaryOperatorDeclaration)declaration;
+                if (bod.arg1 != bod.arg2)
+                {
+                    reporter.ReportError("Datatype of argument 1 doesn't match datatype of argument 2", "", ast.position);
+                }
+                else if (eType1 != bod.arg1)
+                {
+                    reporter.ReportError("Wrong argument given at arg1", "", ast.position);
+                }
+                else if (eType2 != bod.arg2)
+                {
+                    reporter.ReportError("Wrong argument given at arg2", "", ast.position);
+                }
+                ast.type = bod.result;
+            }
+            return ast.type;
         }
         public Object VisitIntegerExpression(IntegerExpression ast, Object obj)
         {
@@ -261,5 +281,29 @@ namespace WarSimulator_Handmade
         }
         #endregion
 
+        public BinaryOperatorDeclaration DeclareStandardBinaryOperator(DataType arg1,DataType arg2, string op,DataType result)
+        {
+            BinaryOperatorDeclaration declaration;
+            declaration = new BinaryOperatorDeclaration(arg1, arg2, new Operator(op, null), result);
+            idTable.EnterEntry(declaration, op);
+            return declaration;
+        }
+
+
+        public Object VisitBinaryOperatorDeclaration(BinaryOperatorDeclaration ast, Object obj)
+        {
+            return null;
+        }
+
+        private void EstablishStandardEnviroment()
+        {
+            DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, ">", DataType.Boolean);
+            DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "<", DataType.Boolean);
+            DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, ">=", DataType.Boolean);
+            DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "<=", DataType.Boolean);
+            DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "==", DataType.Boolean);
+            DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "||", DataType.Boolean);
+            DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "&&", DataType.Boolean);
+        }
     }
 }

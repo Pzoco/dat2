@@ -58,6 +58,7 @@
     <Compile Include="AbstractSyntaxTreeClasses\BinaryExpression.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\BinaryOperatorDeclaration.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\BinaryParameter.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\BlockName.cs">
       <SubType>Code</SubType>

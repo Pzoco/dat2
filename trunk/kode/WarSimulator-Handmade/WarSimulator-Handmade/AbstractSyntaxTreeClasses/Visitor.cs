@@ -17,7 +17,6 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Control Structures
-        Object VisitControlStructure(ControlStructure ast, Object obj);
         Object VisitIfCommand(IfCommand ast, Object obj);
         Object VisitElseIfCommand(ElseIfCommand ast, Object obj);
         Object VisitWhileCommand(WhileCommand ast, Object obj);
@@ -77,5 +76,7 @@ namespace WarSimulator_Handmade
         Object VisitUnitStatTypeDeclaration(UnitStatTypeDeclaration ast, Object obj);
         Object VisitUnitStatVName(UnitStatVName ast, Object obj);
         #endregion
+
+        Object VisitBinaryOperatorDeclaration(BinaryOperatorDeclaration ast, Object obj);
     }
 }

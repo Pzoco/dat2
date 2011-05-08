@@ -5,14 +5,8 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class ControlStructure:SingleCommand
+    public abstract class ControlStructure:SingleCommand
     {
-        public ControlStructure()
-        {
-        }
-        public override Object Visit(Visitor v, Object arg)
-        {
-            return v.VisitControlStructure(this, arg);
-        }
+
     }
 }
