@@ -71,6 +71,7 @@ namespace WarSimulator_Handmade
             MaximumsStatName,
 
             //-----ALPHEBETICAL BEGIN-----
+            Attack,
             AttackSpeed,
             Behaviour,
             Config,
@@ -83,7 +84,9 @@ namespace WarSimulator_Handmade
             If,
             Maxima,
             Melee,
+            MoveAway,
             Movement,
+            MoveTowards,
             Position,
             Range,
             Ranged,
@@ -126,6 +129,7 @@ namespace WarSimulator_Handmade
             "<gridstatname>",
             "<maximumsstatname>",
                 //   ALPHABETICAL START
+            "Attack",
             "AttackSpeed",
             "Behaviour",
             "Config",
@@ -138,7 +142,9 @@ namespace WarSimulator_Handmade
             "If",
             "Maxima",
             "Melee",
-            "Movement", 
+            "MoveAway",
+            "Movement",
+            "MoveTowards",
             "Position",
             "Range",
             "Ranged",
@@ -169,7 +175,7 @@ namespace WarSimulator_Handmade
             "<error>"
         };
         //OBS: HVIS ATTACK, MOVETOWARDS, MOVEAWAY SKAL MED I TOKENTABLE SKAL FIRSTRESERVED ÆNDRES TIL ATTACK
-        private readonly static TokenType FirstReservedWord = Token.TokenType.AttackSpeed,
+        private readonly static TokenType FirstReservedWord = Token.TokenType.Attack,
                       LastReservedWord = Token.TokenType.Width;
         // OBS: DET ER HURTIGERE AT CASTE TIL INTS HER END INDE I WHILE LOOPS, JFV. MINI-TRIANGLE
     }

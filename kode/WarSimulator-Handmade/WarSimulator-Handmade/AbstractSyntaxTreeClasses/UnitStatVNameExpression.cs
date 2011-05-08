@@ -7,11 +7,11 @@ namespace WarSimulator_Handmade
 {
     public class UnitStatVNameExpression:Expression
     {
-        public UnitStatDeclaration usn;
+        public UnitStatType ust;
 
-        public UnitStatVNameExpression(UnitStatDeclaration usn)
+        public UnitStatVNameExpression(UnitStatType ust)
         {
-            this.usn = usn;
+            this.ust = ust;
         }
         public override Object Visit(Visitor v, Object arg)
         {

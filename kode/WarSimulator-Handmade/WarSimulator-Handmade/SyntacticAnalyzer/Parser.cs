@@ -142,8 +142,6 @@ namespace WarSimulator_Handmade
 
         private RegimentBlock ParseRegimentBlock()
         {
-            RegimentBlock regimentBlock = null;
-
             Accept(Token.TokenType.Regiment);
             BlockName bn = ParseBlockName();
             Accept(Token.TokenType.LeftBracket);
@@ -184,6 +182,10 @@ namespace WarSimulator_Handmade
             {
                 sc = ParseRegimentAssignment();
             }
+            else if (currentToken.type == Token.TokenType.Attack || currentToken.type == Token.TokenType.MoveAway || currentToken.type== Token.TokenType.MoveTowards)
+            {
+                sc = ParseUnitFunction();
+            }
             return sc;
         }
         private SingleCommand ParseControlStructure()
@@ -206,6 +208,7 @@ namespace WarSimulator_Handmade
                     AcceptIt();
                     if (currentToken.type == Token.TokenType.If)
                     {
+                        AcceptIt();
                         Accept(Token.TokenType.LeftParen);
                         Expression eife = ParseExpression();
                         Accept(Token.TokenType.RightParen);
@@ -272,7 +275,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Health:
                 case Token.TokenType.RegimentPosition:
                 case Token.TokenType.Type:
-                    UnitStatDeclaration usd = ParseUnitStatDeclaration();
+                    UnitStatType usd = ParseUnitStatType();
                     e = new UnitStatVNameExpression(usd);
                     break;
                 case Token.TokenType.LeftParen:
@@ -294,6 +297,7 @@ namespace WarSimulator_Handmade
             Accept(Token.TokenType.LeftParen);
             Identifier i = ParseIdentifier();
             Accept(Token.TokenType.RightParen);
+            Accept(Token.TokenType.SemiColon);
             return new UnitFunction(ufn, i);
         }
         private Operator ParseOperator()
