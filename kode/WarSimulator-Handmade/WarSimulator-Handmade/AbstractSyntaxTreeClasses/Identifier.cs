@@ -7,7 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class Identifier:Terminal
     {
-        DataType type;
+        public DataType type;
+        public Declaration declaration;
         public Identifier(String spelling, SourcePosition position):base(spelling,position)
         {
             this.spelling = spelling;
