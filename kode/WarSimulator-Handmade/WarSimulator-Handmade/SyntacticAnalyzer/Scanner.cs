@@ -196,6 +196,9 @@ namespace WarSimulator_Handmade
                     TakeIt();
                     return Token.TokenType.RightBracket;
 
+                case '.':
+                    TakeIt();
+                    return Token.TokenType.Dot;
                 //case Source.EndOfText:
                 //    return (int)Token.Tokens.EndOfText;
 
