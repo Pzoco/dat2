@@ -7,8 +7,8 @@ namespace WarSimulator_Handmade
 {
     public class RegimentStat:AST
     {
-        Identifier i;
-        UnitStatType ust;
+        public Identifier i;
+        public UnitStatType ust;
         public RegimentStat(Identifier i, UnitStatType ust)
         {
             this.i = i;

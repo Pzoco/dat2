@@ -40,10 +40,6 @@ namespace WarSimulator_Handmade
             {
                 return entries[0].declaration;
             }
-            else
-            {
-                Console.WriteLine("Error: Couldn't retrieve entry");
-            }
             return null;
         }
     }
