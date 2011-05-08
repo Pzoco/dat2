@@ -21,17 +21,16 @@ namespace WarSimulator_Handmade
             level--;
         }
 
-        public void EnterEntry(Declaration declaration,string id)
+        //returns true for success and false for failure
+        public bool EnterEntry(Declaration declaration,string id)
         {
             bool duplicateFound = entries.Any(x => x.id == id);
-            if (duplicateFound)
-            {
-                Console.WriteLine("Error: Duplicate found!");
-            }
-            else
+            if (!duplicateFound)
             {
                 entries.Add(new IdEntry(declaration, id,level));
+                return true;
             }
+            return false;
         }
         public Declaration RetrieveEntry(string id)
         {

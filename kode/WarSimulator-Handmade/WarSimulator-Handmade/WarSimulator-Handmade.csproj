@@ -115,9 +115,11 @@
     <Compile Include="AbstractSyntaxTreeClasses\RegimentBlock.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\RegimentDeclarationCommand.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RegimentSearch.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AbstractSyntaxTreeClasses\RegimentSearchName.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RegimentStat.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RegimentStatExpression.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RulesBlock.cs">
