@@ -86,7 +86,7 @@ namespace WarSimulator_Handmade
         {
             BehaviourBlock bb = null;
             Accept(Token.TokenType.Behaviour);
-            if (currentToken.type == Token.TokenType.Assignment)
+            if (currentToken.type == Token.TokenType.Operator)
             {
                 AcceptIt();
                 BlockName bn = ParseBlockName();
@@ -182,8 +182,7 @@ namespace WarSimulator_Handmade
             }
             else if (currentToken.type == Token.TokenType.Regiment)
             {
-                //linjen virker ikke
-                //sc = ParseRegimentAssignment();
+                sc = ParseRegimentAssignment();
             }
             return sc;
         }
@@ -282,19 +281,7 @@ namespace WarSimulator_Handmade
                     Accept(Token.TokenType.RightParen);
                     break;
                 case Token.TokenType.Identifier:
-                    Accept(Token.TokenType.Dot);
-                    switch (currentToken.type)
-                    {
-                        case Token.TokenType.Range:
-                        case Token.TokenType.Health:
-                        case Token.TokenType.Size:
-                        case Token.TokenType.Movement:
-                        case Token.TokenType.AttackSpeed:
-                        case Token.TokenType.Distance:
-                        case Token.TokenType.Damage:
-                            RegimentStat rs = ParseRegimentStat();
-                            e = new RegimentStatExpression(rs); break;
-                    }
+                    e = ParseRegimentStat();
                     break;
             }
             return e;
@@ -320,16 +307,30 @@ namespace WarSimulator_Handmade
         {
             Accept(Token.TokenType.Regiment);
             Identifier i = ParseIdentifier();
-            Accept(Token.TokenType.Assignment);
+            Accept(Token.TokenType.Operator);
             RegimentSearch rs = ParseRegimentSearch();
+            Accept(Token.TokenType.SemiColon);
             return new RegimentDeclaration(i, rs);
         }
-        private RegimentStat ParseRegimentStat()
+        private RegimentStatExpression ParseRegimentStat()
         {
-            Identifier i = ParseIdentifier();
+            RegimentStat e = null;
+            UnitStatType ust = null;
+            Identifier id = ParseIdentifier();
             Accept(Token.TokenType.Dot);
-            UnitStatType ust = ParseUnitStatType();
-            return new RegimentStat(i, ust);
+            switch (currentToken.type)
+            {
+                case Token.TokenType.Range:
+                case Token.TokenType.Health:
+                case Token.TokenType.Size:
+                case Token.TokenType.Movement:
+                case Token.TokenType.AttackSpeed:
+                case Token.TokenType.Distance:
+                case Token.TokenType.Damage:
+                    ust = ParseUnitStatType();
+                    e = new RegimentStat(id,ust); break;
+            }
+            return new RegimentStatExpression(e); ;
         }
         private RegimentSearch ParseRegimentSearch()
         {
@@ -379,7 +380,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Health:
                     UnitStatVName sn = new UnitStatVName(currentToken.spelling,previousTokenPosition);
                     AcceptIt();
-                    Accept(Token.TokenType.Assignment);
+                    Accept(Token.TokenType.Operator);
                     IntegerLiteral il = ParseIntegerLiteral();
                     Accept(Token.TokenType.SemiColon);
                     usn = new UnitStatIntegerDeclaration(sn, il);
@@ -387,7 +388,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.RegimentPosition:
                     sn = new UnitStatVName(currentToken.spelling,previousTokenPosition);
                     AcceptIt();
-                    Accept(Token.TokenType.Assignment);
+                    Accept(Token.TokenType.Operator);
                     Accept(Token.TokenType.Position);
                     Accept(Token.TokenType.LeftParen);
                     IntegerLiteral ilx = ParseIntegerLiteral();
@@ -400,7 +401,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Type:
                     sn = new UnitStatVName(currentToken.spelling,previousTokenPosition);
                     AcceptIt();
-                    Accept(Token.TokenType.Assignment);
+                    Accept(Token.TokenType.Operator);
                     AttackType at = ParseAttackType();
                     Accept(Token.TokenType.SemiColon);
                     usn = new UnitStatTypeDeclaration(sn, at);
@@ -449,7 +450,7 @@ namespace WarSimulator_Handmade
                 previousTokenPosition = currentToken.position;
                 GridStatVName gsnv = new GridStatVName(currentToken.spelling,previousTokenPosition);
                 AcceptIt();
-                Accept(Token.TokenType.Assignment);
+                Accept(Token.TokenType.Operator);
                 IntegerLiteral il = ParseIntegerLiteral();
                 Accept(Token.TokenType.SemiColon);
                 return new GridStatDeclaration(gsnv, il);
@@ -497,7 +498,7 @@ namespace WarSimulator_Handmade
                 previousTokenPosition = currentToken.position;
                 MaximumsStatVName msv = new MaximumsStatVName(currentToken.spelling,previousTokenPosition);
                 AcceptIt();
-                Accept(Token.TokenType.Assignment);
+                Accept(Token.TokenType.Operator);
                 IntegerLiteral il = ParseIntegerLiteral();
                 Accept(Token.TokenType.SemiColon);
                 return new MaximumsStatDeclaration(msv, il);
