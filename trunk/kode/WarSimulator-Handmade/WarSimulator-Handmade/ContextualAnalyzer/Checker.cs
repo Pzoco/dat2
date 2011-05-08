@@ -13,10 +13,12 @@ namespace WarSimulator_Handmade
         public void Check(TeamFile ast)
         {
             ast.Visit(this, null);
+            EstablishStandardEnviroment();
         }
         public void Check(ConfigFile ast)
         {
             ast.Visit(this, null);
+            EstablishStandardEnviroment();
         }
 
         #region Blocks
@@ -141,17 +143,18 @@ namespace WarSimulator_Handmade
         }
         public Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj)
         {
-            ast.type = DataType.Regiment;
+            ast.type = DataType.Integer;
             return ast.type;
         }
-        //Aner ikke helt hvordan den skal skrives lol
+
+        //Vi har ikke engang unary expressions?
         public Object VisitUnaryExpression(UnaryExpression ast, Object obj)
         {
             return null;
         }
         public Object VisitUnitStatVNameExpression(UnitStatVNameExpression ast, Object obj)
         {
-            ast.type = (DataType)ast.usn.Visit(this, null);
+            ast.type = (DataType)ast.ust.Visit(this, null);
             return ast.type;
         }
         #endregion
@@ -212,13 +215,24 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Regiment assignment related
-        //Hvordan ser vi forskel på declaration og assignment?!
         //Regiment Assignment
         public Object VisitRegimentDeclaration(RegimentDeclaration ast, Object obj)
         {
+            ast.rs.Visit(this, null);
+            Declaration declaration = (Declaration) ast.i.Visit(this, null);
+            if (declaration != null)
+            {
+                reporter.ReportError("Tried to declare % which was already declared", ast.i.spelling, ast.position);
+            }
+            idTable.EnterEntry(ast, ast.i.spelling);
+            ast.i.type = DataType.Regiment;
             return null;
         }
-
+        public Object VisitRegimentDeclarationCommand(RegimentDeclarationCommand ast, Object obj)
+        {
+            ast.rd.Visit(this, null);
+            return null;
+        }
         //Regiment Search
         public Object VisitBinaryParameter(BinaryParameter ast, Object obj)
         {
@@ -253,20 +267,30 @@ namespace WarSimulator_Handmade
             }
             return null;
         }
-        public Object VisitParameters(Parameters ast, Object obj)
-        {
-            return null;
-        }
-        //Skal fixes der mangler et regimentsearch name
+
         public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
         {
+            ast.rsn.Visit(this, null);
+            ast.p.Visit(this, null);
             return ast.p.Visit(this, null);
+        }
+        public Object VisitRegimentSearchName(RegimentSearchName ast, Object obj)
+        {
+            return null;
         }
 
         //Unit function
         public Object VisitUnitFunction(UnitFunction ast, Object obj)
         {
-            ast.i.Visit(this, null);
+            Declaration declaration = (Declaration) ast.i.Visit(this, null);
+            if (declaration == null)
+            {
+                reporter.ReportError("Regiment % was not declared", ast.i.spelling, ast.i.position);
+            }
+            else if(ast.i.type != DataType.Regiment)
+            {
+                reporter.ReportError("% was not of type Regiment", ast.i.spelling, ast.i.position);
+            }
             ast.ufn.Visit(this, null);
             return null;
         }
@@ -278,6 +302,17 @@ namespace WarSimulator_Handmade
         //Regiment stat
         public Object VisitRegimentStat(RegimentStat ast, Object obj)
         {
+            ast.i.Visit(this, null);
+            Declaration declaration = idTable.RetrieveEntry(ast.i.spelling);
+            if (declaration == null)
+            {
+                reporter.ReportError("Regiment % wasn't declared", ast.i.spelling, ast.i.position);
+            }
+            else if (ast.i.type != DataType.Regiment)
+            {
+                reporter.ReportError("% was not of type Regiment", ast.i.spelling, ast.i.position);
+            }
+            ast.ust.Visit(this, null);
             return null;
         }
         public Object VisitUnitStatType(UnitStatType ast, Object obj)
@@ -290,6 +325,12 @@ namespace WarSimulator_Handmade
 
         public Object VisitGridStatDeclaration(GridStatDeclaration ast, Object obj)
         {
+            if (!(idTable.EnterEntry(ast, ast.gsnv.spelling)))
+            {
+                reporter.ReportError("Tried to declare % which was already declared", ast.gsnv.spelling, ast.position);
+            }
+            ast.il.Visit(this, null);
+            ast.gsnv.Visit(this, null);
             return null;
         }
         public Object VisitGridStatVName(GridStatVName ast, Object obj)
@@ -298,26 +339,78 @@ namespace WarSimulator_Handmade
         }
         public Object VisitMaximumsStatDeclaration(MaximumsStatDeclaration ast, Object obj)
         {
+            ast.il.Visit(this, null);
+            ast.msv.Visit(this, null);
+            if (!(idTable.EnterEntry(ast, ast.msv.spelling)))
+            {
+                reporter.ReportError("Tried to declare % which already was declared", ast.msv.spelling, ast.position);
+            }
             return null;
         }
         public Object VisitMaximumsStatVName(MaximumsStatVName ast, Object obj)
         {
             return null;
         }
-        public Object VisitUnitStatDeclaration(UnitStatDeclaration ast, Object obj)
+        public Object VisitUnitStatIntegerDeclaration(UnitStatIntegerDeclaration ast, Object obj)
         {
+            DataType snType = (DataType)ast.sn.Visit(this, null);
+            ast.il.Visit(this, null);
+            if (snType != DataType.Integer)
+            {
+                reporter.ReportError("Tried to assign an Integer to %", ast.sn.spelling, ast.position);
+            }
+            if (!(idTable.EnterEntry(ast, ast.sn.spelling)))
+            {
+                reporter.ReportError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
+            }
             return null;
         }
         public Object VisitUnitStatPositionDeclaration(UnitStatPositionDeclaration ast, Object obj)
         {
+            DataType snType = (DataType)ast.sn.Visit(this, null);
+
+            if (snType != DataType.Position)
+            {
+                reporter.ReportError("Tried to assign a position to %", ast.sn.spelling, ast.position);
+            }
+            if (!(idTable.EnterEntry(ast, ast.sn.spelling)))
+            {
+                reporter.ReportError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
+            }
             return null;
         }
         public Object VisitUnitStatTypeDeclaration(UnitStatTypeDeclaration ast, Object obj)
         {
+            DataType snType = (DataType)ast.sn.Visit(this, null);
+            ast.Visit(this, null);
+            if (snType != DataType.AttackType)
+            {
+                reporter.ReportError("Tried to assign an attacktype to %", ast.sn.spelling, ast.position);
+            }
+            if (!(idTable.EnterEntry(ast, ast.sn.spelling)))
+            {
+                reporter.ReportError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
+            }
             return null;
         }
         public Object VisitUnitStatVName(UnitStatVName ast, Object obj)
         {
+            if (ast.spelling == "Size" || ast.spelling == "Range" ||
+                ast.spelling == "Damage" || ast.spelling == "Movement")
+            {
+                ast.dataType = DataType.Integer;
+                return ast.dataType;
+            }
+            else if (ast.spelling == "RegimentPosition")
+            {
+                ast.dataType = DataType.Position;
+                return ast.dataType;
+            }
+            else if (ast.spelling == "Type")
+            {
+                ast.dataType = DataType.AttackType;
+                return ast.dataType;
+            }
             return null;
         }
         #endregion
@@ -330,7 +423,7 @@ namespace WarSimulator_Handmade
             return declaration;
         }
 
-
+        //Not used for anything
         public Object VisitBinaryOperatorDeclaration(BinaryOperatorDeclaration ast, Object obj)
         {
             return null;

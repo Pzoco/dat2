@@ -50,12 +50,13 @@ namespace WarSimulator_Handmade
         #region Regiment assignment related
         //Regiment Assignment
         Object VisitRegimentDeclaration(RegimentDeclaration ast, Object obj);
+        Object VisitRegimentDeclarationCommand(RegimentDeclarationCommand ast, Object obj);
 
         //Regiment Search
         Object VisitBinaryParameter(BinaryParameter ast, Object obj);
         Object VisitParameter(Parameter ast, Object obj);
-        Object VisitParameters(Parameters ast, Object obj);
         Object VisitRegimentSearch(RegimentSearch ast, Object obj);
+        Object VisitRegimentSearchName(RegimentSearchName ast, Object obj);
 
         //Unit function
         Object VisitUnitFunction(UnitFunction ast, Object obj);
@@ -71,7 +72,7 @@ namespace WarSimulator_Handmade
         Object VisitGridStatVName(GridStatVName ast, Object obj);
         Object VisitMaximumsStatDeclaration(MaximumsStatDeclaration ast, Object obj);
         Object VisitMaximumsStatVName(MaximumsStatVName ast, Object obj);
-        Object VisitUnitStatDeclaration(UnitStatDeclaration ast, Object obj);
+        Object VisitUnitStatIntegerDeclaration(UnitStatIntegerDeclaration ast, Object obj);
         Object VisitUnitStatPositionDeclaration(UnitStatPositionDeclaration ast, Object obj);
         Object VisitUnitStatTypeDeclaration(UnitStatTypeDeclaration ast, Object obj);
         Object VisitUnitStatVName(UnitStatVName ast, Object obj);

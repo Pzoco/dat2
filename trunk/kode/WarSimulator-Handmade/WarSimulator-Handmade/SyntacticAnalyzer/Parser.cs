@@ -180,7 +180,7 @@ namespace WarSimulator_Handmade
             }
             else if (currentToken.type == Token.TokenType.Regiment)
             {
-                sc = ParseRegimentAssignment();
+                sc = ParseRegimentDeclaration();
             }
             else if (currentToken.type == Token.TokenType.Attack || currentToken.type == Token.TokenType.MoveAway || currentToken.type== Token.TokenType.MoveTowards)
             {
@@ -307,14 +307,15 @@ namespace WarSimulator_Handmade
             Accept(Token.TokenType.Operator);
             return new Operator(spelling,previousTokenPosition);
         }
-        private RegimentDeclaration ParseRegimentAssignment()
+        private SingleCommand ParseRegimentDeclaration()
         {
             Accept(Token.TokenType.Regiment);
             Identifier i = ParseIdentifier();
             Accept(Token.TokenType.Operator);
             RegimentSearch rs = ParseRegimentSearch();
             Accept(Token.TokenType.SemiColon);
-            return new RegimentDeclaration(i, rs);
+            RegimentDeclaration rd = new RegimentDeclaration(i, rs);
+            return new RegimentDeclarationCommand(rd);
         }
         private RegimentStatExpression ParseRegimentStat()
         {
@@ -338,12 +339,18 @@ namespace WarSimulator_Handmade
         }
         private RegimentSearch ParseRegimentSearch()
         {
-            Accept(Token.TokenType.SearchForEnemies);
+            RegimentSearchName rsn = null;
+            if (currentToken.type == Token.TokenType.SearchForEnemies ||
+                currentToken.type == Token.TokenType.SearchForFriends)
+            {
+                rsn = new RegimentSearchName(currentToken.spelling, currentToken.position);
+                AcceptIt();
+            }
             Accept(Token.TokenType.LeftParen);
             Parameters p = ParseParameters();
             Accept(Token.TokenType.RightParen);
 
-            return new RegimentSearch(p);
+            return new RegimentSearch(p, rsn);
         }
         private Parameters ParseParameters()
         {
