@@ -150,7 +150,7 @@ namespace WarSimulator_Handmade
         }
         public Object VisitUnitStatVNameExpression(UnitStatVNameExpression ast, Object obj)
         {
-            ast.type = (DataType) ast.usn.Visit(this, null);
+            ast.type = (DataType) ast.ust.Visit(this, null);
             return ast.type;
         }
         #endregion
