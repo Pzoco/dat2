@@ -157,11 +157,21 @@ namespace WarSimulator_Handmade
                         TakeIt();
                     return Token.TokenType.IntegerLiteral;
 
+                
+                case '=': //= Skal være assignment, men ==, >= og <= skal være operators. Kræver fix. 
+                    TakeIt();
+                    if (CurrentChar == '=')
+                    {
+                        return Token.TokenType.Operator;
+                    }
+                    else     // DEERRRRRP JEG TROR DET VIRKER DEEEEERP
+                    {
+                        return Token.TokenType.Assignment;
+                    }
                 case '+':
                 case '-':
                 case '*':
                 case '/':
-                case '=':
                 case '<':
                 case '>':
                 case '|': // Skal der \ foran | ?
