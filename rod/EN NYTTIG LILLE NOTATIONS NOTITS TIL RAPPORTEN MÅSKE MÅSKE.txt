@@ -1,0 +1,5 @@
+\overset{*}{\Rightarrow}
+
+
+i LaTeX til at lave en implikationspil med en stjerne over.
+Hvor fiiiiint
