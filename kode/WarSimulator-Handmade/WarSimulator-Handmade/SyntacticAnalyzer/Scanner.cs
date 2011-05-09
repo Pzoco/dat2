@@ -48,13 +48,14 @@ namespace WarSimulator_Handmade
             }
             CurrentChar = SourceFile.GetSource();
         }
-        // OBS: HER ER FARE FOR FEJL: DER SKAL SCANNES EN SEPERATOR FOR COMMENTS '//' MEN CURRENTCHAR HOLDER KUN ET SYMBOL AF GANGEN 
+        
         private void ScanSeparator()
         {
             switch (CurrentChar)
             {
                 case '/':
                     {
+                        // A small check on / to see if the next character is also // to handle comments.
                         if (CurrentChar == '/' && SourceFile.PeekSource() == '/')
                         {
                             TakeIt();
@@ -172,8 +173,8 @@ namespace WarSimulator_Handmade
                 case '-':
                 case '*':
                 case '/':
-                case '<':
-                case '>':
+                case '<': // Kræver fix for <=
+                case '>': // Kræver fix for >=
                 case '|': // Skal der \ foran | ?
                 case '&':
                     TakeIt();
