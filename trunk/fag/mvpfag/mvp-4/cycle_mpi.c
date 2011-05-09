@@ -9,7 +9,8 @@ void test(int n)
 {
     int rank, size, i;
     MPI_Status status;
-    
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	MPI_Comm_size(MPI_COMM_WORLD, &size); 
     int *send_data = (int*) malloc(n*sizeof(int));
     int *recv_data = (int*) malloc(n*sizeof(int));
 
@@ -32,10 +33,17 @@ void test(int n)
     {
         // Send & receive.
 
-
+		//indsæt noget modulus-bab!
+		int destination = (rank+1)%size;
+		int source = rank%size;
+		printf("rank is %d \n", rank);	
+		MPI_Send(send_data, 1, MPI_INT, destination, 123, MPI_COMM_WORLD);
+		MPI_Recv(recv_data, 1, MPI_INT, source, 123, MPI_COMM_WORLD, &status);
+		printf("rank is %d derp derp derp derp \n", rank);	
         // You'll need that at some point.
         memcpy(send_data, recv_data, n*sizeof(int));
     }
+	MPI_Finalize();  
 }
 
 
@@ -58,7 +66,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Minimum value is 1.\n");
         abort();
     }
-
+	MPI_Init(&argc, &argv); 
     test(n);
 
     

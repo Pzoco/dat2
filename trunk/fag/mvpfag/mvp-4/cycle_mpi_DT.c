@@ -11,8 +11,8 @@ void test(int n)
     MPI_Status status;
 
 	
+	MPI_Comm_size(MPI_COMM_WORLD, &size);    
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_rank(MPI_COMM_WORLD, &size);    
 
 
     int *send_data = (int*) malloc(n*sizeof(int));
@@ -35,13 +35,11 @@ void test(int n)
 
     for(i = 0; i < size; ++i)
     {	
-				
-		
-		MPI_Send(&send_data[1], 1, MPI_INT, (rank+1)%size, 0, MPI_COMM_WORLD);
-		MPI_Resv(&recv_data[1], 1, MPI_INT, (rank-1+size)%size, 0, MPI_COMM_WORLD, &status);		
-				
-		
-
+		int x = (rank+1)%size;
+		int y = (rank-1+size)%size;
+		MPI_Send(&send_data[i], 1, MPI_INT, x, 0, MPI_COMM_WORLD);
+		printf("I'm now printing the size %d and rank %d \n", size, rank);
+		MPI_Recv(&recv_data[i], 1, MPI_INT, y, 0, MPI_COMM_WORLD, &status);		
         // You'll need that at some point.
         memcpy(send_data, recv_data, n*sizeof(int));
     }
@@ -52,9 +50,6 @@ void test(int n)
 int main(int argc, char *argv[])
 {
     int n;
-
-    
-
     if (argc < 2)
     {
         fprintf(stderr, "Usage: %s size\n", argv[0]);
@@ -68,7 +63,8 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Minimum value is 1.\n");
         abort();
     }
-
+	//printf("Du har skrevet %d \n", n);
+	MPI_Init(&argc, &argv); 
     test(n);
 
     
