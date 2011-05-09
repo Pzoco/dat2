@@ -429,6 +429,7 @@ namespace WarSimulator_Handmade
             return null;
         }
 
+        //Saves all the legal types of binary expression that can be made
         private void EstablishStandardEnviroment()
         {
             DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, ">", DataType.Boolean);
