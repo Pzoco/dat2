@@ -31,7 +31,7 @@ namespace WarSimulator_Handmade
             }
             else
             {
-                Console.WriteLine("Error - Expected {0}, but got {1}", expectedType, currentToken.type);
+                errorReporter.ReportParserError("Expected " + expectedType + ", but got " + currentToken.type, currentToken);
             }
         }
 
@@ -49,6 +49,11 @@ namespace WarSimulator_Handmade
         void Finish(SourcePosition position)
         {
             position.finish = previousTokenPosition.finish;
+        }
+
+        void SyntaxError(String errorMessage, Token tok)
+        {
+            errorReporter.ReportParserError(errorMessage, tok);
         }
         #endregion
 
@@ -71,16 +76,26 @@ namespace WarSimulator_Handmade
             }
             else
             {
-                Console.WriteLine("Error parsing Identifier");
+                SyntaxError("Error parsing Identifier", currentToken);
             }
             return id;
         }
         private IntegerLiteral ParseIntegerLiteral()
         {
-            previousTokenPosition = currentToken.position;
-            string spelling = currentToken.spelling;
-            Accept(Token.TokenType.IntegerLiteral);
-            return new IntegerLiteral(spelling,previousTokenPosition);
+            IntegerLiteral il= null;
+            if (currentToken.type==Token.TokenType.IntegerLiteral)
+            {
+
+                previousTokenPosition = currentToken.position;
+                string spelling = currentToken.spelling;
+                AcceptIt();
+                il = new IntegerLiteral(spelling, previousTokenPosition);
+            }
+            else
+            {
+                SyntaxError("Error parsing Integer Literal", currentToken);
+            }
+            return il;
         }
         private BehaviourBlock ParseBehaviourBlock()
         {
@@ -133,7 +148,7 @@ namespace WarSimulator_Handmade
                 tf = new TeamFile(rb, previousTokenPosition);
                 if (currentToken.type != Token.TokenType.EndOfText)
                 {
-                    Console.WriteLine("Error! File did not end when expected! " + currentToken.spelling);
+                    SyntaxError("File did not end when expected!", currentToken);
                 }
             }
             catch (Exception ex) { return null; }
@@ -161,6 +176,9 @@ namespace WarSimulator_Handmade
                     case Token.TokenType.RegimentPosition:
                     case Token.TokenType.Type:
                         usds.Add(ParseUnitStatDeclaration()); declarationFound = true; break;
+                    default:
+                        SyntaxError("Error parsing Regiment Stat.", currentToken);
+                        break;
                 }
             }
             BehaviourBlock bb = ParseBehaviourBlock();
@@ -189,7 +207,7 @@ namespace WarSimulator_Handmade
                     sc = ParseUnitFunction();
                     break;
                 default:
-                    Console.WriteLine("Fejl i Parsing af Single command");
+                    SyntaxError("Error parsing Single Command!", currentToken);
                     break;
             }
             while (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While || currentToken.type == Token.TokenType.Regiment || currentToken.type == Token.TokenType.Attack || currentToken.type == Token.TokenType.MoveAway || currentToken.type == Token.TokenType.MoveTowards)
@@ -214,7 +232,7 @@ namespace WarSimulator_Handmade
                         sc2 = ParseUnitFunction();
                         break;
                     default:
-                        Console.WriteLine("Fejl i Parsing af Single command");
+                        SyntaxError("Error parsing Single Command!", currentToken);
                         break;
                 }
                 sc = new SequentialSingleCommand(sc, sc2, previousTokenPosition);
@@ -319,6 +337,9 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Identifier:
                     e = ParseRegimentStat();
                     break;
+                default:
+                    SyntaxError("Error parsing Primary Expression", currentToken);
+                    break;
             }
             return e;
         }
@@ -367,6 +388,9 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Damage:
                     ust = ParseUnitStatType();
                     e = new RegimentStat(id,ust); break;
+                default:
+                    SyntaxError("Error parsing Regiment Stat", currentToken);
+                    break;
             }
             return new RegimentStatExpression(e); ;
         }
@@ -450,6 +474,9 @@ namespace WarSimulator_Handmade
                     Accept(Token.TokenType.SemiColon);
                     usn = new UnitStatTypeDeclaration(sn, at);
                     break;
+                default:
+                    SyntaxError("Error parsing Unit Stat Declaration", currentToken);
+                    break;
             }
             return usn;
         }
@@ -530,6 +557,9 @@ namespace WarSimulator_Handmade
                     case Token.TokenType.Teams:
                         msds.Add(ParseMaximaStatDeclaration());
                         declarationFound = true; break;
+                    default:
+                        SyntaxError("Error parsing Maxima-block", currentToken);
+                        break;
                 }
             }
             Accept(Token.TokenType.RightBracket);
@@ -538,17 +568,13 @@ namespace WarSimulator_Handmade
         }
         private MaximaStatDeclaration ParseMaximaStatDeclaration()
         {
-            if (currentToken.type == Token.TokenType.Regiments || currentToken.type == Token.TokenType.Teams)
-            {
-                previousTokenPosition = currentToken.position;
-                MaximaStatVName msv = new MaximaStatVName(currentToken.spelling,previousTokenPosition);
-                AcceptIt();
-                Accept(Token.TokenType.Assignment);
-                IntegerLiteral il = ParseIntegerLiteral();
-                Accept(Token.TokenType.SemiColon);
-                return new MaximaStatDeclaration(msv, il);
-            }
-            return null;
+            previousTokenPosition = currentToken.position;
+            MaximaStatVName msv = new MaximaStatVName(currentToken.spelling, previousTokenPosition);
+            AcceptIt();
+            Accept(Token.TokenType.Assignment);
+            IntegerLiteral il = ParseIntegerLiteral();
+            Accept(Token.TokenType.SemiColon);
+            return new MaximaStatDeclaration(msv, il);
         }
         private StandardsBlock ParseStandardsBlock()
         {
@@ -570,6 +596,9 @@ namespace WarSimulator_Handmade
                     case Token.TokenType.RegimentPosition:
                     case Token.TokenType.Type:
                         usds.Add(ParseUnitStatDeclaration()); declarationFound = true; break;
+                    default:
+                        SyntaxError("Error parsing Standards-block", currentToken);
+                        break;
                 }
             }
             BehaviourBlock bb = ParseBehaviourBlock();

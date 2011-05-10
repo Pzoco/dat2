@@ -14,6 +14,7 @@ namespace WarSimulator_Handmade
         private static ErrorReporter reporter;
         private static TeamFile teamFile;
         private static ConfigFile configFile;
+        private static Checker checker;
 
         static void Main(string[] args)
         {
@@ -31,7 +32,6 @@ namespace WarSimulator_Handmade
                 sourceName = args[0];
             }
             compiledOK = CompileProgram(sourceName, objectName);
-            Console.WriteLine("Parsing completed: " + compiledOK.ToString());
             Console.ReadKey();
             Console.ReadLine();
         }
@@ -58,7 +58,16 @@ namespace WarSimulator_Handmade
             parser = new Parser(scanner, reporter);
 
             configFile = parser.ParseConfigFile();
-
+            if (reporter.numbErrors == 0)
+            {
+                Console.WriteLine("Parsing Completed Successfully!");
+                checker.Check(teamFile);
+                checker.Check(configFile);
+            }
+            else
+            {
+                Console.WriteLine("Parsing failed!");
+            }
             return true;
         }
     }
