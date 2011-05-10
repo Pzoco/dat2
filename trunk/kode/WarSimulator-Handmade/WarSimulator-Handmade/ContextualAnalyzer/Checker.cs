@@ -12,13 +12,15 @@ namespace WarSimulator_Handmade
         ErrorReporter reporter = new ErrorReporter();
         public void Check(TeamFile ast)
         {
-            ast.Visit(this, null);
             EstablishStandardEnviroment();
+            ast.Visit(this, null);
+            Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numErrors);
         }
         public void Check(ConfigFile ast)
         {
-            ast.Visit(this, null);
             EstablishStandardEnviroment();
+            ast.Visit(this, null);
+            Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numErrors);
         }
 
         #region Blocks
