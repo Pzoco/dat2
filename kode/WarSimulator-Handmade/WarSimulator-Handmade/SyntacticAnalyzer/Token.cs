@@ -35,7 +35,6 @@ namespace WarSimulator_Handmade
                     else
                     {
                         CurrentType++;
-                        //USIKKERT OM DETTE ER KORREKT NÅR VI ITERERERERERER IGENNEM EN ENUM
                     }
                 }
 

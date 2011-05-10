@@ -7,6 +7,11 @@ namespace WarSimulator_Handmade
 {
     public abstract class ControlStructure:SingleCommand
     {
+        public ControlStructure(SourcePosition pos)
+            : base(pos)
+        {
+
+        }
 
     }
 }

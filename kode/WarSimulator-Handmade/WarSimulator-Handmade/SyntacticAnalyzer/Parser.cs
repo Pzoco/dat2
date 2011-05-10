@@ -170,21 +170,54 @@ namespace WarSimulator_Handmade
         private SingleCommand ParseSingleCommand()
         {
             SingleCommand sc = null;
-            if (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While)
+            switch (currentToken.type)
             {
-                sc = ParseControlStructure();
+                case Token.TokenType.If:
+                case Token.TokenType.While:
+                    sc = ParseControlStructure();
+                    break;
+                //case Token.TokenType.UnitFunction:
+                //    sc = ParseUnitFunction();
+                //    break;
+                //Bruges dette? Og hvis ikke, bør UnitFunction da være en Token?
+                case Token.TokenType.Regiment:
+                    sc = ParseRegimentDeclaration();
+                    break;
+                case Token.TokenType.Attack:
+                case Token.TokenType.MoveAway:
+                case Token.TokenType.MoveTowards:
+                    sc = ParseUnitFunction();
+                    break;
+                default:
+                    Console.WriteLine("Fejl i Parsing af Single command");
+                    break;
             }
-            else if (currentToken.type == Token.TokenType.UnitFunction)
+            while (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While || currentToken.type == Token.TokenType.Regiment || currentToken.type == Token.TokenType.Attack || currentToken.type == Token.TokenType.MoveAway || currentToken.type == Token.TokenType.MoveTowards)
             {
-                sc = ParseUnitFunction();
-            }
-            else if (currentToken.type == Token.TokenType.Regiment)
-            {
-                sc = ParseRegimentDeclaration();
-            }
-            else if (currentToken.type == Token.TokenType.Attack || currentToken.type == Token.TokenType.MoveAway || currentToken.type== Token.TokenType.MoveTowards)
-            {
-                sc = ParseUnitFunction();
+                SingleCommand sc2 = null;
+                switch (currentToken.type)
+                {
+                    case Token.TokenType.If:
+                    case Token.TokenType.While:
+                        sc2 = ParseControlStructure();
+                        break;
+                    //case Token.TokenType.UnitFunction:
+                    //    sc = ParseUnitFunction();
+                    //    break;
+                    //Bruges dette? Og hvis ikke, bør UnitFunction da være en Token?
+                    case Token.TokenType.Regiment:
+                        sc2 = ParseRegimentDeclaration();
+                        break;
+                    case Token.TokenType.Attack:
+                    case Token.TokenType.MoveAway:
+                    case Token.TokenType.MoveTowards:
+                        sc2 = ParseUnitFunction();
+                        break;
+                    default:
+                        Console.WriteLine("Fejl i Parsing af Single command");
+                        break;
+                }
+                sc = new SequentialSingleCommand(sc, sc2, previousTokenPosition);
             }
             return sc;
         }
@@ -215,7 +248,7 @@ namespace WarSimulator_Handmade
                         Accept(Token.TokenType.LeftBracket);
                         SingleCommand eifsc = ParseSingleCommand();
                         Accept(Token.TokenType.RightBracket);
-                        eifc.Add(new ElseIfCommand(eife, eifsc));
+                        eifc.Add(new ElseIfCommand(eife, eifsc, previousTokenPosition));
                     }
                     else
                     {
@@ -225,7 +258,7 @@ namespace WarSimulator_Handmade
                         break;
                     }
                 }
-                return new IfCommand(e, sc1, sc2, eifc);
+                return new IfCommand(e, sc1, sc2, eifc, previousTokenPosition);
             }
             else if (currentToken.type == Token.TokenType.While)
             {
@@ -238,7 +271,7 @@ namespace WarSimulator_Handmade
                 Accept(Token.TokenType.LeftBracket);
                 sc = ParseSingleCommand();
                 Accept(Token.TokenType.RightBracket);
-                return new WhileCommand(e, sc);
+                return new WhileCommand(e, sc, previousTokenPosition);
             }
             return null;
         }
@@ -275,8 +308,8 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Health:
                 case Token.TokenType.RegimentPosition:
                 case Token.TokenType.Type:
-                    UnitStatType usd = ParseUnitStatType();
-                    e = new UnitStatVNameExpression(usd);
+                    UnitStatType ust = ParseUnitStatType();
+                    e = new UnitStatVNameExpression(ust);
                     break;
                 case Token.TokenType.LeftParen:
                     AcceptIt();
@@ -298,7 +331,7 @@ namespace WarSimulator_Handmade
             Identifier i = ParseIdentifier();
             Accept(Token.TokenType.RightParen);
             Accept(Token.TokenType.SemiColon);
-            return new UnitFunction(ufn, i);
+            return new UnitFunction(ufn, i,previousTokenPosition);
         }
         private Operator ParseOperator()
         {
@@ -311,11 +344,11 @@ namespace WarSimulator_Handmade
         {
             Accept(Token.TokenType.Regiment);
             Identifier i = ParseIdentifier();
-            Accept(Token.TokenType.Operator);
+            Accept(Token.TokenType.Assignment);
             RegimentSearch rs = ParseRegimentSearch();
             Accept(Token.TokenType.SemiColon);
             RegimentDeclaration rd = new RegimentDeclaration(i, rs);
-            return new RegimentDeclarationCommand(rd);
+            return new RegimentDeclarationCommand(rd,previousTokenPosition);
         }
         private RegimentStatExpression ParseRegimentStat()
         {
@@ -391,7 +424,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Health:
                     UnitStatVName sn = new UnitStatVName(currentToken.spelling,previousTokenPosition);
                     AcceptIt();
-                    Accept(Token.TokenType.Operator);
+                    Accept(Token.TokenType.Assignment);
                     IntegerLiteral il = ParseIntegerLiteral();
                     Accept(Token.TokenType.SemiColon);
                     usn = new UnitStatIntegerDeclaration(sn, il);
@@ -399,7 +432,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.RegimentPosition:
                     sn = new UnitStatVName(currentToken.spelling,previousTokenPosition);
                     AcceptIt();
-                    Accept(Token.TokenType.Operator);
+                    Accept(Token.TokenType.Assignment);
                     Accept(Token.TokenType.Position);
                     Accept(Token.TokenType.LeftParen);
                     IntegerLiteral ilx = ParseIntegerLiteral();
@@ -412,7 +445,7 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.Type:
                     sn = new UnitStatVName(currentToken.spelling,previousTokenPosition);
                     AcceptIt();
-                    Accept(Token.TokenType.Operator);
+                    Accept(Token.TokenType.Assignment);
                     AttackType at = ParseAttackType();
                     Accept(Token.TokenType.SemiColon);
                     usn = new UnitStatTypeDeclaration(sn, at);
@@ -434,8 +467,9 @@ namespace WarSimulator_Handmade
         #endregion
 
         #region Config File Parse Methods
-        private ConfigFile ParseConfigFile()
+        public ConfigFile ParseConfigFile()
         {
+            currentToken = scanner.Scan();
             Accept(Token.TokenType.Config);
             GridBlock gb = ParseGridBlock();
             RulesBlock rb = ParseRulesBlock();
@@ -461,7 +495,7 @@ namespace WarSimulator_Handmade
                 previousTokenPosition = currentToken.position;
                 GridStatVName gsnv = new GridStatVName(currentToken.spelling,previousTokenPosition);
                 AcceptIt();
-                Accept(Token.TokenType.Operator);
+                Accept(Token.TokenType.Assignment);
                 IntegerLiteral il = ParseIntegerLiteral();
                 Accept(Token.TokenType.SemiColon);
                 return new GridStatDeclaration(gsnv, il);
@@ -471,8 +505,8 @@ namespace WarSimulator_Handmade
 
         private RulesBlock ParseRulesBlock()
         {
-            MaximumsBlock mb = ParseMaximumsBlock();
             StandardsBlock sb = ParseStandardsBlock();
+            MaximumsBlock mb = ParseMaximumsBlock();
             return new RulesBlock(mb, sb);
         }
         private MaximumsBlock ParseMaximumsBlock()
@@ -509,7 +543,7 @@ namespace WarSimulator_Handmade
                 previousTokenPosition = currentToken.position;
                 MaximumsStatVName msv = new MaximumsStatVName(currentToken.spelling,previousTokenPosition);
                 AcceptIt();
-                Accept(Token.TokenType.Operator);
+                Accept(Token.TokenType.Assignment);
                 IntegerLiteral il = ParseIntegerLiteral();
                 Accept(Token.TokenType.SemiColon);
                 return new MaximumsStatDeclaration(msv, il);

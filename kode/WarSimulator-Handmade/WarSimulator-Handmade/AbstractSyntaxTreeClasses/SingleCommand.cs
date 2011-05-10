@@ -7,6 +7,11 @@ namespace WarSimulator_Handmade
 {
     public abstract class SingleCommand:AST
     {
+        public SingleCommand(SourcePosition pos)
+            : base(pos)
+        {
 
+        }
+        
     }
 }

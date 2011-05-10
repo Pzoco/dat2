@@ -10,7 +10,8 @@ namespace WarSimulator_Handmade
         public UnitFunctionName ufn;
         public Identifier i;
 
-        public UnitFunction(UnitFunctionName ufn, Identifier i)
+        public UnitFunction(UnitFunctionName ufn, Identifier i, SourcePosition pos)
+            : base(pos)
         {
             this.ufn = ufn;
             this.i = i;

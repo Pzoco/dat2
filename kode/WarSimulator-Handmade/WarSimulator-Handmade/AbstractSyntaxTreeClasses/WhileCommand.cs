@@ -9,7 +9,8 @@ namespace WarSimulator_Handmade
     {
         public Expression e;
         public SingleCommand sc;
-        public WhileCommand(Expression e, SingleCommand sc)
+        public WhileCommand(Expression e, SingleCommand sc, SourcePosition pos)
+            : base(pos)
         {
             this.e = e;
             this.sc = sc;
