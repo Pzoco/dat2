@@ -5,19 +5,19 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class MaximumsStatDeclaration:Declaration
+    public class MaximaStatDeclaration:Declaration
     {
-        public MaximumsStatVName msv;
+        public MaximaStatVName msv;
         public IntegerLiteral il;
 
-        public MaximumsStatDeclaration(MaximumsStatVName msv, IntegerLiteral il)
+        public MaximaStatDeclaration(MaximaStatVName msv, IntegerLiteral il)
         {
             this.msv = msv;
             this.il = il;
         }
         public override Object Visit(Visitor v, Object arg)
         {
-            return v.VisitMaximumsStatDeclaration(this, arg);
+            return v.VisitMaximaStatDeclaration(this, arg);
         }
     }
 }

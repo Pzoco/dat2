@@ -7,10 +7,10 @@ namespace WarSimulator_Handmade
 {
     public class RulesBlock:AST
     {
-        public MaximumsBlock mb;
+        public MaximaBlock mb;
         public StandardsBlock sb;
 
-        public RulesBlock(MaximumsBlock mb, StandardsBlock sb)
+        public RulesBlock(MaximaBlock mb, StandardsBlock sb)
         {
             // TODO: Complete member initialization
             this.mb = mb;

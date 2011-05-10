@@ -5,18 +5,18 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class MaximumsBlock:AST
+    public class MaximaBlock:AST
     {
-        public List<MaximumsStatDeclaration> msds = new List<MaximumsStatDeclaration>();
+        public List<MaximaStatDeclaration> msds = new List<MaximaStatDeclaration>();
 
-        public MaximumsBlock(List<MaximumsStatDeclaration> msds)
+        public MaximaBlock(List<MaximaStatDeclaration> msds)
         {
             // TODO: Complete member initialization
             this.msds = msds;
         }
         public override Object Visit(Visitor v, Object arg)
         {
-            return v.VisitMaximumsBlock(this, arg);
+            return v.VisitMaximaBlock(this, arg);
         }
     }
 }

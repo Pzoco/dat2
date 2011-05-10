@@ -10,7 +10,7 @@ namespace WarSimulator_Handmade
         #region Blocks
         Object VisitBehaviourBlock(BehaviourBlock ast, Object obj);
         Object VisitGridBlock(GridBlock ast, Object obj);
-        Object VisitMaximumsBlock(MaximumsBlock ast, Object obj);
+        Object VisitMaximaBlock(MaximaBlock ast, Object obj);
         Object VisitRegimentBlock(RegimentBlock ast, Object obj);
         Object VisitRulesBlock(RulesBlock ast, Object obj);
         Object VisitStandardsBlock(StandardsBlock ast, Object obj);
@@ -70,8 +70,8 @@ namespace WarSimulator_Handmade
         #region Stats
         Object VisitGridStatDeclaration(GridStatDeclaration ast, Object obj);
         Object VisitGridStatVName(GridStatVName ast, Object obj);
-        Object VisitMaximumsStatDeclaration(MaximumsStatDeclaration ast, Object obj);
-        Object VisitMaximumsStatVName(MaximumsStatVName ast, Object obj);
+        Object VisitMaximaStatDeclaration(MaximaStatDeclaration ast, Object obj);
+        Object VisitMaximaStatVName(MaximaStatVName ast, Object obj);
         Object VisitUnitStatIntegerDeclaration(UnitStatIntegerDeclaration ast, Object obj);
         Object VisitUnitStatPositionDeclaration(UnitStatPositionDeclaration ast, Object obj);
         Object VisitUnitStatTypeDeclaration(UnitStatTypeDeclaration ast, Object obj);
