@@ -206,12 +206,12 @@
 									&$\mid$	&MaximumsStat-Declaration\\
 		MaximumsStat-Declaration	&	::=	&{\bf Regiments = } Integer-Literal{\bf ;}\\
 									&$\mid$	&{\bf Teams = } Integer-Literal{\bf ;}\\
-									&$\mid$	&{\bf Size}\\
-									&$\mid$	&{\bf Range}\\
-									&$\mid$	&{\bf Damage}\\
-									&$\mid$	&{\bf Movement}\\
-									&$\mid$	&{\bf AttackSpeed}\\
-									&$\mid$	&{\bf Health}\\
+									&$\mid$	&{\bf Size = } Integer-Literal{\bf ;}\\
+									&$\mid$	&{\bf Range = } Integer-Literal{\bf ;}\\
+									&$\mid$	&{\bf Damage = } Integer-Literal{\bf ;}\\
+									&$\mid$	&{\bf Movement = } Integer-Literal{\bf ;}\\
+									&$\mid$	&{\bf AttackSpeed = } Integer-Literal{\bf ;}\\
+									&$\mid$	&{\bf Health = } Integer-Literal{\bf ;}\\
 		Standards-Block				&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration Behaviour-Block\bf{\} }\\
 			\end{longtable}
 		\end{center}
@@ -305,7 +305,7 @@
 		Block-Name					&	::=	&Identifier\\
 		Regiment-Block				&	::=	&{\bf Regiment} Block-Name {\bf \{ } \\
 									&		&UnitStat-Declaration Behaviour-Block \bf{\} }\\
-		Behaviour-Block				&	::=	&{\bf Behaviour}(Identifier\bf{\{}Single-Command\bf{\}} $\mid$ {\bf $=$} Identifier)\\
+		Behaviour-Block				&	::=	&{\bf Behaviour}(Identifier{\bf \{ }Single-Command \bf{\} } $\mid$ {\bf $=$} Identifier)\\
 		Regiment-Declaration		&	::=	&{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
 									&$\mid$	&{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
 		Regiment-Search				&	::=	&{\bf SearchForEnemies (} Parameters {\bf )}\\
