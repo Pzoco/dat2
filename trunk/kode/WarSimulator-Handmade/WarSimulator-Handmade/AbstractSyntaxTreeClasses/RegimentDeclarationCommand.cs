@@ -8,7 +8,8 @@ namespace WarSimulator_Handmade
     public class RegimentDeclarationCommand:SingleCommand
     {
         public RegimentDeclaration rd;
-        public RegimentDeclarationCommand(RegimentDeclaration rd)
+        public RegimentDeclarationCommand(RegimentDeclaration rd, SourcePosition pos)
+            : base(pos)
         {
             this.rd = rd;
         }

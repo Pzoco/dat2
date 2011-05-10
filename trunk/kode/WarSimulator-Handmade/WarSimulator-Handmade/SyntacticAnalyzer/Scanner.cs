@@ -159,13 +159,14 @@ namespace WarSimulator_Handmade
                     return Token.TokenType.IntegerLiteral;
 
                 
-                case '=': //= Skal være assignment, men ==, >= og <= skal være operators. Kræver fix. 
+                case '=': //The following is used to ensure that the scanner knows the difference between an operator and an assignment. 
                     TakeIt();
                     if (CurrentChar == '=')
                     {
+                        TakeIt();
                         return Token.TokenType.Operator;
                     }
-                    else     // DEERRRRRP JEG TROR DET VIRKER DEEEEERP
+                    else
                     {
                         return Token.TokenType.Assignment;
                     }
@@ -173,9 +174,9 @@ namespace WarSimulator_Handmade
                 case '-':
                 case '*':
                 case '/':
-                case '<': // Kræver fix for <=
-                case '>': // Kræver fix for >=
-                case '|': // Skal der \ foran | ?
+                case '<':
+                case '>':
+                case '|':
                 case '&':
                     TakeIt();
                     while (IsOperator(CurrentChar))
@@ -210,8 +211,8 @@ namespace WarSimulator_Handmade
                 case '.':
                     TakeIt();
                     return Token.TokenType.Dot;
-                //case Source.EndOfText:
-                //    return (int)Token.Tokens.EndOfText;
+                case Source.EndOfText:
+                    return Token.TokenType.EndOfText;
 
                 default:
                     TakeIt();

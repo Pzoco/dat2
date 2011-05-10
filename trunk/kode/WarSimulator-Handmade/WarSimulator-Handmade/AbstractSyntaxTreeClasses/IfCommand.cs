@@ -10,7 +10,8 @@ namespace WarSimulator_Handmade
         public Expression e;
         public List<ElseIfCommand> eifc = new List<ElseIfCommand>();
         public SingleCommand sc1, sc2;
-        public IfCommand(Expression e, SingleCommand sc1,SingleCommand sc2,List<ElseIfCommand> eifc)
+        public IfCommand(Expression e, SingleCommand sc1, SingleCommand sc2, List<ElseIfCommand> eifc, SourcePosition pos)
+            : base(pos)
         {
             this.e = e;
             this.sc1 = sc1;

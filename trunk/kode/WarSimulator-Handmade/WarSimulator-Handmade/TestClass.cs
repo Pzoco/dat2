@@ -51,6 +51,14 @@ namespace WarSimulator_Handmade
 
             teamFile = parser.ParseTeamFile();
 
+            source = new Source("C:\\Users\\Drfou\\Desktop\\ConfigFile.txt");
+
+            scanner = new Scanner(source);
+            reporter = new ErrorReporter();
+            parser = new Parser(scanner, reporter);
+
+            configFile = parser.ParseConfigFile();
+
             return true;
         }
     }
