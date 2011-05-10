@@ -95,13 +95,13 @@
     <Compile Include="AbstractSyntaxTreeClasses\IntegerLiteral.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsBlock.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\MaximaBlock.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatDeclaration.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\MaximaStatDeclaration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AbstractSyntaxTreeClasses\MaximumsStatVName.cs">
+    <Compile Include="AbstractSyntaxTreeClasses\MaximaStatVName.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AbstractSyntaxTreeClasses\Operator.cs">
