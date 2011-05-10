@@ -1,45 +1,5 @@
 \section{Syntax}
-	The first step in writing our interpreter is to make a BNF of our language. BNF stands for {\it Backus Naur form} and is a way of
-	structuring the language in a formal way, which will make it easy to implement. A BNF consists of a set of {\it production rules} and each
-	production rule consists of: \\
-	\begin{itemize}
-		 \item Terminals: A {\it terminal } is a literal string that appears in the language in hand.
-		 \item Non-terminal: A {\it non-terminal } consists of Non-terminals and Terminals, used for structuring the language.
-	\end{itemize}
-	
-	\subsection*{Production Rule}
-		A production rule has the form: \\
-		$N ::= X$, \\
-		where $X$ is a Non-terminal or a Terminal. \\
-		
-		The elements in a production rule can be identified by: \\
-		Terminals are written in {\bf bold } and 
-		Non-terminals are just written in plain text.
-	\subsection*{Grouping of production rules}
-		If we have two production rules on the form:\\
-		$N ::= X$ \\
-		$N ::= Y$ \\
-		we are allowed to make a transformation: \\
-		$N ::= X | Y$ \\
-		Meaning $N$ is $X$ or $Y$ \\
-	\subsection*{Example of a small BNF}
-		\label{ex-bnf}
-		\begin{center}
-			\begin{tabular}{l l l}
-				A		&	::=		&	 AB$ \mid $ B \\
-				B		&	::=		&	{\bf b} $\mid$ {\bf n } $\mid$ {\bf f } \\
-			\end{tabular}
-		\end{center}
-		This BNF would allow us to write programs like \\(We use $\rightarrow$ to show applying of a production rule): \\
-		{\bf bnf}: A $\rightarrow$ AB $\rightarrow$ A{\bf f} $\rightarrow$ 
-		AB{\bf f} $\rightarrow$A{\bf nf} $\rightarrow$ B{\bf nf}$\rightarrow${\bf bnf } \\
-	
-	\begin{comment}
-	
-	
 	\subsubsection{Terminals}
-	
-	
 		\begin{longtable}[l]{l}
 			$\{$\\
 			$\}$\\
@@ -100,13 +60,13 @@
 %			Regiment-Block	  & Expression			\\
 %			Operator		  & Config-File			\\
 %			Grid-Block	      & Rules-Block 		\\
-%			Maximums-Block	  & MaximumsStat		\\
-%			MaximumsStat-Name & Standards-Block	 	\\
+%			Maxima-Block	  & MaximaStat		\\
+%			MaximaStat-Name & Standards-Block	 	\\
 %			StandardsStat	  & StandardsStat-Name 	\\
 %			Identifier		  & 					\\
 %		\end{tabular}
-\end{comment}
-	\subsection{The BNF of the WAR Language}
+	
+	\subsubsection{BNF}
 		{\bf Notes}
 		\begin{itemize}
 			\item Digit represents one of the digits 0 through 9.
@@ -115,7 +75,7 @@
 			\item eol represents an end-of-line 'character'.
 		\end{itemize}
 		\begin{center}
-			\begin{longtable}{l l l}
+				\begin{longtable}{l l l}
 				\endfirsthead
 				\endhead
 		Team-File					&	::=	&{\bf Team} Identifier Regiment-Block\\
@@ -200,11 +160,11 @@
 									&$\mid$	&GridStat-Declaration \\
 		GridStat-Declaration		&	::=	&{\bf Width = } Integer-Literal;\\
 									&$\mid$	&{\bf Height = } Integer-Literal;\\
-		Rules-Block					&	::=	&Standards-Block MaximumsBlock\\
-		Maximums-Block				&	::=	&{\bf Maximums} {\bf \{} MaximumsStat {\bf \}} \\
-		MaximumsStat				&	::=	&MaximumsStat-Declaration MaximumsStat\\
-									&$\mid$	&MaximumsStat-Declaration\\
-		MaximumsStat-Declaration	&	::=	&{\bf Regiments = } Integer-Literal{\bf ;}\\
+		Rules-Block					&	::=	&Standards-Block MaximaBlock\\
+		Maxima-Block				&	::=	&{\bf Maxima} {\bf \{} MaximaStat {\bf \}} \\
+		MaximaStat				&	::=		&MaximaStat-Declaration MaximaStat\\
+									&$\mid$	&MaximaStat-Declaration\\
+		MaximaStat-Declaration	&	::=	&{\bf Regiments = } Integer-Literal{\bf ;}\\
 									&$\mid$	&{\bf Teams = } Integer-Literal{\bf ;}\\
 									&$\mid$	&{\bf Size = } Integer-Literal{\bf ;}\\
 									&$\mid$	&{\bf Range = } Integer-Literal{\bf ;}\\
@@ -213,89 +173,11 @@
 									&$\mid$	&{\bf AttackSpeed = } Integer-Literal{\bf ;}\\
 									&$\mid$	&{\bf Health = } Integer-Literal{\bf ;}\\
 		Standards-Block				&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration Behaviour-Block\bf{\} }\\
-			\end{longtable}
+		\end{longtable}
 		\end{center}
 		
-		
-	\subsection{EBNF}
-		{\it EBNF} stands for {\it Extendend Backus Naur Form} and is, as the name refers to an extension of BNF.
-		The EBNF allows us to use regular expressions to express production rules, which makes our rule set more compact and 
-		easier to implement.
-	
-	\subsubsection*{Regular expressions}
-		A regular expression is a convenient way of expressing strings. We use the following regular expressions: \\
-		\begin{itemize}
-			\item *(star): States that the terminal or non-terminal must be used 0 or more times.
-			\item Parentheses: Used for grouping of non-terminals and terminals.
-			\item $\epsilon$: Represents the empty string.
-		\end{itemize}
-		Please note that these regular expressions can only be used on the right side of the production rules. \\
-		
-		By using these regular expression we can \\
-		transform the BNF example given in \ref{ex-bnf} to an EBNF: \\
-		
-		\begin{tabular}{l l l}
-			B		&	::=		&	({\bf b} $\mid$ {\bf n } $\mid$ {\bf f })* \\
-		\end{tabular}
-		
-		It's easy to see that the transformation made the rules more compact (we removed one the the production rules), but
-		how do we transform a BNF to a EBNF in a systematic way? 
-		This can be done by applying {\it left factorization }, {\it elimination of left recursion} and {\it substitution of non-terminals }.
-		
-		\subsubsection*{Left factorization}
-			If we have a production rule on the form: \\
-			\begin{tabular}{l l l}
-				T		&	::=		&	AB$\mid$AC \\
-			\end{tabular}
-			
-			We can do a left factorization: \\
-			\begin{tabular}{l l l}
-				T		&	::=		&	A(B$\mid$C) \\
-			\end{tabular}
-			
-			This can be done because T will always start with an A and end with either a B or C.
-			
-		\subsubsection*{Elimination of left recursion}
-			If we have a production rule on the form: \\
-			\begin{tabular}{l l l}
-				T		&	::=		&	A$\mid$TB \\
-			\end{tabular}
-			
-			We can do an elimination of left recursion: \\
-			\begin{tabular}{l l l}
-				T		&	::=		&	A(B)* \\
-			\end{tabular}
-			
-			To understand how we can do this look at the first production rule. To terminate the production rule we need 
-			to put an A, so T will always consist of an A. When we are not selecting an A(, and terminating) we are only making B's, which is
-			the same as B*.
-		\subsubsection*{Substitution of non-terminals}
-			If we have two production rules on the form: \\
-			
-			\begin{tabular}{l l l}
-				T		&	::=		&	U $\mid$ AUC \\
-				U		&	::=		&	{\bf ab} $\mid$ {\bf ba} \\
-			\end{tabular} \\
-			
-			We can do a substitution of the non-terminal U for every production rule. This means that we 
-			substitute any occurrence of U in a production rule with what is on the right hand side of U like this: \\
-			
-			\begin{tabular}{l l l}
-				T		&	::=		&	({\bf ab} $\mid$ {\bf ba}) $\mid$ A ({\bf ab} $\mid$ {\bf ba})B \\
-			\end{tabular}
-	\subsection{The EBNF of the WAR Language}
-		Left factorization, substituion of non-terminals 
-		and elimination of left recursion was applied to transform the BNF to an EBNF. \\
-		
-		Substituion of non-terminals have removed the following non-terminals from the BNF: \\
-		\begin{itemize}
-			\item Else-If
-			\item UnitStat
-			\item Graphical-Literal
-			\item GridStat
-			\item MaximumsStat
-		\end{itemize}
-		
+	\subsubsection{EBNF}
+		Left factorization and elimination of left recursion was applied to make the EBNF: \\
 		\begin{center}
 			\begin{longtable}{ l l l }
 				\endfirsthead
@@ -349,11 +231,11 @@
 		Config-File					&	::=	&{\bf Config} Grid-Block Rules-Block  		\\
 		Grid-Block					&	::=	&{\bf Grid} Block-Name	 {\bf \{} GridStat-Declaration* \bf{\}} \\
 		GridStat-Declaration		&	::=	&({\bf Width} $\mid$ {\bf Height})=  Integer-Literal{\bf ;} \\	
-		Rules-Block					&	::=	&Standards-Block MaximumsBlock 				\\
-		Maximums-Block				&	::=	&{\bf Maximums} {\bf \{} (MaximumsStat-Declaration)* {\bf \}}\\
-		MaximumsStat-Declaration	&	::=	&({\bf Regiments }$\mid${\bf Teams}$\mid${\bf Size}$\mid$\\
+		Rules-Block					&	::=	&Standards-Block MaximaBlock 				\\
+		Maxima-Block				&	::=	&{\bf Maxima} {\bf \{} (MaximaStat-Declaration)* {\bf \}}\\
+		MaximaStat-Declaration	&	::=	&({\bf Regiments }$\mid${\bf Teams}$\mid${\bf Size}$\mid$\\
 									&		&{\bf Range}$\mid${\bf Damage}$\mid${\bf Movement}$\mid$\\
 									&		&{\bf AttackSpeed}$\mid${\bf Health}) =  Integer-Literal{\bf ;}\\
 		Standards-Block				&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration* Behaviour-Block\bf{\} }		\\
-			\end{longtable}
+	\end{longtable}
 		\end{center}					     
