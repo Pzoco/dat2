@@ -1,0 +1,18 @@
+\section{Construction of the parser}
+	In this section we will describe how one can construct a parser from a EBNF, but first we will describe how a parser is and how it works.
+	
+	\subsection{Parsing}
+		The job of a parser is to check if a program is correct and 
+		to determine the structure of the program, usually done by constructing tree structure.
+		There are two ways of checking this {\it Bottom-up Parsing} and {\it Top-Down Parsing}.
+		
+		\subsubsection*{Bottom-up Parsing}
+			This way of parsing takes simple structures and combining them to more complex structures.
+			We show how this type of parsing works by applying Bottom-up parsing on this code written in : \\
+			{\bf Maximums \{ Regiments = 5;\} }
+			
+			\begin{enumerate}
+				\item Looks at 5 - Identifies it as an Integer-literal
+				\item Looks at 5* -
+			\end{enumerate}
+			
