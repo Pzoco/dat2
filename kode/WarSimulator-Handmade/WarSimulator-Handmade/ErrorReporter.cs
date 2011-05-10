@@ -7,29 +7,36 @@ namespace WarSimulator_Handmade
 {
     public class ErrorReporter
     {
-        public int numErrors;
+        public int numbErrors;
 
         public ErrorReporter()
         {
-            numErrors = 0;
+            numbErrors = 0;
         }
 
-        public void ReportError(String message, String tokenName, SourcePosition pos)
+        public void ReportParserError(String message, Token token)
         {
-            Console.Write("ERROR: ");
+            String output;
+            output = "SYNTAX ERROR FOUND IN LINE " + token.position + " WHILE TRYING TO PARSE TOKEN OF TYPE " + token.type.ToString() + ".";
+            if (message.Length>1)
+            {
+                output += "\n" + message;
+            }
+            Console.Write(output);
+            numbErrors++;
+        }
+        // THIS IS A SIMPLE ERROR REPORTER, BORROWED FROM THE C# IMPLEMENTATION OF MINI-TRIANGLE MADE BY BENT THOMSEN
+        public void ReportCheckerError(String msg, String tokName, SourcePosition pos)
+        {
+            Console.Write("CHECKER ERROR!");
 
-            for (int p = 0; p < message.Length; p++)
-                if (message[p] == '%')
-                    Console.Write(tokenName);
+            for (int i = 0; i < msg.Length; i++)
+                if (msg[i] == '%')
+                    Console.Write(tokName);
                 else
-                    Console.Write(message[p]);
+                    Console.Write(msg[i]);
             Console.WriteLine(" " + pos.start + ".." + pos.finish);
-            numErrors++;
-        }
-
-        public void ReportRestriction(String message)
-        {
-            Console.WriteLine("RESTRICTION: " + message);
+            numbErrors++;
         }
     }
 }

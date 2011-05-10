@@ -80,7 +80,7 @@ namespace WarSimulator_Handmade
             DataType type = (DataType)ast.e.Visit(this, null);
             if (type != DataType.Boolean)
             {
-                reporter.ReportError("Expression was not of type Boolean", "", ast.e.position);
+                reporter.ReportCheckerError("Expression was not of type Boolean", "", ast.e.position);
             }
             ast.sc1.Visit(this, null);
             if (ast.eifc != null) { ast.eifc.ForEach(x => x.Visit(this, null)); }
@@ -92,7 +92,7 @@ namespace WarSimulator_Handmade
             DataType type = (DataType)ast.e.Visit(this, null);
             if (type != DataType.Boolean)
             {
-                reporter.ReportError("Expression was not of type Boolean", "", ast.e.position);
+                reporter.ReportCheckerError("Expression was not of type Boolean", "", ast.e.position);
             }
             ast.sc.Visit(this, null);
             return null;
@@ -102,7 +102,7 @@ namespace WarSimulator_Handmade
             DataType type = (DataType)ast.e.Visit(this, null);
             if (type != DataType.Boolean)
             {
-                reporter.ReportError("Expression was not of type Boolean", "", ast.e.position);
+                reporter.ReportCheckerError("Expression was not of type Boolean", "", ast.e.position);
             }
             ast.sc.Visit(this, null);
             return null;
@@ -119,20 +119,20 @@ namespace WarSimulator_Handmade
             {
                 if (!(declaration is BinaryOperatorDeclaration))
                 {
-                    reporter.ReportError("Operator was not a binary operator declaration", "", ast.o.position);
+                    reporter.ReportCheckerError("Operator was not a binary operator declaration", "", ast.o.position);
                 }
                 BinaryOperatorDeclaration bod = (BinaryOperatorDeclaration)declaration;
                 if (bod.arg1 != bod.arg2)
                 {
-                    reporter.ReportError("Datatype of argument 1 doesn't match datatype of argument 2", "", ast.position);
+                    reporter.ReportCheckerError("Datatype of argument 1 doesn't match datatype of argument 2", "", ast.position);
                 }
                 else if (eType1 != bod.arg1)
                 {
-                    reporter.ReportError("Wrong argument given at arg1", "", ast.position);
+                    reporter.ReportCheckerError("Wrong argument given at arg1", "", ast.position);
                 }
                 else if (eType2 != bod.arg2)
                 {
-                    reporter.ReportError("Wrong argument given at arg2", "", ast.position);
+                    reporter.ReportCheckerError("Wrong argument given at arg2", "", ast.position);
                 }
                 ast.type = bod.result;
             }
@@ -224,7 +224,7 @@ namespace WarSimulator_Handmade
             Declaration declaration = (Declaration) ast.i.Visit(this, null);
             if (declaration != null)
             {
-                reporter.ReportError("Tried to declare % which was already declared", ast.i.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to declare % which was already declared", ast.i.spelling, ast.position);
             }
             idTable.EnterEntry(ast, ast.i.spelling);
             ast.i.type = DataType.Regiment;
@@ -251,20 +251,20 @@ namespace WarSimulator_Handmade
             {
                 if (!(declaration is BinaryOperatorDeclaration))
                 {
-                    reporter.ReportError("Operator was not a binary operator declaration", "", ast.o.position);
+                    reporter.ReportCheckerError("Operator was not a binary operator declaration", "", ast.o.position);
                 }
                 BinaryOperatorDeclaration bod = (BinaryOperatorDeclaration)declaration;
                 if (bod.arg1 != bod.arg2)
                 {
-                    reporter.ReportError("Datatype of argument 1 doesn't match datatype of argument 2", "", ast.position);
+                    reporter.ReportCheckerError("Datatype of argument 1 doesn't match datatype of argument 2", "", ast.position);
                 }
                 else if (eType1 != bod.arg1)
                 {
-                    reporter.ReportError("Wrong argument given at arg1", "", ast.position);
+                    reporter.ReportCheckerError("Wrong argument given at arg1", "", ast.position);
                 }
                 else if (eType2 != bod.arg2)
                 {
-                    reporter.ReportError("Wrong argument given at arg2", "", ast.position);
+                    reporter.ReportCheckerError("Wrong argument given at arg2", "", ast.position);
                 }
             }
             return null;
@@ -287,11 +287,11 @@ namespace WarSimulator_Handmade
             Declaration declaration = (Declaration) ast.i.Visit(this, null);
             if (declaration == null)
             {
-                reporter.ReportError("Regiment % was not declared", ast.i.spelling, ast.i.position);
+                reporter.ReportCheckerError("Regiment % was not declared", ast.i.spelling, ast.i.position);
             }
             else if(ast.i.type != DataType.Regiment)
             {
-                reporter.ReportError("% was not of type Regiment", ast.i.spelling, ast.i.position);
+                reporter.ReportCheckerError("% was not of type Regiment", ast.i.spelling, ast.i.position);
             }
             ast.ufn.Visit(this, null);
             return null;
@@ -308,11 +308,11 @@ namespace WarSimulator_Handmade
             Declaration declaration = idTable.RetrieveEntry(ast.i.spelling);
             if (declaration == null)
             {
-                reporter.ReportError("Regiment % wasn't declared", ast.i.spelling, ast.i.position);
+                reporter.ReportCheckerError("Regiment % wasn't declared", ast.i.spelling, ast.i.position);
             }
             else if (ast.i.type != DataType.Regiment)
             {
-                reporter.ReportError("% was not of type Regiment", ast.i.spelling, ast.i.position);
+                reporter.ReportCheckerError("% was not of type Regiment", ast.i.spelling, ast.i.position);
             }
             ast.ust.Visit(this, null);
             return null;
@@ -329,7 +329,7 @@ namespace WarSimulator_Handmade
         {
             if (!(idTable.EnterEntry(ast, ast.gsnv.spelling)))
             {
-                reporter.ReportError("Tried to declare % which was already declared", ast.gsnv.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to declare % which was already declared", ast.gsnv.spelling, ast.position);
             }
             ast.il.Visit(this, null);
             ast.gsnv.Visit(this, null);
@@ -345,7 +345,7 @@ namespace WarSimulator_Handmade
             ast.msv.Visit(this, null);
             if (!(idTable.EnterEntry(ast, ast.msv.spelling)))
             {
-                reporter.ReportError("Tried to declare % which already was declared", ast.msv.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to declare % which already was declared", ast.msv.spelling, ast.position);
             }
             return null;
         }
@@ -359,11 +359,11 @@ namespace WarSimulator_Handmade
             ast.il.Visit(this, null);
             if (snType != DataType.Integer)
             {
-                reporter.ReportError("Tried to assign an Integer to %", ast.sn.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to assign an Integer to %", ast.sn.spelling, ast.position);
             }
             if (!(idTable.EnterEntry(ast, ast.sn.spelling)))
             {
-                reporter.ReportError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
             }
             return null;
         }
@@ -373,11 +373,11 @@ namespace WarSimulator_Handmade
 
             if (snType != DataType.Position)
             {
-                reporter.ReportError("Tried to assign a position to %", ast.sn.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to assign a position to %", ast.sn.spelling, ast.position);
             }
             if (!(idTable.EnterEntry(ast, ast.sn.spelling)))
             {
-                reporter.ReportError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
             }
             return null;
         }
@@ -387,11 +387,11 @@ namespace WarSimulator_Handmade
             ast.Visit(this, null);
             if (snType != DataType.AttackType)
             {
-                reporter.ReportError("Tried to assign an attacktype to %", ast.sn.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to assign an attacktype to %", ast.sn.spelling, ast.position);
             }
             if (!(idTable.EnterEntry(ast, ast.sn.spelling)))
             {
-                reporter.ReportError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
+                reporter.ReportCheckerError("Tried to declare % which already was declared", ast.sn.spelling, ast.position);
             }
             return null;
         }
