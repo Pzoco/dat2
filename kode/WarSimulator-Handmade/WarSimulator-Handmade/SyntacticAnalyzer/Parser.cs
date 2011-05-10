@@ -506,14 +506,14 @@ namespace WarSimulator_Handmade
         private RulesBlock ParseRulesBlock()
         {
             StandardsBlock sb = ParseStandardsBlock();
-            MaximumsBlock mb = ParseMaximumsBlock();
+            MaximaBlock mb = ParseMaximaBlock();
             return new RulesBlock(mb, sb);
         }
-        private MaximumsBlock ParseMaximumsBlock()
+        private MaximaBlock ParseMaximaBlock()
         {
             Accept(Token.TokenType.Maxima);
             Accept(Token.TokenType.LeftBracket);
-            List<MaximumsStatDeclaration> msds = new List<MaximumsStatDeclaration>();
+            List<MaximaStatDeclaration> msds = new List<MaximaStatDeclaration>();
             bool declarationFound = true;
             while (declarationFound)
             {
@@ -528,25 +528,25 @@ namespace WarSimulator_Handmade
                     case Token.TokenType.Health:
                     case Token.TokenType.Regiments:
                     case Token.TokenType.Teams:
-                        msds.Add(ParseMaximumsStatDeclaration());
+                        msds.Add(ParseMaximaStatDeclaration());
                         declarationFound = true; break;
                 }
             }
             Accept(Token.TokenType.RightBracket);
 
-            return new MaximumsBlock(msds);
+            return new MaximaBlock(msds);
         }
-        private MaximumsStatDeclaration ParseMaximumsStatDeclaration()
+        private MaximaStatDeclaration ParseMaximaStatDeclaration()
         {
             if (currentToken.type == Token.TokenType.Regiments || currentToken.type == Token.TokenType.Teams)
             {
                 previousTokenPosition = currentToken.position;
-                MaximumsStatVName msv = new MaximumsStatVName(currentToken.spelling,previousTokenPosition);
+                MaximaStatVName msv = new MaximaStatVName(currentToken.spelling,previousTokenPosition);
                 AcceptIt();
                 Accept(Token.TokenType.Assignment);
                 IntegerLiteral il = ParseIntegerLiteral();
                 Accept(Token.TokenType.SemiColon);
-                return new MaximumsStatDeclaration(msv, il);
+                return new MaximaStatDeclaration(msv, il);
             }
             return null;
         }

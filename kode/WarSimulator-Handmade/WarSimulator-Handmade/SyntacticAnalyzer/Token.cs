@@ -67,7 +67,7 @@ namespace WarSimulator_Handmade
             UnitFunction,
             UnitStatName,
             GridStatName,
-            MaximumsStatName,
+            MaximaStatName,
 
             //-----ALPHEBETICAL BEGIN-----
             Attack,
@@ -126,7 +126,7 @@ namespace WarSimulator_Handmade
             "<unitfunction>", //Attack, MoveTowards, MoveAway = Tokens, eller?
             "<unitstatname>",
             "<gridstatname>",
-            "<maximumsstatname>",
+            "<maximastatname>",
                 //   ALPHABETICAL START
             "Attack",
             "AttackSpeed",

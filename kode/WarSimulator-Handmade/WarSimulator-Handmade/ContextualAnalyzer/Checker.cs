@@ -38,7 +38,7 @@ namespace WarSimulator_Handmade
             idTable.Close();
             return null;
         }
-        public Object VisitMaximumsBlock(MaximumsBlock ast, Object obj)
+        public Object VisitMaximaBlock(MaximaBlock ast, Object obj)
         {
             idTable.Open();
             ast.msds.ForEach(x => x.Visit(this, null));
@@ -337,7 +337,7 @@ namespace WarSimulator_Handmade
         {
             return null;
         }
-        public Object VisitMaximumsStatDeclaration(MaximumsStatDeclaration ast, Object obj)
+        public Object VisitMaximaStatDeclaration(MaximaStatDeclaration ast, Object obj)
         {
             ast.il.Visit(this, null);
             ast.msv.Visit(this, null);
@@ -347,7 +347,7 @@ namespace WarSimulator_Handmade
             }
             return null;
         }
-        public Object VisitMaximumsStatVName(MaximumsStatVName ast, Object obj)
+        public Object VisitMaximaStatVName(MaximaStatVName ast, Object obj)
         {
             return null;
         }

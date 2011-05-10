@@ -180,9 +180,6 @@
     <Compile Include="SyntacticAnalyzer\Source.cs" />
     <Compile Include="SyntacticAnalyzer\Token.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
