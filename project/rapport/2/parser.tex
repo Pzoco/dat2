@@ -11,19 +11,19 @@
 			We call this type of parsing for {\it LR parsing} because we read the text from the left and reduces to the right.
 			\begin{figure}[H]
 				\centering
-				\includegraphics[width=0.5\textwidth]{rapport/2/figures/bottomup.png}
-				\caption{LR Parsing}\label{fig:lrparse}
+				\includegraphics[width=0.8\textwidth]{rapport/2/figures/parsestrat.png}
+				\caption{Left figure bottom-up parsing - Right figure top-down parsing}\label{fig:lrparse}
 			\end{figure}
 			
 		\subsubsection*{Top-down Parsing}
 			Top-down parsing starts from the complex structures, and breaks them down into smaller parts.
 			We call this type of parsing for {\it LL parsing} because we read the text from the left and make derivations to the left.
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=0.5\textwidth]{rapport/2/figures/topdown.png}
-				\caption{LL Parsing}\label{fig:llparsing}
-			\end{figure}
-	
+		
+		\subsubsection*{Strengths and weaknesses}
+			The most commonly used parsing strategy of the two is LR parsing, the reason for this is because it's faster than LL parsing.
+			In this project, however we have chosen to make a LL parser because it's easy to make by hand. The type of LL parser we made is called
+			a recursive descent parser.
+			
 	\subsection{Creating a recursive descent parser}
 		A recursive descent parser is a LL parser which works by recursively going through the program.
 		To construct this type of parser a EBNF is required and here is how it is made:
@@ -33,10 +33,10 @@
 			\item Make a method that can accept terminals.
 			\item In each of the parse method accept terminals and/or call other parse methods.
 		\end{enumerate}		
-		
+	
+	%leder ikke så godt synes jeg :/	
 		%This chapter was about parsing, now to Scope Rules (Contextual analysis)
-		
-	A parser is an important tool to make the WAR interpreter, and now to defining the scope rules and type checking in the contextual analysis part.		
+		%A parser is an important tool to make the WAR interpreter, and now to defining the scope rules and type checking in the contextual analysis part.		
 		
 		
 		
