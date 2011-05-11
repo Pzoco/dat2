@@ -11,12 +11,13 @@
 			We call this type of parsing for {\it LR parsing} because we read the text from the left and reduces to the right.
 			\begin{figure}[H]
 				\centering
-				\includegraphics[width=0.8\textwidth]{rapport/5/figures/parsestrat.png}
-				\caption{Left figure bottom-up parsing - Right figure top-down parsing}\label{fig:lrparse}
+				\subfloat[Top down]{\label{fig:top_down}\includegraphics[width=0.4\textwidth]{rapport/5/figures/topdown}} 
+				\subfloat[Buttom up]{\label{fig:buttom_up}\includegraphics[width=0.4\textwidth]{rapport/5/figures/buttomup}}
+				\caption{Two different parse methods}\label{fig:parsers}
 			\end{figure}
 			
 		\subsubsection*{Top-down Parsing}
-			Top-down parsing starts from the complex structures, and breaks them down into smaller parts.
+			Top-down parsing figure \ref{fig:top_down} starts from the complex structures, and breaks them down into smaller parts.
 			We call this type of parsing for {\it LL parsing} because we read the text from the left and make derivations to the left.
 		
 		\subsubsection*{Strengths and weaknesses}
