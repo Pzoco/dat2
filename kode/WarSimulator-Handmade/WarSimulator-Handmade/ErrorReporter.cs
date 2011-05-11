@@ -17,12 +17,12 @@ namespace WarSimulator_Handmade
         public void ReportParserError(String message, Token token)
         {
             String output;
-            output = "SYNTAX ERROR FOUND IN LINE " + token.position + " WHILE TRYING TO PARSE TOKEN OF TYPE " + token.type.ToString() + ".";
+            output =  "SYNTAX ERROR FOUND IN LINE " + token.position.ToString() + " WHILE TRYING TO PARSE TOKEN OF TYPE " + token.type.ToString() + ".";
             if (message.Length>1)
             {
                 output += "\n" + message;
             }
-            Console.Write(output);
+            Console.WriteLine(output);
             numbErrors++;
         }
         // THIS IS A SIMPLE ERROR REPORTER, BORROWED FROM THE C# IMPLEMENTATION OF MINI-TRIANGLE MADE BY BENT THOMSEN

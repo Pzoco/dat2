@@ -8,14 +8,14 @@ namespace WarSimulator_Handmade
     public class Parser
     {
         private Scanner scanner;
-        private ErrorReporter errorReporter;
+        public ErrorReporter errorReporter;
         private Token currentToken;
         private SourcePosition previousTokenPosition;
 
         #region Constructor
-        public Parser(Scanner lexer, ErrorReporter reporter)
+        public Parser(string file,ErrorReporter reporter)
         {
-            scanner = lexer;
+            scanner = new Scanner(new Source(file));
             errorReporter = reporter;
             previousTokenPosition = new SourcePosition();
         }
@@ -112,14 +112,9 @@ namespace WarSimulator_Handmade
             {
                 BlockName bn = ParseBlockName();
                 Accept(Token.TokenType.LeftBracket);
-                List<SingleCommand> scs = new List<SingleCommand>();
-                while (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While ||
-                        currentToken.type == Token.TokenType.UnitFunction || currentToken.type == Token.TokenType.Regiment)
-                {
-                    scs.Add(ParseSingleCommand());
-                }
+                SingleCommand sc = ParseSingleCommand();
                 Accept(Token.TokenType.RightBracket);
-                bb = new BehaviourBlock(bn, scs);
+                bb = new BehaviourBlock(bn, sc);
             }
             return bb;
         }
@@ -177,7 +172,6 @@ namespace WarSimulator_Handmade
                     case Token.TokenType.Type:
                         usds.Add(ParseUnitStatDeclaration()); declarationFound = true; break;
                     default:
-                        SyntaxError("Error parsing Regiment Stat.", currentToken);
                         break;
                 }
             }
@@ -194,10 +188,6 @@ namespace WarSimulator_Handmade
                 case Token.TokenType.While:
                     sc = ParseControlStructure();
                     break;
-                //case Token.TokenType.UnitFunction:
-                //    sc = ParseUnitFunction();
-                //    break;
-                //Bruges dette? Og hvis ikke, bør UnitFunction da være en Token?
                 case Token.TokenType.Regiment:
                     sc = ParseRegimentDeclaration();
                     break;
@@ -210,7 +200,9 @@ namespace WarSimulator_Handmade
                     SyntaxError("Error parsing Single Command!", currentToken);
                     break;
             }
-            while (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While || currentToken.type == Token.TokenType.Regiment || currentToken.type == Token.TokenType.Attack || currentToken.type == Token.TokenType.MoveAway || currentToken.type == Token.TokenType.MoveTowards)
+            while (currentToken.type == Token.TokenType.If || currentToken.type == Token.TokenType.While || 
+                currentToken.type == Token.TokenType.Regiment || currentToken.type == Token.TokenType.Attack || 
+                currentToken.type == Token.TokenType.MoveAway || currentToken.type == Token.TokenType.MoveTowards)
             {
                 SingleCommand sc2 = null;
                 switch (currentToken.type)
@@ -219,10 +211,6 @@ namespace WarSimulator_Handmade
                     case Token.TokenType.While:
                         sc2 = ParseControlStructure();
                         break;
-                    //case Token.TokenType.UnitFunction:
-                    //    sc = ParseUnitFunction();
-                    //    break;
-                    //Bruges dette? Og hvis ikke, bør UnitFunction da være en Token?
                     case Token.TokenType.Regiment:
                         sc2 = ParseRegimentDeclaration();
                         break;
@@ -558,7 +546,6 @@ namespace WarSimulator_Handmade
                         msds.Add(ParseMaximaStatDeclaration());
                         declarationFound = true; break;
                     default:
-                        SyntaxError("Error parsing Maxima-block", currentToken);
                         break;
                 }
             }
@@ -597,7 +584,6 @@ namespace WarSimulator_Handmade
                     case Token.TokenType.Type:
                         usds.Add(ParseUnitStatDeclaration()); declarationFound = true; break;
                     default:
-                        SyntaxError("Error parsing Standards-block", currentToken);
                         break;
                 }
             }
