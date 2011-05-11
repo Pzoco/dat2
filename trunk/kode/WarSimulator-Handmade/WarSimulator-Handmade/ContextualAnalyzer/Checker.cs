@@ -8,19 +8,34 @@ namespace WarSimulator_Handmade
     public enum DataType { Boolean, Integer, AttackType, Position, Regiment }
     public class Checker : Visitor
     {
-        IdentificationTable idTable = new IdentificationTable();
-        ErrorReporter reporter = new ErrorReporter();
-        public void Check(TeamFile ast)
+        private IdentificationTable idTable = new IdentificationTable();
+        private ErrorReporter reporter = new ErrorReporter();
+        public Checker(TeamFile ast,ErrorReporter reporter)
         {
+            this.reporter = reporter;
             EstablishStandardEnviroment();
             ast.Visit(this, null);
-            Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numErrors);
+            if (reporter.numbErrors > 0)
+            {
+                Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numbErrors);
+            }
+            else
+            {
+                Console.WriteLine("Contextual analyzing success");
+            }
         }
-        public void Check(ConfigFile ast)
+        public Checker(ConfigFile ast, ErrorReporter reporter)
         {
             EstablishStandardEnviroment();
             ast.Visit(this, null);
-            Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numErrors);
+            if (reporter.numbErrors > 0)
+            {
+                Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numbErrors);
+            }
+            else
+            {
+                Console.WriteLine("Contextual analyzing success");
+            }
         }
 
         #region Blocks
@@ -28,7 +43,7 @@ namespace WarSimulator_Handmade
         {
             idTable.Open();
             ast.bn.Visit(this, null);
-            ast.scs.ForEach(x => x.Visit(this, null));
+            ast.sc.Visit(this, null);
             idTable.Close();
             return null;
         }
@@ -221,7 +236,7 @@ namespace WarSimulator_Handmade
         public Object VisitRegimentDeclaration(RegimentDeclaration ast, Object obj)
         {
             ast.rs.Visit(this, null);
-            Declaration declaration = (Declaration) ast.i.Visit(this, null);
+            Declaration declaration = (Declaration)ast.i.Visit(this, null);
             if (declaration != null)
             {
                 reporter.ReportCheckerError("Tried to declare % which was already declared", ast.i.spelling, ast.position);
@@ -284,12 +299,12 @@ namespace WarSimulator_Handmade
         //Unit function
         public Object VisitUnitFunction(UnitFunction ast, Object obj)
         {
-            Declaration declaration = (Declaration) ast.i.Visit(this, null);
+            Declaration declaration = (Declaration)ast.i.Visit(this, null);
             if (declaration == null)
             {
                 reporter.ReportCheckerError("Regiment % was not declared", ast.i.spelling, ast.i.position);
             }
-            else if(ast.i.type != DataType.Regiment)
+            else if (ast.i.type != DataType.Regiment)
             {
                 reporter.ReportCheckerError("% was not of type Regiment", ast.i.spelling, ast.i.position);
             }
@@ -384,7 +399,6 @@ namespace WarSimulator_Handmade
         public Object VisitUnitStatTypeDeclaration(UnitStatTypeDeclaration ast, Object obj)
         {
             DataType snType = (DataType)ast.sn.Visit(this, null);
-            ast.Visit(this, null);
             if (snType != DataType.AttackType)
             {
                 reporter.ReportCheckerError("Tried to assign an attacktype to %", ast.sn.spelling, ast.position);

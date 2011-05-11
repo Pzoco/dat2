@@ -28,28 +28,30 @@ namespace WarSimulator_Handmade
                 source = null;
                 currentLine = 0;
             }
-            
+
         }
         internal char GetSource()
         {
+            int c = 0;
             try
             {
-                int c = source.Read();
-
-                if (c == -1)
-                {
-                    c = EndOfText;
-                }
-                else if (c == EndOfLine)
-                {
-                    currentLine++;
-                }
-                return (char)c;
+                c = source.Read();
             }
             catch (System.IO.IOException s)
             {
                 return EndOfText;
             }
+
+            if (c == -1)
+            {
+                c = EndOfText;
+            }
+            else if (c == EndOfLine)
+            {
+                currentLine++;
+            }
+            return (char)c;
+
         }
         internal char PeekSource()
         {

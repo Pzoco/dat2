@@ -8,13 +8,13 @@ namespace WarSimulator_Handmade
     public class BehaviourBlock:AST
     {
         public BlockName bn;
-        public List<SingleCommand> scs;
+        public SingleCommand sc;
 
-        public BehaviourBlock(BlockName bn, List<SingleCommand> scs)
+        public BehaviourBlock(BlockName bn, SingleCommand sc)
         {
             // TODO: Complete member initialization
             this.bn = bn;
-            this.scs = scs;
+            this.sc = sc;
         }
         public override Object Visit(Visitor v, Object arg)
         {
