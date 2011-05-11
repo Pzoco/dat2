@@ -1,0 +1,74 @@
+%Description - Contains A description of how to make to script files battle each other, 
+
+\section{ Description of WAR }
+WAR is a basic scripting language, enabling scripters to script out battles, and let them carry out on their own without them. The winner of the simulation will be the one with the best script. \\
+	\subsection{The simulation}
+		To run a simulation in the WAR simulator a configuration file and at least two team files has to be fed to the simulation engine. 
+		These files are written in the WAR scripting language.
+		
+		The basic rules of the game are defined in the configuration file. 
+		This configuration file may be worked out in cooperation by two participants, each representing their own team, 
+		to establish ground rules for the war simulation. Such configurations should be, but not limited to, 
+		the size of the grid the simulation is going to take place on, how many units each team may own, and when or how the game ends.
+		The thought of this is to allow for some flexibility in altering the simulation from game to game.
+		Each participant will make a script file they will give to the simulator, 
+		which then will interpret the script and simulate the battle. 
+		These script files contain how many units and what kind of units the participant would like to use. 
+		They may also contain information regarding the behaviour of specific regiments. 
+		Too ensue that the battle between two scripts will be fair certain limits on the regiments are specified in the config file.
+	
+		The one who made the best script will win the game, so every participant has to make the best script, 
+		and place the units in the best location on the grid.
+	
+		When both players are coding their scripts, they will provide the script-files with information about their regiments, 
+		but if the player chooses to leave the information out, or even forgets to specify it, 
+		the simulator will assign a default value. 
+		This helps both rookie scripters and forgetful scripters to provide the simulator 
+		with the amount of information required to initiate the simulation.
+
+	\subsection{The language}
+		The WAR language will be a simple imperative scripting language. 
+		We want the language to be easy to program, such that inexperienced programmers will be able to make a simulation, which is why we chose to
+		make the language very simple. The imperative paradigm is what we felt best supported the idea of a simple programming language. We don't need the
+		powerful abstractions of object orientated programming nor the task-solving capabilities of the functional languages.
+		
+		 
+	\subsection{Simulation Rules \& Functions}
+	In the script each team is defined, and a team consists of one or more regiments, these regiments are defined in further detail in the script itself.
+	\subsubsection{Round}
+	The game will be based on rounds, meaning that each regiment will take turns at the actions they are able to do per round, such as attacking each other, or moving on the grid.
+	\subsubsection{Attack}
+	If a regiment finds another regiment within range, it will attack that regiment, this will reduce the opposing regiments size. The number by which the size will be reduced by is dependant on the regiments attack. This means an attack will be directed at the position in which the enemy regiment is in.
+		\subsubsection{Size}
+		The size of the regiment is, in abstraction, the number of soldiers in the current regiment. One might consider it as the overall health of the regiment. While  size may be an abstraction of health, it's important to notice that a regiment with a larger size takes up more integers on the grid.
+			\subsubsection{Type}
+			The type of a regiment is a descriptor which governs the overall functionality of the regiment, such types might be "Melee" or "Ranged".
+				\subsubsection{Range}
+				By definition the range is what allows the regiments to start attacking each other, once an opposing regiment is within range, your own regiment may halt movement, and begin attacking, or keep moving and attacking, as specified in the regiments behaviour.
+					\subsubsection{Damage}
+					The damage of a regiment determines how many units in the opposing regiment will be lost per attack performed in the current round of the simulation.
+						\subsubsection{Movement}
+						Movement is defined as how many integers the position of the regiment may advance with by each passing round in the simulation, as en example, if the movement is defined to 30, a regiment may advance in the grid by a speed of 30 integers per round.
+							\subsubsection{Attackspeed}
+							Attackspeed governs how many attacks are performed by each round, giving units further interesting properties. However, in the context of the simulation, the attackspeed is quite simply a multiplier of the damage of Attack.
+								\subsubsection{Behaviour}
+								Behaviour allows the scripter to define how each regiments behaves. By using control statements the scripter may make the regiment behave in a defensive or offensive behaviour, using the provided methods in the language. As an example you may instruct a ranged regiment to behave in such a way, as to not approach another regiment, and only open fire if that regiment is within the range of your archer regiment.
+								\subsubsection{Enemy.distance and MoveTowards/MoveAway}
+								These are examples of methods provided with the language to alloww the scripter control of his regiments.
+								For example MoveTowards takes an input of a position, this position may be discovered through a SearchForEnemies method, and passed to MoveTowards eg. MoveTowards(SearchForEnemies) may just instruct your regiment to move in the direction of the very neares returned enemy.
+								\subsection{Simulation Configuration}
+								The game will need basic instructions which is a common limitation of both teams, to ensure even 'armies'. As mentioned earlier this is defined in a configuration file.
+								\subsubsection{Grid}
+								The grid, might be seen as a map, table, or battlefield where the 'battle' will take place. Each 'Grid' will have a name, and certain properties which \textbf{must} be defined in the configuration file.
+								\subsubsection{Width}
+								Width is a simple definition of the size of the grid, which defines how many integers will be available in the X Dimension of the grid.
+								\subsubsection{Height}
+								As for Height, it is the same basic definition of the available integers in the Y Dimension of the grid.
+								\subsubsection{Rules}
+								The next block of our configuration files will contain the basic rules and boundaries of the simulation.
+								\subsubsection{Standards}
+								In this part of the rule definition standards will be defined, if the necessary information for a regiment is not entered in the main script, the regiment will inherit these basic standards.
+								\subsubsection{Maxima}
+								It's important to have decided some sort of maxima for our simulation, or the scripters will be able to defeat each other with pure brute force no matter what.
+								Therefore, in the Maxima block we define the maximum sizes of regiments and the maximum number of regiments, putting a limitation on each of the teams, ensuring fairness, and thereby more interesting simulations. It is important to note however, that the functionality is present to make one 'super' regiment, and watch this 'super' regiment take on 10 other regiments, which might be interesting as well.
+																
