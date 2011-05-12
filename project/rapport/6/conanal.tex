@@ -34,6 +34,8 @@
 	
 	\subsection{Type rules checking}
 		When the visitor visits a node where there is type checking needed (e.g. RegimentStat) the visitor visits the nodes 
-		which needs identification. In 
+		which needs identification. In each of the visited nodes visit methods the information of the data type is being retrieved 
+		from the identification table. The process of finding the data type of variables/constants is called decoration. 
+		When the type rules checking is done the AST that is traversed is fully decorated.
 		
 		
