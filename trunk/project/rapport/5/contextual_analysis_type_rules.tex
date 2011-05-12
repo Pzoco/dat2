@@ -8,33 +8,27 @@
 			\item Regiment
 			\item AttackType
 		\end{itemize}
+		
 	\subsubsection{Type rules of WAR}
-	\begin{tabular}{|l|l|l|}
-		Type rule of	&	Type correct if						& Is of type	\\
-		$E1 > E2$		&	$E1$ and $E2$ are of type Integer	&	Bool		\\
-		$E1 < E2$		&	$E1$ and $E2$ are of type Integer	&	Bool		\\
-		$E1 == E2$		&	$E1$ and $E2$ are of type Integer	&	Bool		\\
-		$E1 >= E2$		&	$E1$ and $E2$ are of type Integer	&	Bool		\\
-		$E1 <= E2$		&	$E1$ and $E2$ are of type Integer	&	Bool		\\
-	\end{tabular}
-	\subsubsection*{Type rule binary expressions}
-		$E1 O E2$ is type correct and of type Boolean\\
+	\subsubsection{Type rule binary expressions}
+		$E1$ $O$ $E2$ is type correct and of type Boolean\\
 		if $E1$ and $E2$ are type correct and of type Integer \\
-		and $O$ is spelled as $==,>=,<=,< or >$
+		and $O$ is spelled as $==,>=,<=,<$ or $>$
 		
 	\subsubsection{Type rule of arithmetic expressions}
-		$I1 O I2$ is type correct and of type Integer\\
-		if $I1$ and $I2$ are type correct and of type Integer
-		and $O$ is spelled as $-,+,/ or *$
+		$I1 O I2$ is type correct and of type Boolean \\
+		if $I1$ and $I2$ are type correct and of type Integer \\
+		and $O$ is spelled as $-,+,/$ or $*$
 
 	\subsubsection{Type rule of control structures}
 		$C(E)\{D\}$ is type correct\\
-		if $E$ is of type Boolean and $D$ is type correct
-		and $C$ is spelled as $else if, if or while$
+		if $E$ is of type Boolean and $D$ is type correct \\
+		and $C$ is spelled as else if, if or while
 		
 	\subsubsection*{Type rule of $=$}
 		$ID = A$ is type correct\\
 		if $ID$ and $A$ are type correct and of the same type.
+		
 	\subsubsection*{Type rule of $Position$}
 		$Position(I1,I2)$ is type correct and of type Position\\
 		if $I1$ and $I2$ are type correct and of type Integer
