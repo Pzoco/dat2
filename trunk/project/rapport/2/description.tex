@@ -33,42 +33,127 @@ WAR is a basic scripting language, enabling scripters to script out battles, and
 		powerful abstractions of object orientated programming nor the task-solving capabilities of the functional languages.
 		
 		 
-	\subsection{Simulation Rules \& Functions}
-	In the script each team is defined, and a team consists of one or more regiments, these regiments are defined in further detail in the script itself.
-	\subsubsection{Round}
-	The game will be based on rounds, meaning that each regiment will take turns at the actions they are able to do per round, such as attacking each other, or moving on the grid.
-	\subsubsection{Attack}
-	If a regiment finds another regiment within range, it will attack that regiment, this will reduce the opposing regiments size. The number by which the size will be reduced by is dependant on the regiments attack. This means an attack will be directed at the position in which the enemy regiment is in.
+	\subsection{Definition of the terms in WAR}
+	In this section we will define the different terms of the simulation and of the terms seen in the config- and team file.
+	
+		\subsubsection{Terms of the simulation}
+		
+		\subsubsection{Team}		
+		A team consists of 1 or more regiments. In the simulation two or more teams will battle to win the simulation.
+		
+		\subsubsection{Turn}
+		Each of the regiment will have a turn each round where they can perform a Actions. The turn will end if the regiment is out of
+		action or if the regiment doesn't want to perform any Actions.
+		
+		\subsubsection{Round}
+		A simulation consists of 1 or more rounds. When a round begins each regiment will be given a turn. 
+		A new round will start when every regiment have used their turns.
+
+		\subsubsection{Behaviour}
+		Behaviour allows the scripter to define how each regiments behaves. 
+		By using control statements the scripter may make the regiment behave in a defensive or offensive behaviour, 
+		using the provided methods in the language. As an example you may instruct a ranged regiment to behave in such a way, 
+		as to not approach another regiment, and only open fire if that regiment is within the range of your archer regiment.
+				
+		\subsubsection{Grid}
+		The grid is a 2 dimensional map where the teams will battle.		
+		
+%		The grid, might be seen as a map, table, or battlefield where the 'battle' will take place. 
+%		Each 'Grid' will have a name, and certain properties which \textbf{must} be defined in the configuration file.
+																		
+		\subsubsection{Terms in the team file }
+	
 		\subsubsection{Size}
-		The size of the regiment is, in abstraction, the number of soldiers in the current regiment. One might consider it as the overall health of the regiment. While  size may be an abstraction of health, it's important to notice that a regiment with a larger size takes up more integers on the grid.
-			\subsubsection{Type}
-			The type of a regiment is a descriptor which governs the overall functionality of the regiment, such types might be "Melee" or "Ranged".
-				\subsubsection{Range}
-				By definition the range is what allows the regiments to start attacking each other, once an opposing regiment is within range, your own regiment may halt movement, and begin attacking, or keep moving and attacking, as specified in the regiments behaviour.
-					\subsubsection{Damage}
-					The damage of a regiment determines how many units in the opposing regiment will be lost per attack performed in the current round of the simulation.
-						\subsubsection{Movement}
-						Movement is defined as how many integers the position of the regiment may advance with by each passing round in the simulation, as en example, if the movement is defined to 30, a regiment may advance in the grid by a speed of 30 integers per round.
-							\subsubsection{Attackspeed}
-							Attackspeed governs how many attacks are performed by each round, giving units further interesting properties. However, in the context of the simulation, the attackspeed is quite simply a multiplier of the damage of Attack.
-								\subsubsection{Behaviour}
-								Behaviour allows the scripter to define how each regiments behaves. By using control statements the scripter may make the regiment behave in a defensive or offensive behaviour, using the provided methods in the language. As an example you may instruct a ranged regiment to behave in such a way, as to not approach another regiment, and only open fire if that regiment is within the range of your archer regiment.
-								\subsubsection{Enemy.distance and MoveTowards/MoveAway}
-								These are examples of methods provided with the language to alloww the scripter control of his regiments.
-								For example MoveTowards takes an input of a position, this position may be discovered through a SearchForEnemies method, and passed to MoveTowards eg. MoveTowards(SearchForEnemies) may just instruct your regiment to move in the direction of the very neares returned enemy.
-								\subsection{Simulation Configuration}
-								The game will need basic instructions which is a common limitation of both teams, to ensure even 'armies'. As mentioned earlier this is defined in a configuration file.
-								\subsubsection{Grid}
-								The grid, might be seen as a map, table, or battlefield where the 'battle' will take place. Each 'Grid' will have a name, and certain properties which \textbf{must} be defined in the configuration file.
-								\subsubsection{Width}
-								Width is a simple definition of the size of the grid, which defines how many integers will be available in the X Dimension of the grid.
-								\subsubsection{Height}
-								As for Height, it is the same basic definition of the available integers in the Y Dimension of the grid.
-								\subsubsection{Rules}
-								The next block of our configuration files will contain the basic rules and boundaries of the simulation.
-								\subsubsection{Standards}
-								In this part of the rule definition standards will be defined, if the necessary information for a regiment is not entered in the main script, the regiment will inherit these basic standards.
-								\subsubsection{Maxima}
-								It's important to have decided some sort of maxima for our simulation, or the scripters will be able to defeat each other with pure brute force no matter what.
-								Therefore, in the Maxima block we define the maximum sizes of regiments and the maximum number of regiments, putting a limitation on each of the teams, ensuring fairness, and thereby more interesting simulations. It is important to note however, that the functionality is present to make one 'super' regiment, and watch this 'super' regiment take on 10 other regiments, which might be interesting as well.
-																
+		The size of the regiment is, in abstraction, the number of soldiers in the current regiment. 
+		One might consider it as the overall health of the regiment. While size may be an abstraction of health, 
+		it's important to notice that a regiment with a larger size takes up more integers on the grid.
+		
+		\subsubsection{Type}
+		The Type defines how a regiment attacks. A regiments Type can only be Melee or Ranged.
+		
+		\subsubsection{Range}
+		Range defines how far a regiment of Type Ranged can attack. 
+		If a Range is defined for a regiment of type Melee, this is simply ignored.
+		
+		\subsubsection{Damage}
+		The damage of a regiment determines how many units in the opposing regiment 
+		will be lost per attack performed in the current round of the simulation.
+		
+		\subsubsection{Movement}
+		Movement defines how many tiles a regiment is allowed to move.
+		
+		\subsubsection{Attackspeed}
+		Attackspeed governs how many attacks are performed by each round, giving units further interesting properties. 
+		However, in the context of the simulation, the attackspeed is quite simply a multiplier of the damage of Attack.
+		
+		\subsubsection{Actions}
+		When a regiment has its turn they are allowed to do some actions, Attack, MoveTowards or MoveAway. \\
+		For describing these action we set a precondition(what is required to do the action), a failure(what happens if the condition isn't met)
+		and result(what happens if the condition is met.
+		
+		\subsubsection{Attack action}
+		Usage: \\
+		Attack(Regiment) \\
+		
+		Precondition: \\
+		The regiment has its turn. \\
+		For a regiment of attacktype ranged the regiment must be in range. \\
+		For a regiment of attacktype melee the enemy regiment must be 1 tile away(diagonals included). \\
+		
+		Failure: \\
+		Nothing happens \\
+		
+		Result: \\
+		The enemy regiment loses Health equivalent to the Damage of the attacking regiment. If the Health reaches 0 the Size of the regiment
+		will be decreases by 1 and the Health will be reset. If any Damage is remaining the same procedure is applied to the new Health.
+		
+		\subsubsection{MoveTowards action}
+		Usage: \\
+		MoveTowards(Regiment) \\
+		
+		Precondition: \\
+		The regiment has its turn, the given regiment exists and the tiles (left,right,up down) 
+		which brings the regiment towards the target regiment isn't blocked.
+		
+		Failure: \\
+		Nothing happens \\
+		
+		Result: \\
+		The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
+		
+		\subsubsection{MoveTowards action}
+		Usage: \\
+		MoveTowards(Regiment) \\
+		
+		Precondition: \\
+		The regiment has its turn, the given regiment exists and the tiles (left,right,up down) 
+		which brings the regiment towards the target regiment isn't blocked.
+		
+		Failure: \\
+		Nothing happens \\
+		
+		Result: \\
+		The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
+				
+		\subsubsection{Terms in the config file}
+%		The simulation will need basic instructions which is a common limitation of both teams, to ensure even 'armies'. 
+%		As mentioned earlier this is defined in a configuration file.
+		
+		\subsubsection{Width}
+		Width defines the width of the grid
+		
+		\subsubsection{Height}
+		Height defines the height of the grid
+		
+		\subsubsection{Rules block}
+		This block will contain the basic rules and boundaries of the simulation, 
+		like limitation of number of teams and/or regiments
+		
+		\subsubsection{Standards block}
+		This block will contain standard stats for regiments. These will be used if the necessary 
+		information for a regiment is not entered in the main script, the regiment will use these standard stats.
+		
+		\subsubsection{Maxima block}
+		This block sets the limitations for the stats of the regiments. E.g. regiments must be of size 200 or less.
+
+		
