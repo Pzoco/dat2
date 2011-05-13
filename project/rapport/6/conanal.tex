@@ -1,7 +1,7 @@
 \section{Creating of the Contextual Analyzer}
 	The section will explain how scope rules and type rules are checked through the use of a contextual analyzer.
 	To apply these to check we need a way to visit the abstract syntax tree creating in the parsing part. We have chosen to use 
-	the Visitor Design Pattern to traverse our AST.
+	the Visitor Design Pattern to traverse our AST we got from the parser.
 	
 	\subsection{The Visitor Pattern}
 		The idea behind design pattern is that we send a "Visitor" around the tree structure starting from the top-most node. When a node is 
