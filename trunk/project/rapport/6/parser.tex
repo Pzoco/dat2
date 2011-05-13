@@ -5,7 +5,7 @@
 	
 	\subsection{Parsing strategies}
 		The job of a parser is to check if a program is correct and 
-		to determine the structure of the program, the latter is usually done by constructing a syntax tree.
+		to determine the structure of the program, the latter is usually done by constructing an abstract syntax tree.
 		There are two common ways of checking this {\it Bottom-up Parsing} and {\it Top-Down Parsing}.
 		
 		\subsubsection*{Bottom-up Parsing}
@@ -37,5 +37,10 @@
 			\item In each of the parse method accept terminals and/or call other parse methods.
 		\end{enumerate}		
 	
+	\subsection{Creating the Abstract Syntax Tree}
+		The structure of the parsed program is stored as a AST. The tree structure is called abstract because it doesn't contain the concrete
+		structure of the EBNF, but rather a abstract representation of the source code. Because of this there isn't a straightforward way to 
+		construct such a tree. We made the AST by making node classes for each terminal, declaration, control structure etc. and making these 
+		reference each other similar to how a non-terminals, in the EBNF references its right-hand side terminals and non-terminals.
 		
 		
