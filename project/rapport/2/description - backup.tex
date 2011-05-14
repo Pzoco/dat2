@@ -72,6 +72,7 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 
 		\subsection{Health}
 		Health describes the initial health of each unit in the regiment.
+		The total health is calculated from the size of the regiment, by using the equation $Total\_Health = Size \times Health$.
 		
 		\subsubsection{Type}
 		The Type defines how a regiment attacks. A regiments Type can only be Melee or Ranged.
@@ -84,6 +85,7 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		
 		\subsubsection{Damage}
 		The damage of a regiment is an abstraction of the damage done by each unit in the regiment. 
+		The total damage done by one regiment, is calculated by the equation $Total\_Damage = Size \times Damage \times AttackSpeed$
 		
 		\subsubsection{Movement}
 		Movement defines how many tiles a regiment is allowed to move.
@@ -115,6 +117,9 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		The total damage of the attacking regiment is calculated. \\
 		The damage is subtracted from the total health pool of the enemy regiment.\\
 		The enemy regiments size is reduced by a number corresponding to the number of units that would die, in correspondence to the damage taken.\\
+		The equation for calculating the new size of the attacked regiment is given by \\
+		$New\_Size = Size - (Damage\_taken / Health)$.
+		If we assume, an attacking regiment that deals $2000 = 200 \times 10 \times 1$ damage, and a defending regiment that have $Health = 50$ and $Size = 200$, the resulting size of the defending regiment, after the attack, would be $200-(2000/50)=160$.
 		
 		\subsubsection{MoveTowards action}
 		Usage: \\
