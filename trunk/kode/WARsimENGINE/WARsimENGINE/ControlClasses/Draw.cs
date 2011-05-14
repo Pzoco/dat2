@@ -7,5 +7,10 @@ namespace WARsimENGINE.ControlClasses
     class Draw
     {
         //Optimistisk klasse der tegner
+
+        void drawGrid()
+        {
+
+        }
     }
 }
