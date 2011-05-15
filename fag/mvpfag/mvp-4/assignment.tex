@@ -289,7 +289,17 @@ columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Cycle 3: Non-blocking, no deadlock.},
 label=LST:cycle3]
-/* Your relevant code goes here. NOT the whole file. */
+    for(i = 0; i < size; ++i)
+    {
+        // Send & receive.
+
+		int destination = (rank+1)%size;
+		int source = rank%size;	
+		MPI_ISend(send_data, 1, MPI_INT, destination, 123, MPI_COMM_WORLD);
+		MPI_IRecv(recv_data, 1, MPI_INT, source, 123, MPI_COMM_WORLD, &status);
+        // You'll need that at some point.
+        memcpy(send_data, recv_data, n*sizeof(int));
+    }
 \end{lstlisting}
 
 
