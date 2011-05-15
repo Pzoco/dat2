@@ -34,14 +34,9 @@ void test(int n)
         // Send & receive.
 
 		int destination = (rank+1)%size;
-		int source = rank%size;
-		if (rank%2 == 0){	
-		MPI_Send(send_data, 1, MPI_INT, destination, 123, MPI_COMM_WORLD);
-		MPI_Recv(recv_data, 1, MPI_INT, source, 123, MPI_COMM_WORLD, &status);
-		else{
-		MPI_Recv(recv_data, 1, MPI_INT, source, 123, MPI_COMM_WORLD, &status);
-		MPI_Send(send_data, 1, MPI_INT, destination, 123, MPI_COMM_WORLD);
-		}
+		int source = rank%size;	
+		MPI_ISend(send_data, 1, MPI_INT, destination, 123, MPI_COMM_WORLD);
+		MPI_IRecv(recv_data, 1, MPI_INT, source, 123, MPI_COMM_WORLD, &status);
         // You'll need that at some point.
         memcpy(send_data, recv_data, n*sizeof(int));
     }
