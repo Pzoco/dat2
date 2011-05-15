@@ -33,13 +33,15 @@ void test(int n)
     {
         // Send & receive.
 
-		//indsæt noget modulus-bab!
 		int destination = (rank+1)%size;
 		int source = rank%size;
-		printf("rank is %d \n", rank);	
+		if (rank%2 == 0){	
 		MPI_Send(send_data, 1, MPI_INT, destination, 123, MPI_COMM_WORLD);
 		MPI_Recv(recv_data, 1, MPI_INT, source, 123, MPI_COMM_WORLD, &status);
-		printf("rank is %d derp derp derp derp \n", rank);	
+		else{
+		MPI_Recv(recv_data, 1, MPI_INT, source, 123, MPI_COMM_WORLD, &status);
+		MPI_Send(send_data, 1, MPI_INT, destination, 123, MPI_COMM_WORLD);
+		}
         // You'll need that at some point.
         memcpy(send_data, recv_data, n*sizeof(int));
     }
