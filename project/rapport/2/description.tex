@@ -70,7 +70,7 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 %		One might consider it as the overall health of the regiment. While size may be an abstraction of health,
 %		it's important to notice that a regiment with a larger size takes up more integers on the grid.
 
-		\subsection{Health}
+		\subsubsection{Health}
 		Health describes the initial health of each unit in the regiment.
 		
 		\subsubsection{Type}
@@ -129,12 +129,12 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		Nothing happens \\
 		
 		Result: \\
-		The regiment will move a number of tiles equal to it's movement, in the direction of the specified regiment.
+		The regiment will move a number of tiles equal to its movement, in the direction of the specified regiment.
 		%The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
 		
-		\subsubsection{MoveTowards action}
+		\subsubsection{MoveAway action}
 		Usage: \\
-		MoveTowards(Regiment) \\
+		MoveAway(Regiment) \\
 		
 		Precondition: \\
 		The regiment has its turn, the given regiment exists and the tiles (left,right,up down) 
@@ -144,7 +144,7 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		Nothing happens \\
 		
 		Result: \\
-		The regiment will move a number of tiles equal to it's movement, in the opposite direction of the specified regiment.
+		The regiment will move a number of tiles equal to its movement, in the opposite direction of the specified regiment.
 		%The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
 				
 		\subsubsection{Terms in the configuration file}
@@ -152,10 +152,10 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 %		As mentioned earlier this is defined in a configuration file.
 		
 		\subsubsection{Width}
-		Width defines the width of the grid
+		Width defines the width of the grid measured in tiles.
 		
 		\subsubsection{Height}
-		Height defines the height of the grid
+		Height defines the height of the grid measures in tiles.
 		
 		\subsubsection{Standards block}
 		This block will contain standard properties for regiments. These will be used if the necessary 
