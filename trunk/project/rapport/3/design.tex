@@ -1,10 +1,45 @@
 %Intro
 
 \section{Design criteria}
+%
+%\subsection{Write-ability}
+%
+%\subsection{Readability}
+%\subsection{Reliability}
+%\subsection{Orthogonality}
+%\subsection{Uniformity}
+%\subsection{Maintainability}
+%\subsection{Generality}
+%\subsection{Extensibility}
+%\subsection{Standardability}
+%\subsection{Implementability}
+%
+%Importance: Low Medium High Very high
 
+\begin{table}
+	\begin{tabular}{c c c}
+	Criteria			&	Importance	&		Description			
+	Write-ability 		& 	Very high	&		How easy and how fast can the program be written
+	Readability			& 	High		&		How easy is already written code to read
+	Reliability			& 	Medium		&		The program wil not behave unexspectively
+	Orthogonality		& 	Low			&		.
+	Uniformity			& 	High		&		Similar features should look and behave similar
+	Maintainability		& 	Very high	&		How fast can an error be found and corrected
+	Generality			& 	Medium		&		No or few special cases, combine the special cases and construct a more general one
+	Extensibility		& 	Low			&		Able to add new constructs to the language
+	Standardability		& 	Medium		&		Able to stransport the language to other computers
+	Implementability	& 	Low			&		.
+	\end{tabular}
+	\label{tab:criteria_tabular}
+\end{table}
+
+
+
+
+\subsection{Paradigm}
 The design criteria of the WAR language is how advanced or how simple it should be, what the main focus area and what sort of paradigm should it be. We have chosen the imperative programming paradigm because in contrast to the object-oriented programming paradigm which is used to program in a more abstract sense, this should be simple and straight forward. The imperative programming paradigm describes computation in terms of statements that can change a program state and in contrast to the functional programming paradigm which treats computation as the evaluation of mathematical functions the imperative paradigm has been chosen to the WAR language since it uses statements, eventhough the user cannot declare statements, but the user can call different statements in the behaviour block. 
 
-
+\subsection{?}
 The primary focus of this language, has been on write-ability and somewhat readability which is easily fulfilled when write-ability is the main goal. The language is the imperative programming paradigm, which we think is the easiest paradigm for beginners. By easy write-ability we think that beginners in programming should be able to write their own script and by that compete against each other. The reliability of the programming language have also high priority, so that the program won't behave in an unexpected way, or a disastrous way.
 
 %Maintainnability
