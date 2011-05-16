@@ -25,7 +25,7 @@ namespace WarSimulator_Handmade
             }
             else if (args.Length < 3)
             {
-                Console.WriteLine("Invalid number of arguments - Correct usage: <configfile> <teamfile 1>......<teamfile n>");
+                Console.WriteLine("Invalid number of arguments - Correct usage: <configfile> <teamfile 1> <teamfile 2> ... <teamfile n>");
             }
             else
             {
