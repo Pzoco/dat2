@@ -33,10 +33,11 @@ void test(int n)
     {
         // Send & receive.
 
-		int destination = (rank+1)%size;
-		int source = rank%size;	
-		MPI_ISend(send_data, 1, MPI_INT, destination, 123, MPI_COMM_WORLD);
-		MPI_IRecv(recv_data, 1, MPI_INT, source, 123, MPI_COMM_WORLD, &status);
+		int destination = ((rank+1)%size);
+		int source = (rank-1+size)%size;
+		MPI_Request test;
+		MPI_Isend(&send_data[i], 1, MPI_INT, destination, 123, MPI_COMM_WORLD, &test);
+		MPI_Irecv(&recv_data[i], 1, MPI_INT, source, 123, MPI_COMM_WORLD, &test);
         // You'll need that at some point.
         memcpy(send_data, recv_data, n*sizeof(int));
     }
