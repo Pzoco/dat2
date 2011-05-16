@@ -1,64 +1,108 @@
-\section{Documentation}
-	\subsection{Prerequisite}
+\section{Prerequisite}
 		To run a simulation you need a config file with the file ending .cfg and at least two team files
 		with the file ending .war.
-	\subsection{Unitstats}
+\section{Unitstats}
 	Unit stats defines the stats of a regiment. The unitstats are used in both the config and team file.
-		\subsubsection{Size}
+		\subsection{Size}
 			Sets the size of the regiment, it's an integer.
 			If the size of the regiment is bigger than 1 it will cover multiple tiles.
 			\begin{verbatim}
 				Size = <Int>;
 			\end{verbatim}
-		\subsubsection{Position}
+		\subsection{Position}
 			Sets the position of the regiment. If the size of the regiment is bigger than 1 them 
 			only 1 tile of the regiment touches the position. Usage: 
 			\begin{verbatim}
 				RegimentPosition = Position(<Int>,<Int>);
 			\end{verbatim}
-		\subsubsection{Range}
+		\subsection{Range}
 			Range sets how tiles away regiment can attack another regiment.
 			\begin{verbatim}
 				Range = <Int>;
 			\end{verbatim}
-		\subsubsection{Type}
+		\subsection{Type}
 			Type defines which way the regiment attacks. The type can either be Melee or Ranged.
 			Melee means that the regiment can only attack other regiments which it touches. Ranged means 
 			that the regiment can attack any regiment where the distance in number of tiles is less than the Range.
 			\begin{verbatim}
 				Type = <AttackType>; 
 			\end{verbatim}	
-		\subsubsection{Damage}
+		\subsection{Damage}
 			Damage defines how much Health an opposing regiment lose when attacked.
 			\begin{verbatim}
 				Damage = <Int>;
 			\end{verbatim}
-		\subsubsection{Movement}
+		\subsection{Movement}
 			Movement means how many tiles the regiment can move.
 			\begin{verbatim}
 				Movement = <Int>;
 			\end{verbatim}
-		\subsubsection{AttackSpeed}
+		\subsection{AttackSpeed}
 			AttackSpeed defines how many attacks a regiment can attack in a turn.
-	\subsection{Blocks}
-		A block looks like this {\it BlockType <Block-name> { } }, in WAR there is 4 different types of blocks: 
-		Regiment, Grid, Standards, Behaviour and Maxima block. The blocks are being used in both config and team file.
-		\subsubsection{Writing a Grid block}
-			A grid block starts with {\it Grid <Grid-name> { }}. Inside the brackets the width and the height of the map is defined.
 			\begin{verbatim}
-				Width = <Int>;
-				Height = <Int>;
-			\end{verbatim}	
-			
-		\subsubsection{Writing a Standards block}
-			A standards block consist of unit stats and a behaviour block. If a regiment in one of the team files haven't declared all the unit stats
-			or defined a behaviour, then the stats/behaviour will be taken from the standards block.
-		\subsubsection{Writing a Regiment Block}
-			A Regiment block contains unit stats and a behaviour block.
-		\subsubsection{Writing a Behaviour Block}
-			The behaviour block determines how a regiment will behave in the simulation. To control the a regiment one can 
-			use the conditional statements {\it if-else if-else} and a {\it while loop} and using unit functions.
-		\subsubsection{Conditional Statements}
+				AttackSpeed = <Int>;
+			\end{verbatim}
+\section{Blocks}
+	A block looks like this {\it BlockType <Block-name> { } }, in WAR there is 5 different types of blocks: 
+	Regiment, Grid, Standards, Behaviour and Maxima block. These blocks are being used in both config and team file.
+	\subsection{Writing a Grid block}
+		A grid block contains the {\it Height} and the {\it Width }of the map.
+		\begin{verbatim}
+		Grid <Grid-Name>
+		{
+			Width = <Int>;
+			Height = <Int>;
+		}
+		\end{verbatim}	
+		The Width determines how many tiles wide the map will be and Height determines how many tiles high the map will be.
+	\subsection{Writing a Standards block}
+		A standards block consist of unit stats and a behaviour block. 
+		\begin{verbatim}
+			Standards
+			{
+				<Unit-Stat-1>
+				..
+				.
+				<Unit-Stat-6>
+				<Behaviour-Block>
+			}
+		\end{verbatim}
+		If a regiment in one of the team files haven't declared all the unit stats
+		or defined a behaviour, then the stats/behaviour will be taken from the standards block.
+	\subsection{Writing a Maxima Block}
+		The Maxima block determines what the limits for the unit stats are. It also sets the maximum number of teams and regiments allowed.
+		In the block one is allowed to write UnitStat and MaximaStat.
+		MaximaStat is one of these:\\
+		\begin{verbatim}
+			Teams = <Int>;
+			Regiments = <Int>;
+		\end{verbatim}
+		The Maxima Block is written as: \\
+		\begin{verbatim}
+			Maxima
+			{
+				<UnitStat-1> or <MaximaStat-1>
+				..
+				.
+				<UnitStat-6> or <MaximaStat-2>
+			}
+		\end{verbatim}
+	\subsection{Writing a Regiment Block}
+		A Regiment block contains unit stats and a behaviour block.
+		\begin{verbatim}
+			Regiment <Regiment-Name>
+			{
+				<Unit-Stat-1>
+				..
+				.
+				<Unit-Stat-6>
+				<Behaviour-Block>
+			}
+		\end{verbatim}
+	\subsection{Writing a Behaviour Block}
+		The behaviour block determines how a regiment will behave in the simulation. To control the a regiment one can 
+		use the conditional statements {\it if-else if-else} and a {\it while loop} and using unit functions.
+		\subsubsection{if-else if-else Statement}
 			Structure of a {\it if-else if-else} statement: \\
 			\begin{verbatim}
 				if(<Expression>)
@@ -76,8 +120,8 @@
 			\end{verbatim}
 			If the expression inside the parenthesis after if or else if is evaluated to true then the code inside the block will be executed.
 			If none of the expressions is evaluated to true the the code inside the else block will be executed. Please not that only the if block
-			is required, there can be 1 to multiple else if blocks and only 1 else block which has to end the statement.
-			
+			is required, there can be 1 to multiple else if blocks and only 1 else block which has to end the statement. \\
+		\subsubsection{while Loop}
 			Structure of a {\it while} loop: \\			
 			\begin{verbatim}
 				while(<Expression>)
@@ -86,14 +130,14 @@
 				}
 			\end{verbatim}
 			If the expression is evaluated to true the code inside the block is executed. After it is executed the expression will be checked again.
-		\subsubsection{Unit Functions}
-			Unit functions are used to move the regiment or attacking with the regiment.
-			\begin{verbatim}
-				MoveTowards(<Regiment>);
-				MoveAway(<Regiment>);
-				Attack(<Regiment>);
-			\end{verbatim}
-	\subsection{Writing a Team File}
+	\subsection{Unit Functions}
+		Unit functions are used to move the regiment or attacking with the regiment.
+		\begin{verbatim}
+			MoveTowards(<Regiment>);
+			MoveAway(<Regiment>);
+			Attack(<Regiment>);
+		\end{verbatim}
+\section{Writing a Team File}
 		A team file is written this way: \\
 			\begin{verbatim}
 				Team <Team-Name>
@@ -104,7 +148,7 @@
 				<Regiment-Block-n>
 			\end{verbatim}
 		
-	\subsection{Writing a Config File}
+\section{Writing a Config File}
 		The config file sets the rules for the simulation, it can be limitations on the regiments and deciding the size of the map.
 		A config file is written this way: \\
 			\begin{verbatim}
