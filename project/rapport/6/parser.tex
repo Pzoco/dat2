@@ -1,16 +1,21 @@
-%Some intro here needed
+This chapter will describe how we implemented the simulator. The simulator consists of three separate parts: \\
+\begin{enumerate}
+	\item Parsing
+	\item Contextual Analyzer
+	\item Interpretation
+\end{enumerate}
 
-\section{Construction of the parser}
+\section{Parser-construction}
 	In this section we will describe how one can construct a parser from a EBNF, but first we will describe what a parser is and how it works.
 	
 	\subsection{Parsing strategies}
-		The job of a parser is to check if a program is correct and 
-		to determine the structure of the program, the latter is usually done by constructing an abstract syntax tree.
-		There are two common ways of checking this {\it Bottom-up Parsing} and {\it Top-Down Parsing}.
+		The job of a parser is to check if a program is syntactically correct and 
+		to determine the structure of the program. To do this we constructed an {\it abstract syntax tree}.
+		There are two common ways of checking this {\it Bottom-up Parsing} and {\it Top-Down Parsing}, that are explained next.
 		
 		\subsubsection*{Bottom-up Parsing}
 			This way of parsing takes simple structures and combining them to more complex structures.
-			We call this type of parsing for {\it LR parsing} because we read the text from the left and reduces to the right.
+			This type of parsing is commonly called {\it LR parsing} because we read the text from the left and reduces to the right.
 			\begin{figure}[H]
 				\centering
 				\subfloat[Top down]{\label{fig:top_down}\includegraphics[width=0.4\textwidth]{rapport/6/figures/topdown}} 
@@ -20,15 +25,15 @@
 			
 		\subsubsection*{Top-down Parsing}
 			Top-down parsing figure \ref{fig:top_down} starts from the complex structures, and breaks them down into smaller parts.
-			We call this type of parsing for {\it LL parsing} because we read the text from the left and make derivations to the left.
+			This type of parsing is commonly called {\it LL parsing} because we read the text from the left and make derivations to the left.
 		
 		\subsubsection*{Strengths and weaknesses}
-			The most commonly used parsing strategy of the two is LR parsing, the reason for this is because it's faster than LL parsing.
-			In this project, however we have chosen to make a LL parser because it's easy to make by hand and speed isn't important for us. 
+			The most commonly used parsing strategy of the two is LR parsing, the reason for this is because it is faster than LL parsing.
+			In this project, however we have chosen to make a LL parser because it's easy to implement, furthermore speed is not important for us. 
 			The type of LL parser we made is called a recursive descent parser.
 			
-	\subsection{Creating a recursive descent parser}
-		A recursive descent parser is a LL parser which works by recursively going through the program.
+	\subsection{A recursive descent parser}
+		A recursive descent parser is a LL parser which works by recursively going through the program code.
 		To construct this type of parser a EBNF is required and here is how it is made:
 		\begin{enumerate}
 			\item Make a scanner for reading chars and identifying them as terminals.
@@ -37,10 +42,10 @@
 			\item In each of the parse method accept terminals and/or call other parse methods.
 		\end{enumerate}		
 	
-	\subsection{Creating the Abstract Syntax Tree}
+	\subsection{Abstract Syntax Tree}
 		The structure of the parsed program is stored as a AST. The tree structure is called abstract because it doesn't contain the concrete
 		structure of the EBNF, but rather a abstract representation of the source code. Because of this there isn't a straightforward way to 
-		construct such a tree. We made the AST by making node classes for each terminal, declaration, control structure etc. and making these 
+		construct such a tree. We constructed the AST-structure by making node classes for each terminal, declaration, control structure and making these 
 		reference each other similar to how a non-terminals, in the EBNF references its right-hand side terminals and non-terminals.
 		
 		

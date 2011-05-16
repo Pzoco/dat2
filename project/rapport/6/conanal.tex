@@ -1,4 +1,4 @@
-\section{Creating of the Contextual Analyzer}
+\section{Contextual Analyzer}
 	This section details how scope rules and type rules are checked through the use of a contextual analyzer.
 	To use these to check we need a way to visit the abstract syntax tree created with the parser. We have chosen to use 
 	the Visitor Design Pattern to traverse the AST received from the parser.
@@ -22,12 +22,12 @@
 			(e.g. which nodes to visit). Each node in the AST has a Visit method which calls the right Visit methods in the Visitor class. \\
 	
 	\subsection{Identification table}
-		For keeping track of the variables or constants defines we use a identification table. The identification table contains entries
-		that contains the information of the variable/constant name and the scope level it was defined in.
+		For keeping track of the variables or constants defined we use an identification table. The identification table contains entries
+		that holds the information of the variable/constant name and the scope level it was defined in.
 		
 	\subsection{Scope Rules checking}
 		Scope rule checking is done by having two methods for opening and closing scope called OpenScope and CloseScope. 
-		For keeping track of the scope level we use an integer called level.
+		For keeping track of the scope level we use an integer called {\it level}.
 		When the visitor visits a node which requires a scope opening (e.g. RegimentBlock) the OpenScope method is called. 
 		This method increases the level variable by 1. After it has visited the required nodes the CloseScope function is called. 
 		This removes all the variables and constants defined in this scope level and decreases the level by 1.
