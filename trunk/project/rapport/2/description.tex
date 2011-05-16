@@ -1,14 +1,14 @@
 %Description - Contains A description of how to make to script files battle each other, 
 
-\section{ Description of WAR }
+\section{ Description of The \textit{WAR}-Game }
 \label{sec:describeWAR}
-WAR is a basic scripting language, enabling scriptwriters to script out battles, and let them carry out on their own without them. The winner of the simulation will be the one with the best script. \\
+The \textit{WAR}-Game is a simulation where the players will script the behaviour of their armies, and let them carry out on their own without further interaction. The winner of the simulation will be the one with the best script, as decided by the simulation engine. \\
 	\subsection{The simulation}
-		To run a simulation in the WAR simulator a configuration file and at least two team files has to be fed to the simulation engine. 
-		These files are written in the WAR scripting language.
+		To run a simulation in the \textit{WAR} simulation, a configuration file and at least two team files has to be fed to the simulation upon startup. 
+		These files are written in the \textit{WAR} scripting language.
 		\\
 		The configuration file is used to establish basic rules for the war simulation, i.e. the size of the battlefield, the maximal values of properties and the standard properties of regiments.
-		The thought behind this, is to allow for some flexibility in altering the simulation from game to game.
+		This allows for some flexibility in altering the simulation from game to game.
 		Each participant will make a script file over their team of regiments, which will be provided to the simulator, 
 		which then will interpret the script and simulate the battle. 
 		These script files contain how many units and what kind of units the participant would like to use. 
@@ -17,26 +17,27 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		The one who makes the best script will win the game, so every participant should strive to make the best script, 
 		and place their regiments in the best locations on the grid.
 		\\
-		When both players are coding their scripts, they will provide the script-files with information about their regiments, 
-		but if the player chooses to leave the information out, or even forgets to specify it, 
-		the simulator will assign a default value - given by the standard values found in the configuration file. 
-		This helps both rookie scriptwriters and forgetful scriptwriters to provide the simulator 
-		with the amount of information required to initiate the simulation.
+%		When both players are coding their scripts, they will provide the script-files with information about their regiments, 
+%		but if the player chooses to leave the information out, or even forgets to specify it, 
+%		the simulator will assign a default value - given by the standard values found in the configuration file. 
+%		This helps both rookie scriptwriters and forgetful scriptwriters to provide the simulator 
+%		with the amount of information required to initiate the simulation.
 
-	\subsection{The language}
-		The WAR language will be a simple imperative scripting language. 
-		We want the language to be easy to program, so inexperienced programmers will be able to make a simulation, which is why we chose to
-		make the language very simple. The imperative paradigm is what we felt best supported the idea of a simple programming language. We don't need the
+	\subsection{The Language}
+		The WAR language is a simple imperative scripting language. 
+		We wanted the language to be easy to program, so inexperienced programmers would be able to control a simulation, which is why we chose to
+		make the language very simple. The imperative paradigm is what we felt best supported the idea of a simple programming language. We do not need the
 		powerful abstractions of object orientated programming nor the task-solving capabilities of the functional languages. At the same time, the language should provide enough support, that more experienced programmers have an advantage over inexperienced programmers - the winner should be determined by their scripting skills.
 		
 		 
-	\subsection{Definition of the terms in WAR}
-	In this section we will define the different terms of the simulation and of the terms seen in the configuration- and team file.
+	\subsection{Game Specification}
+	In this section we define the terminology we use in the description of the game. \\
+	These correspond with the terms used in the configuration- and team file.
 	
 		\subsubsection{Terms of the simulation}
 		
 		\subsubsection{Team}		
-		A team consists of 1 or more regiments. In the simulation two or more teams will battle to win the simulation. A team is synonymous to an army.
+		A team consists of 1 or more regiments. In the simulation two or more teams will battle to win the simulation. Here, a team is synonymous to an army.
 		
 		\subsubsection{Turn}
 		Each of the regiment will have a turn each round where they can perform a limited number of actions. The number of actions allowed per regiment per turn, is defined in the simulator.
@@ -51,9 +52,10 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		Further description of rounds are found in the following section.
 
 		\subsubsection{Behaviour}
-		Behaviour allows the scriptwriters to define how each regiment behaves. 
-		By using control statements, the scriptwriter may make the regiment behave in a defensive or offensive way, 
-		using the provided methods in the language. As an example you may instruct a ranged regiment to behave in such a way, 
+		Behaviour allows the players to define how each regiment behaves. 
+		By using control statements, the player may have a regiment behave in a defensive or offensive way, 
+		using methods provided with the language. \\
+		As an example you may instruct a ranged regiment to behave in such a way, 
 		as to not approach another regiment, and only open fire if that regiment is within the range of your archer regiment.
 				
 		\subsubsection{Grid}
@@ -72,18 +74,20 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 
 		\subsubsection{Health}
 		Health describes the initial health of each unit in the regiment.
+		The total health is calculated from the size of the regiment, by using the equation $Total\_Health = Size \times Health$.
 		
-		\subsubsection{Type}
-		The Type defines how a regiment attacks. A regiments Type can only be Melee or Ranged.
-		Melee regiments can only attack regiments adjacent to their position, while ranged regiments 
+		\subsubsection{Attack Type}
+		The Attack \textit{Type} defines how a regiment attacks. A regiments Type can only be \textit{Melee} or \textit{Ranged}.
+		\textit{Melee} regiments can only attack regiments adjacent to their position, while ranged regiments 
 		can attack any regiment within their specified range.
 		
 		\subsubsection{Range}
-		Range defines how far a regiment of Type Ranged can attack. 
-		If a Range is defined for a regiment of type Melee, this is simply ignored.
+		Range is an integer value, which defines how far a regiment of Type \textit{Ranged} can attack. 
+		If a \textit{Range} is defined for a regiment of type \textit{Melee}, this is simply ignored.
 		
 		\subsubsection{Damage}
-		The damage of a regiment is an abstraction of the damage done by each unit in the regiment. 
+		The damage of a regiment is an abstraction of the damage done by each unit in the regiment.
+		The total damage done by one regiment, is calculated by the equation $Total\_Damage = Size \times Damage \times AttackSpeed$ 
 		
 		\subsubsection{Movement}
 		Movement defines how many tiles a regiment is allowed to move.
@@ -93,7 +97,7 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		However, in the context of the simulation, the attackspeed is quite simply a multiplier of the damage done by the regiment.
 		
 		\subsubsection{Actions}
-		When a regiment has its turn they are allowed to do some actions, Attack, MoveTowards or MoveAway. \\
+		When a regiment has its turn they are allowed to do some actions, \textit{Attack}, \textit{MoveTowards} or \textit{MoveAway}. \\
 		For describing these action we set a precondition(what is required to do the action), a failure(what happens if the condition isn't met)
 		and result(what happens if the condition is met).
 		
@@ -115,13 +119,16 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		The total damage of the attacking regiment is calculated. \\
 		The damage is subtracted from the total health pool of the enemy regiment.\\
 		The enemy regiments size is reduced by a number corresponding to the number of units that would die, in correspondence to the damage taken.\\
+		The equation for calculating the new size of the attacked regiment is given by \\
+		$New\_Size = Size - (Damage\_taken / Health)$.
+		If we assume, an attacking regiment that deals $2000 = 200 \times 10 \times 1$ damage, and a defending regiment that have $Health = 50$ and $Size = 200$, the resulting size of the defending regiment, after the attack, would be $200-(2000/50)=160$.
 		
 		\subsubsection{MoveTowards action}
 		Usage: \\
 		MoveTowards(Regiment) \\
 		
 		Precondition: \\
-		The regiment has its turn, the given regiment exists and the tiles (left,right,up down) 
+		The regiment has its turn, the given regiment exists and the \textit{tiles}(Available grid-movements) (left,right,up down) 
 		which brings the regiment towards the target regiment isn't blocked.\\
 		The Regiment must be eligible to perform additional actions in this turn.\\
 		
@@ -138,7 +145,7 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		
 		Precondition: \\
 		The regiment has its turn, the given regiment exists and the tiles (left,right,up down) 
-		which brings the regiment towards the target regiment isn't blocked.
+		which brings the regiment towards the target regiment is not blocked.
 		
 		Failure: \\
 		Nothing happens \\
@@ -147,15 +154,17 @@ WAR is a basic scripting language, enabling scriptwriters to script out battles,
 		The regiment will move a number of tiles equal to its movement, in the opposite direction of the specified regiment.
 		%The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
 				
-		\subsubsection{Terms in the configuration file}
-%		The simulation will need basic instructions which is a common limitation of both teams, to ensure even 'armies'. 
-%		As mentioned earlier this is defined in a configuration file.
+		\subsubsection{Configuration of the Playing Field}
+		The simulation will need basic instructions which is a common limitation of both teams, to ensure even 'armies'. 
+		As mentioned earlier this is defined in a configuration file.
 		
 		\subsubsection{Width}
 		Width defines the width of the grid measured in tiles.
+		Defined with an integer value.
 		
 		\subsubsection{Height}
 		Height defines the height of the grid measures in tiles.
+		Defined with an integer value.
 		
 		\subsubsection{Standards block}
 		This block will contain standard properties for regiments. These will be used if the necessary 
