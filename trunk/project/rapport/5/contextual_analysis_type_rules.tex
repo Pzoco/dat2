@@ -10,26 +10,27 @@
 		\end{itemize}
 		
 	\subsubsection{Type rules of \textit{WAR}}
-	\subsubsection{Type rule binary expressions}
-		$E1$ $O$ $E2$ is type correct and of type Boolean\\
-		if $E1$ and $E2$ are type correct and of type Integer \\
-		and $O$ is spelled as $==,>=,<=,<$ or $>$
-		
-	\subsubsection{Type rule of arithmetic expressions}
-		$I1 O I2$ is type correct and of type Boolean \\
-		if $I1$ and $I2$ are type correct and of type Integer \\
-		and $O$ is spelled as $-,+,/$ or $*$
 
-	\subsubsection{Type rule of control structures}
+	\begin{typerule} 
+		$I1$ $ o $ $I2$ is type correct and of type Integer \\
+		if $I1$ and $I2$ are type correct and of type Integer \\
+		and $o$ is an operator where $o\in \{-,+,/,* \}$
+	\end{typerule}
+	\begin{typerule} 
 		$C(E)\{D\}$ is type correct\\
 		if $E$ is of type Boolean and $D$ is type correct \\
-		and $C$ is spelled as else if, if or while
-		
-	\subsubsection*{Type rule of $=$}
+		and $C$ is a control structure where $C \in \{else$ $if, if, while\}$
+	\end{typerule}
+	\begin{typerule} 
 		$ID = A$ is type correct\\
 		if $ID$ and $A$ are type correct and of the same type.
-		
-	\subsubsection*{Type rule of $Position$}
+	\end{typerule}
+	\begin{typerule} 
 		$Position(I1,I2)$ is type correct and of type Position\\
 		if $I1$ and $I2$ are type correct and of type Integer
-	
+	\end{typerule}
+	\begin{typerule} 
+		$E1$ $ o $ $E2$ is type correct and of type Boolean\\
+		if $E1$ and $E2$ are type correct and of type Integer \\
+		and $o$ is an operator where $o\in \{ ==,>=,<=,<,> \}$
+	\end{typerule}
