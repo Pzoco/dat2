@@ -1,4 +1,4 @@
-\section{Code Examples}
+\section{Code Example}
 	In this section we will show how the scripts written in the WAR scripting language will look like.
 	In this example it can be seen how a team and config file are written, assignment of regiment stats and the definition of their behaviour.
 	\subsection{Code}
@@ -18,7 +18,6 @@ Team "Ninja Monkeys"
 Regiment "Silent Monkeys"
 //Archers
 {
-	
 	Size = 200;
 	Type = Ranged;
 	Range = 120;
@@ -30,7 +29,7 @@ Regiment "Silent Monkeys"
 	Behaviour
 	{
 		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range enemy.Type == Melee)
+		if (enemy.Distance <= Range && enemy.Type == Melee)
 		{
 			Attack(enemy);
 		}
@@ -96,19 +95,16 @@ Grid Banana Island
 
 Rules
 {
-	//Standards defines the standard fields for regiments
-	//If a regiment haven't defined for example Type it will use the Type in Standards
 	Standards
 	{
 		Size = 200;
 		Type = Melee;
 		Behaviour
 		{
-			//If a regiment haven't specified a behaviour this behaviour will be used.
+			
 		}
 	}
-	//Rules which the regiments can't exceed
-	Maximums
+	Maxima
 	{
 		Size = 2
 		Regiments = 4;
