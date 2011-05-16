@@ -1,82 +1,5 @@
 \appendix
 \chapter{BNF}
-
-\appendix
-\chapter{EBNF}
-	Left factorization, substituion of non-terminals 
-	and elimination of left recursion was applied to transform the BNF to an EBNF. \\
-
-	Substituion of non-terminals have removed the following non-terminals from the BNF: \\
-	\begin{itemize}
-		\item Else-If
-		\item UnitStat
-		\item Graphical-Literal
-		\item GridStat
-		\item MaximumsStat
-	\end{itemize}
-	
-	Left factorization and elimination of left recursion was applied to make the EBNF: \\
-	\begin{center}
-		\begin{longtable}{ l l l }
-			\endfirsthead
-			\endhead
-	Team-File					&	::=	&{\bf Team} Identifier Regiment-Block*\\
-	Identifier					&	::=	&Letter (Letter $\mid$ Digit)*\\
-	Block-Name					&	::=	&Identifier\\
-	Regiment-Block				&	::=	&{\bf Regiment} Block-Name {\bf \{ } \\
-								&		&UnitStat-Declaration Behaviour-Block \bf{\} }\\
-	Behaviour-Block				&	::=	&{\bf Behaviour}(Identifier{\bf \{ }Single-Command \bf{\} } $\mid$ {\bf $=$} Identifier)\\
-	Regiment-Declaration		&	::=	&{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
-								&$\mid$	&{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
-	Regiment-Search				&	::=	&{\bf SearchForEnemies (} Parameters {\bf )}\\
-								&$\mid$	&{\bf SearchForFriends(} Parameters {\bf )}\\
-	RegimentStat				&	::=	&Identifier{\bf.}UnitStat-Type \\
-	Parameters					&	::=	&UnitStat-Type Operator Integer-Literal\\
-								&		&({\bf ,}UnitStat-Type Operator Integer-Literal)*\\
-	Single-Command				&	::=	&(Control-Structure $\mid$ UnitFunction $\mid$ Regiment-Declaration)*\\
-								&		&(Control-Structure $\mid$ UnitFunction $\mid$ Regiment-Declaration)\\		
-	Control-Structure			&	::=	&if(Expression) \bf{\{}Single-Command \bf{\}}\\
-								&		&(\bf{else if(}Expression\bf{)\{ }Single-Command\bf{ \}})* \\
-								&		&($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} }\\					   
-								&$\mid$	&while(Expression)\bf{\{ } Single-Command \bf{\}}\\
-	Expression					&	::=	&Primary-Expression (Operator Primary-Expression)*\\
-	Primary-Expression			&	::=	&(Expression)\\
-								&$\mid$	&Integer-Literal \\
-								&$\mid$	&UnitStat-Type\\
-								&$\mid$	&RegimentStat \\	
-	Operator					&	::=	&$\boldsymbol {+}$\\
-								&$\mid$	&$\boldsymbol {-}$\\
-								&$\mid$	&$\boldsymbol {*}$\\
-								&$\mid$	&$\boldsymbol {/}$\\
-								&$\mid$	&$\boldsymbol {<}$\\
-								&$\mid$	&$\boldsymbol {>}$\\
-								&$\mid$	&$\boldsymbol {<=}$\\
-								&$\mid$	&$\boldsymbol {>=}$\\
-								&$\mid$	&$\boldsymbol {==}$\\
-								&$\mid$	&$\boldsymbol {\&\&}$\\
-								&$\mid$	&$\boldsymbol {\|}$\\
-	UnitFunction				&	::=	&({\bf Attack} $\mid$ {\bf MoveTowards} $\mid${\bf MoveAway}){\bf (} Identifier {\bf );}\\
-	UnitStat-Declaration		&	::=	&({\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid${\bf Movement}\\ 
-								&		&$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) ${\bf = }$ Integer-Literal{\bf ;} \\
-								&$\mid$	&{\bf RegimentPosition =} \\
-								&		&{\bf Position(}Integer-Literal{\bf ,}Integer-Literal{\bf );}\\
-								&$\mid$	&{\bf Type} = AttackType{\bf ;}\\
-	UnitStat-Type				&	::=	&({\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid$\\
-								&		&{\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}$\mid${\bf Distance})\\ 
-	AttackType					&	::=	&{\bf Melee} $\mid$ {\bf Ranged} \\
-	Integer-Literal				&	::=	&Digit Digit*\\
-	Comment						&	::=	&{\bf //} Graphic* eol\\
-	Config-File					&	::=	&{\bf Config} Grid-Block Rules-Block  		\\
-	Grid-Block					&	::=	&{\bf Grid} Block-Name	 {\bf \{} GridStat-Declaration* \bf{\}} \\
-	GridStat-Declaration		&	::=	&({\bf Width} $\mid$ {\bf Height})=  Integer-Literal{\bf ;} \\	
-	Rules-Block					&	::=	&Standards-Block MaximaBlock 				\\
-	Maxima-Block				&	::=	&{\bf Maxima} {\bf \{} (MaximaStat-Declaration)* {\bf \}}\\
-	MaximaStat-Declaration	&	::=	&({\bf Regiments }$\mid${\bf Teams}$\mid${\bf Size}$\mid$\\
-								&		&{\bf Range}$\mid${\bf Damage}$\mid${\bf Movement}$\mid$\\
-								&		&{\bf AttackSpeed}$\mid${\bf Health}) =  Integer-Literal{\bf ;}\\
-	Standards-Block				&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration* Behaviour-Block\bf{\} }		\\
-\end{longtable}
-\end{center}	
 {\bf Notes}
 \begin{itemize}
 	\item Digit represents one of the digits 0 through 9.
@@ -187,4 +110,81 @@ MaximaStat-Declaration	&	::=	&{\bf Regiments = } Integer-Literal{\bf ;}\\
 Standards-Block				&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration Behaviour-Block\bf{\} }\\
 \end{longtable}
 \end{center}
+
+\chapter{EBNF}
+	Left factorization, substituion of non-terminals 
+	and elimination of left recursion was applied to transform the BNF to an EBNF. \\
+
+	Substituion of non-terminals have removed the following non-terminals from the BNF: \\
+	\begin{itemize}
+		\item Else-If
+		\item UnitStat
+		\item Graphical-Literal
+		\item GridStat
+		\item MaximumsStat
+	\end{itemize}
+	
+	Left factorization and elimination of left recursion was applied to make the EBNF: \\
+	\begin{center}
+		\begin{longtable}{ l l l }
+			\endfirsthead
+			\endhead
+	Team-File					&	::=	&{\bf Team} Identifier Regiment-Block*\\
+	Identifier					&	::=	&Letter (Letter $\mid$ Digit)*\\
+	Block-Name					&	::=	&Identifier\\
+	Regiment-Block				&	::=	&{\bf Regiment} Block-Name {\bf \{ } \\
+								&		&UnitStat-Declaration Behaviour-Block \bf{\} }\\
+	Behaviour-Block				&	::=	&{\bf Behaviour}(Identifier{\bf \{ }Single-Command \bf{\} } $\mid$ {\bf $=$} Identifier)\\
+	Regiment-Declaration		&	::=	&{\bf Regiment} Identifier {\bf =} Regiment-Search{\bf ;}\\
+								&$\mid$	&{\bf Regiment} Identifier {\bf =} Block-Name{\bf ;}\\
+	Regiment-Search				&	::=	&{\bf SearchForEnemies (} Parameters {\bf )}\\
+								&$\mid$	&{\bf SearchForFriends(} Parameters {\bf )}\\
+	RegimentStat				&	::=	&Identifier{\bf.}UnitStat-Type \\
+	Parameters					&	::=	&UnitStat-Type Operator Integer-Literal\\
+								&		&({\bf ,}UnitStat-Type Operator Integer-Literal)*\\
+	Single-Command				&	::=	&(Control-Structure $\mid$ UnitFunction $\mid$ Regiment-Declaration)*\\
+								&		&(Control-Structure $\mid$ UnitFunction $\mid$ Regiment-Declaration)\\		
+	Control-Structure			&	::=	&if(Expression) \bf{\{}Single-Command \bf{\}}\\
+								&		&(\bf{else if(}Expression\bf{)\{ }Single-Command\bf{ \}})* \\
+								&		&($\epsilon$ $\mid$ else \bf{\{ }Single-Command \bf{\} }\\					   
+								&$\mid$	&while(Expression)\bf{\{ } Single-Command \bf{\}}\\
+	Expression					&	::=	&Primary-Expression (Operator Primary-Expression)*\\
+	Primary-Expression			&	::=	&(Expression)\\
+								&$\mid$	&Integer-Literal \\
+								&$\mid$	&UnitStat-Type\\
+								&$\mid$	&RegimentStat \\	
+	Operator					&	::=	&$\boldsymbol {+}$\\
+								&$\mid$	&$\boldsymbol {-}$\\
+								&$\mid$	&$\boldsymbol {*}$\\
+								&$\mid$	&$\boldsymbol {/}$\\
+								&$\mid$	&$\boldsymbol {<}$\\
+								&$\mid$	&$\boldsymbol {>}$\\
+								&$\mid$	&$\boldsymbol {<=}$\\
+								&$\mid$	&$\boldsymbol {>=}$\\
+								&$\mid$	&$\boldsymbol {==}$\\
+								&$\mid$	&$\boldsymbol {\&\&}$\\
+								&$\mid$	&$\boldsymbol {\|}$\\
+	UnitFunction				&	::=	&({\bf Attack} $\mid$ {\bf MoveTowards} $\mid${\bf MoveAway}){\bf (} Identifier {\bf );}\\
+	UnitStat-Declaration		&	::=	&({\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid${\bf Movement}\\ 
+								&		&$\mid$ {\bf AttackSpeed}$\mid${\bf Health}) ${\bf = }$ Integer-Literal{\bf ;} \\
+								&$\mid$	&{\bf RegimentPosition =} \\
+								&		&{\bf Position(}Integer-Literal{\bf ,}Integer-Literal{\bf );}\\
+								&$\mid$	&{\bf Type} = AttackType{\bf ;}\\
+	UnitStat-Type				&	::=	&({\bf Size}$\mid${\bf Range}$\mid${\bf Damage} $\mid$\\
+								&		&{\bf Movement}$\mid$ {\bf AttackSpeed}$\mid${\bf Health}$\mid${\bf Distance})\\ 
+	AttackType					&	::=	&{\bf Melee} $\mid$ {\bf Ranged} \\
+	Integer-Literal				&	::=	&Digit Digit*\\
+	Comment						&	::=	&{\bf //} Graphic* eol\\
+	Config-File					&	::=	&{\bf Config} Grid-Block Rules-Block  		\\
+	Grid-Block					&	::=	&{\bf Grid} Block-Name	 {\bf \{} GridStat-Declaration* \bf{\}} \\
+	GridStat-Declaration		&	::=	&({\bf Width} $\mid$ {\bf Height})=  Integer-Literal{\bf ;} \\	
+	Rules-Block					&	::=	&Standards-Block MaximaBlock 				\\
+	Maxima-Block				&	::=	&{\bf Maxima} {\bf \{} (MaximaStat-Declaration)* {\bf \}}\\
+	MaximaStat-Declaration	&	::=	&({\bf Regiments }$\mid${\bf Teams}$\mid${\bf Size}$\mid$\\
+								&		&{\bf Range}$\mid${\bf Damage}$\mid${\bf Movement}$\mid$\\
+								&		&{\bf AttackSpeed}$\mid${\bf Health}) =  Integer-Literal{\bf ;}\\
+	Standards-Block				&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration* Behaviour-Block\bf{\} }		\\
+\end{longtable}
+\end{center}	
+
 
