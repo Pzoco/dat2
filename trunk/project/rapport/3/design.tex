@@ -16,23 +16,26 @@
 %
 %Importance: Low Medium High Very high
 
-\begin{table}
-	\begin{tabular}{c c c}
-	Criteria			&	Importance	&		Description			
-	Write-ability 		& 	Very high	&		How easy and how fast can the program be written
-	Readability			& 	High		&		How easy is already written code to read
-	Reliability			& 	Medium		&		The program wil not behave unexspectively
-	Orthogonality		& 	Low			&		.
-	Uniformity			& 	High		&		Similar features should look and behave similar
-	Maintainability		& 	Very high	&		How fast can an error be found and corrected
-	Generality			& 	Medium		&		No or few special cases, combine the special cases and construct a more general one
-	Extensibility		& 	Low			&		Able to add new constructs to the language
-	Standardability		& 	Medium		&		Able to stransport the language to other computers
-	Implementability	& 	Low			&		.
+\begin{table}[H]
+	\begin{tabular}{l l p{7cm}}
+	Criteria			&	Importance	&		Description	\\		
+	Write-ability 		& 	Very high	&		How easy and how fast can the program be written\\
+	Readability			& 	High		&		How easy is already written code to read\\
+	Reliability			& 	Medium		&		The program wil not behave unexspectively\\
+	Orthogonality		& 	Low			&		.\\
+	Uniformity			& 	High		&		Similar features should look and behave similar\\
+	Maintainability		& 	Very high	&		How fast can an error be found and corrected\\
+	Generality			& 	Medium		&		No or few special cases, combine the special cases and construct a more general one\\
+	Extensibility		& 	Low			&		Able to add new constructs to the language\\
+	Standardability		& 	Medium		&		Able to stransport the language to other computers\\
+	Implementability	& 	Low			&		.\\
 	\end{tabular}
+	\caption{Design criterias}
 	\label{tab:criteria_tabular}
 \end{table}
 
+
+Tabular \ref{tab:criteria_tabular} lists an overview over how the design criterias of the WAR language have been made, and we will dig deeper in the criterias with importance high or very high.
 
 
 
@@ -41,9 +44,3 @@ The design criteria of the WAR language is how advanced or how simple it should 
 
 \subsection{?}
 The primary focus of this language, has been on write-ability and somewhat readability which is easily fulfilled when write-ability is the main goal. The language is the imperative programming paradigm, which we think is the easiest paradigm for beginners. By easy write-ability we think that beginners in programming should be able to write their own script and by that compete against each other. The reliability of the programming language have also high priority, so that the program won't behave in an unexpected way, or a disastrous way.
-
-%Maintainnability
- 
-Since this is a game engine and not life important, we still choose analyze it as it was very important, and a lost game could cost the contestant a lot of money or similar.
-
-To sum up we have 3 high design priorities which are write-ability, readability and reliability
