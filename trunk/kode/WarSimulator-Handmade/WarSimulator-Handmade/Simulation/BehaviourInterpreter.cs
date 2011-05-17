@@ -7,8 +7,9 @@ namespace WarSimulator_Handmade.Simulation
 {
 	class BehaviourInterpreter : Visitor
 	{
+		#region Nested Classes
 		//Used to keep track of the regiments assigned
-		class RegimentAssignment
+		private class RegimentAssignment
 		{
 			public Regiment regiment;
 			public string identifier;
@@ -18,6 +19,11 @@ namespace WarSimulator_Handmade.Simulation
 				this.identifier = identifier;
 			}
 		}
+		private abstract class Value { }
+		private class BoolValue : Value { public bool b;}
+		private class IntValue : Value { public int i;}
+		private class UndefinedValue : Value { }
+		#endregion
 
 		#region Fields
 		//List of regimentAssignments
@@ -118,9 +124,41 @@ namespace WarSimulator_Handmade.Simulation
 			return regiments;
 		}
 
-		private Value CheckBinaryExpression()
+		private Value CheckBinaryExpression(string op, Value v1, Value v2)
 		{
+			if (v1 is IntValue)
+			{
+				int i1 = ((IntValue)v1).i;
+				int i2 = ((IntValue)v2).i;
+				BoolValue b = new BoolValue();
+				IntValue i = new IntValue();
+				switch (op)
+				{
+					case "<": if (i1 < i2) { b.b = true; } else { b.b = false; } return b;
+					case ">": if (i1 > i2) { b.b = true; } else { b.b = false; } return b;
+					case "==": if (i1 == i2) { b.b = true; } else { b.b = false; } return b;
+					case ">=": if (i1 >= i2) { b.b = true; } else { b.b = false; } return b;
+					case "<=": if (i1 <= i2) { b.b = true; } else { b.b = false; } return b;
 
+					case "+": i.i = i1 + i2; return i;
+					case "-": i.i = i1 - i2; return i;
+					case "/": i.i = i1 / i2; return i;
+					case "*": i.i = i1 * i2; return i;
+				}
+			}
+			else if (v1 is BoolValue)
+			{
+				bool b1 = ((BoolValue)v1).b;
+				bool b2 = ((BoolValue)v2).b;
+				BoolValue b = new BoolValue();
+				switch (op)
+				{
+					case "&&": if (b1 && b2) { b.b = true; } else { b.b = false; } return b;
+					case "||": if (b1 && b2) { b.b = true; } else { b.b = false; } return b;
+				}
+			}
+			Console.WriteLine("Found a undefined value - Maybe there is a problem");
+			return new UndefinedValue();
 		}
 		#endregion
 
@@ -134,22 +172,32 @@ namespace WarSimulator_Handmade.Simulation
 		#region Control Structures
 		public Object VisitIfCommand(IfCommand ast, Object obj)
 		{
-			DataType type = (DataType)ast.e.Visit(this, null);
-			ast.sc1.Visit(this, null);
-			if (ast.eifc != null) { ast.eifc.ForEach(x => x.Visit(this, null)); }
-			if (ast.sc2 != null) { ast.sc2.Visit(this, null); }
+			BoolValue b = (BoolValue)ast.e.Visit(this, null);
+			if (b.b)
+			{
+				ast.sc1.Visit(this, null);
+			}
+			else if (ast.eifc != null) { ast.eifc.ForEach(x => x.Visit(this, null)); }
+			else if (ast.sc2 != null) { ast.sc2.Visit(this, null); }
 			return null;
 		}
 		public Object VisitElseIfCommand(ElseIfCommand ast, Object obj)
 		{
-			DataType type = (DataType)ast.e.Visit(this, null);
-			ast.sc.Visit(this, null);
+			BoolValue b = (BoolValue)ast.e.Visit(this, null);
+			if (b.b)
+			{
+				ast.sc.Visit(this, null);
+			}
 			return null;
 		}
 		public Object VisitWhileCommand(WhileCommand ast, Object obj)
 		{
-			DataType type = (DataType)ast.e.Visit(this, null);
-			ast.sc.Visit(this, null);
+			BoolValue b = (BoolValue)ast.e.Visit(this, null);
+			while (b.b)
+			{
+				ast.sc.Visit(this, null);
+				b = (BoolValue)ast.e.Visit(this, null);
+			}
 			return null;
 		}
 		#endregion
@@ -172,7 +220,7 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj)
 		{
-			
+
 			return ast.type;
 		}
 
@@ -227,9 +275,9 @@ namespace WarSimulator_Handmade.Simulation
 		//Regiment Search
 		public Object VisitParameter(Parameter ast, Object obj)
 		{
-			UnitStatType ust = (UnitStatType) ast.ust.Visit(this, null);
+			UnitStatType ust = (UnitStatType)ast.ust.Visit(this, null);
 			Operator op = (Operator)ast.o.Visit(this, null);
-			IntegerLiteral il = (IntegerLiteral)ast.il.Visit(this,null);
+			IntegerLiteral il = (IntegerLiteral)ast.il.Visit(this, null);
 			return new Parameter(ust, op, il);
 		}
 		public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
