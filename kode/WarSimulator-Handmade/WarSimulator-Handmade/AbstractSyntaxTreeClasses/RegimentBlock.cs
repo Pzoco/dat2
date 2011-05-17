@@ -17,9 +17,9 @@ namespace WarSimulator_Handmade
           * */
         public BlockName bn;
         public List<UnitStatDeclaration> usds;
-        public BehaviourBlock bb;
+        public Regiment bb;
 
-        public RegimentBlock(BlockName bn, List<UnitStatDeclaration> usds, BehaviourBlock bb)
+        public RegimentBlock(BlockName bn, List<UnitStatDeclaration> usds, Regiment bb)
         {
             // TODO: Complete member initialization
             this.bn = bn;

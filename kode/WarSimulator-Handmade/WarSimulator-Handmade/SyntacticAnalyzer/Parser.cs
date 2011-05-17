@@ -97,9 +97,9 @@ namespace WarSimulator_Handmade
             }
             return il;
         }
-        private BehaviourBlock ParseBehaviourBlock()
+        private Regiment ParseBehaviourBlock()
         {
-            BehaviourBlock bb = null;
+            Regiment bb = null;
             Accept(Token.TokenType.Behaviour);
             if (currentToken.type == Token.TokenType.Operator)
             {
@@ -114,7 +114,7 @@ namespace WarSimulator_Handmade
                 Accept(Token.TokenType.LeftBracket);
                 SingleCommand sc = ParseSingleCommand();
                 Accept(Token.TokenType.RightBracket);
-                bb = new BehaviourBlock(bn, sc);
+                bb = new Regiment(bn, sc);
             }
             return bb;
         }
@@ -175,7 +175,7 @@ namespace WarSimulator_Handmade
                         break;
                 }
             }
-            BehaviourBlock bb = ParseBehaviourBlock();
+            Regiment bb = ParseBehaviourBlock();
             Accept(Token.TokenType.RightBracket);
             return new RegimentBlock(bn, usds, bb);
         }
@@ -520,6 +520,7 @@ namespace WarSimulator_Handmade
 
         private RulesBlock ParseRulesBlock()
         {
+			Accept(Token.TokenType.Rules);
             StandardsBlock sb = ParseStandardsBlock();
             MaximaBlock mb = ParseMaximaBlock();
             return new RulesBlock(mb, sb);
@@ -587,7 +588,7 @@ namespace WarSimulator_Handmade
                         break;
                 }
             }
-            BehaviourBlock bb = ParseBehaviourBlock();
+            Regiment bb = ParseBehaviourBlock();
             Accept(Token.TokenType.RightBracket);
             return new StandardsBlock(usds, bb);
         }

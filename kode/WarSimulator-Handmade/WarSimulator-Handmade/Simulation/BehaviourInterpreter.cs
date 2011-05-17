@@ -7,18 +7,19 @@ namespace WarSimulator_Handmade.Simulation
 {
 	class BehaviourInterpreter:Visitor
 	{
-		public GameState InterpreteBehaviour(BehaviourBlock behaviourAST, GameState gameState)
+		public GameState InterpreteBehaviour(Regiment currentRegiment, GameState gameState)
 		{
-			return new GameState();
+			currentRegiment.behaviour.Visit(this, null);
+			return null;
 		}
 
-		
-		public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
+		public Object VisitBehaviourBlock(Regiment ast, Object obj)
 		{
 			ast.bn.Visit(this, null);
 			ast.sc.Visit(this, null);
 			return null;
 		}
+
 		#region Control Structures
 		public Object VisitIfCommand(IfCommand ast, Object obj)
 		{
@@ -98,60 +99,6 @@ namespace WarSimulator_Handmade.Simulation
 			return null;
 		}
 		#endregion
-		#region Blocks
-		public Object VisitGridBlock(GridBlock ast, Object obj)
-		{
-			ast.bn.Visit(this, null);
-			ast.gss.ForEach(x => x.Visit(this, null));
-			return null;
-		}
-		public Object VisitMaximaBlock(MaximaBlock ast, Object obj)
-		{
-			ast.msds.ForEach(x => x.Visit(this, null));
-			return null;
-		}
-		public Object VisitRegimentBlock(RegimentBlock ast, Object obj)
-		{
-			ast.bn.Visit(this, null);
-			ast.usds.ForEach(x => x.Visit(this, null));
-			ast.bb.Visit(this, null);
-			return null;
-		}
-		public Object VisitRulesBlock(RulesBlock ast, Object obj)
-		{
-			ast.mb.Visit(this, null);
-			ast.sb.Visit(this, null);
-			return null;
-		}
-		public Object VisitStandardsBlock(StandardsBlock ast, Object obj)
-		{
-			ast.bb.Visit(this, null);
-			ast.usds.ForEach(x => x.Visit(this, null));
-			return null;
-		}
-		#endregion
-
-		#region Files
-		public Object VisitTeamFile(TeamFile ast, Object obj)
-		{
-			ast.rb.Visit(this, null);
-			return null;
-		}
-		public Object VisitConfigFile(ConfigFile ast, Object obj)
-		{
-			ast.rb.Visit(this, null);
-			ast.gb.Visit(this, null);
-			return null;
-		}
-		#endregion
-
-		#region Misc
-		//Hvad skal vi gøre med denne?
-		public Object VisitBehaviourAssignment(BehaviourAssignment ast, Object obj)
-		{
-			return null;
-		}
-		#endregion
 
 		#region Regiment assignment related
 		//Regiment Assignment
@@ -222,6 +169,59 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		#endregion
 
+		#region Not used in behaviourblock
+		#region Files
+		public Object VisitTeamFile(TeamFile ast, Object obj)
+		{
+			ast.rb.Visit(this, null);
+			return null;
+		}
+		public Object VisitConfigFile(ConfigFile ast, Object obj)
+		{
+			ast.rb.Visit(this, null);
+			ast.gb.Visit(this, null);
+			return null;
+		}
+		#endregion
+		#region Misc
+		//Hvad skal vi gøre med denne?
+		public Object VisitBehaviourAssignment(BehaviourAssignment ast, Object obj)
+		{
+			return null;
+		}
+		#endregion
+		#region Blocks
+		public Object VisitGridBlock(GridBlock ast, Object obj)
+		{
+			ast.bn.Visit(this, null);
+			ast.gss.ForEach(x => x.Visit(this, null));
+			return null;
+		}
+		public Object VisitMaximaBlock(MaximaBlock ast, Object obj)
+		{
+			ast.msds.ForEach(x => x.Visit(this, null));
+			return null;
+		}
+		public Object VisitRegimentBlock(RegimentBlock ast, Object obj)
+		{
+			ast.bn.Visit(this, null);
+			ast.usds.ForEach(x => x.Visit(this, null));
+			ast.bb.Visit(this, null);
+			return null;
+		}
+		public Object VisitRulesBlock(RulesBlock ast, Object obj)
+		{
+			ast.mb.Visit(this, null);
+			ast.sb.Visit(this, null);
+			return null;
+		}
+		public Object VisitStandardsBlock(StandardsBlock ast, Object obj)
+		{
+			ast.bb.Visit(this, null);
+			ast.usds.ForEach(x => x.Visit(this, null));
+			return null;
+		}
+		#endregion
 		#region Stats
 
 		public Object VisitGridStatDeclaration(GridStatDeclaration ast, Object obj)
@@ -286,5 +286,7 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			return null;
 		}
+		#endregion
+
 	}
 }
