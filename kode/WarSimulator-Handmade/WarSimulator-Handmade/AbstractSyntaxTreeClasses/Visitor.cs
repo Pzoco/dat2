@@ -8,7 +8,7 @@ namespace WarSimulator_Handmade
     public interface Visitor
     {
         #region Blocks
-        Object VisitBehaviourBlock(Regiment ast, Object obj);
+        Object VisitBehaviourBlock(BehaviourBlock ast, Object obj);
         Object VisitGridBlock(GridBlock ast, Object obj);
         Object VisitMaximaBlock(MaximaBlock ast, Object obj);
         Object VisitRegimentBlock(RegimentBlock ast, Object obj);

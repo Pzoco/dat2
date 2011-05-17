@@ -8,9 +8,9 @@ namespace WarSimulator_Handmade
     public class StandardsBlock:AST
     {
         public List<UnitStatDeclaration> usds;
-        public Regiment bb;
+        public BehaviourBlock bb;
 
-        public StandardsBlock(List<UnitStatDeclaration> usds, Regiment bb)
+        public StandardsBlock(List<UnitStatDeclaration> usds, BehaviourBlock bb)
         {
             this.usds = usds;
             this.bb = bb;

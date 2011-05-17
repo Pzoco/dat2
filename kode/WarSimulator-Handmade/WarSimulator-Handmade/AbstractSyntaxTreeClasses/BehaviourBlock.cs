@@ -5,12 +5,12 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    public class Regiment:AST
+    public class BehaviourBlock:AST
     {
         public BlockName bn;
         public SingleCommand sc;
 
-        public Regiment(BlockName bn, SingleCommand sc)
+        public BehaviourBlock(BlockName bn, SingleCommand sc)
         {
             // TODO: Complete member initialization
             this.bn = bn;
