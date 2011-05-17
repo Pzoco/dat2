@@ -7,7 +7,7 @@ namespace WarSimulator_Handmade.Simulation
 {
     class Team
     {
-		string name;
-
+		public string name;
+		public List<Regiment> regiments;
     }
 }
