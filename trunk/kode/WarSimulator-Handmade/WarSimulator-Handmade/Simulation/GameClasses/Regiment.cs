@@ -5,8 +5,6 @@ using System.Text;
 
 namespace WarSimulator_Handmade.Simulation
 {
-
-
     class Regiment
     {
 		public int size;
