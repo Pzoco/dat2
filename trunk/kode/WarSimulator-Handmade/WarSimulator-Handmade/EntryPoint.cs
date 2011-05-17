@@ -115,9 +115,11 @@ namespace WarSimulator_Handmade
             #region Intepreting
             if (allowedToInteprete)
             {
-                // Send all the data to the Simulator class
+                // Send all the data to the Simulator class A list of teamfiles and configfiles, + AST's
                 Simulator sim = new Simulator();
                 
+				
+
 
             }
             else
