@@ -9,10 +9,10 @@ namespace WarSimulator_Handmade
     {
         public RegimentBlock rb;
 
-        public TeamFile(RegimentBlock _rb, SourcePosition sp) :base(sp)
+        public TeamFile(RegimentBlock rb, SourcePosition sp) :base(sp)
         {
             // TODO: Complete member initialization
-            rb = _rb;
+            this.rb = rb;
         }
         public override Object Visit(Visitor v, Object arg)
         {
