@@ -175,7 +175,7 @@ namespace WarSimulator_Handmade
                         break;
                 }
             }
-            Regiment bb = ParseBehaviourBlock();
+			BehaviourBlock bb = ParseBehaviourBlock();
             Accept(Token.TokenType.RightBracket);
             return new RegimentBlock(bn, usds, bb);
         }
