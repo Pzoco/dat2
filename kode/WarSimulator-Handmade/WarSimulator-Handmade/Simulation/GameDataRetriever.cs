@@ -28,28 +28,6 @@ namespace WarSimulator_Handmade.Simulation
 		}
 
 
-		#region Identifiers etc
-		public Object VisitAttackType(AttackType ast, Object obj)
-		{
-			return ast.spelling;
-		}
-		public Object VisitBlockName(BlockName ast, Object obj)
-		{
-			return ast.i.Visit(this, null);
-		}
-		public Object VisitIdentifier(Identifier ast, Object obj)
-		{
-			return null;
-		}
-		public Object VisitIntegerLiteral(IntegerLiteral ast, Object obj)
-		{
-			return ast.spelling;
-		}
-		public Object VisitOperator(Operator ast, Object obj)
-		{
-			return null;
-		}
-		#endregion
 		#region Used in the team/config files
 		#region Files
 		public Object VisitTeamFile(TeamFile ast, Object obj)
@@ -74,7 +52,10 @@ namespace WarSimulator_Handmade.Simulation
 		#region Blocks
 		public Object VisitGridBlock(GridBlock ast, Object obj)
 		{
-			ast.bn.Visit(this, null);
+			if ((string)ast.bn.Visit(this, null) == "Width")
+			{
+				grid.width = (string)
+			}
 			ast.gss.ForEach(x => x.Visit(this, null));
 			return null;
 		}
@@ -93,8 +74,8 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitRulesBlock(RulesBlock ast, Object obj)
 		{
-			ast.mb.Visit(this, null);
 			ast.sb.Visit(this, null);
+			ast.mb.Visit(this, null);
 			return null;
 		}
 		public Object VisitStandardsBlock(StandardsBlock ast, Object obj)
@@ -302,5 +283,27 @@ namespace WarSimulator_Handmade.Simulation
 		#endregion
 
 
+		#region Identifiers etc
+		public Object VisitAttackType(AttackType ast, Object obj)
+		{
+			return ast.spelling;
+		}
+		public Object VisitBlockName(BlockName ast, Object obj)
+		{
+			return ast.i.Visit(this, null);
+		}
+		public Object VisitIdentifier(Identifier ast, Object obj)
+		{
+			return null;
+		}
+		public Object VisitIntegerLiteral(IntegerLiteral ast, Object obj)
+		{
+			return ast.spelling;
+		}
+		public Object VisitOperator(Operator ast, Object obj)
+		{
+			return null;
+		}
+		#endregion
 	}
 }
