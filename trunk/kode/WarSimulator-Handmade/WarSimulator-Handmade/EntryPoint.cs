@@ -115,6 +115,9 @@ namespace WarSimulator_Handmade
             #region Intepreting
             if (allowedToInteprete)
             {
+                // Send all the data to the Simulator class
+                Simulator sim = new Simulator();
+                
 
             }
             else
