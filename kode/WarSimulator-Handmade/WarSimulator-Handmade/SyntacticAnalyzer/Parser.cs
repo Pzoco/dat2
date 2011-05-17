@@ -392,28 +392,28 @@ namespace WarSimulator_Handmade
                 AcceptIt();
             }
             Accept(Token.TokenType.LeftParen);
-            Parameters p = ParseParameters();
+            List<Parameter> p = ParseParameters();
             Accept(Token.TokenType.RightParen);
 
             return new RegimentSearch(p, rsn);
         }
-        private Parameters ParseParameters()
+        private List<Parameter> ParseParameters()
         {
             UnitStatType ust = ParseUnitStatType();
             Operator o = ParseOperator();
             IntegerLiteral il = ParseIntegerLiteral();
-            Parameters p = new Parameter(ust, o, il);
+			List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter(ust, o, il));
 
             while (currentToken.type == Token.TokenType.Comma)
             {
                 UnitStatType ust2 = ParseUnitStatType();
                 Operator o2 = ParseOperator();
                 IntegerLiteral il2 = ParseIntegerLiteral();
-                Parameters p2 = new Parameter(ust2, o2, il2);
+				parameters.Add(new Parameter(ust2, o2, il2));
 
-                p = new BinaryParameter(p, p2);
             }
-            return p;
+			return parameters;
         }
         private UnitStatType ParseUnitStatType()
         {

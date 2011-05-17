@@ -251,12 +251,6 @@ namespace WarSimulator_Handmade
             return null;
         }
         //Regiment Search
-        public Object VisitBinaryParameter(BinaryParameter ast, Object obj)
-        {
-            ast.p1.Visit(this, null);
-            ast.p2.Visit(this, null);
-            return null;
-        }
         public Object VisitParameter(Parameter ast, Object obj)
         {
             DataType eType1 = (DataType)ast.ust.Visit(this, null);
@@ -288,8 +282,8 @@ namespace WarSimulator_Handmade
         public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
         {
             ast.rsn.Visit(this, null);
-            ast.p.Visit(this, null);
-            return ast.p.Visit(this, null);
+            ast.p.ForEach(x=>x.Visit(this, null));
+            return null;
         }
         public Object VisitRegimentSearchName(RegimentSearchName ast, Object obj)
         {
