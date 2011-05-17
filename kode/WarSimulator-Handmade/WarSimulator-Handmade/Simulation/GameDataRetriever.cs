@@ -24,13 +24,7 @@ namespace WarSimulator_Handmade.Simulation
 			}
 			configFile.Visit(this, null);
 			//Check for if anything is missing in the standards.
-			foreach (Regiment x in currentRegiment)
-			{
-				if (currentRegiment.attackSpeed != null) 
-				{
-				
-				}
-			}
+
 			return null;
 		}
 
