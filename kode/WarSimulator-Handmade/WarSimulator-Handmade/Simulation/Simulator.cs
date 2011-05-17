@@ -18,7 +18,6 @@ namespace WarSimulator_Handmade
 			BeginSimulation();
 		}
 
-
 		private void BeginSimulation()
 		{
 			UpdateTurnOrder();
