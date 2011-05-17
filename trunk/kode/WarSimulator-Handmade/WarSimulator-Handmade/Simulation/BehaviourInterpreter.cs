@@ -136,24 +136,25 @@ namespace WarSimulator_Handmade.Simulation
 		//Regiment Search
 		public Object VisitBinaryParameter(BinaryParameter ast, Object obj)
 		{
-			ast.p1.Visit(this, null);
-			ast.p2.Visit(this, null);
-			return null;
+			Parameters p1 = (Parameters)ast.p1.Visit(this, null);
+			Parameters p2 = (Parameters)ast.p2.Visit(this, null);
+			return new BinaryParameter(p1, p2);
 		}
 		public Object VisitParameter(Parameter ast, Object obj)
 		{
-			ast.ust.Visit(this, null);
-			DataType eType2 = (DataType)ast.il.Visit(this, null);
-			string operatorSpelling = (string)ast.o.Visit(this, null);
-			return ast;
+			UnitStatType ust = (UnitStatType) ast.ust.Visit(this, null);
+			Operator op = (Operator)ast.o.Visit(this, null);
+			IntegerLiteral il = (IntegerLiteral)ast.il.Visit(this,null);
+			return new Parameter(ust, op, il);
 		}
 
 		public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
 		{
 			string regimentSearchSpelling = (string)ast.rsn.Visit(this, null);
+			Parameters parameters = (Parameters)ast.p.Visit(this, null);
 			if (regimentSearchSpelling == "SearchForFriends")
 			{
-
+				
 			}
 			else
 			{
@@ -176,62 +177,86 @@ namespace WarSimulator_Handmade.Simulation
 						switch (op)
 						{
 							case ">": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
-							case "<": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
-							case "==": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
-							case ">=": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
-							case "<=": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
+							case "<": if (regiment.attackSpeed < value) { foundRegiment = regiment; } break;
+							case "==": if (regiment.attackSpeed == value) { foundRegiment = regiment; } break;
+							case ">=": if (regiment.attackSpeed >= value) { foundRegiment = regiment; } break;
+							case "<=": if (regiment.attackSpeed <= value) { foundRegiment = regiment; } break;
 						} break;
 					case "Damage":
 						switch (op)
 						{
 							case ">": if (regiment.damage > value) { foundRegiment = regiment; } break;
-							case "<": if (regiment.damage > value) { foundRegiment = regiment; } break;
-							case "==": if (regiment.damage > value) { foundRegiment = regiment; } break;
-							case ">=": if (regiment.damage > value) { foundRegiment = regiment; } break; ;
-							case "<=": if (regiment.damage > value) { foundRegiment = regiment; } break;
+							case "<": if (regiment.damage < value) { foundRegiment = regiment; } break;
+							case "==": if (regiment.damage == value) { foundRegiment = regiment; } break;
+							case ">=": if (regiment.damage >= value) { foundRegiment = regiment; } break; ;
+							case "<=": if (regiment.damage <= value) { foundRegiment = regiment; } break;
 						} break;
 					case "Distance":
-						int distance = 
+						int distance = currentRegiment.GetDistanceTo(regiment);
 						switch (op)
 						{
-							case ">": if ( > value) { foundRegiment = regiment; } break;
-							case "<": break;
-							case "==": break;
-							case ">=": break;
-							case "<=": break;
+							case ">": if (distance > value) { foundRegiment = regiment; } break;
+							case "<": if (distance < value) { foundRegiment = regiment; } break;
+							case "==": if (distance == value) { foundRegiment = regiment; } break;
+							case ">=": if (distance >= value) { foundRegiment = regiment; } break;
+							case "<=": if (distance <= value) { foundRegiment = regiment; } break;
 						} break;
 					case "Size":
 						switch (op)
 						{
-							case ">": break;
-							case "<": break;
-							case "==": break;
-							case ">=": break;
-							case "<=": break;
+							case ">": if(regiment.size > value) { foundRegiment = regiment; } break;
+							case "<": if (regiment.size < value) { foundRegiment = regiment; } break;
+							case "==": if (regiment.size == value) { foundRegiment = regiment; } break;
+							case ">=": if (regiment.size >= value) { foundRegiment = regiment; } break;
+							case "<=": if (regiment.size <= value) { foundRegiment = regiment; } break;
 						} break;
 					case "Range":
 						switch (op)
 						{
-							case ">": break;
-							case "<": break;
-							case "==": break;
-							case ">=": break;
-							case "<=": break;
+							case ">": if (regiment.range > value) { foundRegiment = regiment; } break;
+							case "<": if (regiment.range < value) { foundRegiment = regiment; } break;
+							case "==": if (regiment.range == value) { foundRegiment = regiment; } break;
+							case ">=": if (regiment.range >= value) { foundRegiment = regiment; } break;
+							case "<=": if (regiment.range <= value) { foundRegiment = regiment; } break;
 						} break;
 					case "Health":
 						switch (op)
 						{
-							case ">": break;
-							case "<": break;
-							case "==": break;
-							case ">=": break;
-							case "<=": break;
+							case ">": if (regiment.range > value) { foundRegiment = regiment; } break;
+							case "<": if (regiment.range < value) { foundRegiment = regiment; } break;
+							case "==": if (regiment.range == value) { foundRegiment = regiment; } break;
+							case ">=": if (regiment.range >= value) { foundRegiment = regiment; } break;
+							case "<=": if (regiment.range <= value) { foundRegiment = regiment; } break;
 						} break;
 				}
+				regimentsToGet.Add(foundRegiment);
 			}
 			return regiments;
 		}
-
+		//Gets a list of parameter for ease of use
+		private List<Parameter> ConvertParametersToList(Parameters parameters)
+		{
+			List<Parameter> parametersFound = new List<Parameter>();
+			while (parameters is BinaryParameter)
+			{
+				BinaryParameter bp = (BinaryParameter)parameters;
+				if (bp.p1 is BinaryParameter)
+				{
+					parameters = bp;
+				}
+				else
+				{
+					parametersFound.Add((Parameter)bp.p1);
+					parameters = null;
+				}
+				if(bp.p2 is Parameter)
+				{
+					parametersFound.Add((Parameter)bp.p2);
+				}
+				
+			}
+			return parametersFound;
+		}
 		public Object VisitRegimentSearchName(RegimentSearchName ast, Object obj)
 		{
 			return ast.spelling;

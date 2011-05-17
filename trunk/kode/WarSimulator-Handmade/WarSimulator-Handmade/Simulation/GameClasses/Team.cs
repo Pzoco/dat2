@@ -8,6 +8,7 @@ namespace WarSimulator_Handmade.Simulation
     class Team
     {
 		public string name;
-		public List<Regiment> regiments;
+		public int number;
+		public List<Regiment> regiments = new List<Regiment>();
     }
 }

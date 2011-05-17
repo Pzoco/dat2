@@ -24,9 +24,10 @@ namespace WarSimulator_Handmade.Simulation
 		public int health;
 		public int movement;
 		public int attackSpeed;
+		public int team;
+		public string name;
 		public Position position;
 		public AttackType type;
-		public string name;
 		public BehaviourBlock behaviour;
 
 		public int GetDistanceTo(Regiment regiment)
