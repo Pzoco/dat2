@@ -9,7 +9,7 @@ namespace WarSimulator_Handmade.Simulation
     {
 		public struct Position
 		{
-			int x,y;
+			public int x,y;
 			public Position (int x,int y)
 			{
 				this.x = x;
@@ -21,6 +21,7 @@ namespace WarSimulator_Handmade.Simulation
 		public int size;
 		public int range;
 		public int damage;
+		public int health;
 		public int movement;
 		public int attackSpeed;
 		public Position position;
@@ -28,5 +29,12 @@ namespace WarSimulator_Handmade.Simulation
 		public string name;
 		public BehaviourBlock behaviour;
 
+		public int GetDistanceTo(Regiment regiment)
+		{
+			int distance = 0;
+			distance += Math.Abs(regiment.position.x - position.x);
+			distance += Math.Abs(regiment.position.y - position.y);
+			return distance;
+		}
     }
 }
