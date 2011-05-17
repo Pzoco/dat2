@@ -24,6 +24,13 @@ namespace WarSimulator_Handmade.Simulation
 			}
 			configFile.Visit(this, null);
 			//Check for if anything is missing in the standards.
+			foreach (Regiment x in currentRegiment)
+			{
+				if (currentRegiment.attackSpeed != null) 
+				{
+				
+				}
+			}
 			return null;
 		}
 
@@ -119,8 +126,9 @@ namespace WarSimulator_Handmade.Simulation
 			switch (spelling)
 			{
 				case "Size": currentRegiment.size = value; break;
-				case "Damage": currentRegiment.damage = value;break ;
+				case "Damage": currentRegiment.damage = value; break;
 				case "Range": currentRegiment.range = value; break;
+				case "Health": currentRegiment.health = value; break;
 				case "Movement": currentRegiment.movement = value; break;
 				case "AttackSpeed": currentRegiment.attackSpeed = value; break;
 			}
