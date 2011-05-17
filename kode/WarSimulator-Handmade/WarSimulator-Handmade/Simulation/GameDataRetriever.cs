@@ -13,6 +13,14 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public GameState Retrieve(ConfigFile configFile, TeamFile[] teamFiles)
 		{
+			switch (configFile.gb.)
+			{
+				default:
+ break;
+			}
+
+
+
 
 		}
 		
