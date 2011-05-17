@@ -114,6 +114,7 @@ namespace WarSimulator_Handmade.Simulation
 			ast.rd.Visit(this, null);
 			return null;
 		}
+
 		//Regiment Search
 		public Object VisitBinaryParameter(BinaryParameter ast, Object obj)
 		{
