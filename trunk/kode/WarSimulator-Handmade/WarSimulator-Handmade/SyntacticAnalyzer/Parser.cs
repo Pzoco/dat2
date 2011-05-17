@@ -97,9 +97,9 @@ namespace WarSimulator_Handmade
             }
             return il;
         }
-        private Regiment ParseBehaviourBlock()
+        private BehaviourBlock ParseBehaviourBlock()
         {
-            Regiment bb = null;
+            BehaviourBlock bb = null;
             Accept(Token.TokenType.Behaviour);
             if (currentToken.type == Token.TokenType.Operator)
             {
