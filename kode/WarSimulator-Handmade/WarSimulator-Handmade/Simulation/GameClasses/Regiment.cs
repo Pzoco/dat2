@@ -9,9 +9,6 @@ namespace WarSimulator_Handmade.Simulation
 
     class Regiment
     {
-		//RegimentSize, RegimentType, RegimentRange, RegimentDamage, RegimentMovement, RegimentAttackSpeed
-
-
 		public int size;
 		public int range;
 		public int damage;
@@ -19,6 +16,7 @@ namespace WarSimulator_Handmade.Simulation
 		public int attackSpeed;
 		public string type;
 		public string name;
+		public BehaviourBlock behaviour;
 
     }
 }
