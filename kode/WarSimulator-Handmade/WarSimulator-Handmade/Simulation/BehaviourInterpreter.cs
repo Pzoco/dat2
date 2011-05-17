@@ -20,11 +20,12 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		private List<RegimentAssignment> regimentAssignments;
 		private GameState currentGameState;
-
-		public GameState InterpreteBehaviour(Regiment currentRegiment, GameState gameState)
+		private Regiment currentRegiment;
+		public GameState InterpreteBehaviour(Regiment regiment, GameState gameState)
 		{
 			currentGameState = gameState;
-			currentRegiment.behaviour.Visit(this, null);
+			currentRegiment = regiment;
+			regiment.behaviour.Visit(this, null);
 			return null;
 		}
 
@@ -174,26 +175,30 @@ namespace WarSimulator_Handmade.Simulation
 					case "AttackSpeed":
 						switch (op)
 						{
-							case ">": break;
-							case "<": break;
-							case "==": break;
-
+							case ">": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
+							case "<": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
+							case "==": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
+							case ">=": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
+							case "<=": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
 						} break;
 					case "Damage":
 						switch (op)
 						{
-							case ">": break;
-							case "<": break;
-							case "==": break;
-
+							case ">": if (regiment.damage > value) { foundRegiment = regiment; } break;
+							case "<": if (regiment.damage > value) { foundRegiment = regiment; } break;
+							case "==": if (regiment.damage > value) { foundRegiment = regiment; } break;
+							case ">=": if (regiment.damage > value) { foundRegiment = regiment; } break; ;
+							case "<=": if (regiment.damage > value) { foundRegiment = regiment; } break;
 						} break;
 					case "Distance":
+						int distance = 
 						switch (op)
 						{
-							case ">": break;
+							case ">": if ( > value) { foundRegiment = regiment; } break;
 							case "<": break;
 							case "==": break;
-
+							case ">=": break;
+							case "<=": break;
 						} break;
 					case "Size":
 						switch (op)
@@ -201,7 +206,8 @@ namespace WarSimulator_Handmade.Simulation
 							case ">": break;
 							case "<": break;
 							case "==": break;
-
+							case ">=": break;
+							case "<=": break;
 						} break;
 					case "Range":
 						switch (op)
@@ -209,7 +215,8 @@ namespace WarSimulator_Handmade.Simulation
 							case ">": break;
 							case "<": break;
 							case "==": break;
-
+							case ">=": break;
+							case "<=": break;
 						} break;
 					case "Health":
 						switch (op)
@@ -219,7 +226,6 @@ namespace WarSimulator_Handmade.Simulation
 							case "==": break;
 							case ">=": break;
 							case "<=": break;
-
 						} break;
 				}
 			}
