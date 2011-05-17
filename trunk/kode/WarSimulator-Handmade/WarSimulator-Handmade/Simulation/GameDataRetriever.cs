@@ -52,10 +52,8 @@ namespace WarSimulator_Handmade.Simulation
 		#region Blocks
 		public Object VisitGridBlock(GridBlock ast, Object obj)
 		{
-			if ((string)ast.bn.Visit(this, null) == "Width")
-			{
-				grid.width = (string)
-			}
+			grid.name = (string)ast.bn.Visit(this, null);
+			
 			ast.gss.ForEach(x => x.Visit(this, null));
 			return null;
 		}
@@ -90,7 +88,14 @@ namespace WarSimulator_Handmade.Simulation
 		public Object VisitGridStatDeclaration(GridStatDeclaration ast, Object obj)
 		{
 			ast.il.Visit(this, null);
-			ast.gsnv.Visit(this, null);
+			if ((string)ast.gsnv.Visit(this, null) == "Width")
+			{
+				grid.width = (int)ast.il.Visit(this, null);
+			}
+			else if ((string)ast.gsnv.Visit(this, null) == "Height")
+			{
+				grid.height = (int)ast.il.Visit(this, null);
+			}
 			return null;
 		}
 		public Object VisitGridStatVName(GridStatVName ast, Object obj)
@@ -277,7 +282,7 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitUnitStatType(UnitStatType ast, Object obj)
 		{
-			return null;
+			return ast.spelling;
 		}
 		#endregion
 		#endregion
@@ -294,7 +299,7 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitIdentifier(Identifier ast, Object obj)
 		{
-			return null;
+			return ast.spelling;
 		}
 		public Object VisitIntegerLiteral(IntegerLiteral ast, Object obj)
 		{
@@ -302,7 +307,7 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitOperator(Operator ast, Object obj)
 		{
-			return null;
+			return ast.spelling;
 		}
 		#endregion
 	}

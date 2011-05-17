@@ -9,6 +9,7 @@ namespace WarSimulator_Handmade.Simulation
     {
 		
 		//GridSize, 
+		public string name;
 		Tile[,] tiles;
 		public int width;
 		public int height;
