@@ -17,5 +17,7 @@ namespace WarSimulator_Handmade.Simulation
 
 
 		}
+
+
     }
 }
