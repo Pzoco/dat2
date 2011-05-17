@@ -53,7 +53,6 @@ namespace WarSimulator_Handmade
         Object VisitRegimentDeclarationCommand(RegimentDeclarationCommand ast, Object obj);
 
         //Regiment Search
-        Object VisitBinaryParameter(BinaryParameter ast, Object obj);
         Object VisitParameter(Parameter ast, Object obj);
         Object VisitRegimentSearch(RegimentSearch ast, Object obj);
         Object VisitRegimentSearchName(RegimentSearchName ast, Object obj);

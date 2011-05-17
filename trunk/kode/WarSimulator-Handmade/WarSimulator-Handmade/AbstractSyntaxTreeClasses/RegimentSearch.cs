@@ -7,9 +7,9 @@ namespace WarSimulator_Handmade
 {
     public class RegimentSearch:AST
     {
-        public Parameters p;
+        public List<Parameter> p;
         public RegimentSearchName rsn;
-        public RegimentSearch(Parameters p, RegimentSearchName rsn)
+        public RegimentSearch(List<Parameter> p, RegimentSearchName rsn)
         {
             this.p = p;
             this.rsn = rsn;
