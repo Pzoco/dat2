@@ -13,7 +13,7 @@ namespace WarSimulator_Handmade.Simulation
 			return null;
 		}
 
-		public Object VisitBehaviourBlock(Regiment ast, Object obj)
+		public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
 		{
 			ast.bn.Visit(this, null);
 			ast.sc.Visit(this, null);
