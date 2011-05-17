@@ -10,17 +10,15 @@ namespace WarSimulator_Handmade
 		private Team[] teams;
 		private Grid grid;
 		private List<Regiment> regimentTurnOrder;
-
+		private GameDataRetriever gameDataRetriever = new GameDataRetriever();
+		private GameState currentGamestate;
 		public Simulator(ConfigFile configFile, TeamFile[] teamFiles)
 		{
-			InitializeData(configFile, teamFiles);
+			gameDataRetriever.Retrieve(configFile, teamFiles);
 			BeginSimulation();
 		}
 
-		private void InitializeData(ConfigFile configFile, TeamFile[] teamFiles)
-		{
-			//Retrive data an put it in the teams.
-		}
+
 		private void BeginSimulation()
 		{
 			UpdateTurnOrder();
@@ -31,6 +29,8 @@ namespace WarSimulator_Handmade
 		}
 		private void UpdateTurnOrder()
 		{
+			//Sorts the regimentTurnOrder descending
+			regimentTurnOrder.Sort((a, b) => a.movement.CompareTo(b.movement));
 
 		}
     }

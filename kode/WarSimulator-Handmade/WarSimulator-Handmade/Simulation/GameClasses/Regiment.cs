@@ -12,16 +12,13 @@ namespace WarSimulator_Handmade.Simulation
 		//RegimentSize, RegimentType, RegimentRange, RegimentDamage, RegimentMovement, RegimentAttackSpeed
 
 
-		int size;
-		int range;
-		int damage;
-		int movement;
-		int attackSpeed;
-		string type;
-		string name;
-
-
-
+		public int size;
+		public int range;
+		public int damage;
+		public int movement;
+		public int attackSpeed;
+		public string type;
+		public string name;
 
     }
 }
