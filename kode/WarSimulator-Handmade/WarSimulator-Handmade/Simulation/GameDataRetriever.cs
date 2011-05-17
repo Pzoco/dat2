@@ -8,17 +8,19 @@ namespace WarSimulator_Handmade.Simulation
 {
 	class GameDataRetriever:Visitor
 	{
-		private Grid grid;
+		private Grid grid = new Grid();
 		private Regiment currentRegiment;
-		private Regiment standardsRegiment;
 		private int currentTeam;
 		private Team[] teams;
+		private bool checkingForRegiments = true;
 
+		#region public Methods
 		public GameState Retrieve(ConfigFile configFile, TeamFile[] teamFiles)
 		{
 			teams = new Team[teamFiles.Length];
 			for (currentTeam = 0; currentTeam < teamFiles.Length; currentTeam++)
 			{
+				teams[currentTeam] = new Team();
 				currentRegiment = new Regiment();
 				teamFiles[currentTeam].Visit(this, null);
 			}
@@ -27,8 +29,18 @@ namespace WarSimulator_Handmade.Simulation
 
 			return null;
 		}
+		public bool CheckUnitStats(Regiment regiment)
+		{
+			bool errorFound = false;
+			if (regiment.size == 0) { errorFound = true; Console.WriteLine("Missing Size for {0}",regiment.name);}
+			else if (regiment.health == 0) { errorFound = true; Console.WriteLine("Missing Size for {0}", regiment.name); }
+			else if (regiment.movement == 0) { errorFound = true; Console.WriteLine("Missing Movement for {0}", regiment.name); }
+			else if (regiment.range == 0) { errorFound = true; Console.WriteLine("Missing Range for {0}", regiment.name); }
+			return errorFound;
+		}
+		#endregion
 
-
+		#region Visitor Classes
 		#region Used in the team/config files
 		#region Files
 		public Object VisitTeamFile(TeamFile ast, Object obj)
@@ -130,8 +142,8 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitUnitStatPositionDeclaration(UnitStatPositionDeclaration ast, Object obj)
 		{
-			int x = (int)ast.x.Visit(this,null);
-			int y = (int) ast.y.Visit(this,null);
+			int x = Int32.Parse((string)ast.x.Visit(this, null));
+			int y = Int32.Parse((string)ast.y.Visit(this,null));
 			currentRegiment.position = new Regiment.Position(x,y);
 			return null;
 		}
@@ -152,7 +164,6 @@ namespace WarSimulator_Handmade.Simulation
 		#endregion
 		#endregion
 	
-
 		#region Not used here
 		public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
 		{
@@ -289,7 +300,6 @@ namespace WarSimulator_Handmade.Simulation
 		#endregion
 		#endregion
 
-
 		#region Identifiers etc
 		public Object VisitAttackType(AttackType ast, Object obj)
 		{
@@ -311,6 +321,7 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			return ast.spelling;
 		}
+		#endregion
 		#endregion
 	}
 }

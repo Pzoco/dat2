@@ -13,10 +13,16 @@ namespace WarSimulator_Handmade.Simulation
 		Tile[,] tiles;
 		public int width;
 		public int height;
-		public Grid(int width, int height)
-		{
-			//Create a grid with the size width*height
 
+		public void InstantiateGrid()
+		{
+			for (int x = 0; x < width; x++)
+			{
+				for (int y = 0; y < height; y++)
+				{
+					tiles[x, y] = new Tile();
+				}
+			}
 		}
     }
 }

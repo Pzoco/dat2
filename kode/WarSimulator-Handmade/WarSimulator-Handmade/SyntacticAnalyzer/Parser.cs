@@ -521,8 +521,10 @@ namespace WarSimulator_Handmade
         private RulesBlock ParseRulesBlock()
         {
 			Accept(Token.TokenType.Rules);
+			Accept(Token.TokenType.LeftBracket);
             StandardsBlock sb = ParseStandardsBlock();
             MaximaBlock mb = ParseMaximaBlock();
+			Accept(Token.TokenType.RightBracket);
             return new RulesBlock(mb, sb);
         }
         private MaximaBlock ParseMaximaBlock()
