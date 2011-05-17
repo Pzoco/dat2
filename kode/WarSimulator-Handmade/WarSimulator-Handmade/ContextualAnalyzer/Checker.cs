@@ -39,7 +39,7 @@ namespace WarSimulator_Handmade
         }
 
         #region Blocks
-        public Object VisitBehaviourBlock(Regiment ast, Object obj)
+        public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
         {
             idTable.Open();
             ast.bn.Visit(this, null);
