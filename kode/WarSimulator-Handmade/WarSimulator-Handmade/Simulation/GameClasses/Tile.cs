@@ -8,5 +8,8 @@ namespace WarSimulator_Handmade.Simulation
 {
     class Tile
     {
+
+
+
     }
 }
