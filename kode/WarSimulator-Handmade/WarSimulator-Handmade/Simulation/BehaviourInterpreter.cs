@@ -22,6 +22,7 @@ namespace WarSimulator_Handmade.Simulation
 		private abstract class Value { }
 		private class BoolValue : Value { public bool b;}
 		private class IntValue : Value { public int i;}
+		private class TypeValue : Value {public Regiment.AttackType t;}
 		private class UndefinedValue : Value { }
 		#endregion
 
@@ -126,6 +127,7 @@ namespace WarSimulator_Handmade.Simulation
 
 		private Value CheckBinaryExpression(string op, Value v1, Value v2)
 		{
+			#region Int expressions
 			if (v1 is IntValue)
 			{
 				int i1 = ((IntValue)v1).i;
@@ -146,6 +148,8 @@ namespace WarSimulator_Handmade.Simulation
 					case "*": i.i = i1 * i2; return i;
 				}
 			}
+			#endregion
+			#region Bool expressions
 			else if (v1 is BoolValue)
 			{
 				bool b1 = ((BoolValue)v1).b;
@@ -157,6 +161,20 @@ namespace WarSimulator_Handmade.Simulation
 					case "||": if (b1 && b2) { b.b = true; } else { b.b = false; } return b;
 				}
 			}
+			#endregion
+			#region Type expressions
+			else if (v1 is TypeValue)
+			{
+				Regiment.AttackType t1 = ((TypeValue)v1).t;
+				Regiment.AttackType t2 = ((TypeValue)v2).t;
+				BoolValue b = new BoolValue();
+				switch (op)
+				{
+					case "==": if (t1 == t2) { b.b = true; } else { b.b = false; } return b;
+					case "!=": if (t1 != t2) { b.b = true; } else { b.b = false; } return b;
+				}
+			}
+			#endregion
 			Console.WriteLine("Found a undefined value - Maybe there is a problem");
 			return new UndefinedValue();
 		}
@@ -204,23 +222,19 @@ namespace WarSimulator_Handmade.Simulation
 		#region Expressions
 		public Object VisitBinaryExpression(BinaryExpression ast, Object obj)
 		{
-			DataType eType1 = (DataType)ast.e1.Visit(this, null);
-			DataType eType2 = (DataType)ast.e2.Visit(this, null);
-			Declaration declaration = (Declaration)ast.o.Visit(this, null);
-			if (declaration != null)
-			{
-				BinaryOperatorDeclaration bod = (BinaryOperatorDeclaration)declaration;
-				ast.type = bod.result;
-			}
-			return ast.type;
+			Value v1 = (Value)ast.e1.Visit(this, null);
+			Value v2 = (Value)ast.e2.Visit(this, null);
+			string op = (string)ast.o.Visit(this, null);
+			return CheckBinaryExpression(op, v1, v2);
 		}
 		public Object VisitIntegerExpression(IntegerExpression ast, Object obj)
 		{
-			return ast.il.spelling;
+			IntValue i = new IntValue();
+			i.i = Int32.Parse((string)ast.il.Visit(this,null));
+			return i;
 		}
 		public Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj)
 		{
-
 			return ast.type;
 		}
 
@@ -231,14 +245,25 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitUnitStatVNameExpression(UnitStatVNameExpression ast, Object obj)
 		{
-			ast.type = (DataType)ast.ust.Visit(this, null);
-			return ast.type;
+			IntValue i = new IntValue();
+			string spelling = (string)ast.ust.Visit(this,null);
+			switch (spelling)
+			{
+				case "Size": i.i = currentRegiment.size; break;
+				case "Range": i.i = currentRegiment.range; break;
+				case "Damage": i.i = currentRegiment.damage; break;
+				case "Movement": i.i = currentRegiment.movement; break;
+				case "AttackSpeed": i.i = currentRegiment.attackSpeed; break;
+				case "Health": i.i = currentRegiment.health; break;
+				case "Type": TypeValue t = new TypeValue(); t.t = currentRegiment.type; return t;
+			}
+			return i;
 		}
 		#endregion
 		#region Identifiers etc
 		public Object VisitAttackType(AttackType ast, Object obj)
 		{
-			return DataType.AttackType;
+			return ast.spelling;
 		}
 		public Object VisitBlockName(BlockName ast, Object obj)
 		{
@@ -246,11 +271,11 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitIdentifier(Identifier ast, Object obj)
 		{
-			return null;
+			return ast.spelling;
 		}
 		public Object VisitIntegerLiteral(IntegerLiteral ast, Object obj)
 		{
-			return DataType.Integer;
+			return Int32.Parse(ast.spelling);
 		}
 		public Object VisitOperator(Operator ast, Object obj)
 		{
@@ -325,8 +350,9 @@ namespace WarSimulator_Handmade.Simulation
 		//Unit function
 		public Object VisitUnitFunction(UnitFunction ast, Object obj)
 		{
-			Declaration declaration = (Declaration)ast.i.Visit(this, null);
+			string spelling = (string)ast.i.Visit(this, null);
 			ast.ufn.Visit(this, null);
+			
 			return null;
 		}
 		public Object VisitUnitFunctionName(UnitFunctionName ast, Object obj)

@@ -5,19 +5,22 @@ using System.Text;
 
 namespace WarSimulator_Handmade.Simulation
 {
-    class Regiment
-    {
+	class Regiment
+	{
+		#region A struct for position and an enum for attacktype
 		public struct Position
 		{
-			public int x,y;
-			public Position (int x,int y)
+			public int x, y;
+			public Position(int x, int y)
 			{
 				this.x = x;
 				this.y = y;
 			}
 		}
 		public enum AttackType { Melee, Ranged }
+		#endregion
 
+		#region Fields
 		public int size;
 		public int range;
 		public int damage;
@@ -29,6 +32,9 @@ namespace WarSimulator_Handmade.Simulation
 		public Position position;
 		public AttackType type;
 		public BehaviourBlock behaviour;
+		#endregion
+
+		#region Public Methods
 
 		public int GetDistanceTo(Regiment regiment)
 		{
@@ -37,5 +43,29 @@ namespace WarSimulator_Handmade.Simulation
 			distance += Math.Abs(regiment.position.y - position.y);
 			return distance;
 		}
-    }
+		public void Attack(Regiment regiment)
+		{
+			regiment.health -= damage * size;
+
+		}
+		public void MoveTowards()
+		{
+
+		}
+		public void MoveAway()
+		{
+
+		}
+		#endregion
+
+		#region Private Methods
+		private void GetDamage(int damage)
+		{
+			while (damage > 0)
+			{
+				
+			}
+		}
+		#endregion
+	}
 }
