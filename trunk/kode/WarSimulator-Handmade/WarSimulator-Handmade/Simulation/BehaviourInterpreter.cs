@@ -5,13 +5,30 @@ using System.Text;
 
 namespace WarSimulator_Handmade.Simulation
 {
-	class BehaviourInterpreter:Visitor
+	class BehaviourInterpreter : Visitor
 	{
+		//Used to keep track of the regiments assigned
+		class RegimentAssignment
+		{
+			public Regiment regiment;
+			public string identifier;
+			public RegimentAssignment(Regiment regiment, string identifier)
+			{
+				this.regiment = regiment;
+				this.identifier = identifier;
+			}
+		}
+		private List<RegimentAssignment> regimentAssignments;
+		private GameState currentGameState;
+
 		public GameState InterpreteBehaviour(Regiment currentRegiment, GameState gameState)
 		{
+			currentGameState = gameState;
 			currentRegiment.behaviour.Visit(this, null);
 			return null;
 		}
+
+
 
 		public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
 		{
@@ -96,7 +113,7 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitOperator(Operator ast, Object obj)
 		{
-			return null;
+			return ast.spelling;
 		}
 		#endregion
 
@@ -104,9 +121,9 @@ namespace WarSimulator_Handmade.Simulation
 		//Regiment Assignment
 		public Object VisitRegimentDeclaration(RegimentDeclaration ast, Object obj)
 		{
-			ast.rs.Visit(this, null);
-			Declaration declaration = (Declaration)ast.i.Visit(this, null);
-			ast.i.type = DataType.Regiment;
+			string identifier = (string)ast.i.Visit(this, null);
+			Regiment regiment = (Regiment)ast.rs.Visit(this, null);
+			regimentAssignments.Add(new RegimentAssignment(regiment, identifier));
 			return null;
 		}
 		public Object VisitRegimentDeclarationCommand(RegimentDeclarationCommand ast, Object obj)
@@ -124,25 +141,94 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitParameter(Parameter ast, Object obj)
 		{
-			DataType eType1 = (DataType)ast.ust.Visit(this, null);
+			ast.ust.Visit(this, null);
 			DataType eType2 = (DataType)ast.il.Visit(this, null);
-			Declaration declaration = (Declaration)ast.o.Visit(this, null);
-			if (declaration != null)
-			{
-				BinaryOperatorDeclaration bod = (BinaryOperatorDeclaration)declaration;
-			}
-			return null;
+			string operatorSpelling = (string)ast.o.Visit(this, null);
+			return ast;
 		}
 
 		public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
 		{
-			ast.rsn.Visit(this, null);
+			string regimentSearchSpelling = (string)ast.rsn.Visit(this, null);
+			if (regimentSearchSpelling == "SearchForFriends")
+			{
+
+			}
+			else
+			{
+
+			}
+
 			ast.p.Visit(this, null);
 			return ast.p.Visit(this, null);
 		}
+		//Gets regiments by checking if there are any regiments where unitStat op value is true (parameter).
+		private List<Regiment> GetRegiments(List<Regiment> regiments, string unitStat, int value, string op)
+		{
+			List<Regiment> regimentsToGet = new List<Regiment>();
+			foreach (Regiment regiment in regiments)
+			{
+				Regiment foundRegiment = new Regiment();
+				switch (unitStat)
+				{
+					case "AttackSpeed":
+						switch (op)
+						{
+							case ">": break;
+							case "<": break;
+							case "==": break;
+
+						} break;
+					case "Damage":
+						switch (op)
+						{
+							case ">": break;
+							case "<": break;
+							case "==": break;
+
+						} break;
+					case "Distance":
+						switch (op)
+						{
+							case ">": break;
+							case "<": break;
+							case "==": break;
+
+						} break;
+					case "Size":
+						switch (op)
+						{
+							case ">": break;
+							case "<": break;
+							case "==": break;
+
+						} break;
+					case "Range":
+						switch (op)
+						{
+							case ">": break;
+							case "<": break;
+							case "==": break;
+
+						} break;
+					case "Health":
+						switch (op)
+						{
+							case ">": break;
+							case "<": break;
+							case "==": break;
+							case ">=": break;
+							case "<=": break;
+
+						} break;
+				}
+			}
+			return regiments;
+		}
+
 		public Object VisitRegimentSearchName(RegimentSearchName ast, Object obj)
 		{
-			return null;
+			return ast.spelling;
 		}
 
 		//Unit function

@@ -412,7 +412,8 @@ namespace WarSimulator_Handmade
         public Object VisitUnitStatVName(UnitStatVName ast, Object obj)
         {
             if (ast.spelling == "Size" || ast.spelling == "Range" ||
-                ast.spelling == "Damage" || ast.spelling == "Movement")
+                ast.spelling == "Damage" || ast.spelling == "Movement" || 
+				ast.spelling == "AttackSpeed" || ast.spelling == "Health")
             {
                 ast.dataType = DataType.Integer;
                 return ast.dataType;
