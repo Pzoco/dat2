@@ -114,7 +114,7 @@ namespace WarSimulator_Handmade
                 Accept(Token.TokenType.LeftBracket);
                 SingleCommand sc = ParseSingleCommand();
                 Accept(Token.TokenType.RightBracket);
-                bb = new Regiment(bn, sc);
+				bb = new BehaviourBlock(bn, sc);
             }
             return bb;
         }
@@ -588,7 +588,7 @@ namespace WarSimulator_Handmade
                         break;
                 }
             }
-            Regiment bb = ParseBehaviourBlock();
+			BehaviourBlock bb = ParseBehaviourBlock();
             Accept(Token.TokenType.RightBracket);
             return new StandardsBlock(usds, bb);
         }
