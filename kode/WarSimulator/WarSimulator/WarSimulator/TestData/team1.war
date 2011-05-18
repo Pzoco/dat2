@@ -13,7 +13,7 @@ Regiment SilentMonkeys1
 	Behaviour SilentMonkeysBehavoiur1
 	{
 		Regiment enemy = SearchForEnemies(Size<10);
-		If (enemy.Distance <= Range && enemy.Size < 200)
+		If (enemy.Distance <= Range)
 		{
 			Attack(enemy);
 		}
@@ -25,7 +25,7 @@ Regiment SilentMonkeys1
 			}
 			Attack(enemy);
 		}
-		If (enemy.Distance <= Range && enemy.Damage == 10)
+		If (enemy.Distance <= Range)
 		{
 			MoveAway(enemy);
 			If(enemy.Distance <= Range)
