@@ -15,7 +15,7 @@ namespace WarSimulator_Handmade
         }
         public override Object Visit(Visitor v, Object arg)
         {
-            return null;
+			return v.VisitSequentialSingleCommand(this, arg);
         }
     }
 }

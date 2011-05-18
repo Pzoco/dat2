@@ -18,9 +18,10 @@ namespace WarSimulator_Handmade
         {
             if (args.Length == 0)
             {
-                args = new string[2];
-                args[0] = "TestData//config.cfg";
-                args[1] = "TestData//team.war";
+                args = new string[3];
+                args[0] = "TestData/config.cfg";
+                args[1] = "TestData/team1.war";
+				args[2] = "TestData/team2.war";
                 TryStartSimulation(args);
             }
             else if (args.Length < 3)
@@ -43,8 +44,6 @@ namespace WarSimulator_Handmade
 
             #region Checking for Correct Usage
             List<string> teamFilesArgs = new List<string>();
-            Console.WriteLine(args[0]);
-            Console.WriteLine(args[1]);
             for (int i = 1; i < args.Length; i++)
             {
                 if (!args[i].EndsWith(".war"))
@@ -114,7 +113,7 @@ namespace WarSimulator_Handmade
             }
             #endregion
 
-            #region Intepreting
+            #region Simulating
             if (allowedToInteprete)
             {
                 // Send all the data to the Simulator class A list of teamfiles and configfiles, + AST's

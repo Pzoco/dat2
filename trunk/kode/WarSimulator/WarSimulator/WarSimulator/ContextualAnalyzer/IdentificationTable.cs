@@ -5,7 +5,6 @@ using System.Text;
 
 namespace WarSimulator_Handmade
 {
-    //ER IKKE KORREKT BLIVER FIXED!
     class IdentificationTable
     {
         private int level = 0;
@@ -34,10 +33,12 @@ namespace WarSimulator_Handmade
         }
         public Declaration RetrieveEntry(string id)
         {
-            List<IdEntry> getEntries = this.entries.GetRange(0, 1);
-            if (entries[0] != null)
-            {
-                return entries[0].declaration;
+            foreach(IdEntry entry in entries)
+			{
+				if (entry.id == id)
+				{
+					return entry.declaration;
+				}
             }
             return null;
         }

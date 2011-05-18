@@ -1,0 +1,37 @@
+Team NinjaMonkeys1
+
+Regiment SilentMonkeys1
+//bueskytter
+{
+	Size = 200;
+	Type = Ranged;
+	Range = 120;
+	Damage = 2;
+	Movement = 30;
+	AttackSpeed = 1;
+	RegimentPosition = Position(0,0);
+	Behaviour SilentMonkeysBehavoiur1
+	{
+		Regiment enemy = SearchForEnemies(Size<10);
+		If (enemy.Distance <= Range && enemy.Size < 200)
+		{
+			Attack(enemy);
+		}
+		Else If (enemy.Distance <= Range+Movement)
+		{
+			While(enemy.Distance < Range)
+			{
+				MoveTowards(enemy);
+			}
+			Attack(enemy);
+		}
+		If (enemy.Distance <= Range && enemy.Damage == 10)
+		{
+			MoveAway(enemy);
+			If(enemy.Distance <= Range)
+			{
+				Attack(enemy);
+			}
+		}
+	}
+}

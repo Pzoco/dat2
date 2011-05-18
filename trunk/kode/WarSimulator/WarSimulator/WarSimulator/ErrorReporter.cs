@@ -28,7 +28,7 @@ namespace WarSimulator_Handmade
         // THIS IS A SIMPLE ERROR REPORTER, BORROWED FROM THE C# IMPLEMENTATION OF MINI-TRIANGLE MADE BY BENT THOMSEN
         public void ReportCheckerError(String msg, String tokName, SourcePosition pos)
         {
-            Console.Write("CHECKER ERROR!");
+            Console.Write("Checker error:");
 
             for (int i = 0; i < msg.Length; i++)
                 if (msg[i] == '%')

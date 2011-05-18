@@ -15,7 +15,7 @@ namespace WarSimulator_Handmade
         }
         public override object Visit(Visitor v, object arg)
         {
-            return null;
+            return v.VisitRegimentDeclarationCommand(this,arg);
         }
     }
 }
