@@ -7,6 +7,7 @@ Regiment SilentMonkeys1
 	Type = Ranged;
 	Range = 120;
 	Damage = 2;
+	Health = 10;
 	Movement = 30;
 	AttackSpeed = 1;
 	RegimentPosition = Position(0,0);

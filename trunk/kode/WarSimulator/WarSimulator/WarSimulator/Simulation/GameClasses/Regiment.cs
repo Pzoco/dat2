@@ -119,7 +119,12 @@ namespace WarSimulator_Handmade.Simulation
 					currentHealth = health;
 					size--;
 				}
-				if (damage > 0)
+				else
+				{
+					currentHealth -= damage;
+					break;
+				}
+				if (damage > health)
 				{
 					int sizeRemoved = (int)Math.Floor((double)(damage / health));
 					damage -= sizeRemoved * health;
