@@ -247,6 +247,12 @@ namespace WarSimulator_Handmade
         {
             return null;
         }
+		public Object VisitSequentialSingleCommand(SequentialSingleCommand ast, Object obj)
+		{
+			ast.S1.Visit(this, null);
+			ast.S2.Visit(this, null);
+			return null;
+		}
         #endregion
 
         #region Regiment assignment related
@@ -316,7 +322,7 @@ namespace WarSimulator_Handmade
             {
                 reporter.ReportCheckerError("Regiment % was not declared", ast.i.spelling, ast.i.position);
             }
-            else if (ast.i.type != DataType.Regiment)
+			else if (!(declaration is RegimentDeclaration))
             {
                 reporter.ReportCheckerError("% was not of type Regiment", ast.i.spelling, ast.i.position);
             }
@@ -346,7 +352,7 @@ namespace WarSimulator_Handmade
         }
         public Object VisitUnitStatType(UnitStatType ast, Object obj)
         {
-            return null;
+            return DataType.Integer;
         }
         #endregion
 
@@ -466,8 +472,8 @@ namespace WarSimulator_Handmade
             DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, ">=", DataType.Boolean);
             DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "<=", DataType.Boolean);
             DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "==", DataType.Boolean);
-            DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "||", DataType.Boolean);
-            DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "&&", DataType.Boolean);
+            //DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "||", DataType.Boolean);
+            //DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "&&", DataType.Boolean);
 		}
 		#endregion
 	}

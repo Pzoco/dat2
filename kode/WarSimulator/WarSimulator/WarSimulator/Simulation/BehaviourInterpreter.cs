@@ -200,6 +200,12 @@ namespace WarSimulator_Handmade.Simulation
 			ast.sc.Visit(this, null);
 			return null;
 		}
+		public Object VisitSequentialSingleCommand(SequentialSingleCommand ast, Object obj)
+		{
+			ast.S1.Visit(this, null);
+			ast.S2.Visit(this, null);
+			return null;
+		}
 		#region Control Structures
 		public Object VisitIfCommand(IfCommand ast, Object obj)
 		{

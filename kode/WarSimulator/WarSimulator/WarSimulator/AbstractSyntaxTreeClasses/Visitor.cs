@@ -45,6 +45,7 @@ namespace WarSimulator_Handmade
 
         #region Misc
         Object VisitBehaviourAssignment(BehaviourAssignment ast, Object obj);
+		Object VisitSequentialSingleCommand(SequentialSingleCommand ast, Object obj);
         #endregion
 
         #region Regiment assignment related

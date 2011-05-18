@@ -12,7 +12,7 @@ namespace WarSimulator_Handmade
         public BinaryOperatorDeclaration(DataType arg1, DataType arg2, Operator o, DataType result)
         {
             this.arg1 = arg1;
-            this.arg1 = arg2;
+            this.arg2 = arg2;
             this.o = o;
             this.result = result;
         }

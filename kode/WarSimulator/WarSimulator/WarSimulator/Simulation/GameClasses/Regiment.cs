@@ -21,6 +21,10 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				return new Vector2(x, y);
 			}
+			public override string ToString()
+			{
+				return "<"+x+","+y+">";
+			}
 		}
 		public enum AttackType { Melee, Ranged }
 		#endregion
@@ -52,8 +56,15 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public void Attack(Regiment regiment)
 		{
-			if (GetDistanceTo(regiment) == 1)
+			int distance = GetDistanceTo(regiment);
+			if (distance == 1)
 			{
+				Console.WriteLine("Regiment {0} deals damage to {1}", name, regiment.name);
+				regiment.GetDamage(damage);
+			}
+			else if (range > distance && type == AttackType.Ranged)
+			{
+				Console.WriteLine("Regiment {0} deals damage to {1}", name, regiment.name);
 				regiment.GetDamage(damage);
 			}
 		}

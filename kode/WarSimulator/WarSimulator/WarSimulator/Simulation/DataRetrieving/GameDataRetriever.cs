@@ -10,13 +10,18 @@ namespace WarSimulator_Handmade.Simulation
 	{
 		#region Fields
 		//The grid we are trying to retrieve
-		private Grid grid = new Grid();
+		private Grid grid;
+		//Grid name
+		private string name;
+
 		//All the teams we are trying to retrieve
 		private Team[] teams;
 
 		//Where we will save the maxima data
 		private MaximaLimit maximaLimit;
 
+		//Used to check if we can save the currentregiment as a standardsregiment
+		private bool findingTeams = true;
 		//The current regiment will be saved to this regiment
 		private Regiment currentRegiment;
 		//The current team will be saved to this team
@@ -37,11 +42,18 @@ namespace WarSimulator_Handmade.Simulation
 				currentRegiment = new Regiment();
 				teamFiles[currentTeam].Visit(this, null);
 			}
+			findingTeams = false;
+
+			//Instantiating currentRegiment for the standards regiment and maximalimit for maxima
+			currentRegiment = new Regiment();
 			maximaLimit = new MaximaLimit();
+
+			//Gets data for grid, maxima and standards
 			configFile.Visit(this, null);
 
 			//Check for if all the data is valid
 			gameDataValidator = new GameDataValidator(maximaLimit, currentRegiment, grid, teams);
+			
 			if (gameDataValidator.valid)
 			{
 				return new GameState(grid, teams);
@@ -75,8 +87,7 @@ namespace WarSimulator_Handmade.Simulation
 		#region Blocks
 		public Object VisitGridBlock(GridBlock ast, Object obj)
 		{
-			grid.name = (string)ast.bn.Visit(this, null);
-			
+			name = (string)ast.bn.Visit(this, null);
 			ast.gss.ForEach(x => x.Visit(this, null));
 			return null;
 		}
@@ -91,7 +102,10 @@ namespace WarSimulator_Handmade.Simulation
 			currentRegiment.team = currentTeam;
 			ast.usds.ForEach(x => x.Visit(this, null));
 			currentRegiment.behaviour = (BehaviourBlock)ast.bb.Visit(this, null);
-			teams[currentTeam].regiments.Add(currentRegiment);
+			if (findingTeams)
+			{
+				teams[currentTeam].regiments.Add(currentRegiment);
+			}
 			return null;
 		}
 		public Object VisitRulesBlock(RulesBlock ast, Object obj)
@@ -110,20 +124,20 @@ namespace WarSimulator_Handmade.Simulation
 		#region Stats
 		public Object VisitGridStatDeclaration(GridStatDeclaration ast, Object obj)
 		{
-			ast.il.Visit(this, null);
-			if ((string)ast.gsnv.Visit(this, null) == "Width")
+			string spelling = (string)ast.gsnv.Visit(this, null);
+			if (spelling == "Width")
 			{
-				Grid.width = (int)ast.il.Visit(this, null);
+				Grid.width = Int32.Parse((string)ast.il.Visit(this, null));
 			}
-			else if ((string)ast.gsnv.Visit(this, null) == "Height")
+			else if (spelling == "Height")
 			{
-				Grid.height = (int)ast.il.Visit(this, null);
+				Grid.height = Int32.Parse((string)ast.il.Visit(this, null));
 			}
 			return null;
 		}
 		public Object VisitGridStatVName(GridStatVName ast, Object obj)
 		{
-			return null;
+			return ast.spelling;
 		}
 		public Object VisitMaximaStatDeclaration(MaximaStatDeclaration ast, Object obj)
 		{
@@ -186,6 +200,10 @@ namespace WarSimulator_Handmade.Simulation
 		#endregion
 	
 		#region Not used here
+		public Object VisitSequentialSingleCommand(SequentialSingleCommand ast, Object obj)
+		{
+			return null;
+		}
 		public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
 		{	
 			ast.bn.Visit(this, null);

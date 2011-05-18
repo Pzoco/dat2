@@ -64,6 +64,7 @@ namespace WarSimulator_Handmade
 				UpdateTurnOrder();
 				foreach (Regiment regiment in regimentTurnOrder)
 				{
+					Console.WriteLine(regiment.name);
 					currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
 				}
 				round++;
@@ -72,20 +73,22 @@ namespace WarSimulator_Handmade
 		}
 		protected override void Draw(GameTime gameTime)
 		{
+			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 			spriteBatch.Begin();
-			foreach (Team team in currentGameState.teams)
-			{
-				foreach (Regiment regiment in team.regiments)
-				{
-					spriteBatch.Draw(regTexture, regiment.position.ToVector2(), Color.White);
-				}
-			}
 			for (int x = 0; x < Grid.width; x++)
 			{
 				for (int y = 0; y < Grid.height; y++)
 				{
 					spriteBatch.Draw(gridTexture, new Vector2(x * 50, y * 50), Color.White);
 				}
+			}
+			foreach (Team team in currentGameState.teams)
+			{
+				foreach (Regiment regiment in team.regiments)
+				{
+					spriteBatch.Draw(regTexture, regiment.position.ToVector2()*50, Color.White);
+				}
+
 			}
 			spriteBatch.End();
 			base.Draw(gameTime);
