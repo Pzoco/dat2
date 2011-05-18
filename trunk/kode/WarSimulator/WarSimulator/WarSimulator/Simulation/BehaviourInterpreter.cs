@@ -298,7 +298,7 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitOperator(Operator ast, Object obj)
 		{
-			return ast.spelling;
+			return ast;
 		}
 		#endregion
 		#region Regiment assignment related
@@ -319,10 +319,10 @@ namespace WarSimulator_Handmade.Simulation
 		//Regiment Search
 		public Object VisitParameter(Parameter ast, Object obj)
 		{
-			UnitStatType ust = (UnitStatType)ast.ust.Visit(this, null);
-			Operator op = (Operator)ast.o.Visit(this, null);
-			IntegerLiteral il = (IntegerLiteral)ast.il.Visit(this, null);
-			return new Parameter(ust, op, il);
+			ast.ust.Visit(this, null);
+			ast.o.Visit(this, null);
+			ast.il.Visit(this, null);
+			return ast;
 		}
 		public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
 		{
