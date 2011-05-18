@@ -254,7 +254,9 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj)
 		{
-			return ast.type;
+			IntValue i = new IntValue();
+			i.i = (int)ast.rs.Visit(this, null);
+			return i;
 		}
 
 		//Vi har ikke engang unary expressions?
@@ -298,7 +300,7 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitOperator(Operator ast, Object obj)
 		{
-			return ast;
+			return ast.spelling;
 		}
 		#endregion
 		#region Regiment assignment related
@@ -359,7 +361,11 @@ namespace WarSimulator_Handmade.Simulation
 				regimentsFound = GetRegiments(regimentsFound, parameter);
 				if (regimentsFound == null) { break; }
 			}
-			return regimentsFound;
+			if (regimentsFound.Count == 0)
+			{
+				return null;
+			}
+			return regimentsFound[0];
 		}
 		public Object VisitRegimentSearchName(RegimentSearchName ast, Object obj)
 		{
@@ -388,13 +394,25 @@ namespace WarSimulator_Handmade.Simulation
 		//Regiment stat
 		public Object VisitRegimentStat(RegimentStat ast, Object obj)
 		{
-			ast.i.Visit(this, null);
-			ast.ust.Visit(this, null);
-			return null;
+			int value = 0;
+			string identifier = (string)ast.i.Visit(this, null);
+			string spelling = (string)ast.ust.Visit(this, null);
+			Regiment regiment = GetRegiment(identifier);
+			switch (spelling)
+			{
+				case "Size": value = regiment.size; break;
+				case "Distance": value = regiment.GetDistanceTo(currentRegiment); break;
+				case "Range": value = regiment.range; break;
+				case "AttackSpeed": value = regiment.attackSpeed; break;
+				case "Health": value = regiment.health; break;
+				case "Movement": value = regiment.health; break;
+				case "Damage": value = regiment.damage; break;
+			}
+			return value;
 		}
 		public Object VisitUnitStatType(UnitStatType ast, Object obj)
 		{
-			return null;
+			return ast.spelling;
 		}
 		#endregion
 

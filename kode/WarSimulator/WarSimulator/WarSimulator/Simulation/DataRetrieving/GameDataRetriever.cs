@@ -151,7 +151,7 @@ namespace WarSimulator_Handmade.Simulation
 				case "Range": maximaLimit.range = value; break;
 				case "AttackSpeed": maximaLimit.attackSpeed = value; break;
 				case "Health": maximaLimit.health = value; break;
-				case "Movement": maximaLimit.health = value; break;
+				case "Movement": maximaLimit.movement = value; break;
 				case "Damage": maximaLimit.damage = value; break;
 			}
 			return null;
@@ -166,10 +166,10 @@ namespace WarSimulator_Handmade.Simulation
 			int value = Int32.Parse((string)ast.il.Visit(this, null));
 			switch (spelling)
 			{
-				case "Size": currentRegiment.size = value; break;
+				case "Size": currentRegiment.size = value; currentRegiment.currentSize = value; break;
 				case "Damage": currentRegiment.damage = value; break;
 				case "Range": currentRegiment.range = value; break;
-				case "Health": currentRegiment.health = value; break;
+				case "Health": currentRegiment.health = value; currentRegiment.currentHealth = value; break;
 				case "Movement": currentRegiment.movement = value; break;
 				case "AttackSpeed": currentRegiment.attackSpeed = value; break;
 			}
