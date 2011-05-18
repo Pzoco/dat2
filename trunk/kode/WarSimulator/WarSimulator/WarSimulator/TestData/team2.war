@@ -3,9 +3,9 @@ Team NinjaMonkeys2
 Regiment SilentMonkeys2
 //bueskytter
 {
-	Size = 200;
+	Size = 20;
 	Type = Ranged;
-	Range = 120;
+	Range = 10;
 	Damage = 2;
 	Health = 10;
 	Movement = 30;
@@ -13,7 +13,7 @@ Regiment SilentMonkeys2
 	RegimentPosition = Position(2,2);
 	Behaviour SilentMonkeysBehavoiur2
 	{
-		Regiment enemy = SearchForEnemies(Size<10);
+		Regiment enemy = SearchForEnemies();
 		If (enemy.Distance <= Range)
 		{
 			Attack(enemy);

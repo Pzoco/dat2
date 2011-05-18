@@ -43,6 +43,7 @@ namespace WarSimulator_Handmade.Simulation
 		public Position position;
 		public AttackType type;
 		public BehaviourBlock behaviour;
+		public bool hasAttacked = false;
 		#endregion
 
 		#region Public Methods
@@ -56,21 +57,26 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public void Attack(Regiment regiment)
 		{
-			int distance = GetDistanceTo(regiment);
-			if (distance == 1)
+			if (!hasAttacked)
 			{
-				Console.WriteLine("Regiment {0} deals damage to {1}", name, regiment.name);
-				regiment.GetDamage(damage);
-			}
-			else if (range > distance && type == AttackType.Ranged)
-			{
-				Console.WriteLine("Regiment {0} deals damage to {1}", name, regiment.name);
-				regiment.GetDamage(damage);
+				int distance = GetDistanceTo(regiment);
+				if (distance == 1)
+				{
+					Console.WriteLine("Regiment {0} deals damage to {1}", name, regiment.name);
+					regiment.GetDamage(damage);
+				}
+				else if (range > distance && type == AttackType.Ranged)
+				{
+					Console.WriteLine("Regiment {0} deals damage to {1}", name, regiment.name);
+					regiment.GetDamage(damage);
+				}
+				hasAttacked = true;
 			}
 		}
-		public void MoveTowards(Regiment regiment)
+		public void MoveAway(Regiment regiment)
 		{
-			double angle = Math.Atan2(position.y - regiment.position.y, position.x - regiment.position.x) * 180 / Math.PI;
+			double angle = Math.Abs(Math.Atan2(position.y - regiment.position.y, 
+												position.x - regiment.position.x) * 180 / Math.PI);
 			if (angle > 45 && angle <= 135)
 			{
 				MoveUp();
@@ -88,9 +94,10 @@ namespace WarSimulator_Handmade.Simulation
 				MoveRight();
 			}
 		}
-		public void MoveAway(Regiment regiment)
+		public void MoveTowards(Regiment regiment)
 		{
-			double angle = Math.Atan2(position.y - regiment.position.y, position.x - regiment.position.x) * 180 / Math.PI;
+			double angle = Math.Abs(Math.Atan2(position.y - regiment.position.y,
+										position.x - regiment.position.x) * 180 / Math.PI);
 			if (angle > 45 && angle <= 135)
 			{
 				MoveDown();
@@ -110,14 +117,14 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public void GetDamage(int damage)
 		{
-			if (size <= 0) { return; }
+			if (currentSize <= 0) { return; }
 			while (damage > 0)
 			{
 				if (currentHealth < damage)
 				{
 					damage -= currentHealth;
 					currentHealth = health;
-					size--;
+					currentSize--;
 				}
 				else
 				{
@@ -128,9 +135,9 @@ namespace WarSimulator_Handmade.Simulation
 				{
 					int sizeRemoved = (int)Math.Floor((double)(damage / health));
 					damage -= sizeRemoved * health;
-					size -= sizeRemoved;
+					currentSize -= sizeRemoved;
 				}
-				if (size <= 0)
+				if (currentSize <= 0)
 				{
 					break;
 				}
@@ -143,28 +150,52 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			if (position.y > 0)
 			{
-				position.y -= 1;
+				if (!Grid.tiles[position.x, position.y-1].occupied)
+				{
+					Console.WriteLine("Regiment {0} moves up", name);
+					Grid.tiles[position.x, position.y].occupied = false;
+					position.y -= 1;
+					Grid.tiles[position.x, position.y].occupied = true;
+				}
 			}
 		}
 		private void MoveDown()
 		{
-			if (position.y < Grid.height)
+			if (position.y < Grid.height-1)
 			{
-				position.y += 1;
+				if (!Grid.tiles[position.x, position.y + 1].occupied)
+				{
+					Console.WriteLine("Regiment {0} moves down", name);
+					Grid.tiles[position.x, position.y].occupied = false;
+					position.y += 1;
+					Grid.tiles[position.x, position.y].occupied = true;
+				}
 			}
 		}
 		private void MoveLeft()
 		{
 			if (position.x > 0)
 			{
-				position.x -= 1;
+				if (!Grid.tiles[position.x-1, position.y].occupied)
+				{
+					Console.WriteLine("Regiment {0} moves left", name);
+					Grid.tiles[position.x, position.y].occupied = false;
+					position.x -= 1;
+					Grid.tiles[position.x, position.y].occupied = true;
+				}
 			}
 		}
 		private void MoveRight()
 		{
-			if (position.x < Grid.width)
+			if (position.x < Grid.width-1)
 			{
-				position.x += 1;
+				if (!Grid.tiles[position.x + 1, position.y].occupied)
+				{
+					Console.WriteLine("Regiment {0} moves left", name);
+					Grid.tiles[position.x, position.y].occupied = false;
+					position.x += 1;
+					Grid.tiles[position.x, position.y].occupied = true;
+				}
 			}
 		}
 		#endregion

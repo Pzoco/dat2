@@ -40,6 +40,8 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				teams[currentTeam] = new Team();
 				currentRegiment = new Regiment();
+				currentRegiment.team = currentTeam;
+				teams[currentTeam].number = currentTeam;
 				teamFiles[currentTeam].Visit(this, null);
 			}
 			findingTeams = false;
@@ -50,6 +52,7 @@ namespace WarSimulator_Handmade.Simulation
 
 			//Gets data for grid, maxima and standards
 			configFile.Visit(this, null);
+			Grid.InstantiateGrid();
 
 			//Check for if all the data is valid
 			gameDataValidator = new GameDataValidator(maximaLimit, currentRegiment, grid, teams);
@@ -99,7 +102,6 @@ namespace WarSimulator_Handmade.Simulation
 		public Object VisitRegimentBlock(RegimentBlock ast, Object obj) //Assignment of regiment data starts here
 		{
 			currentRegiment.name = (string)ast.bn.Visit(this, null);
-			currentRegiment.team = currentTeam;
 			ast.usds.ForEach(x => x.Visit(this, null));
 			currentRegiment.behaviour = (BehaviourBlock)ast.bb.Visit(this, null);
 			if (findingTeams)
