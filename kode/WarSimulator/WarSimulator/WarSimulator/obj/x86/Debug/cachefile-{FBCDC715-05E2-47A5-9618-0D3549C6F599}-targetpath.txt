@@ -1,4 +1,0 @@
-Content\gridTile.xnb
-Content\regTile.xnb
-Content\gridTile.png
-Content\regTile.png
