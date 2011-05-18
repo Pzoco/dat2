@@ -351,8 +351,12 @@ namespace WarSimulator_Handmade.Simulation
 		public Object VisitUnitFunction(UnitFunction ast, Object obj)
 		{
 			string spelling = (string)ast.i.Visit(this, null);
-			ast.ufn.Visit(this, null);
-			
+			string functionName = (string)ast.ufn.Visit(this, null);
+
+			switch (functionName)
+			{
+
+			}
 			return null;
 		}
 		public Object VisitUnitFunctionName(UnitFunctionName ast, Object obj)

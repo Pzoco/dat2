@@ -14,8 +14,14 @@ namespace WarSimulator_Handmade
 		//Used to retrieve gamedata from the ASTs
 		private GameDataRetriever gameDataRetriever = new GameDataRetriever();
 
+		//Used to interprete behaviours
+		BehaviourInterpreter behaviourInterpreter = new BehaviourInterpreter();
+
 		//Current state of the game
 		private GameState currentGameState;
+
+		//Round
+		private int round = 0;
 		#endregion
 
 		#region Constructor
@@ -36,16 +42,28 @@ namespace WarSimulator_Handmade
 		#region Methods
 		private void BeginSimulation()
 		{
-			UpdateTurnOrder();
-			foreach (Regiment regiment in regimentTurnOrder)
+			//GameLoop
+			while (true)
 			{
-				
+				Console.WriteLine("Starting round {0}", round);
+				UpdateTurnOrder();
+				foreach (Regiment regiment in regimentTurnOrder)
+				{
+					currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
+				}
+				round++;
 			}
 		}
 		private void UpdateTurnOrder()
 		{
+			regimentTurnOrder.Clear();
+			foreach (Team team in currentGameState.teams)
+			{
+				regimentTurnOrder.AddRange(team.regiments);
+			}
+
 			//Sorts the regimentTurnOrder descending
-			//regimentTurnOrder = currentGamestate.regiment.Sort((a, b) => a.movement.CompareTo(b.movement));
+			regimentTurnOrder.Sort((a, b) => a.movement.CompareTo(b.movement));
 		}
 		#endregion
 	}

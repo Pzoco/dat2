@@ -10,36 +10,54 @@ namespace WarSimulator_Handmade
     {
         private IdentificationTable idTable = new IdentificationTable();
         private ErrorReporter reporter = new ErrorReporter();
-        public Checker(TeamFile ast,ErrorReporter reporter)
+		private TeamFile teamFile;
+		private ConfigFile configFile;
+
+		#region Constructors
+		public Checker(TeamFile ast,ErrorReporter reporter)
         {
             this.reporter = reporter;
             EstablishStandardEnviroment();
-            ast.Visit(this, null);
-            if (reporter.numbErrors > 0)
-            {
-                Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numbErrors);
-            }
-            else
-            {
-                Console.WriteLine("Contextual analyzing success");
-            }
+			teamFile = ast;
         }
         public Checker(ConfigFile ast, ErrorReporter reporter)
         {
+			this.reporter = reporter;
             EstablishStandardEnviroment();
-            ast.Visit(this, null);
-            if (reporter.numbErrors > 0)
-            {
-                Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numbErrors);
-            }
-            else
-            {
-                Console.WriteLine("Contextual analyzing success");
-            }
+			configFile = ast;
         }
+		#endregion
 
-        #region Blocks
-        public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
+		public TeamFile CheckTeamFile()
+		{
+			TeamFile dast = (TeamFile)teamFile.Visit(this, null);
+			if (reporter.numbErrors > 0)
+			{
+				Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numbErrors);
+			}
+			else
+			{
+				Console.WriteLine("Contextual analyzing success");
+			}
+			return dast;
+		}
+		public ConfigFile CheckConfigFile()
+		{
+			ConfigFile dast = (ConfigFile)configFile.Visit(this, null);
+			if (reporter.numbErrors > 0)
+			{
+				Console.WriteLine("Contextual analyzing failed - Found {0} errors", reporter.numbErrors);
+			}
+			else
+			{
+				Console.WriteLine("Contextual analyzing success");
+			}
+			return dast;
+		}
+
+		#region Visitor methods
+		#region Blocks
+		public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
         {
             idTable.Open();
             ast.bn.Visit(this, null);
@@ -450,6 +468,7 @@ namespace WarSimulator_Handmade
             DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "==", DataType.Boolean);
             DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "||", DataType.Boolean);
             DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "&&", DataType.Boolean);
-        }
-    }
+		}
+		#endregion
+	}
 }
