@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using WarSimulator_Handmade.Simulation;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+
 namespace WarSimulator_Handmade
 {
-    public class Simulator
+	public class Simulator : Microsoft.Xna.Framework.Game
 	{
 		#region Fields
 		//Stores the order in which the regiment move
@@ -22,28 +27,37 @@ namespace WarSimulator_Handmade
 
 		//Round
 		private int round = 0;
+
+		//SpriteBatch used to draw sprites with
+		private SpriteBatch spriteBatch;
+
+		//Textures for reg and grid
+		GraphicsDeviceManager graphics;
+		private Texture2D gridTexture;
+		private Texture2D regTexture;
+		
 		#endregion
 
 		#region Constructor
 		public Simulator(ConfigFile configFile, TeamFile[] teamFiles)
 		{
 			currentGameState = gameDataRetriever.Retrieve(configFile, teamFiles);
-			if (currentGameState != null)
-			{
-				BeginSimulation();
-			}
-			else
-			{
-				Console.WriteLine("Failed to start Simulation");
-			}
+			graphics = new GraphicsDeviceManager(this);
 		}
 		#endregion
 
-		#region Methods
-		private void BeginSimulation()
+		#region XNA Methods
+		protected override void LoadContent()
 		{
-			//GameLoop
-			while (true)
+			spriteBatch = new SpriteBatch(GraphicsDevice);
+			
+			gridTexture = Content.Load<Texture2D>(Directory.GetCurrentDirectory()+"\\gridTile.png");
+			regTexture = Content.Load<Texture2D>("\\regTile.png");
+			base.LoadContent();
+		}
+		protected override void Update(GameTime gameTime)
+		{
+			if (currentGameState != null)
 			{
 				Console.WriteLine("Starting round {0}", round);
 				UpdateTurnOrder();
@@ -53,7 +67,31 @@ namespace WarSimulator_Handmade
 				}
 				round++;
 			}
+			base.Update(gameTime);
 		}
+		protected override void Draw(GameTime gameTime)
+		{
+			spriteBatch.Begin();
+			foreach (Team team in currentGameState.teams)
+			{
+				foreach (Regiment regiment in team.regiments)
+				{
+					spriteBatch.Draw(regTexture, regiment.position.ToVector2(), Color.White);
+				}
+			}
+			for (int x = 0; x < Grid.width; x++)
+			{
+				for (int y = 0; y < Grid.height; y++)
+				{
+					spriteBatch.Draw(gridTexture, new Vector2(x * 50, y * 50), Color.White);
+				}
+			}
+			spriteBatch.End();
+			base.Draw(gameTime);
+		}
+		#endregion
+
+		#region Methods
 		private void UpdateTurnOrder()
 		{
 			regimentTurnOrder.Clear();

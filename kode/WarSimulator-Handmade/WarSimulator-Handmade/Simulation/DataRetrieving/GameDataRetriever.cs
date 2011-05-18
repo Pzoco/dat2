@@ -108,17 +108,16 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		#endregion
 		#region Stats
-
 		public Object VisitGridStatDeclaration(GridStatDeclaration ast, Object obj)
 		{
 			ast.il.Visit(this, null);
 			if ((string)ast.gsnv.Visit(this, null) == "Width")
 			{
-				grid.width = (int)ast.il.Visit(this, null);
+				Grid.width = (int)ast.il.Visit(this, null);
 			}
 			else if ((string)ast.gsnv.Visit(this, null) == "Height")
 			{
-				grid.height = (int)ast.il.Visit(this, null);
+				Grid.height = (int)ast.il.Visit(this, null);
 			}
 			return null;
 		}

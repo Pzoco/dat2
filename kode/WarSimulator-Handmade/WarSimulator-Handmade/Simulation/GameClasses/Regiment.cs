@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace WarSimulator_Handmade.Simulation
 {
@@ -15,6 +16,10 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				this.x = x;
 				this.y = y;
+			}
+			public Vector2 ToVector2()
+			{
+				return new Vector2(x, y);
 			}
 		}
 		public enum AttackType { Melee, Ranged }
@@ -47,25 +52,103 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public void Attack(Regiment regiment)
 		{
-			regiment.health -= damage * size;
-
+			if (GetDistanceTo(regiment) == 1)
+			{
+				regiment.GetDamage(damage);
+			}
 		}
-		public void MoveTowards()
+		public void MoveTowards(Regiment regiment)
 		{
-
+			double angle = Math.Atan2(position.y - regiment.position.y, position.x - regiment.position.x) * 180 / Math.PI;
+			if (angle > 45 && angle <= 135)
+			{
+				MoveUp();
+			}
+			else if (angle > 135 && angle <= 215)
+			{
+				MoveLeft();
+			}
+			else if (angle > 215 && angle <= 305)
+			{
+				MoveDown();
+			}
+			else if (angle > 305 || angle < 45)
+			{
+				MoveRight();
+			}
 		}
-		public void MoveAway()
+		public void MoveAway(Regiment regiment)
 		{
-
+			double angle = Math.Atan2(position.y - regiment.position.y, position.x - regiment.position.x) * 180 / Math.PI;
+			if (angle > 45 && angle <= 135)
+			{
+				MoveDown();
+			}
+			else if (angle > 135 && angle <= 215)
+			{
+				MoveRight();
+			}
+			else if (angle > 215 && angle <= 305)
+			{
+				MoveUp();
+			}
+			else if (angle > 305 || angle < 45)
+			{
+				MoveLeft();
+			}
+		}
+		public void GetDamage(int damage)
+		{
+			if (size <= 0) { return; }
+			while (damage > 0)
+			{
+				if (currentHealth < damage)
+				{
+					damage -= currentHealth;
+					currentHealth = health;
+					size--;
+				}
+				if (damage > 0)
+				{
+					int sizeRemoved = (int)Math.Floor((double)(damage / health));
+					damage -= sizeRemoved * health;
+					size -= sizeRemoved;
+				}
+				if (size <= 0)
+				{
+					break;
+				}
+			}
 		}
 		#endregion
 
-		#region Private Methods
-		private void GetDamage(int damage)
+		#region Move methods
+		private void MoveUp()
 		{
-			while (damage > 0)
+			if (position.y > 0)
 			{
-				
+				position.y -= 1;
+			}
+		}
+		private void MoveDown()
+		{
+			if (position.y < Grid.height)
+			{
+				position.y += 1;
+			}
+		}
+		private void MoveLeft()
+		{
+			if (position.x > 0)
+			{
+				position.x -= 1;
+			}
+		}
+		private void MoveRight()
+		{
+			if (position.x < Grid.width)
+			{
+				position.x += 1;
 			}
 		}
 		#endregion
