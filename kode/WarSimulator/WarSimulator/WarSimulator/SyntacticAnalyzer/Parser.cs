@@ -399,6 +399,10 @@ namespace WarSimulator_Handmade
         }
         private List<Parameter> ParseParameters()
         {
+			if (currentToken.type == Token.TokenType.RightParen)
+			{
+				return null;
+			}
             UnitStatType ust = ParseUnitStatType();
             Operator o = ParseOperator();
             IntegerLiteral il = ParseIntegerLiteral();
@@ -411,7 +415,6 @@ namespace WarSimulator_Handmade
                 Operator o2 = ParseOperator();
                 IntegerLiteral il2 = ParseIntegerLiteral();
 				parameters.Add(new Parameter(ust2, o2, il2));
-
             }
 			return parameters;
         }

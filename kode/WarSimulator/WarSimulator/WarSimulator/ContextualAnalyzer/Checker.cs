@@ -306,7 +306,10 @@ namespace WarSimulator_Handmade
         public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
         {
             ast.rsn.Visit(this, null);
-            ast.p.ForEach(x=>x.Visit(this, null));
+			if (ast.p != null)
+			{
+				ast.p.ForEach(x => x.Visit(this, null));
+			}
             return null;
         }
         public Object VisitRegimentSearchName(RegimentSearchName ast, Object obj)

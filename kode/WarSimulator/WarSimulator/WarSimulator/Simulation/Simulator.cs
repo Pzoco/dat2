@@ -7,6 +7,7 @@ using WarSimulator_Handmade.Simulation;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System.Threading;
 
 namespace WarSimulator_Handmade
 {
@@ -28,6 +29,12 @@ namespace WarSimulator_Handmade
 		//Round
 		private int round = 0;
 
+		//Teams left
+		private int teamsLeft = 0;
+
+		//Game has ended?
+		bool gameEnded = false;
+
 		//SpriteBatch used to draw sprites with
 		private SpriteBatch spriteBatch;
 
@@ -42,6 +49,7 @@ namespace WarSimulator_Handmade
 		public Simulator(ConfigFile configFile, TeamFile[] teamFiles)
 		{
 			currentGameState = gameDataRetriever.Retrieve(configFile, teamFiles);
+			teamsLeft = teamFiles.Length;
 			Content.RootDirectory = "Content";
 			graphics = new GraphicsDeviceManager(this);
 		}
@@ -58,14 +66,30 @@ namespace WarSimulator_Handmade
 		}
 		protected override void Update(GameTime gameTime)
 		{
-			if (currentGameState != null)
+			if (currentGameState != null && gameEnded == false)
 			{
 				Console.WriteLine("Starting round {0}", round);
 				UpdateTurnOrder();
 				foreach (Regiment regiment in regimentTurnOrder)
 				{
-					Console.WriteLine(regiment.name);
-					currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
+					Console.WriteLine("Regiment {0}s turn - current size is {1}",regiment.name,regiment.currentSize);
+					if (regiment.currentSize > 0)
+					{
+						currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
+					}
+					else
+					{
+						currentGameState.teams[regiment.team].regiments.Remove(regiment);
+						if (currentGameState.teams[regiment.team].regiments.Count <= 0)
+						{
+							teamsLeft--;
+							if (teamsLeft == 1)
+							{
+								gameEnded = true;
+							}
+						}
+					}
+					Thread.Sleep(500);
 				}
 				round++;
 			}

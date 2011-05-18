@@ -8,8 +8,6 @@ namespace WarSimulator_Handmade.Simulation
 {
     class Tile
     {
-
-
-
+		public bool occupied = false;
     }
 }

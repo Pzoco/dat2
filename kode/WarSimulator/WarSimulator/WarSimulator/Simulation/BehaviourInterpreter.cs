@@ -42,9 +42,11 @@ namespace WarSimulator_Handmade.Simulation
 		//Interpretes the behaviour of a regiment and updates the state of the game
 		public GameState InterpreteBehaviour(Regiment regiment, GameState gameState)
 		{
+			regimentAssignments.Clear();
 			currentGameState = gameState;
 			currentRegiment = regiment;
-			regiment.behaviour.Visit(this, null);
+			currentRegiment.hasAttacked = false;
+			currentRegiment.behaviour.Visit(this, null);
 			return currentGameState;
 		}
 
@@ -74,68 +76,68 @@ namespace WarSimulator_Handmade.Simulation
 			//Tries to find a regiment which matches the criteria/parameter
 			foreach (Regiment regiment in regiments)
 			{
-				Regiment foundRegiment = new Regiment();
+				if (regiment.team == currentRegiment.team) { continue; }
 				switch (unitStat)
 				{
 					case "AttackSpeed":
 						switch (op)
 						{
-							case ">": if (regiment.attackSpeed > value) { foundRegiment = regiment; } break;
-							case "<": if (regiment.attackSpeed < value) { foundRegiment = regiment; } break;
-							case "==": if (regiment.attackSpeed == value) { foundRegiment = regiment; } break;
-							case ">=": if (regiment.attackSpeed >= value) { foundRegiment = regiment; } break;
-							case "<=": if (regiment.attackSpeed <= value) { foundRegiment = regiment; } break;
+							case ">": if (regiment.attackSpeed > value) { regimentsToGet.Add(regiment); } break;
+							case "<": if (regiment.attackSpeed < value) { regimentsToGet.Add(regiment); } break;
+							case "==": if (regiment.attackSpeed == value) { regimentsToGet.Add(regiment); } break;
+							case ">=": if (regiment.attackSpeed >= value) { regimentsToGet.Add(regiment); } break;
+							case "<=": if (regiment.attackSpeed <= value) { regimentsToGet.Add(regiment); } break;
 						} break;
 					case "Damage":
 						switch (op)
 						{
-							case ">": if (regiment.damage > value) { foundRegiment = regiment; } break;
-							case "<": if (regiment.damage < value) { foundRegiment = regiment; } break;
-							case "==": if (regiment.damage == value) { foundRegiment = regiment; } break;
-							case ">=": if (regiment.damage >= value) { foundRegiment = regiment; } break; ;
-							case "<=": if (regiment.damage <= value) { foundRegiment = regiment; } break;
+							case ">": if (regiment.damage > value) { regimentsToGet.Add(regiment); } break;
+							case "<": if (regiment.damage < value) { regimentsToGet.Add(regiment); } break;
+							case "==": if (regiment.damage == value) { regimentsToGet.Add(regiment); } break;
+							case ">=": if (regiment.damage >= value) { regimentsToGet.Add(regiment); } break; ;
+							case "<=": if (regiment.damage <= value) { regimentsToGet.Add(regiment); } break;
 						} break;
 					case "Distance":
 						int distance = currentRegiment.GetDistanceTo(regiment);
 						switch (op)
 						{
-							case ">": if (distance > value) { foundRegiment = regiment; } break;
-							case "<": if (distance < value) { foundRegiment = regiment; } break;
-							case "==": if (distance == value) { foundRegiment = regiment; } break;
-							case ">=": if (distance >= value) { foundRegiment = regiment; } break;
-							case "<=": if (distance <= value) { foundRegiment = regiment; } break;
+							case ">": if (distance > value) { regimentsToGet.Add(regiment); } break;
+							case "<": if (distance < value) { regimentsToGet.Add(regiment); } break;
+							case "==": if (distance == value) { regimentsToGet.Add(regiment); } break;
+							case ">=": if (distance >= value) { regimentsToGet.Add(regiment); } break;
+							case "<=": if (distance <= value) { regimentsToGet.Add(regiment); } break;
 						} break;
 					case "Size":
 						switch (op)
 						{
-							case ">": if (regiment.size > value) { foundRegiment = regiment; } break;
-							case "<": if (regiment.size < value) { foundRegiment = regiment; } break;
-							case "==": if (regiment.size == value) { foundRegiment = regiment; } break;
-							case ">=": if (regiment.size >= value) { foundRegiment = regiment; } break;
-							case "<=": if (regiment.size <= value) { foundRegiment = regiment; } break;
+							case ">": if (regiment.size > value) { regimentsToGet.Add(regiment); } break;
+							case "<": if (regiment.size < value) { regimentsToGet.Add(regiment); } break;
+							case "==": if (regiment.size == value) { regimentsToGet.Add(regiment); } break;
+							case ">=": if (regiment.size >= value) { regimentsToGet.Add(regiment); } break;
+							case "<=": if (regiment.size <= value) { regimentsToGet.Add(regiment); } break;
 						} break;
 					case "Range":
 						switch (op)
 						{
-							case ">": if (regiment.range > value) { foundRegiment = regiment; } break;
-							case "<": if (regiment.range < value) { foundRegiment = regiment; } break;
-							case "==": if (regiment.range == value) { foundRegiment = regiment; } break;
-							case ">=": if (regiment.range >= value) { foundRegiment = regiment; } break;
-							case "<=": if (regiment.range <= value) { foundRegiment = regiment; } break;
+							case ">": if (regiment.range > value) { regimentsToGet.Add(regiment); } break;
+							case "<": if (regiment.range < value) { regimentsToGet.Add(regiment); } break;
+							case "==": if (regiment.range == value) { regimentsToGet.Add(regiment); } break;
+							case ">=": if (regiment.range >= value) { regimentsToGet.Add(regiment); } break;
+							case "<=": if (regiment.range <= value) { regimentsToGet.Add(regiment); } break;
 						} break;
 					case "Health":
 						switch (op)
 						{
-							case ">": if (regiment.range > value) { foundRegiment = regiment; } break;
-							case "<": if (regiment.range < value) { foundRegiment = regiment; } break;
-							case "==": if (regiment.range == value) { foundRegiment = regiment; } break;
-							case ">=": if (regiment.range >= value) { foundRegiment = regiment; } break;
-							case "<=": if (regiment.range <= value) { foundRegiment = regiment; } break;
+							case ">": if (regiment.range > value) { regimentsToGet.Add(regiment); } break;
+							case "<": if (regiment.range < value) { regimentsToGet.Add(regiment); } break;
+							case "==": if (regiment.range == value) { regimentsToGet.Add(regiment); } break;
+							case ">=": if (regiment.range >= value) { regimentsToGet.Add(regiment); } break;
+							case "<=": if (regiment.range <= value) { regimentsToGet.Add(regiment); } break;
 						} break;
 				}
-				regimentsToGet.Add(foundRegiment);
+				
 			}
-			return regiments;
+			return regimentsToGet;
 		}
 
 		private Value CheckBinaryExpression(string op, Value v1, Value v2)
@@ -331,9 +333,6 @@ namespace WarSimulator_Handmade.Simulation
 			//Retrieves the type of regimentsearch we are doing
 			string regimentSearchSpelling = (string)ast.rsn.Visit(this, null);
 
-			//The regiment we are searching for
-			Regiment regimentFound = new Regiment();
-
 			//A list for storing all the regiments we find
 			List<Regiment> regimentsFound = new List<Regiment>();
 			if (regimentSearchSpelling == "SearchForFriends")
@@ -352,14 +351,17 @@ namespace WarSimulator_Handmade.Simulation
 					}
 				}
 			}
-			foreach (Parameter p in ast.p)
+			if (ast.p != null)
 			{
-				//Retrieves the parameter from the ast
-				Parameter parameter = (Parameter)p.Visit(this, null);
+				foreach (Parameter p in ast.p)
+				{
+					//Retrieves the parameter from the ast
+					Parameter parameter = (Parameter)p.Visit(this, null);
 
-				//Gets all the regiments which matches the parameter
-				regimentsFound = GetRegiments(regimentsFound, parameter);
-				if (regimentsFound == null) { break; }
+					//Gets all the regiments which matches the parameter
+					regimentsFound = GetRegiments(regimentsFound, parameter);
+					if (regimentsFound.Count == 0) { break; }
+				}
 			}
 			if (regimentsFound.Count == 0)
 			{
@@ -378,11 +380,14 @@ namespace WarSimulator_Handmade.Simulation
 			string spelling = (string)ast.i.Visit(this, null);
 			string functionName = (string)ast.ufn.Visit(this, null);
 			Regiment regiment = GetRegiment(spelling);
-			switch (functionName)
+			if (regiment != null)
 			{
-				case "Attack": currentRegiment.Attack(regiment);break;
-				case "MoveTowards": currentRegiment.MoveTowards(regiment); break;
-				case "MoveAway": currentRegiment.MoveAway(regiment); break;
+				switch (functionName)
+				{
+					case "Attack": currentRegiment.Attack(regiment); break;
+					case "MoveTowards": currentRegiment.MoveTowards(regiment); break;
+					case "MoveAway": currentRegiment.MoveAway(regiment); break;
+				}
 			}
 			return null;
 		}
@@ -398,15 +403,18 @@ namespace WarSimulator_Handmade.Simulation
 			string identifier = (string)ast.i.Visit(this, null);
 			string spelling = (string)ast.ust.Visit(this, null);
 			Regiment regiment = GetRegiment(identifier);
-			switch (spelling)
+			if (regiment != null)
 			{
-				case "Size": value = regiment.size; break;
-				case "Distance": value = regiment.GetDistanceTo(currentRegiment); break;
-				case "Range": value = regiment.range; break;
-				case "AttackSpeed": value = regiment.attackSpeed; break;
-				case "Health": value = regiment.health; break;
-				case "Movement": value = regiment.health; break;
-				case "Damage": value = regiment.damage; break;
+				switch (spelling)
+				{
+					case "Size": value = regiment.size; break;
+					case "Distance": value = regiment.GetDistanceTo(currentRegiment); break;
+					case "Range": value = regiment.range; break;
+					case "AttackSpeed": value = regiment.attackSpeed; break;
+					case "Health": value = regiment.health; break;
+					case "Movement": value = regiment.health; break;
+					case "Damage": value = regiment.damage; break;
+				}
 			}
 			return value;
 		}
