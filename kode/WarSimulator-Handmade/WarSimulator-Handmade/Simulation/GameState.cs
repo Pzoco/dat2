@@ -9,19 +9,13 @@ namespace WarSimulator_Handmade.Simulation
 	class GameState
 	{
 		public Grid grid;
-		public List<Team> teams;
-		public GameState(Grid grid, List<Team> teams)
+		public Team[] teams;
+		public GameState(Grid grid, Team[] teams)
 		{
 			this.grid = grid;
 			this.teams = teams;
 		}
 
-		//Checks if all the data is valid - Used after retrieving
-		public bool Validate()
-		{
-
-			return false;
-		}
 	}
 }
 

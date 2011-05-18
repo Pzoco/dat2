@@ -22,9 +22,11 @@ namespace WarSimulator_Handmade.Simulation
 
 		#region Fields
 		public int size;
+		public int currentSize;
+		public int currentHealth;
+		public int health;
 		public int range;
 		public int damage;
-		public int health;
 		public int movement;
 		public int attackSpeed;
 		public int team;

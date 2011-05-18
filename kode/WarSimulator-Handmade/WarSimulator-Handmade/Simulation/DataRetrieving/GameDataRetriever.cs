@@ -8,13 +8,26 @@ namespace WarSimulator_Handmade.Simulation
 {
 	class GameDataRetriever:Visitor
 	{
+		#region Fields
+		//The grid we are trying to retrieve
 		private Grid grid = new Grid();
-		private Regiment currentRegiment;
-		private int currentTeam;
+		//All the teams we are trying to retrieve
 		private Team[] teams;
-		private bool checkingForRegiments = true;
 
-		#region public Methods
+		//Where we will save the maxima data
+		private MaximaLimit maximaLimit;
+
+		//The current regiment will be saved to this regiment
+		private Regiment currentRegiment;
+		//The current team will be saved to this team
+		private int currentTeam;
+
+		//Used for validating the gamedata
+		private GameDataValidator gameDataValidator;
+		#endregion
+
+		#region Public Methods
+		//Retrieves all the teams and the grid.
 		public GameState Retrieve(ConfigFile configFile, TeamFile[] teamFiles)
 		{
 			teams = new Team[teamFiles.Length];
@@ -24,19 +37,16 @@ namespace WarSimulator_Handmade.Simulation
 				currentRegiment = new Regiment();
 				teamFiles[currentTeam].Visit(this, null);
 			}
+			maximaLimit = new MaximaLimit();
 			configFile.Visit(this, null);
-			//Check for if anything is missing in the standards.
 
+			//Check for if all the data is valid
+			gameDataValidator = new GameDataValidator(maximaLimit, currentRegiment, grid, teams);
+			if (gameDataValidator.valid)
+			{
+				return new GameState(grid, teams);
+			}
 			return null;
-		}
-		public bool CheckUnitStats(Regiment regiment)
-		{
-			bool errorFound = false;
-			if (regiment.size == 0) { errorFound = true; Console.WriteLine("Missing Size for {0}",regiment.name);}
-			else if (regiment.health == 0) { errorFound = true; Console.WriteLine("Missing Size for {0}", regiment.name); }
-			else if (regiment.movement == 0) { errorFound = true; Console.WriteLine("Missing Movement for {0}", regiment.name); }
-			else if (regiment.range == 0) { errorFound = true; Console.WriteLine("Missing Range for {0}", regiment.name); }
-			return errorFound;
 		}
 		#endregion
 
@@ -75,9 +85,10 @@ namespace WarSimulator_Handmade.Simulation
 			ast.msds.ForEach(x => x.Visit(this, null));
 			return null;
 		}
-		public Object VisitRegimentBlock(RegimentBlock ast, Object obj) //Useful
+		public Object VisitRegimentBlock(RegimentBlock ast, Object obj) //Assignment of regiment data starts here
 		{
-			ast.bn.Visit(this, null);
+			currentRegiment.name = (string)ast.bn.Visit(this, null);
+			currentRegiment.team = currentTeam;
 			ast.usds.ForEach(x => x.Visit(this, null));
 			currentRegiment.behaviour = (BehaviourBlock)ast.bb.Visit(this, null);
 			teams[currentTeam].regiments.Add(currentRegiment);
@@ -117,8 +128,19 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		public Object VisitMaximaStatDeclaration(MaximaStatDeclaration ast, Object obj)
 		{
-			ast.il.Visit(this, null);
-			ast.msv.Visit(this, null);
+			string spelling = (string)ast.msv.Visit(this, null); 
+			int value = Int32.Parse((string)ast.il.Visit(this, null));
+			switch (spelling)
+			{
+				case "Size": maximaLimit.size = value; break;
+				case "Regiments": maximaLimit.regiments = value; break;
+				case "Teams": maximaLimit.teams = value; break;
+				case "Range": maximaLimit.range = value; break;
+				case "AttackSpeed": maximaLimit.attackSpeed = value; break;
+				case "Health": maximaLimit.health = value; break;
+				case "Movement": maximaLimit.health = value; break;
+				case "Damage": maximaLimit.damage = value; break;
+			}
 			return null;
 		}
 		public Object VisitMaximaStatVName(MaximaStatVName ast, Object obj)
@@ -128,7 +150,7 @@ namespace WarSimulator_Handmade.Simulation
 		public Object VisitUnitStatIntegerDeclaration(UnitStatIntegerDeclaration ast, Object obj)
 		{
 			string spelling = (string)ast.sn.Visit(this, null);
-			int value = (int)ast.il.Visit(this, null);
+			int value = Int32.Parse((string)ast.il.Visit(this, null));
 			switch (spelling)
 			{
 				case "Size": currentRegiment.size = value; break;
@@ -166,10 +188,10 @@ namespace WarSimulator_Handmade.Simulation
 	
 		#region Not used here
 		public Object VisitBehaviourBlock(BehaviourBlock ast, Object obj)
-		{
+		{	
 			ast.bn.Visit(this, null);
 			ast.sc.Visit(this, null);
-			return null;
+			return ast;
 		}
 		#region Control Structures
 		public Object VisitIfCommand(IfCommand ast, Object obj)
@@ -178,19 +200,19 @@ namespace WarSimulator_Handmade.Simulation
 			ast.sc1.Visit(this, null);
 			if (ast.eifc != null) { ast.eifc.ForEach(x => x.Visit(this, null)); }
 			if (ast.sc2 != null) { ast.sc2.Visit(this, null); }
-			return null;
+			return ast;
 		}
 		public Object VisitElseIfCommand(ElseIfCommand ast, Object obj)
 		{
 			DataType type = (DataType)ast.e.Visit(this, null);
 			ast.sc.Visit(this, null);
-			return null;
+			return ast;
 		}
 		public Object VisitWhileCommand(WhileCommand ast, Object obj)
 		{
 			DataType type = (DataType)ast.e.Visit(this, null);
 			ast.sc.Visit(this, null);
-			return null;
+			return ast;
 		}
 		#endregion
 		#region Expressions

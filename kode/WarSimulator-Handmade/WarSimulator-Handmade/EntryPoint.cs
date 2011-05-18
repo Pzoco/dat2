@@ -94,12 +94,14 @@ namespace WarSimulator_Handmade
                 Console.WriteLine("Checking configfile ast");
                 reporter = new ErrorReporter();
                 checker = new Checker(configFile, reporter);
+				checker.CheckConfigFile();
 
                 for (int i = 0; i < args.Length-1; i++)
                 {
                     Console.WriteLine("Checking teamfile ast {0}", i);
                     reporter = new ErrorReporter();
                     checker = new Checker(teamFiles[i], reporter);
+					checker.CheckTeamFile();
                     if (reporter.numbErrors > 0)
                     {
                         allowedToInteprete = false;
