@@ -48,6 +48,19 @@ namespace WarSimulator_Handmade.Simulation
 			return currentGameState;
 		}
 
+		//Gets a regiment from the regiment assignments
+		private Regiment GetRegiment(string identifier)
+		{
+			foreach (RegimentAssignment regAss in regimentAssignments)
+			{
+				if (regAss.identifier == identifier)
+				{
+					return regAss.regiment;
+				}
+			}
+			return null;
+		}
+
 		//Gets regiments by checking if there are any regiments where unitStat op value is true (parameter).
 		private List<Regiment> GetRegiments(List<Regiment> regiments, Parameter parameter)
 		{
@@ -352,10 +365,12 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			string spelling = (string)ast.i.Visit(this, null);
 			string functionName = (string)ast.ufn.Visit(this, null);
-
+			Regiment regiment = GetRegiment(spelling);
 			switch (functionName)
 			{
-
+				case "Attack": currentRegiment.Attack(regiment);break;
+				case "MoveTowards": currentRegiment.MoveTowards(regiment); break;
+				case "MoveAway": currentRegiment.MoveAway(regiment); break;
 			}
 			return null;
 		}
