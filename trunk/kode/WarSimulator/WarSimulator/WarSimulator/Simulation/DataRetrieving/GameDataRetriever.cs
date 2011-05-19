@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace WarSimulator_Handmade.Simulation
 {
@@ -39,7 +40,17 @@ namespace WarSimulator_Handmade.Simulation
 			for (currentTeam = 0; currentTeam < teamFiles.Length; currentTeam++)
 			{
 				teams[currentTeam] = new Team();
+				Color color = new Color();
+				switch (currentTeam)
+				{
+					case 0: color = Color.Red; break;
+					case 1: color = Color.Blue; break;
+					case 2: color = Color.Yellow; break;
+					case 3: color = Color.Green; break;
+				}
+				teams[currentTeam].color = color;
 				currentRegiment = new Regiment();
+				currentRegiment.color = color;
 				currentRegiment.team = currentTeam;
 				teams[currentTeam].number = currentTeam;
 				teamFiles[currentTeam].Visit(this, null);
@@ -107,6 +118,8 @@ namespace WarSimulator_Handmade.Simulation
 			if (findingTeams)
 			{
 				teams[currentTeam].regiments.Add(currentRegiment);
+				currentRegiment = new Regiment();
+				currentRegiment.color = teams[currentTeam].color;
 			}
 			return null;
 		}
