@@ -43,7 +43,6 @@ namespace WarSimulator_Handmade.Simulation
 		public GameState InterpreteBehaviour(Regiment regiment, GameState gameState)
 		{
 			regimentAssignments.Clear();
-			GameState.messages.Clear();
 			currentGameState = gameState;
 			currentRegiment = regiment;
 			currentRegiment.hasAttacked = false;

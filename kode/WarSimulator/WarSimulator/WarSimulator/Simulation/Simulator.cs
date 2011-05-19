@@ -32,6 +32,9 @@ namespace WarSimulator_Handmade
 		//Teams left
 		private int teamsLeft = 0;
 
+		//timer
+		private int timer;
+
 		//Game has ended?
 		bool gameEnded = false;
 
@@ -53,7 +56,7 @@ namespace WarSimulator_Handmade
 			teamsLeft = teamFiles.Length;
 			Content.RootDirectory = "Content";
 			graphics = new GraphicsDeviceManager(this);
-			graphics.PreferredBackBufferWidth = 550;
+			graphics.PreferredBackBufferWidth = 800;
 			graphics.PreferredBackBufferHeight = 500;
 		}
 		#endregion
@@ -70,31 +73,37 @@ namespace WarSimulator_Handmade
 		}
 		protected override void Update(GameTime gameTime)
 		{
-			if (currentGameState != null && gameEnded == false)
+			Console.WriteLine(timer);
+			if (timer %300 == 0)
 			{
-				UpdateTurnOrder();
-				foreach (Regiment regiment in regimentTurnOrder)
+				if (currentGameState != null && gameEnded == false)
 				{
-					GameState.messages.Add("Regiment "+regiment.name+"s turn - current size is"+regiment.currentSize);
-					if (regiment.currentSize > 0)
+					round++;
+					UpdateTurnOrder();
+					GameState.messages.Clear();
+					foreach (Regiment regiment in regimentTurnOrder)
 					{
-						currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
-					}
-					else
-					{
-						currentGameState.teams[regiment.team].regiments.Remove(regiment);
-						if (currentGameState.teams[regiment.team].regiments.Count <= 0)
+						GameState.messages.Add("Regiment " + regiment.name + "s turn - regiments size is " + regiment.currentSize);
+						if (regiment.currentSize > 0)
 						{
-							teamsLeft--;
-							if (teamsLeft == 1)
+							currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
+						}
+						else
+						{
+							currentGameState.teams[regiment.team].regiments.Remove(regiment);
+							if (currentGameState.teams[regiment.team].regiments.Count <= 0)
 							{
-								gameEnded = true;
+								teamsLeft--;
+								if (teamsLeft == 1)
+								{
+									gameEnded = true;
+								}
 							}
 						}
 					}
 				}
-				round++;
 			}
+			timer++;
 			base.Update(gameTime);
 		}
 		protected override void Draw(GameTime gameTime)
@@ -122,12 +131,12 @@ namespace WarSimulator_Handmade
 				{
 					spriteBatch.Draw(regTexture, regiment.position.ToVector2()*50, color);
 				}
-
 			}
 			for (int i = 0; i < GameState.messages.Count; i++)
 			{
-				spriteBatch.DrawString(spriteFont, GameState.messages[i], new Vector2(350, 40 * i),Color.Black);
+				spriteBatch.DrawString(spriteFont, GameState.messages[i], new Vector2(350, 40 * (i+1)),Color.Black);
 			}
+			spriteBatch.DrawString(spriteFont, round.ToString(), new Vector2(350, 0), Color.Black);
 			spriteBatch.End();
 			base.Draw(gameTime);
 		}
