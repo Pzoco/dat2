@@ -27,7 +27,7 @@ Inside the simulator figure \ref{fig:simulator} we implemented a $GameDataRetrie
 
 \subsection{Simulation}
 
-After getting the data and validating it, and we are sure that the simulator can run, we are now able to start the simulator with the required data. 
+After getting the data and validating it, we are now able to start the simulator with the required data. 
 Starting the simulator requires some part of computation, the starting position of all the regiments, which player is allowed to start. This is here the interpreter is useful, by using an interpreter it can compute all the damage done from each regiment, and what kind of $gameState$ the simulator is in right now. The interpreter is doing all the computations by looking at the $gameStates$ present status, and reading the next input and then computing the next $gameState$ and updating the screen with the new input, and then it is the next regiments turn. This is a loop that will continue until any player on the grid will win, or the program gets terminated.
 
 
