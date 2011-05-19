@@ -1,10 +1,5 @@
 \section{Implementation}
 
-
-%How the implementation of the simulator works
-%What exactly happens in the simulator
-%Gets the DAST, and validates the code, and then starts a simulation.
-
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1]{rapport/6/figures/parser}
@@ -12,9 +7,8 @@
 \caption{Parser}
 \end{figure}
 
-
 \subsubsection{Getting the data - and validating it}
-Inside the simulator we implemented a $retrieveData$ class which should retrieve data from the Decorated Abstract Syntax Tree, so we have reused the visitor pattern to run through the tree and collect all the data needed to run a simulator. After all the data have been retrieved from the DAST we have to validate if the data is correct. By correct by mean that e.g. in the config.cfg file a $Maxima$ is present, and if the teamfiles.war contains larger number than the $Maxima$ requires, there will be an error. The config.cfg file contains standards for which the programmers teamfiles.war will be assigned to if they haven't assigned their own constants. An example: if the teamfile.war does contain a regiment which some size and a name of the regiment, but nothing more, the regiment will then be assigned the default/standard values, if the standard values is nowhere to be found in the config.cfg file there will be an error as well.
+Inside the simulator figure \ref{fig:simulator} we implemented a $GameDataRetriever$ class which should retrieve data from the Decorated Abstract Syntax Tree, so we have reused the visitor pattern to run through the tree and collect all the data needed to run the simulator. After all the data have been retrieved from the DAST we have to validate if the data is correct. By correct we mean that e.g. in the config.cfg file a $Maxima$ is present, and if the teamfiles.war contains larger numbers than the $Maxima$ requires, there will be an error. The config.cfg file contains standards for which the programmers teamfiles.war will be assigned to if they haven't assigned their own constants. An example: if the teamfile.war does contain a regiment with some size and a name of the regiment, but nothing more, the regiment will then be assigned the default/standard values, if the standard values is nowhere to be found in the config.cfg file there will be an error as well.
 
 \begin{figure}[H]
 \centering
