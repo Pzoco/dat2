@@ -133,14 +133,16 @@ namespace WarSimulator_Handmade
                 SourcePosition regimentBlockPosition = new SourcePosition();
                 Start(regimentBlockPosition);
                 RegimentBlock rb = ParseRegimentBlock();
+				List<RegimentBlock> rbs = new List<RegimentBlock>();
+				rbs.Add(rb);
                 while (currentToken.type==Token.TokenType.RightBracket)
                 {
                     AcceptIt();
                     RegimentBlock rb2 = ParseRegimentBlock();
                     Finish(regimentBlockPosition);
-                    rb = new SequentialRegimentBlock(rb, rb2, regimentBlockPosition);
+					rbs.Add(rb2);
                 }
-                tf = new TeamFile(rb, previousTokenPosition);
+                tf = new TeamFile(rbs, previousTokenPosition);
                 if (currentToken.type != Token.TokenType.EndOfText)
                 {
                     SyntaxError("File did not end when expected!", currentToken);

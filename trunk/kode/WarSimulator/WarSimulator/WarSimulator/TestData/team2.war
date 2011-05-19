@@ -4,7 +4,7 @@ Regiment SilentMonkeys2
 //bueskytter
 {
 	Size = 20;
-	Type = Ranged;
+	Type = Melee;
 	Range = 10;
 	Damage = 2;
 	Health = 10;

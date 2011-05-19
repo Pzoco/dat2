@@ -9,6 +9,7 @@ namespace WarSimulator_Handmade
     {
         #region Blocks
         Object VisitBehaviourBlock(BehaviourBlock ast, Object obj);
+
         Object VisitGridBlock(GridBlock ast, Object obj);
         Object VisitMaximaBlock(MaximaBlock ast, Object obj);
         Object VisitRegimentBlock(RegimentBlock ast, Object obj);

@@ -70,7 +70,7 @@ namespace WarSimulator_Handmade.Simulation
 		#region Files
 		public Object VisitTeamFile(TeamFile ast, Object obj)
 		{
-			ast.rb.Visit(this, null);
+			ast.rbs.ForEach(x=>x.Visit(this, null));
 			return null;
 		}
 		public Object VisitConfigFile(ConfigFile ast, Object obj)

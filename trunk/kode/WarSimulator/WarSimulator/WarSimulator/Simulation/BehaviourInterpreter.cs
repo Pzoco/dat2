@@ -43,6 +43,7 @@ namespace WarSimulator_Handmade.Simulation
 		public GameState InterpreteBehaviour(Regiment regiment, GameState gameState)
 		{
 			regimentAssignments.Clear();
+			GameState.messages.Clear();
 			currentGameState = gameState;
 			currentRegiment = regiment;
 			currentRegiment.hasAttacked = false;
@@ -428,7 +429,7 @@ namespace WarSimulator_Handmade.Simulation
 		#region Files
 		public Object VisitTeamFile(TeamFile ast, Object obj)
 		{
-			ast.rb.Visit(this, null);
+			ast.rbs.ForEach(x=>x.Visit(this, null));
 			return null;
 		}
 		public Object VisitConfigFile(ConfigFile ast, Object obj)

@@ -7,12 +7,11 @@ namespace WarSimulator_Handmade
 {
     public class TeamFile:AST
     {
-        public RegimentBlock rb;
+        public List<RegimentBlock> rbs;
 
-        public TeamFile(RegimentBlock rb, SourcePosition sp) :base(sp)
+        public TeamFile(List<RegimentBlock> rbs, SourcePosition sp) :base(sp)
         {
-            // TODO: Complete member initialization
-            this.rb = rb;
+            this.rbs = rbs;
         }
         public override Object Visit(Visitor v, Object arg)
         {

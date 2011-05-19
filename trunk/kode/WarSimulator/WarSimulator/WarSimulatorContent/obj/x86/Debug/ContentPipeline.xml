@@ -17,7 +17,16 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\regTile.xnb</Output>
-      <Time>2011-05-18T17:28:22.9975219+02:00</Time>
+      <Time>2011-05-19T09:12:00.5020314+02:00</Time>
+    </Item>
+    <Item>
+      <Source>font.spritefont</Source>
+      <Name>font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\font.xnb</Output>
+      <Time>2011-05-19T10:20:25.7405138+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

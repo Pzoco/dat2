@@ -65,6 +65,7 @@ namespace WarSimulator_Handmade
             idTable.Close();
             return null;
         }
+
         public Object VisitGridBlock(GridBlock ast, Object obj)
         {
             idTable.Open();
@@ -197,7 +198,7 @@ namespace WarSimulator_Handmade
         #region Files
         public Object VisitTeamFile(TeamFile ast, Object obj)
         {
-            ast.rb.Visit(this, null);
+            ast.rbs.ForEach(x=>x.Visit(this, null));
             return null;
         }
         public Object VisitConfigFile(ConfigFile ast, Object obj)

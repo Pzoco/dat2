@@ -10,6 +10,7 @@ namespace WarSimulator_Handmade.Simulation
 	{
 		public Grid grid;
 		public Team[] teams;
+		public static List<string> messages = new List<string>();
 		public GameState(Grid grid, Team[] teams)
 		{
 			this.grid = grid;
