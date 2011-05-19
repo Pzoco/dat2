@@ -1,7 +1,6 @@
 Team NinjaMonkeys2
 
-Regiment SilentMonkeys2
-//bueskytter
+Regiment Warrior
 {
 	Size = 20;
 	Type = Melee;
@@ -10,7 +9,7 @@ Regiment SilentMonkeys2
 	Health = 10;
 	Movement = 30;
 	AttackSpeed = 1;
-	RegimentPosition = Position(2,2);
+	RegimentPosition = Position(6,2);
 	Behaviour SilentMonkeysBehavoiur2
 	{
 		Regiment enemy = SearchForEnemies();

@@ -152,9 +152,9 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				if (!Grid.tiles[position.x, position.y-1].occupied)
 				{
-					Console.WriteLine("Regiment {0} moves up", name);
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.y -= 1;
+					GameState.messages.Add("Regiment " + name + " moves up to " + position.ToString());
 					Grid.tiles[position.x, position.y].occupied = true;
 				}
 			}
@@ -165,9 +165,9 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				if (!Grid.tiles[position.x, position.y + 1].occupied)
 				{
-					Console.WriteLine("Regiment {0} moves down", name);
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.y += 1;
+					GameState.messages.Add("Regiment " + name + " moves down to " + position.ToString());
 					Grid.tiles[position.x, position.y].occupied = true;
 				}
 			}
@@ -178,9 +178,9 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				if (!Grid.tiles[position.x-1, position.y].occupied)
 				{
-					Console.WriteLine("Regiment {0} moves left", name);
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.x -= 1;
+					GameState.messages.Add("Regiment " + name + " moves left to " + position.ToString());
 					Grid.tiles[position.x, position.y].occupied = true;
 				}
 			}
@@ -191,9 +191,9 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				if (!Grid.tiles[position.x + 1, position.y].occupied)
 				{
-					Console.WriteLine("Regiment {0} moves left", name);
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.x += 1;
+					GameState.messages.Add("Regiment " + name + " moves right to " + position.ToString());
 					Grid.tiles[position.x, position.y].occupied = true;
 				}
 			}

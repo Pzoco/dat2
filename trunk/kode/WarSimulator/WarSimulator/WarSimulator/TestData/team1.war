@@ -1,7 +1,6 @@
 Team NinjaMonkeys1
 
-Regiment SilentMonkeys1
-//bueskytter
+Regiment Soldier
 {
 	Size = 20;
 	Type = Melee;
@@ -11,6 +10,34 @@ Regiment SilentMonkeys1
 	Movement = 30;
 	AttackSpeed = 1;
 	RegimentPosition = Position(0,0);
+	Behaviour SilentMonkeysBehavoiur1
+	{
+		Regiment enemy = SearchForEnemies();
+		If (enemy.Distance <= Range)
+		{
+			Attack(enemy);
+		}
+		Else If (enemy.Distance <= Range+Movement)
+		{
+			While(enemy.Distance < Range)
+			{
+				MoveTowards(enemy);
+			}
+			Attack(enemy);
+		}
+		MoveTowards(enemy);
+	}
+}
+Regiment Winner
+{
+	Size = 20;
+	Type = Melee;
+	Range = 10;
+	Damage = 2;
+	Health = 10;
+	Movement = 30;
+	AttackSpeed = 1;
+	RegimentPosition = Position(1,0);
 	Behaviour SilentMonkeysBehavoiur1
 	{
 		Regiment enemy = SearchForEnemies();

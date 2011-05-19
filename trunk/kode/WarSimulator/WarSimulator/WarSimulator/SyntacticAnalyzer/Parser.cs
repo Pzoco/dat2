@@ -135,9 +135,8 @@ namespace WarSimulator_Handmade
                 RegimentBlock rb = ParseRegimentBlock();
 				List<RegimentBlock> rbs = new List<RegimentBlock>();
 				rbs.Add(rb);
-                while (currentToken.type==Token.TokenType.RightBracket)
+                while (currentToken.type==Token.TokenType.Regiment)
                 {
-                    AcceptIt();
                     RegimentBlock rb2 = ParseRegimentBlock();
                     Finish(regimentBlockPosition);
 					rbs.Add(rb2);
