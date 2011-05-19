@@ -73,7 +73,6 @@ namespace WarSimulator_Handmade
 		}
 		protected override void Update(GameTime gameTime)
 		{
-			Console.WriteLine(timer);
 			if (timer %300 == 0)
 			{
 				if (currentGameState != null && gameEnded == false)
@@ -83,7 +82,8 @@ namespace WarSimulator_Handmade
 					GameState.messages.Clear();
 					foreach (Regiment regiment in regimentTurnOrder)
 					{
-						GameState.messages.Add("Regiment " + regiment.name + "s turn - regiments size is " + regiment.currentSize);
+						Color colorOfteam = currentGameState.teams[regiment.team].color;
+						GameState.AddMessage("<Begin Turn> Regiment "+regiment.name,colorOfteam );
 						if (regiment.currentSize > 0)
 						{
 							currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
@@ -100,6 +100,7 @@ namespace WarSimulator_Handmade
 								}
 							}
 						}
+						GameState.AddMessage("<End Turn> Regiment " + regiment.name, colorOfteam);
 					}
 				}
 			}
@@ -108,7 +109,7 @@ namespace WarSimulator_Handmade
 		}
 		protected override void Draw(GameTime gameTime)
 		{
-			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+			graphics.GraphicsDevice.Clear(Color.White);
 			spriteBatch.Begin();
 			for (int x = 0; x < Grid.width; x++)
 			{
@@ -119,24 +120,17 @@ namespace WarSimulator_Handmade
 			}
 			foreach (Team team in currentGameState.teams)
 			{
-				Color color = new Color();
-				switch (team.number)
-				{
-					case 0: color = Color.Red; break;
-					case 1: color = Color.Blue; break;
-					case 2: color = Color.Yellow; break;
-					case 3: color = Color.Green; break;
-				}
+
 				foreach (Regiment regiment in team.regiments)
 				{
-					spriteBatch.Draw(regTexture, regiment.position.ToVector2()*50, color);
+					spriteBatch.Draw(regTexture, regiment.position.ToVector2()*50, team.color);
 				}
 			}
 			for (int i = 0; i < GameState.messages.Count; i++)
 			{
-				spriteBatch.DrawString(spriteFont, GameState.messages[i], new Vector2(350, 40 * (i+1)),Color.Black);
+				spriteBatch.DrawString(spriteFont, GameState.messages[i].text, new Vector2(350, 30 * (i+1)),GameState.messages[i].color);
 			}
-			spriteBatch.DrawString(spriteFont, round.ToString(), new Vector2(350, 0), Color.Black);
+			spriteBatch.DrawString(spriteFont, "Round: "+round.ToString(), new Vector2(350, 0), Color.Black);
 			spriteBatch.End();
 			base.Draw(gameTime);
 		}

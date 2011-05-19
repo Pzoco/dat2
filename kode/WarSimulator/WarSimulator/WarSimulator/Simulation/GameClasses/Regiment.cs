@@ -44,6 +44,7 @@ namespace WarSimulator_Handmade.Simulation
 		public AttackType type;
 		public BehaviourBlock behaviour;
 		public bool hasAttacked = false;
+		public Color color;
 		#endregion
 
 		#region Public Methods
@@ -62,12 +63,12 @@ namespace WarSimulator_Handmade.Simulation
 				int distance = GetDistanceTo(regiment);
 				if (distance == 1)
 				{
-					GameState.messages.Add("Regiment "+name+" deals damage to "+regiment.name);
+					GameState.AddMessage("Regiment "+name+" deals "+damage+" damage to "+regiment.name,color);
 					regiment.GetDamage(damage);
 				}
 				else if (range > distance && type == AttackType.Ranged)
 				{
-					GameState.messages.Add("Regiment "+name+" deals damage to "+regiment.name);
+					GameState.AddMessage("Regiment " + name + " deals " + damage + " damage to " + regiment.name, color);
 					regiment.GetDamage(damage);
 				}
 				hasAttacked = true;
@@ -154,7 +155,7 @@ namespace WarSimulator_Handmade.Simulation
 				{
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.y -= 1;
-					GameState.messages.Add("Regiment " + name + " moves up to " + position.ToString());
+					GameState.AddMessage("Regiment " + name + " moves up to " + position.ToString(),color);
 					Grid.tiles[position.x, position.y].occupied = true;
 				}
 			}
@@ -167,7 +168,7 @@ namespace WarSimulator_Handmade.Simulation
 				{
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.y += 1;
-					GameState.messages.Add("Regiment " + name + " moves down to " + position.ToString());
+					GameState.AddMessage("Regiment " + name + " moves down to " + position.ToString(),color);
 					Grid.tiles[position.x, position.y].occupied = true;
 				}
 			}
@@ -180,7 +181,7 @@ namespace WarSimulator_Handmade.Simulation
 				{
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.x -= 1;
-					GameState.messages.Add("Regiment " + name + " moves left to " + position.ToString());
+					GameState.AddMessage("Regiment " + name + " moves left to " + position.ToString(),color);
 					Grid.tiles[position.x, position.y].occupied = true;
 				}
 			}
@@ -193,7 +194,7 @@ namespace WarSimulator_Handmade.Simulation
 				{
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.x += 1;
-					GameState.messages.Add("Regiment " + name + " moves right to " + position.ToString());
+					GameState.AddMessage("Regiment " + name + " moves right to " + position.ToString(),color);
 					Grid.tiles[position.x, position.y].occupied = true;
 				}
 			}
