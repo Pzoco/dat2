@@ -73,7 +73,7 @@ namespace WarSimulator_Handmade
 		}
 		protected override void Update(GameTime gameTime)
 		{
-			if (timer %300 == 0)
+			if (timer %100 == 0)
 			{
 				if (currentGameState != null && gameEnded == false)
 				{
