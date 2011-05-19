@@ -7,8 +7,10 @@
 \caption{Parser}
 \end{figure}
 
-\subsubsection{Getting the data - and validating it}
-Inside the simulator figure \ref{fig:simulator} we implemented a $GameDataRetriever$ class which should retrieve data from the Decorated Abstract Syntax Tree, so we have reused the visitor pattern to run through the tree and collect all the data needed to run the simulator. After all the data have been retrieved from the DAST we have to validate if the data is correct. By correct we mean that e.g. in the config.cfg file a $Maxima$ is present, and if the teamfiles.war contains larger numbers than the $Maxima$ requires, there will be an error. The config.cfg file contains standards for which the programmers teamfiles.war will be assigned to if they haven't assigned their own constants. An example: if the teamfile.war does contain a regiment with some size and a name of the regiment, but nothing more, the regiment will then be assigned the default/standard values, if the standard values is nowhere to be found in the config.cfg file there will be an error as well.
+\subsubsection{Getting the data}
+Inside the simulator figure \ref{fig:simulator} we implemented a $GameDataRetriever$ class which retrieves data from the Decorated Abstract Syntax Tree[DAST], so we have reused the visitor pattern to run through the tree and collect all the data needed to run the simulator. The $GameDataRetriever$ saves the data in the GameClasses which contains Regiment, Grid, Team and Tile- classes. These classes contains all the useful data for the simulator to run.
+\subsubsection{Validating the data}
+After all the data have been retrieved from the DAST we have to validate if the data is correct. By correct we mean that e.g. in the config.cfg file a $Maxima$ is present, and if the teamfiles.war contains larger numbers than the $Maxima$ requires, there will be an error. The config.cfg file contains standards for which the programmers teamfiles.war will be assigned to if they haven't assigned their own constants. An example: if the teamfile.war does contain a regiment with some size and a name of the regiment, but nothing more, the regiment will then be assigned the default/standard values, if the standard values is nowhere to be found in the config.cfg file there will be an error as well.
 
 \begin{figure}[H]
 \centering
@@ -28,7 +30,8 @@ Inside the simulator figure \ref{fig:simulator} we implemented a $GameDataRetrie
 \subsection{Simulation}
 
 After getting the data and validating it, we are now able to start the simulator with the required data. 
-Starting the simulator requires some part of computation, the starting position of all the regiments, which player is allowed to start. This is here the interpreter is useful, by using an interpreter it can compute all the damage done from each regiment, and what kind of $gameState$ the simulator is in right now. The interpreter is doing all the computations by looking at the $gameStates$ present status, and reading the next input and then computing the next $gameState$ and updating the screen with the new input, and then it is the next regiments turn. This is a loop that will continue until any player on the grid will win, or the program gets terminated.
+The simulator reads and modifies a $GameState$ in every iteration or turn of the game. The $GameState$ contains the present formation of the game, where all the units are and how large the grid size is. In every iteration the interpreter updates the $GameState$, the interpreter computes the $Behaviour$ from the teamfile.war script. Everytime a unit comes close to another unit and attacks, the interpreter computes how much damage is made, and in the end picks a winner. The output to the screen is made simple, and with the help of the Microsoft XNA \cite{XNA} Framework we have a simple simulation that can show several regiments behave differently and attacking each other.
+
 
 
 %Interpreter eksekver en behaviour
