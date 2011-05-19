@@ -145,7 +145,6 @@
     <Compile Include="AbstractSyntaxTreeClasses\RegimentStat.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RegimentStatExpression.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\RulesBlock.cs" />
-    <Compile Include="AbstractSyntaxTreeClasses\SequentialRegimentBlock.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\SequentialSingleCommand.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\SingleCommand.cs" />
     <Compile Include="AbstractSyntaxTreeClasses\StandardsBlock.cs" />

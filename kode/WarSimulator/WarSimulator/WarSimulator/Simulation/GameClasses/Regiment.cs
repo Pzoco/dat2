@@ -62,12 +62,12 @@ namespace WarSimulator_Handmade.Simulation
 				int distance = GetDistanceTo(regiment);
 				if (distance == 1)
 				{
-					Console.WriteLine("Regiment {0} deals damage to {1}", name, regiment.name);
+					GameState.messages.Add("Regiment "+name+" deals damage to "+regiment.name);
 					regiment.GetDamage(damage);
 				}
 				else if (range > distance && type == AttackType.Ranged)
 				{
-					Console.WriteLine("Regiment {0} deals damage to {1}", name, regiment.name);
+					GameState.messages.Add("Regiment "+name+" deals damage to "+regiment.name);
 					regiment.GetDamage(damage);
 				}
 				hasAttacked = true;

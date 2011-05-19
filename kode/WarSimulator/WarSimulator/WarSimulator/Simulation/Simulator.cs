@@ -42,6 +42,7 @@ namespace WarSimulator_Handmade
 		GraphicsDeviceManager graphics;
 		private Texture2D gridTexture;
 		private Texture2D regTexture;
+		private SpriteFont spriteFont;
 		
 		#endregion
 
@@ -52,6 +53,8 @@ namespace WarSimulator_Handmade
 			teamsLeft = teamFiles.Length;
 			Content.RootDirectory = "Content";
 			graphics = new GraphicsDeviceManager(this);
+			graphics.PreferredBackBufferWidth = 550;
+			graphics.PreferredBackBufferHeight = 500;
 		}
 		#endregion
 
@@ -62,17 +65,17 @@ namespace WarSimulator_Handmade
 			
 			gridTexture = Content.Load<Texture2D>("gridTile");
 			regTexture = Content.Load<Texture2D>("regTile");
+			spriteFont = Content.Load<SpriteFont>("font");
 			base.LoadContent();
 		}
 		protected override void Update(GameTime gameTime)
 		{
 			if (currentGameState != null && gameEnded == false)
 			{
-				Console.WriteLine("Starting round {0}", round);
 				UpdateTurnOrder();
 				foreach (Regiment regiment in regimentTurnOrder)
 				{
-					Console.WriteLine("Regiment {0}s turn - current size is {1}",regiment.name,regiment.currentSize);
+					GameState.messages.Add("Regiment "+regiment.name+"s turn - current size is"+regiment.currentSize);
 					if (regiment.currentSize > 0)
 					{
 						currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
@@ -89,7 +92,6 @@ namespace WarSimulator_Handmade
 							}
 						}
 					}
-					Thread.Sleep(500);
 				}
 				round++;
 			}
@@ -108,11 +110,23 @@ namespace WarSimulator_Handmade
 			}
 			foreach (Team team in currentGameState.teams)
 			{
+				Color color = new Color();
+				switch (team.number)
+				{
+					case 0: color = Color.Red; break;
+					case 1: color = Color.Blue; break;
+					case 2: color = Color.Yellow; break;
+					case 3: color = Color.Green; break;
+				}
 				foreach (Regiment regiment in team.regiments)
 				{
-					spriteBatch.Draw(regTexture, regiment.position.ToVector2()*50, Color.White);
+					spriteBatch.Draw(regTexture, regiment.position.ToVector2()*50, color);
 				}
 
+			}
+			for (int i = 0; i < GameState.messages.Count; i++)
+			{
+				spriteBatch.DrawString(spriteFont, GameState.messages[i], new Vector2(350, 40 * i),Color.Black);
 			}
 			spriteBatch.End();
 			base.Draw(gameTime);
