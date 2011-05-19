@@ -96,7 +96,7 @@ GridStat					&	::=	&GridStat-Declaration GridStat\\
 							&$\mid$	&GridStat-Declaration \\
 GridStat-Declaration		&	::=	&{\bf Width = } Integer-Literal;\\
 							&$\mid$	&{\bf Height = } Integer-Literal;\\
-Rules-Block					&	::=	&Standards-Block MaximaBlock\\
+Rules-Block					&	::=	&{\bf Rules \{ } Standards-Block MaximaBlock {\bf \} }\\
 Maxima-Block				&	::=	&{\bf Maxima} {\bf \{} MaximaStat {\bf \}} \\
 MaximaStat				&	::=		&MaximaStat-Declaration MaximaStat\\
 							&$\mid$	&MaximaStat-Declaration\\
@@ -179,7 +179,7 @@ Standards-Block				&	::=	&{\bf Standards} {\bf \{ } UnitStat-Declaration Behavio
 	Config-File					&	::=	&{\bf Config} Grid-Block Rules-Block  		\\
 	Grid-Block					&	::=	&{\bf Grid} Block-Name	 {\bf \{} GridStat-Declaration* \bf{\}} \\
 	GridStat-Declaration		&	::=	&({\bf Width} $\mid$ {\bf Height})=  Integer-Literal{\bf ;} \\	
-	Rules-Block					&	::=	&Standards-Block MaximaBlock 				\\
+	Rules-Block					&	::=	&{\bf Rules \{ }Standards-Block MaximaBlock	{\bf \} }	\\
 	Maxima-Block				&	::=	&{\bf Maxima} {\bf \{} (MaximaStat-Declaration)* {\bf \}}\\
 	MaximaStat-Declaration	&	::=	&({\bf Regiments }$\mid${\bf Teams}$\mid${\bf Size}$\mid$\\
 								&		&{\bf Range}$\mid${\bf Damage}$\mid${\bf Movement}$\mid$\\
