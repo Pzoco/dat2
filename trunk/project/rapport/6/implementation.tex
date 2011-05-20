@@ -34,36 +34,38 @@ The simulator reads and modifies a \textit{GameState} in every iteration or turn
 
 %Pseudo-code for the algoritm
 \subsubsection{Pseudo-code for the algorithm}
-					\begin{lstlisting}[basicstyle=\small\sffamily,
-					keywords={break,case,const,continue,default,else,enum,
-					for,if,return,switch,while,do,long,void,int,float,double,
-					char,struct,typedef,include,size\_t},
-					keywordstyle={\color{blue}},
-					comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
-					columns={[l]flexible}, numbers=left, numberstyle=\tiny,
-					frameround=fftt, frame=shadowbox, captionpos=b,
-					caption={Team file},
-					label=LST:code31]
-					
-					While(Simulation == true)
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywords={break,case,const,continue,default,else,enum,
+		for,if,return,switch,while,do,long,void,int,float,double,
+		char,struct,typedef,include,size\_t},
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Team file},
+		label=LST:code31]
+While(Simulation == true)
 {
-VisitorPattern(DAST);
-if(ValidateTheInput(DAST))
-{
-	if(!GameState)
+	VisitorPattern(DAST); 		
+	//Goes through the tree to gather data
+	if(ValidateTheInput(DAST))	
+	//Validates the data if there is anything missing
 	{
-		CreateGameState();
+		if(!GameState)			
+		//Is this is the first iteration
+		{
+			CreateGameState(); 	
+			//Creates a new GameState
+		}
+		ComputTheNextStep(BehaviourFromTeamfiles); 	
+		//Next iteration, and computes the behaviour
+		UpdateGameState();		
+		//Updates a new GameState
+		if (AnyWinner){Simulation = false}	
+		//Checks for the winner, if any stop the simulation
 	}
-	ComputTheNextStep(BehaviourFromTeamfiles);
-	UpdateGameState();
-	if (AnyWinner){Simulation = false}
 }
-
-}
-						
-					
-					
-					\end{lstlisting}
+	\end{lstlisting}
 
 
 %Pseudo-code done
