@@ -36,85 +36,85 @@ The \textit{WAR}-Game is a simulation where the players will script the behaviou
 	
 		\subsubsection{Terms of the simulation}
 		
-		\subsubsection{Team}		
+		\paragraph{Team}		
 		A team consists of 1 or more regiments. In the simulation two or more teams will battle to win the simulation. Here, a team is synonymous to an army.
 		
-		\subsubsection{Turn}
+		\paragraph{Turn}
 		Each of the regiment will have a turn each round where they can perform a limited number of actions. The number of actions allowed per regiment per turn, is defined in the simulator.
 		The turn will end if the regiment is out of action or if the regiment doesn't want to perform any Actions. 
 		The actions performed by a regiment is predefined in the behaviour. 
 		Further description of events during a turn, will be described in the following section.
 		
-		\subsubsection{Round}
+		\paragraph{Round}
 		A simulation consists of 1 or more rounds. When a round begins each regiment will be given a turn.
 		The teams take turns performing the behaviour of their regiments. 
 		A new round will start when every regiment have used their turns.
 		Further description of rounds are found in the following section.
 
-		\subsubsection{Behaviour}
+		\paragraph{Behaviour}
 		Behaviour allows the players to define how each regiment behaves. 
 		By using control statements, the player may have a regiment behave in a defensive or offensive way, 
 		using methods provided with the language. \\
 		As an example you may instruct a ranged regiment to behave in such a way, 
 		as to not approach another regiment, and only open fire if that regiment is within the range of your archer regiment.
 				
-		\subsubsection{Grid}
+		\paragraph{Grid}
 		The grid is a 2 dimensional map where the teams will battle.
 		The grid, might be seen as a map, table, or battlefield where the 'battle' will take place. 
 %		Each 'Grid' will have a name, and certain properties which \textbf{must} be defined in the configuration file.
 																		
 		\subsubsection{Terms in the team file }
 	
-		\subsubsection{Size}
+		\paragraph{Size}
 		The size of the regiment is, in abstraction, the number of soldiers in the current regiment. 
 		The size is closely connected with the total health of the regiment, as well as total damage done by the regiment.
 		The size also provides information about how much space the regiment takes up on the grid. A regiment off size $200$ would take up $200$ grid tiles.
 %		One might consider it as the overall health of the regiment. While size may be an abstraction of health,
 %		it's important to notice that a regiment with a larger size takes up more integers on the grid.
 
-		\subsubsection{Health}
+		\paragraph{Health}
 		Health describes the initial health of each unit in the regiment.
 		The total health is calculated from the size of the regiment, by using the equation $Total\_Health = Size \times Health$.
 		
-		\subsubsection{Attack Type}
+		\paragraph{Attack Type}
 		The Attack \textit{Type} defines how a regiment attacks. A regiments Type can only be \textit{Melee} or \textit{Ranged}.
 		\textit{Melee} regiments can only attack regiments adjacent to their position, while ranged regiments 
 		can attack any regiment within their specified range.
 		
-		\subsubsection{Range}
+		\paragraph{Range}
 		Range is an integer value, which defines how far a regiment of Type \textit{Ranged} can attack. 
 		If a \textit{Range} is defined for a regiment of type \textit{Melee}, this is simply ignored.
 		
-		\subsubsection{Damage}
+		\paragraph{Damage}
 		The damage of a regiment is an abstraction of the damage done by each unit in the regiment.
 		The total damage done by one regiment, is calculated by the equation $Total\_Damage = Size \times Damage \times AttackSpeed$ 
 		
-		\subsubsection{Movement}
+		\paragraph{Movement}
 		Movement defines how many tiles a regiment is allowed to move.
 		
-		\subsubsection{Attackspeed}
+		\paragraph{Attackspeed}
 		Attackspeed governs how many attacks are performed by regiment each turn, giving units further interesting properties. 
 		However, in the context of the simulation, the attackspeed is quite simply a multiplier of the damage done by the regiment.
 		
-		\subsubsection{Actions}
+		\subsubsection{Action}
 		When a regiment has its turn they are allowed to do some actions, \textit{Attack}, \textit{MoveTowards} or \textit{MoveAway}. \\
 		For describing these action we set a precondition(what is required to do the action), a failure(what happens if the condition isn't met)
 		and result(what happens if the condition is met).
 		
-		\subsubsection{Attack action}
-		Usage: \\
+		\paragraph{Attack action}
+		\subparagraph{Usage:} 
 		Attack(Regiment) \\
 		
-		Precondition: \\
+		\subparagraph{Precondition:} 
 		The regiment has its turn. \\
 		For a regiment of attacktype ranged the regiment must be in range. \\
 		For a regiment of attacktype melee the enemy regiment must be 1 tile away(diagonals included). \\
 		The Regiment must be eligible to perform additional actions in this turn.\\
 		
-		Failure: \\
+		\subparagraph{Failure:} 
 		Nothing happens \\
 		
-		Result: \\
+		\subparagraph{Result:} 
 		The enemy regiment current total health pool is calculated.\\ 
 		The total damage of the attacking regiment is calculated. \\
 		The damage is subtracted from the total health pool of the enemy regiment.\\
@@ -123,7 +123,7 @@ The \textit{WAR}-Game is a simulation where the players will script the behaviou
 		$New\_Size = Size - (Damage\_taken / Health)$.
 		If we assume, an attacking regiment that deals $2000 = 200 \times 10 \times 1$ damage, and a defending regiment that have $Health = 50$ and $Size = 200$, the resulting size of the defending regiment, after the attack, would be $200-(2000/50)=160$.
 		
-		\subsubsection{MoveTowards action}
+		\paragraph{MoveTowards action}
 		Usage: \\
 		MoveTowards(Regiment) \\
 		
@@ -139,7 +139,7 @@ The \textit{WAR}-Game is a simulation where the players will script the behaviou
 		The regiment will move a number of tiles equal to its movement, in the direction of the specified regiment.
 		%The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
 		
-		\subsubsection{MoveAway action}
+		\paragraph{MoveAway action}
 		Usage: \\
 		MoveAway(Regiment) \\
 		
@@ -158,19 +158,19 @@ The \textit{WAR}-Game is a simulation where the players will script the behaviou
 		The simulation will need basic instructions which is a common limitation of both teams, to ensure even 'armies'. 
 		As mentioned earlier this is defined in a configuration file.
 		
-		\subsubsection{Width}
+		\paragraph{Width}
 		Width defines the width of the grid measured in tiles.
 		Defined with an integer value.
 		
-		\subsubsection{Height}
+		\paragraph{Height}
 		Height defines the height of the grid measures in tiles.
 		Defined with an integer value.
 		
-		\subsubsection{Standards block}
+		\paragraph{Standards block}
 		This block will contain standard properties for regiments. These will be used if the necessary 
 		information for a regiment is not entered in the main script, the regiment will use these standard properties.
 		
-		\subsubsection{Maxima block}
+		\paragraph{Maxima block}
 		This block sets the limitations for the properties of the regiments. E.g. regiments must be of size 200 or less.
 
 \section{ Running a simulation }
