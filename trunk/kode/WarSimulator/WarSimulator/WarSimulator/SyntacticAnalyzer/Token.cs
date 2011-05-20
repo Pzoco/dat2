@@ -135,11 +135,11 @@ namespace WarSimulator_Handmade
             "Config",
             "Damage",
             "Distance",
-            "Else",
+            "else",
             "Grid",
             "Health",
             "Height",
-            "If",
+            "if",
             "Maxima",
             "Melee",
             "MoveAway",
@@ -159,7 +159,7 @@ namespace WarSimulator_Handmade
             "Team",
             "Teams",
             "Type",
-            "While",
+            "while",
             "Width",
                 //   ALPHABETICAL END  
             //Signs
