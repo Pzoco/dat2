@@ -1,24 +1,20 @@
 %Intro
 
 \section{Design criteria}
-%
-%\subsection{Write-ability}
-%
-%\subsection{Readability}
-%\subsection{Reliability}
-%\subsection{Orthogonality}
-%\subsection{Uniformity}
-%\subsection{Maintainability}
-%\subsection{Generality}
-%\subsection{Extensibility}
-%\subsection{Standardability}
-%\subsection{Implementability}
+
+When designing a new language there are many different criterias, and we have rated some of the main criterias below in table \ref{tab:criteria_tabular}. 
+
 %
 %Importance: Low Medium High Very high
 
 \begin{table}[H]
-	\begin{tabular}{| 	l		 l		 p{7cm}			|}
-	Criteria			&	Importance	&		Description	\\		
+	\begin{tabular}{| 	l	|	 l	| p{7cm}	|}
+	\hline
+	Criteria			&	Importance	&		Description	\\	
+	\hline
+	
+	
+		
 	Write-ability 		& 	Very high	&		How easy and how fast can the program be written\\
 	Readability			& 	High		&		How easy is already written code to read\\
 	Reliability			& 	Medium		&		The program wil not behave unexspectively\\
@@ -29,15 +25,16 @@
 	Extensibility		& 	Low			&		Able to add new constructs to the language\\
 	Standardability		& 	Medium		&		Able to stransport the language to other computers\\
 	Implementability	& 	Low			&		.\\
+	\hline
 	\end{tabular}
 	\caption{Design criterias}
 	\label{tab:criteria_tabular}
 \end{table}
 
 
-Tabular \ref{tab:criteria_tabular} lists an overview over how the design criterias of the WAR language have been made, and we will dig deeper in the criterias with importance high or very high.
+Table \ref{tab:criteria_tabular} lists an overview of the design criterias we considered when designing the WAR language, and the associated level of priority.
 
-The primary focus of this language, has been on write-ability and somewhat readability which is easily fulfilled when write-ability is the main goal. By having the write-ability as a very important choice we think that beginners in programming should be able to write their own script, and the maintainability is also rated very high, so the programmer of the language easy can troubleshoot the script, and find the errors that might have occured and rapidly fix them. The uniformity of the language is of a high importance since this helps the beginners to fastly learn the language and understand how the different part of the language works.
+The primary focus of this language, has been on \textit{write-ability} and somewhat readability which is easily fulfilled when \textit{write-ability} is the main goal. By having the \textit{write-ability} as a very important choice we think that beginners in programming should be able to write their own script, and the \textit{maintainability} is also rated very high, so the programmer of the language easy can troubleshoot the script, and find the errors that might have occured and rapidly fix them. The \textit{uniformity} of the language is of a high importance since this helps the beginners to fastly learn the language and understand how the different part of the language works.
 
 
 \subsection{Paradigm}
