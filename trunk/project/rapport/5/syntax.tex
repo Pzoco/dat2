@@ -1,3 +1,4 @@
+In this chapter the WAR language will be defined. This design phase starts with a {\it Syntax} part, then followed by {\it Contextual analysis}.
 \section{Syntax}
 	The first step in writing our interpreter was to construct a BNF of our language. 
 	BNF stands for {\it Backus Naur form}, which is a way of
@@ -11,7 +12,10 @@
 	
 	\subsection*{Production Rule}
 		A production rule has the form: \\
-		$N ::= X$, \\
+		\begin{equation}
+			$N ::= X$
+		\end{equation}
+		
 		where $X$ is a Non-terminal or a Terminal. \\
 		
 		The elements in a production rule can be identified by: \\
@@ -19,10 +23,14 @@
 		Non-terminals are just written in plain text.
 	\subsection*{Grouping of production rules}
 		If we have two production rules on the form:\\
-		$N ::= X$ \\
-		$N ::= Y$ \\
+		\begin{equation}
+			$N ::= X$ 
+			$N ::= Y$ 
+		\end{equation}
 		we are allowed to make a transformation: \\
-		$N ::= X | Y$ \\
+		\begin{equation}
+			$N ::= X | Y$ 
+		\end{equation}
 		Meaning $N$ is $X$ or $Y$ \\
 		
 	\begin{comment}
@@ -134,12 +142,14 @@
 			If we have a production rule on the form: \\
 			
 			\begin{tabular}{l l l}
+			\centering
 				T		&	::=		&	AB$\mid$AC \\
 			\end{tabular}
 			
 			We can do a left factorization: \\
 			
 			\begin{tabular}{l l l}
+			\centering
 				T		&	::=		&	A(B$\mid$C) \\
 			\end{tabular}
 			
@@ -149,12 +159,14 @@
 			If we have a production rule on the form: \\
 			
 			\begin{tabular}{l l l}
+			\centering
 				T		&	::=		&	A$\mid$TB \\
 			\end{tabular}
 			
 			We can do an elimination of left recursion: \\
 			
 			\begin{tabular}{l l l}
+			\centering
 				T		&	::=		&	A(B)* \\
 			\end{tabular}
 			
@@ -165,6 +177,7 @@
 			If we have two production rules on the form: \\
 			
 			\begin{tabular}{l l l}
+			\centering
 				T		&	::=		&	U $\mid$ AUC \\
 				U		&	::=		&	{\bf ab} $\mid$ {\bf ba} \\
 			\end{tabular} \\
@@ -173,6 +186,7 @@
 			substitute any occurrence of U in a production rule with what is on the right hand side of U like this: \\
 			
 			\begin{tabular}{l l l}
+			\centering
 				T		&	::=		&	({\bf ab} $\mid$ {\bf ba}) $\mid$ A ({\bf ab} $\mid$ {\bf ba})B \\
 			\end{tabular}
 	\subsection{The EBNF of the WAR Language}
