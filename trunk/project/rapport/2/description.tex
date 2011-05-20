@@ -106,23 +106,25 @@ The \textit{WAR}-Game is a simulation where the players will script the behaviou
 		Attack(Regiment) \\
 		
 		\subparagraph{Precondition:} 
-		The regiment has its turn. \\
-		For a regiment of attacktype ranged the regiment must be in range. \\
-		For a regiment of attacktype melee the enemy regiment must be 1 tile away(diagonals included). \\
-		The Regiment must be eligible to perform additional actions in this turn.\\
-		
+		\begin{itemize}\itemsep0.0001cm
+		\item The regiment has its turn. \\
+		\item For a regiment of attacktype ranged the regiment must be in range. \\
+		\item For a regiment of attacktype melee the enemy regiment must be 1 tile away(diagonals included). \\
+		\item The Regiment must be eligible to perform additional actions in this turn.\\
+		\end{itemize}
 		\subparagraph{Failure:} 
 		Nothing happens \\
 		
-		\subparagraph{Result:} 
-		The enemy regiment current total health pool is calculated.\\ 
-		The total damage of the attacking regiment is calculated. \\
-		The damage is subtracted from the total health pool of the enemy regiment.\\
-		The enemy regiments size is reduced by a number corresponding to the number of units that would die, in correspondence to the damage taken.\\
-		The equation for calculating the new size of the attacked regiment is given by \\
-		$New\_Size = Size - (Damage\_taken / Health)$.
-		If we assume, an attacking regiment that deals $2000 = 200 \times 10 \times 1$ damage, and a defending regiment that have $Health = 50$ and $Size = 200$, the resulting size of the defending regiment, after the attack, would be $200-(2000/50)=160$.
-		
+		\subparagraph{Result:}
+		\begin{itemize} 
+		\item The enemy regiment current total health pool is calculated.\\ 
+		\item The total damage of the attacking regiment is calculated. \\
+		\item The damage is subtracted from the total health pool of the enemy regiment.\\
+		\item The enemy regiments size is reduced by a number corresponding to the number of units that would die, in correspondence to the damage taken.\\
+		\item The equation for calculating the new size of the attacked regiment is given by \\
+		\item $New\_Size = Size - (Damage\_taken / Health)$.
+		\item If we assume, an attacking regiment that deals $2000 = 200 \times 10 \times 1$ damage, and a defending regiment that have $Health = 50$ and $Size = 200$, the resulting size of the defending regiment, after the attack, would be $200-(2000/50)=160$.
+		\end{itemize}
 		\paragraph{MoveTowards action}
 		Usage: \\
 		MoveTowards(Regiment) \\
