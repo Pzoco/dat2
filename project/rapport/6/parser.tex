@@ -1,9 +1,12 @@
-This chapter will describe how we implemented the simulator. The simulator consists of three separate parts: \\
+This chapter will describe how we implemented the simulator. The simulator consists of four separate parts: \\
 \begin{enumerate}
+	\item Scanner
 	\item Parsing
 	\item Contextual Analyzer
 	\item Interpretation
 \end{enumerate}
+
+\paragraph{The scanner} scans through the teamfiles and the config file, and builds token out of keywords. It simply goes from one character to another, and everytime it can put characters together to a predefined keyword/terminal it saves it as a token for the parser to use.
 
 
 \begin{figure}[H]
@@ -15,7 +18,7 @@ This chapter will describe how we implemented the simulator. The simulator consi
 
 To give a roughly picture of how the scripts gets interpret and outputted to the simulator we have made a rough drawing that shows how it all works in the big picture figure \ref{fig:script_to_simu}
 
-\section{Parser-construction}
+\section{Parser construction}
 	In this section we will describe how one can construct a parser from a EBNF, but first we will describe what a parser is and how it works.
 	
 	\subsection{Parsing strategies}
