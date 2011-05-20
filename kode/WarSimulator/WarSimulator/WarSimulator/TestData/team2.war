@@ -9,7 +9,7 @@ Regiment Archer
 	Health = 5;
 	Movement = 3;
 	AttackSpeed = 1;
-	RegimentPosition = Position(5,5);
+	RegimentPosition = Position(4,4);
 	Behaviour SilentMonkeysBehavoiur2
 	{
 		Regiment enemy = SearchForEnemies();

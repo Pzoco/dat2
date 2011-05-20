@@ -33,7 +33,7 @@ Regiment Warrior
 	Health = 4;
 	Movement = 2;
 	AttackSpeed = 1;
-	RegimentPosition = Position(5,0);
+	RegimentPosition = Position(4,0);
 	Behaviour SilentMonkeysBehavoiur1
 	{
 		Regiment enemy = SearchForEnemies();
