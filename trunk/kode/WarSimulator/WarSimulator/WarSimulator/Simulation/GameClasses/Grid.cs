@@ -11,6 +11,7 @@ namespace WarSimulator_Handmade.Simulation
 		public static int width;
 		public static int height;
 		public static Tile[,] tiles;
+		public static int gridTextureSize;
 
 		public static void InstantiateGrid()
 		{
@@ -22,6 +23,8 @@ namespace WarSimulator_Handmade.Simulation
 					tiles[x, y] = new Tile();
 				}
 			}
+			if (width > height) { gridTextureSize = 500 / width; }
+			else { gridTextureSize = 500 / height; }
 		}
 	}
 }
