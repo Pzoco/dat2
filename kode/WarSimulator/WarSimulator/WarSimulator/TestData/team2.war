@@ -13,22 +13,22 @@ Regiment Warrior
 	Behaviour SilentMonkeysBehavoiur2
 	{
 		Regiment enemy = SearchForEnemies();
-		If (enemy.Distance <= Range)
+		if (enemy.Distance <= Range)
 		{
 			Attack(enemy);
 		}
-		Else If (enemy.Distance <= Range+Movement)
+		else if (enemy.Distance <= Range+Movement)
 		{
-			While(enemy.Distance < Range)
+			while(enemy.Distance < Range)
 			{
 				MoveTowards(enemy);
 			}
 			Attack(enemy);
 		}
-		If (enemy.Distance <= Range)
+		if (enemy.Distance <= Range)
 		{
 			MoveAway(enemy);
-			If(enemy.Distance <= Range)
+			if(enemy.Distance <= Range)
 			{
 				Attack(enemy);
 			}

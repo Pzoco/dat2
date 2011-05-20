@@ -13,13 +13,13 @@ Regiment Soldier
 	Behaviour SilentMonkeysBehavoiur1
 	{
 		Regiment enemy = SearchForEnemies();
-		If (enemy.Distance <= Range)
+		if (enemy.Distance <= Range)
 		{
 			Attack(enemy);
 		}
-		Else If (enemy.Distance <= Range+Movement)
+		else if (enemy.Distance <= Range+Movement)
 		{
-			While(enemy.Distance < Range)
+			while(enemy.Distance < Range)
 			{
 				MoveTowards(enemy);
 			}
@@ -41,13 +41,13 @@ Regiment Winner
 	Behaviour SilentMonkeysBehavoiur1
 	{
 		Regiment enemy = SearchForEnemies();
-		If (enemy.Distance <= Range)
+		if (enemy.Distance <= Range)
 		{
 			Attack(enemy);
 		}
-		Else If (enemy.Distance <= Range+Movement)
+		else if (enemy.Distance <= Range+Movement)
 		{
-			While(enemy.Distance < Range)
+			while(enemy.Distance < Range)
 			{
 				MoveTowards(enemy);
 			}
