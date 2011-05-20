@@ -2,12 +2,12 @@ Team NinjaMonkeys1
 
 Regiment Soldier
 {
-	Size = 20;
+	Size = 10;
 	Type = Melee;
 	Range = 10;
 	Damage = 2;
-	Health = 10;
-	Movement = 30;
+	Health = 4;
+	Movement = 1;
 	AttackSpeed = 1;
 	RegimentPosition = Position(0,0);
 	Behaviour SilentMonkeysBehavoiur1
@@ -17,27 +17,23 @@ Regiment Soldier
 		{
 			Attack(enemy);
 		}
-		else if (enemy.Distance <= Range+Movement)
+		else
 		{
-			while(enemy.Distance < Range)
-			{
-				MoveTowards(enemy);
-			}
+			MoveTowards(enemy);
 			Attack(enemy);
 		}
-		MoveTowards(enemy);
 	}
 }
-Regiment Winner
+Regiment Warrior
 {
-	Size = 20;
+	Size = 8;
 	Type = Melee;
 	Range = 10;
 	Damage = 2;
-	Health = 10;
-	Movement = 30;
+	Health = 4;
+	Movement = 2;
 	AttackSpeed = 1;
-	RegimentPosition = Position(1,0);
+	RegimentPosition = Position(5,0);
 	Behaviour SilentMonkeysBehavoiur1
 	{
 		Regiment enemy = SearchForEnemies();
@@ -45,14 +41,12 @@ Regiment Winner
 		{
 			Attack(enemy);
 		}
-		else if (enemy.Distance <= Range+Movement)
+		else
 		{
-			while(enemy.Distance < Range)
-			{
-				MoveTowards(enemy);
-			}
+			MoveTowards(enemy);
+			MoveTowards(enemy);
+			
 			Attack(enemy);
 		}
-		MoveTowards(enemy);
 	}
 }

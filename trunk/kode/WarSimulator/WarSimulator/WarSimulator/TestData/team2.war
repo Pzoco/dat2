@@ -1,35 +1,28 @@
 Team NinjaMonkeys2
 
-Regiment Warrior
+Regiment Archer
 {
-	Size = 20;
-	Type = Melee;
+	Size = 10;
+	Type = Ranged;
 	Range = 10;
-	Damage = 2;
-	Health = 10;
-	Movement = 30;
+	Damage = 5;
+	Health = 5;
+	Movement = 3;
 	AttackSpeed = 1;
-	RegimentPosition = Position(6,2);
+	RegimentPosition = Position(5,5);
 	Behaviour SilentMonkeysBehavoiur2
 	{
 		Regiment enemy = SearchForEnemies();
 		if (enemy.Distance <= Range)
 		{
-			Attack(enemy);
-		}
-		else if (enemy.Distance <= Range+Movement)
-		{
-			while(enemy.Distance < Range)
+			if(enemy.Distance > 2)
 			{
-				MoveTowards(enemy);
+				Attack(enemy);
 			}
-			Attack(enemy);
-		}
-		if (enemy.Distance <= Range)
-		{
-			MoveAway(enemy);
-			if(enemy.Distance <= Range)
+			else
 			{
+				MoveAway(enemy);
+				MoveAway(enemy);
 				Attack(enemy);
 			}
 		}

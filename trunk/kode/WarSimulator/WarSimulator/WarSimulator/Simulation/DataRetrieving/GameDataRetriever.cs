@@ -185,7 +185,7 @@ namespace WarSimulator_Handmade.Simulation
 				case "Damage": currentRegiment.damage = value; break;
 				case "Range": currentRegiment.range = value; break;
 				case "Health": currentRegiment.health = value; currentRegiment.currentHealth = value; break;
-				case "Movement": currentRegiment.movement = value; break;
+				case "Movement": currentRegiment.movement = value; currentRegiment.currentMovement = value; break;
 				case "AttackSpeed": currentRegiment.attackSpeed = value; break;
 			}
 			return null;

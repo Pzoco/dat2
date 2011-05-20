@@ -53,6 +53,7 @@ namespace WarSimulator_Handmade.Simulation
 				{
 					if (!CheckMaximastats(regiment)) { return false; }
 					if (!CheckForMissingData(regiment)){return false;}
+					if (regiment.type == Regiment.AttackType.Melee) { regiment.range = 1; }
 					regimentPositions.Add(regiment.position);
 				}
 				if (!CheckPositions()) { return false; }

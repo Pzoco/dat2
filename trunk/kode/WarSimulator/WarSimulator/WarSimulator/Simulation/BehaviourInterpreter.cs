@@ -22,7 +22,7 @@ namespace WarSimulator_Handmade.Simulation
 		private abstract class Value { }
 		private class BoolValue : Value { public bool b;}
 		private class IntValue : Value { public int i;}
-		private class TypeValue : Value {public Regiment.AttackType t;}
+		private class TypeValue : Value { public Regiment.AttackType t;}
 		private class UndefinedValue : Value { }
 		#endregion
 
@@ -45,6 +45,7 @@ namespace WarSimulator_Handmade.Simulation
 			regimentAssignments.Clear();
 			currentGameState = gameState;
 			currentRegiment = regiment;
+			currentRegiment.currentMovement = currentRegiment.movement;
 			currentRegiment.hasAttacked = false;
 			currentRegiment.behaviour.Visit(this, null);
 			return currentGameState;
@@ -135,7 +136,7 @@ namespace WarSimulator_Handmade.Simulation
 							case "<=": if (regiment.range <= value) { regimentsToGet.Add(regiment); } break;
 						} break;
 				}
-				
+
 			}
 			return regimentsToGet;
 		}
@@ -156,6 +157,7 @@ namespace WarSimulator_Handmade.Simulation
 					case "==": if (i1 == i2) { b.b = true; } else { b.b = false; } return b;
 					case ">=": if (i1 >= i2) { b.b = true; } else { b.b = false; } return b;
 					case "<=": if (i1 <= i2) { b.b = true; } else { b.b = false; } return b;
+					case "!=": if (i1 != i2) { b.b = true; } else { b.b = false; } return b;
 
 					case "+": i.i = i1 + i2; return i;
 					case "-": i.i = i1 - i2; return i;
@@ -216,7 +218,7 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				ast.sc1.Visit(this, null);
 			}
-			else if (ast.eifc != null) { ast.eifc.ForEach(x => x.Visit(this, null)); }
+			else if (ast.eifc.Count > 0) { ast.eifc.ForEach(x => x.Visit(this, null)); }
 			else if (ast.sc2 != null) { ast.sc2.Visit(this, null); }
 			return null;
 		}
@@ -251,7 +253,7 @@ namespace WarSimulator_Handmade.Simulation
 		public Object VisitIntegerExpression(IntegerExpression ast, Object obj)
 		{
 			IntValue i = new IntValue();
-			i.i = Int32.Parse((string)ast.il.Visit(this,null));
+			i.i = (int)ast.il.Visit(this, null);
 			return i;
 		}
 		public Object VisitRegimentStatExpression(RegimentStatExpression ast, Object obj)
@@ -269,15 +271,15 @@ namespace WarSimulator_Handmade.Simulation
 		public Object VisitUnitStatVNameExpression(UnitStatVNameExpression ast, Object obj)
 		{
 			IntValue i = new IntValue();
-			string spelling = (string)ast.ust.Visit(this,null);
+			string spelling = (string)ast.ust.Visit(this, null);
 			switch (spelling)
 			{
-				case "Size": i.i = currentRegiment.size; break;
+				case "Size": i.i = currentRegiment.currentSize; break;
 				case "Range": i.i = currentRegiment.range; break;
 				case "Damage": i.i = currentRegiment.damage; break;
-				case "Movement": i.i = currentRegiment.movement; break;
+				case "Movement": i.i = currentRegiment.currentMovement; break;
 				case "AttackSpeed": i.i = currentRegiment.attackSpeed; break;
-				case "Health": i.i = currentRegiment.health; break;
+				case "Health": i.i = currentRegiment.currentHealth; break;
 				case "Type": TypeValue t = new TypeValue(); t.t = currentRegiment.type; return t;
 			}
 			return i;
@@ -428,7 +430,7 @@ namespace WarSimulator_Handmade.Simulation
 		#region Files
 		public Object VisitTeamFile(TeamFile ast, Object obj)
 		{
-			ast.rbs.ForEach(x=>x.Visit(this, null));
+			ast.rbs.ForEach(x => x.Visit(this, null));
 			return null;
 		}
 		public Object VisitConfigFile(ConfigFile ast, Object obj)

@@ -12,7 +12,6 @@ namespace WarSimulator_Handmade
 
         public RulesBlock(MaximaBlock mb, StandardsBlock sb)
         {
-            // TODO: Complete member initialization
             this.mb = mb;
             this.sb = sb;
         }
