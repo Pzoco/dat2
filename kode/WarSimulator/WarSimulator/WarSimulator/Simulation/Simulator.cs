@@ -81,11 +81,13 @@ namespace WarSimulator_Handmade
 					GameState.messages.Clear();
 					foreach (Regiment regiment in regimentTurnOrder)
 					{
-						Color colorOfteam = currentGameState.teams[regiment.team].color;
-						GameState.AddMessage("<Begin Turn> Regiment "+regiment.name,colorOfteam );
+
 						if (regiment.currentSize > 0)
 						{
+							Color colorOfteam = currentGameState.teams[regiment.team].color;
+							GameState.AddMessage("<Begin Turn> Regiment " + regiment.name, colorOfteam);
 							currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
+							GameState.AddMessage("<End Turn> Regiment " + regiment.name, colorOfteam);
 						}
 						else
 						{
@@ -93,13 +95,15 @@ namespace WarSimulator_Handmade
 							if (currentGameState.teams[regiment.team].regiments.Count <= 0)
 							{
 								teamsLeft--;
-								if (teamsLeft == 1)
-								{
-									gameEnded = true;
-								}
+
 							}
 						}
-						GameState.AddMessage("<End Turn> Regiment " + regiment.name, colorOfteam);
+					}
+					if (teamsLeft == 1)
+					{
+						GameState.messages.Clear();
+						GameState.AddMessage("Team " + (regimentTurnOrder[0].team+1) + " won the game!", Color.Black);
+						gameEnded = true;
 					}
 				}
 			}
@@ -129,7 +133,7 @@ namespace WarSimulator_Handmade
 			{
 				spriteBatch.DrawString(spriteFont, GameState.messages[i].text, new Vector2(350, 30 * (i+1)),GameState.messages[i].color);
 			}
-			spriteBatch.DrawString(spriteFont, "Round: "+round.ToString(), new Vector2(350, 0), Color.Black);
+			if (gameEnded != true) { spriteBatch.DrawString(spriteFont, "Round: " + round.ToString(), new Vector2(350, 0), Color.Black); }
 			spriteBatch.End();
 			base.Draw(gameTime);
 		}
