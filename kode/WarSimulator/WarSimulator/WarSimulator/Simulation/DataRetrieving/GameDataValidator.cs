@@ -21,7 +21,11 @@ namespace WarSimulator_Handmade.Simulation
 			this.grid = grid;
 			this.teams = teams;
 			SetStandardsData(standards);
-			CheckData();
+
+			if (!CheckData())
+			{
+				valid = false;
+			}
 		}
 
 		private void SetStandardsData(Regiment regiment)
@@ -63,22 +67,28 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		private bool CheckMaximastats(Regiment regiment)
 		{
-			if (regiment.attackSpeed > maximaLimit.attackSpeed && maximaLimit.attackSpeed != 0) { return false; }
-			else if (regiment.damage > maximaLimit.damage && maximaLimit.damage != 0) { return false; }
-			else if (regiment.range > maximaLimit.range && maximaLimit.range != 0) { return false; }
-			else if (regiment.size > maximaLimit.size && maximaLimit.size != 0) { return false; }
-			else if (regiment.movement > maximaLimit.movement && maximaLimit.movement != 0) { return false; }
-			else if (regiment.health > maximaLimit.health && maximaLimit.health != 0) { return false; }
+			bool maximaHolds = true;
+			if (regiment.attackSpeed > maximaLimit.attackSpeed && maximaLimit.attackSpeed != 0) { maximaHolds = false; }
+			else if (regiment.damage > maximaLimit.damage && maximaLimit.damage != 0) { maximaHolds = false; }
+			else if (regiment.range > maximaLimit.range && maximaLimit.range != 0) { maximaHolds = false; }
+			else if (regiment.size > maximaLimit.size && maximaLimit.size != 0) { maximaHolds = false; }
+			else if (regiment.movement > maximaLimit.movement && maximaLimit.movement != 0) { maximaHolds = false; }
+			else if (regiment.health > maximaLimit.health && maximaLimit.health != 0) { maximaHolds = false; }
+			if (!maximaHolds)
+			{
+				Console.WriteLine("Maxima exceeded");
+				return false;
+			}
 			return true;
 		}
 		private bool CheckForMissingData(Regiment regiment)
 		{
 			if (regiment.attackSpeed == 0) { regiment.attackSpeed = standards.attackSpeed; }
-			if (regiment.damage == 0) { regiment.attackSpeed = standards.damage; }
-			if (regiment.health == 0) { regiment.attackSpeed = standards.health; }
-			if (regiment.movement == 0) { regiment.attackSpeed = standards.movement; }
-			if (regiment.range == 0) { regiment.attackSpeed = standards.range; }
-			if (regiment.size == 0) { regiment.attackSpeed = standards.size; }
+			if (regiment.damage == 0) { regiment.damage = standards.damage; }
+			if (regiment.health == 0) { regiment.health = standards.health; }
+			if (regiment.movement == 0) { regiment.movement = standards.movement; }
+			if (regiment.range == 0) { regiment.range = standards.range; }
+			if (regiment.size == 0) { regiment.size = standards.size; }
 			return true;
 		}
 		private bool CheckPositions()
@@ -87,6 +97,11 @@ namespace WarSimulator_Handmade.Simulation
 			HashSet<Regiment.Position> uniques = new HashSet<Regiment.Position>();
 			foreach (Regiment.Position p in regimentPositions)
 			{
+				if (p.x > Grid.width-1 || p.y > Grid.height-1)
+				{
+					Console.WriteLine("Coordinates out of range");
+					return false;
+				}
 				Grid.tiles[p.x, p.y].occupied = true;
 				if (uniques.Contains(p))
 				{
@@ -97,7 +112,11 @@ namespace WarSimulator_Handmade.Simulation
 					uniques.Add(p);
 				}
 			}
-			if (duplicates.Count > 0) { return false; }
+			if (duplicates.Count > 0) 
+			{
+				Console.WriteLine("Positions overlap");
+				return false; 
+			}
 			return true;
 		}
 	}

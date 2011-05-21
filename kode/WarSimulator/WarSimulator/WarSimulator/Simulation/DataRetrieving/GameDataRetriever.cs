@@ -45,7 +45,7 @@ namespace WarSimulator_Handmade.Simulation
 				{
 					case 0: color = Color.Red; break;
 					case 1: color = Color.Blue; break;
-					case 2: color = Color.Yellow; break;
+					case 2: color = Color.Purple; break;
 					case 3: color = Color.Green; break;
 				}
 				teams[currentTeam].color = color;
@@ -120,6 +120,7 @@ namespace WarSimulator_Handmade.Simulation
 				teams[currentTeam].regiments.Add(currentRegiment);
 				currentRegiment = new Regiment();
 				currentRegiment.color = teams[currentTeam].color;
+				currentRegiment.team = currentTeam;
 			}
 			return null;
 		}

@@ -52,10 +52,14 @@ namespace WarSimulator_Handmade
 		public Simulator(ConfigFile configFile, TeamFile[] teamFiles)
 		{
 			currentGameState = gameDataRetriever.Retrieve(configFile, teamFiles);
+			if (currentGameState == null)
+			{
+				this.Exit();
+			}
 			teamsLeft = teamFiles.Length;
 			Content.RootDirectory = "Content";
 			graphics = new GraphicsDeviceManager(this);
-			graphics.PreferredBackBufferWidth = 950;
+			graphics.PreferredBackBufferWidth = 900;
 			graphics.PreferredBackBufferHeight = 500;
 		}
 		#endregion
@@ -84,10 +88,7 @@ namespace WarSimulator_Handmade
 
 						if (regiment.currentSize > 0)
 						{
-							Color colorOfteam = currentGameState.teams[regiment.team].color;
-							//GameState.AddMessage("<Begin Turn> Regiment " + regiment.name, colorOfteam);
 							currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
-							//GameState.AddMessage("<End Turn> Regiment " + regiment.name, colorOfteam);
 						}
 						else
 						{
@@ -110,10 +111,19 @@ namespace WarSimulator_Handmade
 			timer++;
 			base.Update(gameTime);
 		}
+		#region Drawing
 		protected override void Draw(GameTime gameTime)
 		{
 			graphics.GraphicsDevice.Clear(Color.White);
 			spriteBatch.Begin();
+				DrawGrid(gameTime);
+				DrawRegiments(gameTime);
+				DrawInfo(gameTime);
+			spriteBatch.End();
+			base.Draw(gameTime);
+		}
+		private void DrawGrid(GameTime gameTime)
+		{
 			for (int x = 0; x < Grid.width; x++)
 			{
 				for (int y = 0; y < Grid.height; y++)
@@ -123,24 +133,44 @@ namespace WarSimulator_Handmade
 						0, Vector2.Zero, scale, SpriteEffects.None, 0);
 				}
 			}
+		}
+		private void DrawRegiments(GameTime gameTime)
+		{
 			foreach (Team team in currentGameState.teams)
 			{
 
 				foreach (Regiment regiment in team.regiments)
 				{
 					float scale = ((float)Grid.gridTextureSize / (float)50);
-					spriteBatch.Draw(regTexture, regiment.position.ToVector2() * Grid.gridTextureSize, null, team.color,
+					Vector2 position = regiment.position.ToVector2() * Grid.gridTextureSize;
+
+					//Draws the Regiment and scales it to fit the screen
+					spriteBatch.Draw(regTexture,position, null, team.color,
 						0, Vector2.Zero, scale, SpriteEffects.None, 0);
+					
+					//The position of text
+					Vector2 textPosition = position + new Vector2((Grid.gridTextureSize / 10), 
+						(Grid.gridTextureSize / 2) - Grid.gridTextureSize / 8);
+
+					//Draws a the type of the regiment
+					spriteBatch.DrawString(spriteFont, regiment.type.ToString(), textPosition, Color.White,
+							0, Vector2.Zero, scale * 0.7f, SpriteEffects.None, 0);
+					//Draws a number representing which team the regiment is
+					spriteBatch.DrawString(spriteFont, "Team "+((regiment.team+1).ToString()),
+						textPosition + new Vector2(0, Grid.gridTextureSize / 5), Color.White,
+							0, Vector2.Zero,scale* 0.7f, SpriteEffects.None, 0);
 				}
 			}
+		}
+		private void DrawInfo(GameTime gametime)
+		{
 			for (int i = 0; i < GameState.messages.Count; i++)
 			{
-				spriteBatch.DrawString(spriteFont, GameState.messages[i].text, new Vector2(520, 30 * (i+1)),GameState.messages[i].color);
+				spriteBatch.DrawString(spriteFont, GameState.messages[i].text, new Vector2(510, 30 * (i + 1)), GameState.messages[i].color);
 			}
-			if (gameEnded != true) { spriteBatch.DrawString(spriteFont, "Round: " + round.ToString(), new Vector2(520, 0), Color.Black); }
-			spriteBatch.End();
-			base.Draw(gameTime);
+			if (gameEnded != true) { spriteBatch.DrawString(spriteFont, "Round: " + round.ToString(), new Vector2(510, 0), Color.Black); }
 		}
+		#endregion
 		#endregion
 
 		#region Methods
