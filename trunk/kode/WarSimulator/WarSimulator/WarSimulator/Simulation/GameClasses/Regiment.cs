@@ -23,7 +23,7 @@ namespace WarSimulator_Handmade.Simulation
 			}
 			public override string ToString()
 			{
-				return "<"+x+","+y+">";
+				return "<" + x + "," + y + ">";
 			}
 		}
 		public enum AttackType { Melee, Ranged }
@@ -62,25 +62,20 @@ namespace WarSimulator_Handmade.Simulation
 			if (!hasAttacked)
 			{
 				int distance = GetDistanceTo(regiment);
-				if (distance == 1)
+				if (range >= distance)
 				{
-					GameState.AddMessage("Regiment "+name+" deals "+(damage*attackSpeed)+" damage to "+regiment.name,color);
-					regiment.GetDamage(damage);
-				}
-				else if (range > (damage * attackSpeed) && type == AttackType.Ranged)
-				{
-					GameState.AddMessage("Regiment " + name + " deals " + (damage * attackSpeed) + " damage to " + regiment.name, color);
+					GameState.AddMessage(name + " deals " + (damage * attackSpeed) + " damage to " + regiment.name, color);
 					regiment.GetDamage((damage * attackSpeed));
+					hasAttacked = true;
 				}
-				hasAttacked = true;
 			}
 		}
 		public void MoveAway(Regiment regiment)
 		{
 			if (currentMovement > 0)
 			{
-				double angle = Math.Abs(Math.Atan2(position.y - regiment.position.y,
-													position.x - regiment.position.x) * 180 / Math.PI);
+				double angle = GetAngle(regiment.position, position);
+
 				if (angle > 45 && angle <= 135)
 				{
 					MoveUp();
@@ -103,10 +98,9 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			if (currentMovement > 0)
 			{
-				double angle = Math.Abs(Math.Atan2(position.y - regiment.position.y,
-											position.x - regiment.position.x) * 180 / Math.PI);
-
-				if (angle >= 45 && angle <= 135 && !Grid.tiles[position.x, position.y + 1].occupied)
+				double angle = GetAngle(position, regiment.position);
+				Console.WriteLine("Trying to move angle is "+angle);
+				if (angle >= 215 && angle <= 305 && !Grid.tiles[position.x, position.y + 1].occupied)
 				{
 					MoveDown();
 				}
@@ -114,7 +108,7 @@ namespace WarSimulator_Handmade.Simulation
 				{
 					MoveRight();
 				}
-				else if (angle >= 215 && angle <= 305 && !Grid.tiles[position.x, position.y - 1].occupied)
+				else if (angle >= 45 && angle <= 135 && !Grid.tiles[position.x, position.y - 1].occupied)
 				{
 					MoveUp();
 				}
@@ -149,9 +143,20 @@ namespace WarSimulator_Handmade.Simulation
 				if (currentSize <= 0)
 				{
 					GameState.AddMessage(name + " died", color);
+					Grid.tiles[position.x, position.y].occupied = false;
 					break;
 				}
 			}
+		}
+		private double GetAngle(Position pos1, Position pos2)
+		{
+			double radian = Math.Atan2(pos1.y - pos2.y,
+												pos1.x - pos2.x);
+			if (radian < 0)
+			{
+				return (radian * (180 / Math.PI))+360;
+			}
+			return radian * (180 / Math.PI);
 		}
 		#endregion
 
@@ -160,11 +165,11 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			if (position.y > 0)
 			{
-				if (!Grid.tiles[position.x, position.y-1].occupied)
+				if (!Grid.tiles[position.x, position.y - 1].occupied)
 				{
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.y -= 1;
-					GameState.AddMessage("Regiment " + name + " moves up to " + position.ToString(),color);
+					GameState.AddMessage(name + " moves up to " + position.ToString(), color);
 					Grid.tiles[position.x, position.y].occupied = true;
 					currentMovement--;
 				}
@@ -172,13 +177,13 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		private void MoveDown()
 		{
-			if (position.y < Grid.height-1)
+			if (position.y < Grid.height - 1)
 			{
 				if (!Grid.tiles[position.x, position.y + 1].occupied)
 				{
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.y += 1;
-					GameState.AddMessage("Regiment " + name + " moves down to " + position.ToString(),color);
+					GameState.AddMessage(name + " moves down to " + position.ToString(), color);
 					Grid.tiles[position.x, position.y].occupied = true;
 					currentMovement--;
 				}
@@ -188,11 +193,11 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			if (position.x > 0)
 			{
-				if (!Grid.tiles[position.x-1, position.y].occupied)
+				if (!Grid.tiles[position.x - 1, position.y].occupied)
 				{
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.x -= 1;
-					GameState.AddMessage("Regiment " + name + " moves left to " + position.ToString(),color);
+					GameState.AddMessage(name + " moves left to " + position.ToString(), color);
 					Grid.tiles[position.x, position.y].occupied = true;
 					currentMovement--;
 				}
@@ -200,13 +205,13 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		private void MoveRight()
 		{
-			if (position.x < Grid.width-1)
+			if (position.x < Grid.width - 1)
 			{
 				if (!Grid.tiles[position.x + 1, position.y].occupied)
 				{
 					Grid.tiles[position.x, position.y].occupied = false;
 					position.x += 1;
-					GameState.AddMessage("Regiment " + name + " moves right to " + position.ToString(),color);
+					GameState.AddMessage(name + " moves right to " + position.ToString(), color);
 					Grid.tiles[position.x, position.y].occupied = true;
 					currentMovement--;
 				}

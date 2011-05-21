@@ -18,10 +18,12 @@ namespace WarSimulator_Handmade
         {
             if (args.Length == 0)
             {
-                args = new string[3];
+                args = new string[5];
                 args[0] = "TestData/config.cfg";
                 args[1] = "TestData/team1.war";
 				args[2] = "TestData/team2.war";
+				args[3] = "TestData/team3.war";
+				args[4] = "TestData/team4.war";
                 TryStartSimulation(args);
             }
             else if (args.Length < 3)

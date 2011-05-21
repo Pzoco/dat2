@@ -63,6 +63,23 @@ namespace WarSimulator_Handmade.Simulation
 			}
 			return null;
 		}
+		
+		//Used when doing regiment search
+		private Regiment GetClosestRegiment(List<Regiment> regiments)
+		{
+			Regiment closestRegiment = new Regiment();
+			int closestDistance = 1000000;
+			foreach (Regiment regiment in regiments)
+			{
+				int distance = regiment.GetDistanceTo(currentRegiment);
+				if (closestDistance > distance)
+				{
+					closestDistance = distance;
+					closestRegiment = regiment;
+				}
+			}
+			return closestRegiment;
+		}
 
 		//Gets regiments by checking if there are any regiments where unitStat op value is true (parameter).
 		private List<Regiment> GetRegiments(List<Regiment> regiments, Parameter parameter)
@@ -263,7 +280,6 @@ namespace WarSimulator_Handmade.Simulation
 			return i;
 		}
 
-		//Vi har ikke engang unary expressions?
 		public Object VisitUnaryExpression(UnaryExpression ast, Object obj)
 		{
 			return null;
@@ -369,7 +385,7 @@ namespace WarSimulator_Handmade.Simulation
 			{
 				return null;
 			}
-			return regimentsFound[0];
+			return GetClosestRegiment(regimentsFound);
 		}
 		public Object VisitRegimentSearchName(RegimentSearchName ast, Object obj)
 		{
