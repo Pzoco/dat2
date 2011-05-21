@@ -176,7 +176,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 
 \section{ Running a simulation }
 %Dette skal måske ikke være her. Hvis det flyttes, så vær opmærksom på referencerne i ovenstående section, under Round og Turn
-	When the simulation engine has been provided with a configuration file and two or more team files, the simulation will run. During a simulation, alot of things happen, that are not defined in the WAR code. This section will explore these events and provide some insight in what happens during a simulation.
+	When the simulation engine has been provided with a configuration file and two or more team files, the simulation will run. During a simulation, a lot of things happen, that are not defined in the WAR code. This section will explore these events and provide some insight in what happens during a simulation.
 		\subsubsection{Beginning the simulation}
 		When beginning the simulation, the configuration file and all provided team files are read and interpreted. The information found in these files is used by the simulator during the simulation. When the files have been interpreted, the simulation starts by picking a team at random. The chosen team is the first to evaluate its regiments turns. If there are more than two teams, the next team to go, is also chosen at random. The sequence of the teams will be consistent throughout the rounds of the simulation. All teams are added to a list of playing teams. Only teams on this list can participate in a round. When a team is initialized, each regiment related to the team, is stored in list, private to the team. This list contains all regiments, that are eligible to perform actions in a turn. 
 		\subsubsection{The events of a Teams round}
