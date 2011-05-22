@@ -39,9 +39,11 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		A team consists of 1 or more regiments. In the simulation two or more teams will battle to win the simulation. Here, a team is synonymous to an army.
 		
 		\paragraph{Turn}
-		Each of the regiment will have a turn each round where they can perform a limited number of actions. The number of actions allowed per regiment per turn, is defined in the simulator.
-		The turn will end if the regiment is out of action or if the regiment doesn't want to perform any Actions. 
-		The actions performed by a regiment is predefined in the behaviour. 
+		Each of the regiment will have a turn each round where they can perform a limited number of actions. 
+		The actions a regiment is allowed to do is described in \ref{rules:action}.
+%		The number of actions allowed per regiment per turn, is defined in the simulator.
+%		The turn will end if the regiment is out of action or if the regiment doesn't want to perform any Actions. 
+%		The actions performed by a regiment is predefined in the behaviour. 
 		Further description of events during a turn, will be described in the following section.
 		
 		\paragraph{Round}
@@ -52,9 +54,8 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 
 		\paragraph{Behaviour}
 		Behaviour allows the players to define how each regiment behaves. 
-		By using control statements, the player may have a regiment behave in a defensive or offensive way, 
-		using methods provided with the language. \\
-		As an example you may instruct a ranged regiment to behave in such a way, 
+		To control how a regiment behaves control statements can be used. \\
+		As an example of a behaviour you may instruct a ranged regiment to behave in such a way, 
 		as to not approach another regiment, and only open fire if that regiment is within the range of your archer regiment.
 				
 		\paragraph{Grid}
@@ -67,7 +68,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		\paragraph{Size}
 		The size of the regiment is, in abstraction, the number of soldiers in the current regiment. 
 		The size is closely connected with the total health of the regiment, as well as total damage done by the regiment.
-		The size also provides information about how much space the regiment takes up on the grid. A regiment off size $200$ would take up $200$ grid tiles.
+		%The size also provides information about how much space the regiment takes up on the grid. A regiment off size $200$ would take up $200$ grid tiles.
 %		One might consider it as the overall health of the regiment. While size may be an abstraction of health,
 %		it's important to notice that a regiment with a larger size takes up more integers on the grid.
 
@@ -96,6 +97,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		However, in the context of the simulation, the attackspeed is quite simply a multiplier of the damage done by the regiment.
 		
 		\subsubsection{Action}
+		\label{rules:action}
 		When a regiment has its turn they are allowed to do some actions, \textit{Attack}, \textit{MoveTowards} or \textit{MoveAway}. \\
 		For describing these action we set a precondition(what is required to do the action), a failure(what happens if the condition isn't met)
 		and result(what happens if the condition is met).
@@ -108,8 +110,8 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		\begin{itemize}\itemsep0.0001cm
 		\item The regiment has its turn. \\
 		\item For a regiment of attacktype ranged the regiment must be in range. \\
-		\item For a regiment of attacktype melee the enemy regiment must be 1 tile away(diagonals included). \\
-		\item The Regiment must be eligible to perform additional actions in this turn.\\
+		\item For a regiment of attacktype melee the enemy regiment must be 1 tile away(diagonals excluded). \\
+		\item The Regiment must not have had attacked this round.\\
 		\end{itemize}
 		\subparagraph{Failure:} 
 		Nothing happens \\
@@ -125,34 +127,42 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		\item If we assume, an attacking regiment that deals $2000 = 200 \times 10 \times 1$ damage, and a defending regiment that have $Health = 50$ and $Size = 200$, the resulting size of the defending regiment, after the attack, would be $200-(2000/50)=160$.
 		\end{itemize}
 		\paragraph{MoveTowards action}
-		Usage: \\
+		\subparagraph{Usage:} 
 		MoveTowards(Regiment) \\
 		
-		Precondition: \\
-		The regiment has its turn, the given regiment exists and the \textit{tiles}(Available grid-movements) (left,right,up down) 
+		\subparagraph{Precondition:} 
+		\begin{itemize}\itemsep0.0001cm
+			\item The regiment has its turn and the \textit{tiles}(Available grid-movements - left,right,up down) 
 		which brings the regiment towards the target regiment isn't blocked.\\
-		The Regiment must be eligible to perform additional actions in this turn.\\
+			\item The Regiment must be eligible to perform additional actions in this turn.\\
+		\end{itemize}
 		
-		Failure: \\
+		\subparagraph{Failure:} 
 		Nothing happens \\
 		
-		Result: \\
-		The regiment will move a number of tiles equal to its movement, in the direction of the specified regiment.
+		\subparagraph{Result:}
+		\begin{itemize}\itemsep0.0001cm
+		\item The regiment will move a number of tiles equal to its movement, in the direction of the specified regiment.
+		\end{itemize}
 		%The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
 		
 		\paragraph{MoveAway action}
-		Usage: \\
+		\subparagraph{Usage:} 
 		MoveAway(Regiment) \\
 		
-		Precondition: \\
-		The regiment has its turn, the given regiment exists and the tiles (left,right,up down) 
-		which brings the regiment towards the target regiment is not blocked.
+		\subparagraph{Precondition:} 
+		\begin{itemize}\itemsep0.0001cm
+		\item The regiment has its turn and the tiles (Available grid-movements - left,right,up down)
+		which brings the regiment away from the target regiment is not blocked.
+		\end{itemize}
 		
-		Failure: \\
+		\subparagraph{Failure:} 
 		Nothing happens \\
 		
-		Result: \\
-		The regiment will move a number of tiles equal to its movement, in the opposite direction of the specified regiment.
+		\subparagraph{Result:}
+		\begin{itemize}\itemsep0.0001cm
+			\item The regiment will move a number of tiles equal to its movement, in the opposite direction of the specified regiment.
+		\end{itemize}
 		%The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
 				
 		\subsubsection{Configuration of the Playing Field}
@@ -178,8 +188,20 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 %Dette skal måske ikke være her. Hvis det flyttes, så vær opmærksom på referencerne i ovenstående section, under Round og Turn
 	When the simulation engine has been provided with a configuration file and two or more team files, the simulation will run. During a simulation, a lot of things happen, that are not defined in the WAR code. This section will explore these events and provide some insight in what happens during a simulation.
 		\subsubsection{Beginning the simulation}
-		When beginning the simulation, the configuration file and all provided team files are read and interpreted. The information found in these files is used by the simulator during the simulation. When the files have been interpreted, the simulation starts by picking a team at random. The chosen team is the first to evaluate its regiments turns. If there are more than two teams, the next team to go, is also chosen at random. The sequence of the teams will be consistent throughout the rounds of the simulation. All teams are added to a list of playing teams. Only teams on this list can participate in a round. When a team is initialized, each regiment related to the team, is stored in list, private to the team. This list contains all regiments, that are eligible to perform actions in a turn. 
+		When beginning the simulation, the configuration file and provided team files are read and interpreted. The information found in these files is used during the simulation. 
+		
+When the simulation is about to start, a team is picked at random. The chosen team is the first to evaluate its regiments turns. If there are more than two teams, the next team to go, is also chosen at random. The sequence of the teams will be consistent throughout the rounds of the simulation. All teams are added to a list of playing teams. Only teams on this list can participate in a round. When a team is initialized, each regiment related to the team, is stored in list, private to the team. This list contains all regiments, that are eligible to perform actions in a turn. 
+
 		\subsubsection{The events of a Teams round}
-		At the beginning of a teams round, the simulation engine checks if the team is still eligible to play. To be eligible, the team must still have "living" regiments. A regiment is considered living, if there is at least 1 unit left in the regiment - i.e. the regiments size must be at least 1. If the team is not eligible to play, it is removed from the list of playing teams. If there is only one team left on the list, and that team is eligible to play, that team wins the simulation. If the team is eligible to play, the simulation engine begins iterating through the regiments of the teams, performing the actions deciphered from the behaviour in the script files. Each regiments behaviour is performed in the regiments own turn - no regiment actions are performed in parallel.
+		At the beginning of a teams turn, the simulation engine checks if the team is still allowed to play. 
+		To be this a team must have a regiment left. Regiments are removed from a given team when their size is 0.
+		If the team is allowed to play, each of the regiments on the team will have their behaviour performed.
+		
+%		"living" regiments. A regiment is considered living, if there is at least 1 unit left in the regiment - i.e. the regiments size must be at least 1. If the team is not eligible to play, it is removed from the list of playing teams. If there is only one team left on the list, and that team is eligible to play, that team wins the simulation. If the team is eligible to play, the simulation engine begins iterating through the regiments of the teams, performing the actions deciphered from the behaviour in the script files. Each regiments behaviour is performed in the regiments own turn - no regiment actions are performed in parallel.
+
 		\subsection{The events of a regiments turn}
-		A Regiment can only take a turn, if the regiment exists on the team-specific list of regiments eligible to take turns and the regiment is still considered living. If the regiment is no longer considered living, the regiment is removed from the list. If the regiment is eligible to take a turn, the behaviour of the regiment is performed, according to WAR script, so long as the regiment is still allowed to perform additional actions. If the behaviour contains one of the methods; Attack, MoveTowards, MoveAway, they are performed, as described in section \ref{sec:describeWAR}. If one or more of the three methods are performed, the grid is updated to reflect the change - be it the size of an regiment or the position of a regiment. In addition to the updated grid, the regiment is also allowed one less action for the current turn per method called.
+		If a given regiment is eligible to take a turn, the behaviour of the regiment is performed, 
+		according to the WAR script written. If the behaviour contains one of the methods; 
+		Attack, MoveTowards, MoveAway, they are performed, as described in section \ref{sec:describeWAR}. 
+		If one or more of the three methods are performed, the grid is updated to reflect the change - 
+		be it the size of an regiment or the position of a regiment. 
