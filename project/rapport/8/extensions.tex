@@ -1,0 +1,60 @@
+\section{Army Dynamic}
+Improvements to army definitions and behaviours to make the simulation more dynamic.
+\subsection{Leaders}
+The notion of having a special unit being responsible for different parts of a team.
+\subsubsection*{General}
+An interesting aspect to have was to have a leader or a 'General' leading the army. It is up to the script to define a behaviour for your army which best protects your general. Your General would serve as a large power of the army, and as mentioned earlier victory conditions could be set to admit defeat upon the death of a general.
+\subsubsection*{Regiment Leader}
+The idea of having a regiment leader is to make battles more dynamic. Each regiment would be assigned a leader which would inherit some of the properties of the regiment.
+The leader of a regiment would be a single unit - but very strong. A regiment leader would decide the behaviour of a regiment and as such the regiment behaves exactly as the leader does.
+\subsection{Unit Management}
+Currently the engine of the simulation handles an entire regiment on it's own - but it would be entirely more interesting through visualization to have each unit interact with each other on a per-unit basis. Movement would be handled by regiment, but attacking, damage, and deaths of units would be handled by the units of a regiment interacting with each other. As such only the frontlines of a melee regiment would be able to attack at a time, and the units of a regiment could take on some interesting attributes.
+\subsection{Unit Morale}
+This is an attribute of a unit, which would be inherited from the regiment which the unit belongs to. Overall a regiment with a Regiment Leader would have a higher morale. Having a higher morale may boost certain abilities of the regiments, such as the chance for an attack to hit.
+\section{Configuration Enhancements}
+Enhancements to the setup of the game - the configuration script.
+\subsection{Winning Conditions}
+The language should support the possibility of defining specific winning conditions through the configuration script. Choosing from preset rules or setting up conditions through control statements.
+An example of setting up such a condition could be something similar to the following:
+
+\begin{lstlisting}
+Rules
+{
+	Conditions
+	{
+	//Team loses when General dies
+	Defeat = General; // 'General' would be a pre-set rule.
+	}
+}
+
+\end{lstlisting}
+Other examples of a preset rule might be Last-Man-Standing, where the armies would battle until only one single unit remains.
+
+It should also be possible to set up the conditions with a control statement:
+\begin{lstlisting}
+Rules
+{
+	Conditions
+	{
+		if(Regiments == 0)
+		{
+		Defeat; 
+		// Defeat token - means a loss for the team.
+		}
+	}
+}
+
+\end{lstlisting}
+The intention would be to set up conditions easily, while also allowing for much more specific conditions, through more advanced scripting.
+\subsection{Grid Obstacles}
+Not every battlefield is a clear square - support for adding obstacles to the grid would be interesting. This could be achieved by giving the configuration file some data from which to generate random obstacles. One might be to determine the density of obstacles on a grid, and another the size of the obstacles. Obstacles would be placed randomly on the grid according to the configuration file. This would also allow for some further interesting specifications in the behaviour definitions for a regiment. A scripter should have the power to make a regiment avoid obstacles and take the most efficient route.
+\section{Engine and GUI Improvements}
+\subsection{Event Handling}
+When certain events in the simulation takes place, we would like to handle these events, and have some consequences for these which affects the flow of the game.
+\subsubsection*{Regiment Leader Death}
+Should the leader of a regiment perish, this could affect the remaining units of a regiment somehow. Maybe the regiment would lose morale, maybe the units of a regiment would become scattered.
+\subsubsection*{General Death}
+Depending on the conditions set forth in the configuration of the game, the team may lose outright be declared defeated if the general dies. However if that condition is not set in the event of the death of a General this could be set to affect the entire army somehow. 
+\subsection{Finer Simulation Control}
+During the course of the simulation, a player might have regretted some of the behaviours of a regiment. In such a case it could be interesting to allow the engine to ask for a new team script from both players at a set time. Such a thing would require no changes to the language itself, as the flexible nature of the script interpreter alone would allow for things such as behaviours on the fly. \\
+For instance the simulation may simply ask for a new team file at a set interval, numbered by the time passed. Of course time is measured in the context of rounds in this simulation.
