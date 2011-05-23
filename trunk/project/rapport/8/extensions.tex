@@ -3,14 +3,14 @@ Improvements to army definitions and behaviours to make the simulation more dyna
 \subsection{Leaders}
 The notion of having a special unit being responsible for different parts of a team.
 \subsubsection*{General}
-An interesting aspect to have was to have a leader or a 'General' leading the army. It is up to the script to define a behaviour for your army which best protects your general. Your General would serve as a large power of the army, and as mentioned earlier victory conditions could be set to admit defeat upon the death of a general.
+An interesting aspect to have was to have a leader or a 'General' leading the army. It is up to the script to define a behaviour for your army which best protects your general. Your General would serve as a large power of the army, and as mentioned earlier victory conditions could be set to admit defeat upon the death of a general.\label{moral} The general could also serve the purpose of a moral change of the entire regiment, so if the general is near the death, the regiment will gain a higher moral, and if the general dies the regiment might loose some moral, and fight less powerful.
 \subsubsection*{Regiment Leader}
 The idea of having a regiment leader is to make battles more dynamic. Each regiment would be assigned a leader which would inherit some of the properties of the regiment.
 The leader of a regiment would be a single unit - but very strong. A regiment leader would decide the behaviour of a regiment and as such the regiment behaves exactly as the leader does.
 \subsection{Unit Management}
-Currently the engine of the simulation handles an entire regiment on it's own - but it would be entirely more interesting through visualization to have each unit interact with each other on a per-unit basis. Movement would be handled by regiment, but attacking, damage, and deaths of units would be handled by the units of a regiment interacting with each other. As such only the frontlines of a melee regiment would be able to attack at a time, and the units of a regiment could take on some interesting attributes.
+Currently the engine of the simulation handles an entire regiment on its own - but it would be entirely more interesting through visualization to have each unit interact with each other on a per-unit basis. Movement would be handled by regiment, but attacking, damage, and deaths of units would be handled by the units of a regiment interacting with each other. As such only the frontlines of a melee regiment would be able to attack at a time, and the units of a regiment could take on some interesting attributes.
 \subsection{Unit Morale}
-This is an attribute of a unit, which would be inherited from the regiment which the unit belongs to. Overall a regiment with a Regiment Leader would have a higher morale. Having a higher morale may boost certain abilities of the regiments, such as the chance for an attack to hit.
+This is an attribute of a unit, which would be inherited from the regiment which the unit belongs to. Overall a regiment with a Regiment Leader would have a higher morale as mentioned earlier \ref{moral}. Having a higher morale may boost certain abilities of the regiments, such as the chance for an attack to hit.
 \section{Configuration Enhancements}
 Enhancements to the setup of the game - the configuration script.
 \subsection{Winning Conditions}
