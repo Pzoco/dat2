@@ -10,4 +10,8 @@ Interpreters' tombstone diagrams are made with a spade looking figure, with the 
 				\caption{Tombstone Diagram for the WAR language\\ Interpreting a program P expressed in language WAR, which is written in the .NET framework. The WAR interpreter running on machine M} \label{fig:tombstone}
 			\end{figure}
 			
-In figure \ref{fig:tombstone} one can see that from a program developed in the programming language $WAR$, it will be interpret from the language $WAR$ to the machine $M$ and the interpreter will run on the same machine $M$. By the machine $M$ me mean that is can run on every computer with the .NET framework
+In figure \ref{fig:tombstone} one can see that from a program developed in the programming language $WAR$, it will be interpret from the language $WAR$ to the machine $M$ and the interpreter will run on the same machine $M$. By the machine $M$ me mean that is can run on every computer with the .NET framework.
+
+Compiling the interpreter written in C$\sharp$ is done by the following:
+
+The .NET Framework is working by combining different languages and their matching compilers, and compiling all the languages into a new assembly like language called CIL (Common Intermediate Language) \cite{CIL} which is very similar to the Java Virtual Machine. This is done with all the .NET compatible languages and then the platform specific CLR (Common Language Runtime) compiles the CIL to machine code for this specific machine-architecture.
