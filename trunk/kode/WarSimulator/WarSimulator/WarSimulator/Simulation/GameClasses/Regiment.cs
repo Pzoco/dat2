@@ -99,7 +99,6 @@ namespace WarSimulator_Handmade.Simulation
 			if (currentMovement > 0)
 			{
 				double angle = GetAngle(position, regiment.position);
-				Console.WriteLine("Trying to move angle is "+angle);
 				if (angle >= 215 && angle <= 305 && !Grid.tiles[position.x, position.y + 1].occupied)
 				{
 					MoveDown();

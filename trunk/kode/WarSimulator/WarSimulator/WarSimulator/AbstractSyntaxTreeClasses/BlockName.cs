@@ -11,7 +11,6 @@ namespace WarSimulator_Handmade
 
         public BlockName(Identifier i)
         {
-            // TODO: Complete member initialization
             this.i = i;
         }
         public override Object Visit(Visitor v, Object arg)

@@ -324,7 +324,7 @@ namespace WarSimulator_Handmade
                     Accept(Token.TokenType.RightParen);
                     break;
                 case Token.TokenType.Identifier:
-                    e = ParseRegimentStat();
+                    e = ParseRegimentStatExpression();
                     break;
                 default:
                     SyntaxError("Error parsing Primary Expression", currentToken);
@@ -360,7 +360,7 @@ namespace WarSimulator_Handmade
             RegimentDeclaration rd = new RegimentDeclaration(i, rs);
             return new RegimentDeclarationCommand(rd,previousTokenPosition);
         }
-        private RegimentStatExpression ParseRegimentStat()
+        private RegimentStatExpression ParseRegimentStatExpression()
         {
             RegimentStat e = null;
             UnitStatType ust = null;
