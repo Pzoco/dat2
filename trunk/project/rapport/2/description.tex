@@ -4,7 +4,7 @@
 \label{sec:describeWAR}
 As mentioned earlier the \textit{WAR}-Game is a simulation where the players will program the behaviour of their armies with a script, and let the game being executed without further interaction. The winner of the simulation will be the one with the best script, as decided by the simulation engine. \\
 	\subsection{The simulation}
-		To run a simulation in the \textit{WAR} simulation, a configuration file and at least two team files has to be fed to the simulation upon startup. 
+		To run a simulation in the \textit{WAR} simulation, a configuration file and at least two team files has to be fed to the simulation upon start up. 
 		These files are written in the \textit{WAR} scripting language.
 		\\
 		The configuration file is used to establish basic rules for the war simulation, i.e. the size of the battlefield, the maximal values of properties and the standard properties of regiments.
@@ -74,7 +74,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 
 		\paragraph{Health}
 		Health describes the initial health of each unit in the regiment.
-		The total health is calculated from the size of the regiment, by using the equation $Total\_Health = Size \times Health$.
+		The total health is calculated from the size of the regiment, by using the equation\label{Total_Health} $Total\_Health = Size \times Health$.
 		
 		\paragraph{Attack Type}
 		The Attack \textit{Type} defines how a regiment attacks. A regiments Type can only be \textit{Melee} or \textit{Ranged}.
@@ -87,7 +87,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		
 		\paragraph{Damage}
 		The damage of a regiment is an abstraction of the damage done by each unit in the regiment.
-		The total damage done by one regiment, is calculated by the equation $Total\_Damage = Size \times Damage \times AttackSpeed$ 
+		The total damage done by one regiment, is calculated by the equation\label{Total_Damage} $Total\_Damage = Size \times Damage \times AttackSpeed$ 
 		
 		\paragraph{Movement}
 		Movement defines how many tiles a regiment is allowed to move.
@@ -98,37 +98,37 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		
 		\subsubsection{Action}
 		\label{rules:action}
-		When a regiment has its turn they are allowed to do some actions, \textit{Attack}, \textit{MoveTowards} or \textit{MoveAway}. \\
+		When a regiment has its turn they are allowed to do some actions, \textit{Attack}, \textit{MoveTowards} or \textit{MoveAway}.
 		For describing these action we set a precondition(what is required to do the action), a failure(what happens if the condition isn't met)
 		and result(what happens if the condition is met).
 		
 		\paragraph{Attack action}
 		\subparagraph{Usage:} 
-		Attack(Regiment) \\
+		Attack(Regiment)
 		
 		\subparagraph{Precondition:} 
 		\begin{itemize}\itemsep0.0001cm
-		\item The regiment has its turn. \\
-		\item For a regiment of attacktype ranged the regiment must be in range. \\
-		\item For a regiment of attacktype melee the enemy regiment must be 1 tile away(diagonals excluded). \\
-		\item The Regiment must not have had attacked this round.\\
+		\item It is the turn of this regiment to move.
+		\item For a regiment of \textit{attacktype} ranged the regiment must be in range. 
+		\item For a regiment of \textit{attacktype} melee the enemy regiment must be 1 tile away(diagonals excluded).
+		\item The Regiment must not have had attacked this round.
 		\end{itemize}
 		\subparagraph{Failure:} 
-		Nothing happens \\
+		Nothing happens
 		
 		\subparagraph{Result:}
 		\begin{itemize} 
-		\item The enemy regiment current total health pool is calculated.\\ 
-		\item The total damage of the attacking regiment is calculated. \\
-		\item The damage is subtracted from the total health pool of the enemy regiment.\\
-		\item The enemy regiments size is reduced by a number corresponding to the number of units that would die, in correspondence to the damage taken.\\
-		\item The equation for calculating the new size of the attacked regiment is given by \\
-		\item $New\_Size = Size - (Damage\_taken / Health)$.
+		\item The enemy regiment current total health pool is calculated seen \ref{Total_Health}.
+		\item The total damage of the attacking regiment is calculated seen \ref{Total_Damage}.
+		\item The damage is subtracted from the total health pool of the enemy regiment.
+		\item The enemy regiments size is reduced by a number corresponding to the number of units that would die, in correspondence to the damage taken.
+		\item The equation for calculating the new size of the attacked regiment is given by 
+		\subitem \label{New_Size}$New\_Size = Size - (Damage\_taken / Health)$.
 		\item If we assume, an attacking regiment that deals $2000 = 200 \times 10 \times 1$ damage, and a defending regiment that have $Health = 50$ and $Size = 200$, the resulting size of the defending regiment, after the attack, would be $200-(2000/50)=160$.
 		\end{itemize}
 		\paragraph{MoveTowards action}
 		\subparagraph{Usage:} 
-		MoveTowards(Regiment) \\
+		MoveTowards(Regiment)
 		
 		\subparagraph{Precondition:} 
 		\begin{itemize}\itemsep0.0001cm
@@ -157,7 +157,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		\end{itemize}
 		
 		\subparagraph{Failure:} 
-		Nothing happens \\
+		Nothing happens
 		
 		\subparagraph{Result:}
 		\begin{itemize}\itemsep0.0001cm
