@@ -6,9 +6,6 @@ This chapter will describe how we implemented the simulator. The simulator consi
 	\item Interpretation
 \end{enumerate}
 
-\paragraph{The scanner} scans through the teamfiles and the config file, and builds token out of keywords. It simply goes from one character to another, and everytime it can put characters together to a predefined keyword/terminal it saves it as a token for the parser to use.
-
-
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1.2]{rapport/6/figures/script_to_simu}
@@ -45,20 +42,49 @@ To give a roughly picture of how the scripts gets interpret and outputted to the
 			In this project, however we have chosen to make a LL parser because it's easy to implement, furthermore speed is not important for us. 
 			The type of LL parser we made is called a recursive descent parser.
 			
-	\subsection{A recursive descent parser}
+	\subsection{Abstract Syntax Tree}
+		The structure of the parsed program is stored as an AST. The tree structure is called abstract because it doesn't contain the concrete
+		structure of the EBNF, but rather a abstract representation of the source code. Because of this there isn't a straightforward way to 
+		construct such a tree. How we constructed such a tree is explained in \ref{parsemethods}.
+			
+	\subsection{Recursive descent parser}
 		A recursive descent parser is a LL parser which works by recursively going through the program code.
 		To construct this type of parser a EBNF is required and here is how it is made:
 		\begin{enumerate}
 			\item Make a scanner for reading chars and identifying them as terminals.
 			\item Make a parse method for each non-terminal in the EBNF.
 			\item Make a method that can accept terminals.
-			\item In each of the parse method accept terminals and/or call other parse methods.
-		\end{enumerate}		
+			\item In each of the parse method accept tokens and/or call other parse methods.
+		\end{enumerate}
 	
-	\subsection{Abstract Syntax Tree}
-		The structure of the parsed program is stored as a AST. The tree structure is called abstract because it doesn't contain the concrete
-		structure of the EBNF, but rather a abstract representation of the source code. Because of this there isn't a straightforward way to 
-		construct such a tree. We constructed the AST-structure by making node classes for each terminal, declaration, control structure and making these 
-		reference each other similar to how a non-terminals, in the EBNF references its right-hand side terminals and non-terminals.
+		\subsubsection{Scanner}
+			The scanner is used to convert text in the text files to tokens, which is terminals as seen in the EBNF. 
+			It reads a text file as a stream of characters and tries to identify which terminal it is currently reading.
+			To identify tokens a table with the correct spellings of tokens is used.			 
+		
+		\subsubsection{Accepting terminals}
+			The parser uses an accept method to check if the current token is the token that it expects, if not an error is given.
+		
+		\subsubsection{Parse methods}
+			\label{parsemethods}
+			The parse methods functions in a mutual recursive way, where a parse methods representing the higher level nodes in a 
+			AST calls parse methods representing its children. When a lower level node is done parsing it returns this node to a higher level node,
+			this way a AST will be constructed. \\
+			Here is a parse method from our code:
+			\begin{lstlisting}
+		 private SingleCommand ParseRegimentDeclaration()
+        {
+            Accept(Token.TokenType.Regiment);
+            Identifier i = ParseIdentifier();
+            Accept(Token.TokenType.Assignment);
+            RegimentSearch rs = ParseRegimentSearch();
+            Accept(Token.TokenType.SemiColon);
+            RegimentDeclaration rd = new RegimentDeclaration(i, rs);
+            return new RegimentDeclarationCommand(rd,previousTokenPosition);
+        }
+			\end{lstlisting}
+			The method first tries to accept the token {\it Regiment} because a RegimentDeclaration must start with this. 
+			After this it expects there to be an identifier, which it tries to parse. After the rest of the accepting and parsing the new 
+			{\it RegimentDeclarationCommand} node is returned.
 		
 		
