@@ -1,18 +1,40 @@
-\section{Army Dynamic}
-Improvements to army definitions and behaviours to make the simulation more dynamic. This would be a modification of the team scripting.
+\section{Team Scripting Extensions}
+Improvements to the scripting of a team, and thereby the army definitions and behaviours, to make the simulation more dynamic. In doing so more methods might be introduced to be used to make more advanced behaviours. Making more advanced behaviours would allow the armies to move in a more interesting manners, such as flanking enemy regiments.
 \subsection{Leaders}
 The notion of having a special unit being responsible for different parts of a team.
 \subsubsection*{General}
-An interesting aspect to have was to have a leader or a 'General' leading the army. It is up to the script to define a behaviour for your army which best protects your general. Your General would serve as a large power of the army, and as mentioned earlier victory conditions could be set to admit defeat upon the death of a general.\label{moral} The general could also serve the purpose of a moral change of the entire regiment, so if the general is near the death, the regiment will gain a higher moral, and if the general dies the regiment might loose some moral, and fight less powerful.
+An interesting aspect to have was to have a leader or a 'General' leading the army. It is up to the script to define a behaviour for your army which best protects your general. Your General would serve as a large power of the army, and as mentioned earlier victory conditions could be set to admit defeat upon the death of a general.\label{moral} The general could also serve the purpose of a moral change of the entire regiment, so if the general is near the death, the regiment will gain a higher moral, and if the general dies the regiment might loose some moral, and fight less powerful. This would mean an addition to the language, enabling the possibility of specifying a General in your team configuration.
+\begin{lstlisting}
+Team "Monkey Ninjas"
+{
+	General
+	{
+	Movement =  50;
+	Type = Melee;
+	AttackSpeed = 1;
+	Health = 150;
+	}
+}
+
+\end{lstlisting}
+In doing so, we would also need to allow the script to establish boundaries for the generals in the configuration file.
 \subsubsection*{Regiment Leader}
 The idea of having a regiment leader is to make battles more dynamic. Each regiment would be assigned a leader which would inherit some of the properties of the regiment.
-The leader of a regiment would be a single unit - but very strong. A regiment leader would decide the behaviour of a regiment and as such the regiment behaves exactly as the leader does.
+The leader of a regiment would be a single unit - but very strong. A regiment leader would decide the behaviour of a regiment and as such the regiment might behave in another way with or without a regiment leader. A regiment leader inherits the properties of the regiments - for example a ranged regiment of archers would have a stronger archer leader with more range, damage, and what other properties that regiment might have. Depending on the type of the regiment leader the positioning of the regiment leader may vary, it makes sense to have a strong melee leader in the front of a regiment, while a strong ranged one might stay in the back.
+
+\subsection{Unit Orientation}
+To introduce further complexity of movement and and tactics, we need to add methods to control the orientation of a regiment. Not only to be able to control whether or not a regiment has its back turned to an opposing regiment, but also to be able to flank opposing regiments.
 \subsection{Unit Management}
-Currently the engine of the simulation handles an entire regiment on its own - but it would be entirely more interesting through visualization to have each unit interact with each other on a individual basis. Movement would be handled by regiment, but attacking, damage, and deaths of units would be handled by the units of a regiment interacting with each other. As such only the frontlines of a melee regiment would be able to attack at a time, and the units of a regiment could take on some interesting attributes.
+Currently the engine of the simulation handles an entire regiment on its own - but it would be entirely more interesting through visualization to have each unit interact with each other on a individual basis. Movement would be handled by regiment, but attacking, damage, and deaths of units would be handled by the units of a regiment interacting with each other. As such only the front lines of a melee regiment would be able to attack at a time, and the units of a regiment could take on some interesting attributes. 
+To handle the positioning of units, what the position of a regiment, would serve as the center point of the regiment, and the positioning of units would be placed from this center.
 \subsection{Unit Morale}
-This is an attribute of a unit, which would be inherited from the regiment which the unit belongs to. Overall a regiment with a Regiment Leader would have a higher morale as mentioned earlier \ref{moral}. Having a higher morale may boost certain abilities of the regiments, such as the chance for an attack to hit.
+This is an attribute of a unit, which would be inherited from the regiment which the unit belongs to. Overall a regiment with a Regiment Leader would have a higher morale as mentioned earlier \ref{moral}. Having a higher morale may boost certain abilities of the regiments, such as the chance for an attack to hit. This attribute would be treated in different ways, and is dependant upon many other factors in the simulation - you cannot assign a specific morale value to a regiment from the beginning of the simulation. Morale would be an integral part of how well a regiment functions, and how it behaves. It would be event dependant and the importance of it configurable in the configuration script.
 \section{Configuration Enhancements}
 Enhancements to the setup of the game. This would expand the language to have some more interesting properties in the configuration and thereby the initial state of the game. To achieve this the language would require some modifications and additions, to allow for a more flexible configuration script.
+
+\subsection{Boundaries}
+Currently the only thing governing the limitations of the regiment and team properties is the maxima that are specified. This is open for abuse, because nothing prevents simply just maxing out to all the maxima - this would leave all regiments to be identical and thereby very uninteresting. This brings up several extensions that are needed for the language and the framework in it self. Boundaries are not the same as maxima, we want to achieve regiments that are well balanced, for example, a unit with high damage might not have as high movement speed or attack speed. A way to do this is to set up a maximum for a team. This maximum is defined in the configuration as a simple point value, different unit-stats would weigh differently with the points, as would the size of a regiment. This would ensure that each team is evenly balanced - and the teams would be able to have any number of regiments as long as the army itself is within the point limitation.
+This presents some issues -error reporting would need to be improved to recognize the boundaries of any single regiment, and report an error before launching the simulation if anything is out of boundaries. Additionally it would need to be able to specify what has exceeded the maxima and by how many points.
 \subsection{Winning Conditions}
 The language should support the possibility of defining specific winning conditions through the configuration script. Choosing from preset rules or setting up conditions through control statements.
 An example of setting up such a condition could be something similar to the following:
@@ -22,7 +44,7 @@ Rules
 {
 	Conditions
 	{
-	//Team loses when General dies
+	//Team loss if General is destroyed
 	Defeat = General; // 'General' would be a pre-set rule.
 	}
 }
@@ -58,3 +80,42 @@ Depending on the conditions set forth in the configuration of the game, the team
 \subsection{Finer Simulation Control}
 During the course of the simulation, a player might have regretted some of the behaviours of a regiment. In such a case it could be interesting to allow the engine to ask for a new team script from both players at a set time. Such a thing would require no changes to the language itself, as the flexible nature of the script interpreter alone would allow for things such as behaviours on the fly. \\
 For instance the simulation may simply ask for a new team file at a set interval, numbered by the time passed. Of course time is measured in the context of rounds in this simulation.
+\section{Language Additions}
+The language could have some more basic functionalities, with would not affect the structure of the simulation itself.
+\subsection{Libraries}
+The possibility of including libraries to your script, and calling certain things from those libraries. This would open many possibilities of saving your behaviours, or developing more and more complex behaviour packages over time. This would mean including a certain library in your script, enabling you to call behaviours or functions from that library. Calling such a library behaviour would appear like this:
+
+\begin{lstlisting}
+Team "Ninjutsu"
+#include AssasinationTechniques
+
+Regiment "Assasins"
+{
+	Size = 10;
+	Type = Ranged;
+	Damage = 10;
+	Movement = 70;
+	AttackSpeed = 1;
+	
+	Behaviour
+	{
+		Regiment enemy = SearchForEnemies(General);
+		if(enemy.Distance <= Range)
+		{
+			//This is a library function
+			AssasinateGeneral; 
+		}
+		else
+		{
+			SneakToGeneral;
+			//This is a library function
+		}
+	}
+}
+
+\end{lstlisting}
+
+
+\subsection{Configuration Variables}
+The possibility of setting a variable which changes throughout the simulation. These variables could be set purely to be used in the scripting of each team, or make regiments on the grid dependant on them.
+An example of this could be setting a global morale modifier in the configuration script. Some event might call for this morale modifier to be reduced - making every regiment on the grid lose morale. This would bring in the need to make a regiment less dependant on morale, as a team might gain an advantage over the other in that case.
