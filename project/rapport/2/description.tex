@@ -30,7 +30,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		
 		 
 	\subsection{Game Specification}
-	In this section we define the terminology we use in the description of the game. \\
+	In this section we define the terminology we use in the description of the game.
 	These correspond with the terms used in the configuration- and team file.
 	
 		\subsubsection{Terms of the simulation}
@@ -54,7 +54,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 
 		\paragraph{Behaviour}
 		Behaviour allows the players to define how each regiment behaves. 
-		To control how a regiment behaves control statements can be used. \\
+		To control how a regiment behaves control statements can be used.
 		As an example of a behaviour you may instruct a ranged regiment to behave in such a way, 
 		as to not approach another regiment, and only open fire if that regiment is within the range of your archer regiment.
 				
@@ -77,13 +77,13 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		The total health is calculated from the size of the regiment, by using the equation\label{Total_Health} $Total\_Health = Size \times Health$.
 		
 		\paragraph{Attack Type}
-		The Attack \textit{Type} defines how a regiment attacks. A regiments Type can only be \textit{Melee} or \textit{Ranged}.
+		The Attack \textit{Type} defines how a regiment attacks. A regiments Type can only be \textit{melee} or \textit{ranged}.
 		\textit{Melee} regiments can only attack regiments adjacent to their position, while ranged regiments 
 		can attack any regiment within their specified range.
 		
 		\paragraph{Range}
-		Range is an integer value, which defines how far a regiment of Type \textit{Ranged} can attack. 
-		If a \textit{Range} is defined for a regiment of type \textit{Melee}, this is simply ignored.
+		Range is an integer value, which defines how far a regiment of type \textit{ranged} can attack. 
+		If a \textit{range} is defined for a regiment of type \textit{melee}, this is simply ignored.
 		
 		\paragraph{Damage}
 		The damage of a regiment is an abstraction of the damage done by each unit in the regiment.
@@ -93,13 +93,13 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		Movement defines how many tiles a regiment is allowed to move.
 		
 		\paragraph{Attackspeed}
-		Attackspeed governs how many attacks are performed by regiment each turn, giving units further interesting properties. 
-		However, in the context of the simulation, the attackspeed is quite simply a multiplier of the damage done by the regiment.
+		\textit{Attackspeed} governs how many attacks are performed by regiment each turn, giving units further interesting properties. 
+		However, in the context of the simulation, the \textit{attackspeed} is quite simply a multiplier of the damage done by the regiment.
 		
 		\subsubsection{Action}
 		\label{rules:action}
-		When a regiment has its turn they are allowed to do some actions, \textit{Attack}, \textit{MoveTowards} or \textit{MoveAway}.
-		For describing these action we set a precondition(what is required to do the action), a failure(what happens if the condition isn't met)
+		When a regiment has its turn they are allowed to do the actions, \textit{attack}, \textit{MoveTowards} or \textit{MoveAway}.
+		For describing these action we set a precondition(what is required to do the action), a failure(what happens if the condition is not met)
 		and result(what happens if the condition is met).
 		
 		\paragraph{Attack action}
@@ -133,7 +133,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		\subparagraph{Precondition:} 
 		\begin{itemize}\itemsep0.0001cm
 			\item The regiment has its turn and the \textit{tiles}(Available grid-movements - left,right,up down) 
-		which brings the regiment towards the target regiment isn't blocked.\\
+		which brings the regiment towards the target regiment is not blocked.\\
 			\item The Regiment must be eligible to perform additional actions in this turn.\\
 		\end{itemize}
 		
@@ -182,11 +182,12 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		information for a regiment is not entered in the main script, the regiment will use these standard properties.
 		
 		\paragraph{Maxima block}
-		This block sets the limitations for the properties of the regiments. E.g. regiments must be of size 200 or less.
+		This block sets the limitations for the properties of the regiments, e.g. regiments must be of size 200 or less.
 
-\section{ Running a simulation }
+\section{Running a simulation}
 %Dette skal måske ikke være her. Hvis det flyttes, så vær opmærksom på referencerne i ovenstående section, under Round og Turn
 	When the simulation engine has been provided with a configuration file and two or more team files, the simulation will run. During a simulation, a lot of things happen, that are not defined in the WAR code. This section will explore these events and provide some insight in what happens during a simulation.
+	
 		\subsubsection{Beginning the simulation}
 		When beginning the simulation, the configuration file and provided team files are read and interpreted. The information found in these files is used during the simulation. 
 		
@@ -202,6 +203,6 @@ When the simulation is about to start, a team is picked at random. The chosen te
 		\subsection{The events of a regiments turn}
 		If a given regiment is eligible to take a turn, the behaviour of the regiment is performed, 
 		according to the WAR script written. If the behaviour contains one of the methods; 
-		Attack, MoveTowards, MoveAway, they are performed, as described in section \ref{sec:describeWAR}. 
+		Attack, \textit{MoveTowards}, \textit{MoveAway}, they are performed, as described in section \ref{sec:describeWAR}. 
 		If one or more of the three methods are performed, the grid is updated to reflect the change - 
 		be it the size of an regiment or the position of a regiment. 
