@@ -2,7 +2,7 @@
 
 \section{Design criteria}
 
-When designing a new language there are many different criterias, and we have rated some of the main criterias below in table \ref{tab:criteria_tabular}. 
+When designing a new language there are many different criterias one have to relate to, so we have asked ourselves how easy we think this language should be to script, and how fast should a scripter be to find and fix the errors he or she might have made doing the process of scripting their team files and config files. We have rated the main criterias below in table \ref{tab:criteria_tabular} to create an overview of which criterias are the more important one, and which can we agree on being not so important.  
 
 %
 %Importance: Low Medium High Very high
@@ -12,32 +12,45 @@ When designing a new language there are many different criterias, and we have ra
 	\hline
 	Criteria			&	Importance	&		Description	\\	
 	\hline
-	
-	
-		
 	Write-ability 		& 	Very high	&		How easy and how fast can the program be written\\
 	Readability			& 	High		&		How easy is already written code to read\\
-	Reliability			& 	Medium		&		The program wil not behave unexspectively\\
-	Orthogonality		& 	Low			&		.\\
+	Reliability			& 	Medium		&		The program will not behave unexpectedly\\
+	Orthogonality		& 	Low			&		A relatively small set of primitive constructs can be combined in a relatively small number of ways\\
 	Uniformity			& 	High		&		Similar features should look and behave similar\\
 	Maintainability		& 	Very high	&		How fast can an error be found and corrected\\
 	Generality			& 	Medium		&		No or few special cases, combine the special cases and construct a more general one\\
 	Extensibility		& 	Low			&		Able to add new constructs to the language\\
-	Standardability		& 	Medium		&		Able to stransport the language to other computers\\
-	Implementability	& 	Low			&		.\\
+	Standard-ability		& 	Medium		&		Able to transport the language to other computers\\
+	Implementability	& 	Low			&		Ensure a translator or interpreter can be written\\
 	\hline
 	\end{tabular}
-	\caption{Design criterias}
+	\caption{Design criterias \cite{criteria}}
 	\label{tab:criteria_tabular}
 \end{table}
 
 
 Table \ref{tab:criteria_tabular} lists an overview of the design criterias we considered when designing the WAR language, and the associated level of priority.
 
-The primary focus of this language, has been on \textit{write-ability} and somewhat readability which is easily fulfilled when \textit{write-ability} is the main goal. By having the \textit{write-ability} as a very important choice we think that beginners in programming should be able to write their own script, and the \textit{maintainability} is also rated very high, so the programmer of the language easy can troubleshoot the script, and find the errors that might have occured and rapidly fix them. The \textit{uniformity} of the language is of a high importance since this helps the beginners to fastly learn the language and understand how the different part of the language works.
+\paragraph{Read- and Write-ability} These are very important since this is a scripting language for designing a virtual game, and non-programmer should be able to script their regiments, and make a simple behaviour block, and even make scripting fun. This is also our main focus and our goal to fulfil an easy written script, and of course easy to read as well.
+
+\paragraph{Reliability} This is rated medium and this is because if the interpreter or simulator behaves different than a user might expect it to do, the user will not trust his own script and then the write-ability will not be as fulfilled as we would like. The reliability is not something we have used a lot of strength to fulfil, but after the tests we have made, we think this is easily fulfilled.
+
+\paragraph{Orthogonality} Firstly we will describe what orthogonality is: If we start with an example of a car which has some orthogonal parts, when the driver accelerates the car, everything in the car moves along. But the parts from the car which is not orthogonal might be the steering wheel, if the driver turns the steering wheel it can influence the brakes. And since we have rated orthogonality low is because it would not be very useful.
+ 
+\paragraph{Uniformity} 
+
+
+\paragraph{Maintainability} 
+\paragraph{Generality} 
+\paragraph{Extensibility} 
+\paragraph{Standard-ability} 
+\paragraph{Implementability} 
+
+
+The primary focus of this language, has been on \textit{write-ability} and somewhat readability which is easily fulfilled when \textit{write-ability} is the main goal. By having the \textit{write-ability} as a very important choice we think that beginners in programming should be able to write their own script, and the \textit{maintainability} is also rated very high, so the programmer of the language easy can troubleshoot the script, and find the errors that might have occurred and rapidly fix them. The \textit{uniformity} of the language is of a high importance since this helps the beginners to rapidly learn the language and understand how the different part of the language works.
 
 
 \subsection{Paradigm}
-The design criteria of the WAR language is how advanced or how simple it should be, what the main focus area and what sort of paradigm it should be. We have chosen the imperative programming paradigm because in contrast to the object-oriented programming paradigm which is used to program in a more abstract sense, this should be simple and straight forward. The imperative programming paradigm describes computation in terms of statements that can change a program state and in contrast to the functional programming paradigm which treats computation as the evaluation of mathematical functions the imperative paradigm has been chosen to the WAR language since it uses statements, eventhough the user cannot declare statements, but the user can call different statements in the behaviour block. 
+The design criteria of the WAR language set up the main characteristics of the language, how advanced or how simple it should be e.g. the main focus area and what sort of paradigm it should be. We have chosen the imperative programming paradigm because in contrast to the object-oriented programming paradigm which is used to program in a more abstract sense, this should be simple and straight forward. The imperative programming paradigm describes computation in terms of statements that can change a program state in contrast to the functional programming paradigm which treats computation as the evaluation of mathematical functions. The imperative paradigm has been chosen to the WAR language since it uses statements, even though the user cannot declare statements, but the user can call different statements in the behaviour block. 
 
 
