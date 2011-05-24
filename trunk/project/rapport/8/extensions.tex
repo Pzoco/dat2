@@ -1,5 +1,5 @@
 \section{Army Dynamic}
-Improvements to army definitions and behaviours to make the simulation more dynamic.
+Improvements to army definitions and behaviours to make the simulation more dynamic. This would be a modification of the team scripting.
 \subsection{Leaders}
 The notion of having a special unit being responsible for different parts of a team.
 \subsubsection*{General}
@@ -8,11 +8,11 @@ An interesting aspect to have was to have a leader or a 'General' leading the ar
 The idea of having a regiment leader is to make battles more dynamic. Each regiment would be assigned a leader which would inherit some of the properties of the regiment.
 The leader of a regiment would be a single unit - but very strong. A regiment leader would decide the behaviour of a regiment and as such the regiment behaves exactly as the leader does.
 \subsection{Unit Management}
-Currently the engine of the simulation handles an entire regiment on its own - but it would be entirely more interesting through visualization to have each unit interact with each other on a per-unit basis. Movement would be handled by regiment, but attacking, damage, and deaths of units would be handled by the units of a regiment interacting with each other. As such only the frontlines of a melee regiment would be able to attack at a time, and the units of a regiment could take on some interesting attributes.
+Currently the engine of the simulation handles an entire regiment on its own - but it would be entirely more interesting through visualization to have each unit interact with each other on a individual basis. Movement would be handled by regiment, but attacking, damage, and deaths of units would be handled by the units of a regiment interacting with each other. As such only the frontlines of a melee regiment would be able to attack at a time, and the units of a regiment could take on some interesting attributes.
 \subsection{Unit Morale}
 This is an attribute of a unit, which would be inherited from the regiment which the unit belongs to. Overall a regiment with a Regiment Leader would have a higher morale as mentioned earlier \ref{moral}. Having a higher morale may boost certain abilities of the regiments, such as the chance for an attack to hit.
 \section{Configuration Enhancements}
-Enhancements to the setup of the game - the configuration script.
+Enhancements to the setup of the game. This would expand the language to have some more interesting properties in the configuration and thereby the initial state of the game. To achieve this the language would require some modifications and additions, to allow for a more flexible configuration script.
 \subsection{Winning Conditions}
 The language should support the possibility of defining specific winning conditions through the configuration script. Choosing from preset rules or setting up conditions through control statements.
 An example of setting up such a condition could be something similar to the following:
@@ -39,7 +39,7 @@ Rules
 		if(Regiments == 0)
 		{
 		Defeat; 
-		// Defeat token - means a loss for the team.
+		// Defeat event - means a loss for the team.
 		}
 	}
 }
@@ -47,7 +47,7 @@ Rules
 \end{lstlisting}
 The intention would be to set up conditions easily, while also allowing for much more specific conditions, through more advanced scripting.
 \subsection{Grid Obstacles}
-Not every battlefield is a clear square - support for adding obstacles to the grid would be interesting. This could be achieved by giving the configuration file some data from which to generate random obstacles. One might be to determine the density of obstacles on a grid, and another the size of the obstacles. Obstacles would be placed randomly on the grid according to the configuration file. This would also allow for some further interesting specifications in the behaviour definitions for a regiment. A scripter should have the power to make a regiment avoid obstacles and take the most efficient route.
+Not every battlefield is a clear square - support for adding obstacles to the grid would be interesting. This could be achieved by giving the configuration file some data from which to generate random obstacles. One might be to determine the density of obstacles on a grid, and another the size of the obstacles. Obstacles would be placed randomly on the grid according to the configuration file. This would also allow for some further interesting specifications in the behaviour definitions for a regiment. A scripter should be able to make a regiment avoid obstacles and take the most efficient route.
 \section{Engine and GUI Improvements}
 \subsection{Event Handling}
 When certain events in the simulation takes place, we would like to handle these events, and have some consequences for these which affects the flow of the game.
