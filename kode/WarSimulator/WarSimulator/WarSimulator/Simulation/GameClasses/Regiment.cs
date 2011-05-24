@@ -64,7 +64,7 @@ namespace WarSimulator_Handmade.Simulation
 				int distance = GetDistanceTo(regiment);
 				if (range >= distance)
 				{
-					GameState.AddMessage(name + " deals " + (damage * attackSpeed) + " damage to " + regiment.name, color);
+					GameState.AddMessage(name + " deals " + (damage * attackSpeed*currentSize) + " damage to " + regiment.name, color);
 					regiment.GetDamage((damage * attackSpeed));
 					hasAttacked = true;
 				}
