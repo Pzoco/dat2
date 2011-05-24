@@ -2,10 +2,7 @@
 
 \section{Design criteria}
 
-When designing a new language there are many different criterias one have to relate to, so we have asked ourselves how easy we think this language should be to script, and how fast should a scripter be to find and fix the errors he or she might have made doing the process of scripting their team files and config files. We have rated the main criterias below in table \ref{tab:criteria_tabular} to create an overview of which criterias are the more important one, and which can we agree on being not so important.  
-
-%
-%Importance: Low Medium High Very high
+When designing a new language there are many different criterias one have to relate to, so we have asked ourselves how easy we think this language should be to script, and how fast it should take a scripter to find and fix errors he or she might have made doing the process of scripting their team files and config files. We have valued the main criterias below in table \ref{tab:criteria_tabular} to create an overview of which criterias are the more important ones, and which we can agree on not being important.   
 
 \begin{table}[H]
 	\begin{tabular}{| 	l	|	 l	| p{7cm}	|}
@@ -37,17 +34,21 @@ Table \ref{tab:criteria_tabular} lists an overview of the design criterias we co
 
 \paragraph{Orthogonality} Firstly we will describe what orthogonality is: If we start with an example of a car which has some orthogonal parts, when the driver accelerates the car, everything in the car moves along. But the parts from the car which is not orthogonal might be the steering wheel, if the driver turns the steering wheel it can influence the brakes. And since we have rated orthogonality low is because it would not be very useful.
  
-\paragraph{Uniformity} 
+\paragraph{Uniformity} This is valued high, because of the write-ability and readability which are valued high too. The way of assigning constants is done in the same way to all of the different variables scripters can define.
 
 
-\paragraph{Maintainability} 
-\paragraph{Generality} 
-\paragraph{Extensibility} 
-\paragraph{Standard-ability} 
-\paragraph{Implementability} 
+\paragraph{Maintainability} This is valued very high, because we still have the 'game' in mind, and a new inexperienced scripter would give it less time than an experienced one, so debugging must be easy to perform.
+
+\paragraph{Generality} This is valued medium, we think this is easily fulfilled, since the WAR language is a very simple language, so we have none of very few special cases.
+
+\paragraph{Extensibility} Provide the user to add new elements to the language, is not possible and is valued low.
+
+\paragraph{Standard-ability} This is valued medium, and it is not something we have done our best to fulfil, and this is also why it is medium and not higher. It should be possible to run it on the majority of computers.
+
+\paragraph{Implementability} This is low, since it is not possible to do and will not be.
 
 
-The primary focus of this language, has been on \textit{write-ability} and somewhat readability which is easily fulfilled when \textit{write-ability} is the main goal. By having the \textit{write-ability} as a very important choice we think that beginners in programming should be able to write their own script, and the \textit{maintainability} is also rated very high, so the programmer of the language easy can troubleshoot the script, and find the errors that might have occurred and rapidly fix them. The \textit{uniformity} of the language is of a high importance since this helps the beginners to rapidly learn the language and understand how the different part of the language works.
+The primary focus of this language, has been on \textit{write-ability} and somewhat readability which is easily fulfilled when \textit{write-ability} is the main goal. By having the \textit{write-ability} as a very important choice we think that beginners in programming should be able to write their own script, and the \textit{maintainability} is also rated very high, so the programmer of the language easy can debug the script, and find the errors that might have occurred and rapidly fix them. The \textit{uniformity} of the language is of a high importance since this helps the beginners to rapidly learn the language and understand how the different part of the language works.
 
 
 \subsection{Paradigm}
