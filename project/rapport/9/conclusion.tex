@@ -1,10 +1,11 @@
 \section{Conclusion}
-	The goal of the project was to make language, that when interpreted could emulate a game between multiple armies. 
-	This goal have been fulfilled by programming a simulator, which can do syntactical analyzing, semantical analyzing and interpretation.
-	Syntactical analyzing was done by recursive descent parsing the scripts written in WAR, the semantical analyzing was applied by using 
-	a visitor pattern that could check for type and scope rules. The simulator part contains a interpreter that can interpret 
-	a regiments behaviours in the form of an abstract syntax tree, which is retrieved from the decorated abstract syntax tree. \\
+	The goal of the project was to make language, that when interpreted could emulate a battle between multiple armies. 
+	This goal has been fulfilled by programming a simulator, which can do syntactical analysis, semantic analysis and interpretation.
+	Syntactical analysis was done by recursive descent parsing the scripts written in our own scripting language - WAR. The semantic analysis was applied by using 
+	a visitor pattern that could check for type and scope rules. The simulator contains an interpreter that can interpret the Decorated Abstract Syntax Tree, provided by the semantic analysis.
+	The most difficult part of the interpretation, was to interpret a regiments behaviour. \\
 	
+	Looking back at chapter \ref{chap:chap:DesCrit} and our design criteria described in table \ref{tab:DesCrit}, we see that not all of our design criteria were fulfilled. The scripting language has a very high writeability and readability - we assume that most amateur programmers should be able to write their own unique script only using another script as reference. The reliability of the program is also well established, but some scripters may be surprised when not all their planned behaviours are performed in a turn, due to the limited actions per turn. The Orthogonality of the scripting language is implicitly fulfilled. Because each team- and regiment-declaration bears great resemblance to the declarations in the configuration file, it's safe to say that the scripting language is designed for high uniformity. It's relatively easy to find errors in a script, when trying interpret it, because the syntactical and semantic analysis is implemented with an error reporter, which states which line in a script contains the error. However, the error reporter is not very specific in explaining what file the error occurred in. In addition, some of the error messages are of debatable precision and quality. As such, the design criteria of very high maintainability is not fully satisfied.
 	The focus of the project was never speed, because the language is so simple the parsing and decorating is done fast.
 	It has neither been functionality we had to focus on getting the simulator to run the scripts. If we were to write another language 
 	it could be interesting to have language constructs as variables, functions or records implemented.
