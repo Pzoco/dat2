@@ -1,75 +1,58 @@
-Team Pirates
+Team Red
 
-Regiment PirateArcher
+Regiment RedArcher1
 {
-	Size = 10;
+	Size = 4;
 	Type = Ranged;
-	Range = 2;
-	Damage = 4;
+	Range = 10;
+	Damage = 8;
 	Health = 4;
-	Movement = 1;
+	Movement = 2;
 	AttackSpeed = 1;
-	RegimentPosition = Position(3,2);
-	Behaviour SilentMonkeysBehavoiur1
+	RegimentPosition = Position(1,5);
+	Behaviour NormalArcherBehaviour
 	{
 		Regiment enemy = SearchForEnemies();
 		if (enemy.Distance <= Range)
 		{
 			Attack(enemy);
-			if(enemy.Distance < 2)
+			if(enemy.Distance < 5)
 			{
 				MoveAway(enemy);
+				MoveAway(enemy);
+			}
+			else
+			{
+				MoveTowards(enemy);
 			}
 		}
-		else
-		{
-			MoveTowards(enemy);
-		}
 	}
 }
-Regiment PirateWarrior
+Regiment RedArcher2
 {
-	Size = 10;
-	Type = Melee;
+	Size = 12;
+	Type = Ranged;
+	Range = 10;
 	Damage = 8;
 	Health = 4;
-	Movement = 1;
+	Movement = 2;
 	AttackSpeed = 1;
-	RegimentPosition = Position(2,2);
-	Behaviour SilentMonkeysBehavoiur1
+	RegimentPosition = Position(17,5);
+	Behaviour NormalArcherBehaviour
 	{
 		Regiment enemy = SearchForEnemies();
 		if (enemy.Distance <= Range)
 		{
 			Attack(enemy);
-		}
-		else
-		{
-			MoveTowards(enemy);
-			Attack(enemy);
-		}
-	}
-}
-Regiment PirateWarrior
-{
-	Size = 10;
-	Type = Melee;
-	Damage = 8;
-	Health = 4;
-	Movement = 1;
-	AttackSpeed = 1;
-	RegimentPosition = Position(2,3);
-	Behaviour SilentMonkeysBehavoiur1
-	{
-		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range)
-		{
-			Attack(enemy);
-		}
-		else
-		{
-			MoveTowards(enemy);
-			Attack(enemy);
+			if(enemy.Distance < 5)
+			{
+				MoveAway(enemy);
+				MoveAway(enemy);
+			}
+			else
+			{
+				MoveTowards(enemy);
+			}
 		}
 	}
 }

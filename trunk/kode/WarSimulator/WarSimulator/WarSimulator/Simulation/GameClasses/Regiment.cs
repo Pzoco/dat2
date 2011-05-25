@@ -74,7 +74,7 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			if (currentMovement > 0)
 			{
-				double angle = GetAngle(regiment.position, position);
+				double angle = GetAngle(position, regiment.position);
 
 				if (angle > 45 && angle <= 135)
 				{

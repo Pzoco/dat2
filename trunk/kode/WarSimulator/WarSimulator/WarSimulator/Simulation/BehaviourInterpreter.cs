@@ -94,7 +94,6 @@ namespace WarSimulator_Handmade.Simulation
 			//Tries to find a regiment which matches the criteria/parameter
 			foreach (Regiment regiment in regiments)
 			{
-				if (regiment.team == currentRegiment.team) { continue; }
 				switch (unitStat)
 				{
 					case "AttackSpeed":
@@ -342,8 +341,14 @@ namespace WarSimulator_Handmade.Simulation
 			List<Regiment> regimentsFound = new List<Regiment>();
 			if (regimentSearchSpelling == "SearchForFriends")
 			{
-				//Looks for regiments which are friends
-				regimentsFound = currentGameState.teams[currentRegiment.team].regiments;
+				foreach (Regiment regiment in currentGameState.teams[currentRegiment.team].regiments)
+				{
+					//Looks for regiments which are friends
+					if (regiment != currentRegiment)
+					{
+						regimentsFound.Add(regiment);
+					}
+				}
 			}
 			else
 			{

@@ -103,6 +103,7 @@ namespace WarSimulator_Handmade
 					if (teamsLeft == 1)
 					{
 						GameState.messages.Clear();
+						UpdateTurnOrder();
 						GameState.AddMessage("Team " + (regimentTurnOrder[0].team+1) + " won the game!", Color.Black);
 						gameEnded = true;
 					}

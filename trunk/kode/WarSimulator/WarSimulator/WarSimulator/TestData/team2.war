@@ -1,41 +1,14 @@
-Team Ninjas
+Team Blue
 
-Regiment NinjaArcher
+Regiment BlueWarrior1
 {
 	Size = 10;
-	Type = Ranged;
-	Range = 2;
+	Type = Melee;
 	Damage = 4;
 	Health = 4;
 	Movement = 1;
 	AttackSpeed = 1;
-	RegimentPosition = Position(8,3);
-	Behaviour SilentMonkeysBehavoiur1
-	{
-		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range)
-		{
-			Attack(enemy);
-			if(enemy.Distance < 2)
-			{
-				MoveAway(enemy);
-			}
-		}
-		else
-		{
-			MoveTowards(enemy);
-		}
-	}
-}
-Regiment NinjaWarrior
-{
-	Size = 10;
-	Type = Melee;
-	Damage = 8;
-	Health = 4;
-	Movement = 1;
-	AttackSpeed = 1;
-	RegimentPosition = Position(8,2);
+	RegimentPosition = Position(8,4);
 	Behaviour SilentMonkeysBehavoiur1
 	{
 		Regiment enemy = SearchForEnemies();
@@ -50,15 +23,61 @@ Regiment NinjaWarrior
 		}
 	}
 }
-Regiment NinjaWarrior
+Regiment BlueWarrior2
 {
 	Size = 10;
 	Type = Melee;
-	Damage = 8;
+	Damage = 4;
 	Health = 4;
 	Movement = 1;
 	AttackSpeed = 1;
-	RegimentPosition = Position(7,3);
+	RegimentPosition = Position(8,5);
+	Behaviour SilentMonkeysBehavoiur1
+	{
+		Regiment enemy = SearchForEnemies();
+		if (enemy.Distance <= Range)
+		{
+			Attack(enemy);
+		}
+		else
+		{
+			MoveTowards(enemy);
+			Attack(enemy);
+		}
+	}
+}
+Regiment BlueWarrior3
+{
+	Size = 10;
+	Type = Melee;
+	Damage = 4;
+	Health = 4;
+	Movement = 1;
+	AttackSpeed = 1;
+	RegimentPosition = Position(8,6);
+	Behaviour SilentMonkeysBehavoiur1
+	{
+		Regiment enemy = SearchForEnemies();
+		if (enemy.Distance <= Range)
+		{
+			Attack(enemy);
+		}
+		else
+		{
+			MoveTowards(enemy);
+			Attack(enemy);
+		}
+	}
+}
+Regiment BlueWarrior4
+{
+	Size = 10;
+	Type = Melee;
+	Damage = 4;
+	Health = 4;
+	Movement = 1;
+	AttackSpeed = 1;
+	RegimentPosition = Position(8,7);
 	Behaviour SilentMonkeysBehavoiur1
 	{
 		Regiment enemy = SearchForEnemies();

@@ -476,8 +476,11 @@ namespace WarSimulator_Handmade
             DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, ">=", DataType.Boolean);
             DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "<=", DataType.Boolean);
             DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "==", DataType.Boolean);
-            //DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "||", DataType.Boolean);
-            //DeclareStandardBinaryOperator(DataType.Boolean, DataType.Boolean, "&&", DataType.Boolean);
+
+			DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "+", DataType.Integer);
+			DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "-", DataType.Integer);
+			DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "/", DataType.Integer);
+			DeclareStandardBinaryOperator(DataType.Integer, DataType.Integer, "*", DataType.Integer);
 		}
 		#endregion
 	}

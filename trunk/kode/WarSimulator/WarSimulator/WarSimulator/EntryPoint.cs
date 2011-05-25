@@ -18,12 +18,10 @@ namespace WarSimulator_Handmade
         {
             if (args.Length == 0)
             {
-                args = new string[5];
+                args = new string[3];
                 args[0] = "TestData/config.cfg";
                 args[1] = "TestData/team1.war";
 				args[2] = "TestData/team2.war";
-				args[3] = "TestData/team3.war";
-				args[4] = "TestData/team4.war";
                 TryStartSimulation(args);
             }
             else if (args.Length < 3)
@@ -50,7 +48,7 @@ namespace WarSimulator_Handmade
             {
                 if (!args[i].EndsWith(".war"))
                 {
-                    Console.WriteLine("Incorrect filename of teamfile at {0} - Correct usage: .war", i);
+                    Console.WriteLine("Incorrect filename of teamfile at {0} - Correct usage: .war", (i+1));
                     correctUsage = false;
                 }
                 teamFilesArgs.Add(args[i]);
@@ -77,7 +75,7 @@ namespace WarSimulator_Handmade
                 for (int i = 0; i < args.Length-1; i++)
                 {
                     reporter = new ErrorReporter();
-                    Console.WriteLine("Parsing teamfile {0}", i);
+                    Console.WriteLine("Parsing teamfile {0}", (i+1));
                     parser = new Parser(args[i+1], reporter);
                     teamFiles[i] = parser.ParseTeamFile();
                     if (reporter.numbErrors > 0) { allowedToCheck = false; }
@@ -99,7 +97,7 @@ namespace WarSimulator_Handmade
 
                 for (int i = 0; i < args.Length-1; i++)
                 {
-                    Console.WriteLine("Checking teamfile ast {0}", i);
+                    Console.WriteLine("Checking teamfile ast {0}", (i+1));
                     reporter = new ErrorReporter();
                     checker = new Checker(teamFiles[i], reporter);
 					checker.CheckTeamFile();
