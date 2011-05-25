@@ -35,22 +35,22 @@ The following subsections will explain what happens at the phases, but first an 
 \subsection{GameDataRetriever}
 	The job of the {\it GameDataRetriever} is to retrieve the game data from the {\it DAST}s. The class implements the visitor pattern
 	(see \ref{impl:visitorinterface}) to traverse the decorated abstract syntax tree and retrieve the data. 
-	It starts by visiting each of the {\it Team file}'s {\it DAST}s and when it visits the {\it Regiment node} it instantiates a new Regiment object, 
-	with the {\it UnitStat}s is contains, after this it's added to a Team object. When game data for every team have been retrieved the {\it Config file}
-	{\it DAST} is visited. The {\it Standards block node}'s data is simply saved as a Regiment Object, because it is so similar to Regiment retrieving. 
+	It starts by visiting each of the {\it Team file}s {\it DAST}s and when it visits the {\it Regiment node} it instantiates a new Regiment object, 
+	with the {\it UnitStat}s is contains, after this it is added to a Team object. When game data for every team have been retrieved the {\it Config file}
+	{\it DAST} is visited. The {\it Standards block node}s data is simply saved as a Regiment Object, because it is so similar to Regiment retrieving. 
 	The {\it Grid} data is retrieved from the Grid block. The {\it Maxima stats} is saved to a Maxima object, which contains a field for any of available 
 	Maxima stats. After all data is retrieved it is passed to the {\it GameDataRetriever}
 
 \subsection{GameDataValidator}
 	After all the data have been retrieved from the DAST we have to validate if the data is correct. 
 	By correct we mean that every regiment have all the {\it UnitStats} or that the {\it UnitStat} 
-	of a regiment doesn't exceed the {\it MaximaStat} written. 
+	of a regiment does not exceed the {\it MaximaStat} written. 
 	The class {\it GameDataValidator} is started by using the Team objects, standards regiment and maxima object passed from the {\it GameDataRetriever}.
 	The process of the validation: \\
 	\begin{enumerate}
 		\item Check if there are more teams than allowed according to the config file
 		\item Check if the teams have more regiments than allowed according to the config file
-		\item Check if every regiment doesn't exceed Maxima Stats
+		\item Check if every regiment does not exceed Maxima Stats
 		\item Check if every regiment is missing UnitStats, if so the UnitStat from the standards regiment is given
 		\item Check if any of the regiments have the same positions
 	\end{enumerate}
