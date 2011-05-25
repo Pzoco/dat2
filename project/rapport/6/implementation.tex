@@ -1,30 +1,30 @@
 \section{Simulator}
-\begin{figure}
+	This section will explain how the simulator is implemented, the diagram below \ref{fig:sim} shows the process.
+\begin{figure}[H]
+\center
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
                     semithick]
-	\tikzstyle{every state}=[fill=black,draw=none,text=white]
+	\tikzstyle{every state}=[draw,text=black,rectangle]
+	\node[state] (A)								{GameDataRetriever};
+	\node[state] (F)[left of=A,node distance=5cm]						{Checker};
+	\node[state] (B)[below of=A] 					{GameDataValidator};
+	\node[state] (C)[right of=B,node distance=8cm]	{Simulation Failed};
+	\node[state] (D)[below of=B]					{GameState};
+	\node[state,accepting] (E)[below of=D] 			{Simulation Success};
 	
-	\node[initial,state] (A)	{A};
-	\node[state] (B)[below of=A] {B};
-	\node[state] (C)[right of=B,node distance=4cm] {C};
-	\node[state] (D)[below of=B] {D};
-	\node[state] (E)[below of=D] {E};
-	
-	\path 	(A) edge					node{Game Data} (B)
+	\path 	(F) edge					node{DAST}		(A)
+			(A) edge					node{Game Data} (B)
 			(B)	edge					node{Validated Game Data} (D)
 			(B) edge 					node{Error found} (C)
 			(D) edge [loop right] 		node{Updating the current GameState}(D)
 			(D) edge 					node{A team won} (E);
 			
 \end{tikzpicture}
-\caption{Automaton showing the simulation \\ 
-A:GameData Retriever \\ 
-B:GameData Validator \\ 
-C:Simulation Failed \\ 
-D:GameState \\
-E:Simulation Success}
+\label{fig:sim}
+\caption{Diagram showing the simulation}
 \end{figure}
 
+The following subsections will explain what happens at the phases, but first an explanation of how the game world is emulated.
 \subsection{Game Classes}
 	To emulate the game we have to create objects, which represent what is seen in the game such as regiments, the grid and the teams.
 	This was simply done by making a class called {\it Regiment}, {\it Grid}, {\it Team} and {\it Tile}. 
