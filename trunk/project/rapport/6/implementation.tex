@@ -41,7 +41,7 @@ The following subsections will explain what happens at the phases, but first an 
 	The {\it Grid} data is retrieved from the Grid block. The {\it Maxima stats} is saved to a Maxima object, which contains a field for any of available 
 	Maxima stats. After all data is retrieved it is passed to the {\it GameDataRetriever}
 
-\subsection{GameDataValidator}
+\subsection{GameDataValidator}\label{sec:gdv}
 	After all the data have been retrieved from the DAST we have to validate if the data is correct. 
 	By correct we mean that every regiment have all the {\it UnitStats} or that the {\it UnitStat} 
 	of a regiment does not exceed the {\it MaximaStat} written. 
@@ -301,6 +301,6 @@ public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
 }
 	\end{lstlisting}
 	This part of the method is about applying the parameters passed to the {\it RegimentSearch function} on the list of regiments we just found. 
-	The parameters are applied one of a time using the method GetRegiments, which returns the regiments for which the parameters are true. 
+	The parameters are applied one of a time using the method \textit{GetRegiments}, which returns the regiments for which the parameters are true. 
 	If no regiments was found that fits the parameters the method returns null, otherwise we get the regiment which is closest to the current regiment 
-	using the method GetClosestRegiment. 
+	using the method \textit{GetClosestRegiment}. 
