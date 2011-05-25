@@ -49,7 +49,7 @@ class TreeNode:AST
 		To keep track of the current scope level and of declarations we use an {\it Identification table}.
 		
 		\subsubsection{Identification table}
-			The identification table is a class named {\it IdentificationTable}(see \ref{impl:idtable}), which contains a list with entries 
+			The identification table is a class named {\it IdentificationTable}(see listing \ref{impl:idtable}), which contains a list with entries 
 			that holds the information declarations made and an integer {\it level} that represents the current scope level. 
 			For adding and retrieving entries {\it EnterEntry} and {\it RetrieveEntry} are used.
 			For opening and closing the current scope {\it Open} and {\it Close}. Open increases the {\it level} and Close removes 
@@ -80,7 +80,7 @@ class IdentificationTable
 		\subsubsection{Scope Rules checking}
 			For opening and closing the current scope we use the {\it IdentificationTable class} just described.
 			When we are entering a new scope the {\it Open method} is called and when we are leaving the scope the {\it Close method} is called.
-			Here is the {\it VisitRegimentBlock method} which needs to open and close scopes: \\
+			The {\it VisitRegimentBlock method} (see listing \ref{impl:regblock} below)  which needs to open and close scopes: \\
 			\begin{lstlisting}[basicstyle=\small\sffamily,
 					keywords={break,case,const,continue,default,else,enum,
 					for,if,return,switch,while,do,long,void,int,float,double,
@@ -90,7 +90,7 @@ class IdentificationTable
 					columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 					frameround=fftt, frame=shadowbox, captionpos=b,
 					caption={The IdentificationTable class},
-					label=impl:idtable]
+					label=impl:regblock]
 public Object VisitRegimentBlock(RegimentBlock ast, Object obj)
 {
 	//Opening scope
