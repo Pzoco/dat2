@@ -28,16 +28,16 @@ The following subsections will explain what happens at the phases, but first an 
 \subsection{Game Classes}
 	To emulate the game we have to create objects, which represent what is seen in the game such as regiments, the grid and the teams.
 	This was simply done by making a class called {\it Regiment}, {\it Grid}, {\it Team} and {\it Tile}. 
-	Team contains a list of regiments, Regiment have methods for the three {\it UnitFunctions} {\it Attack}, 
+	Team contains a list of regiments, Regiment have methods for the three {\it UnitFunctions}: {\it Attack}, 
 	{\it MoveTowards} and {\it MoveAway} (see section \ref{rules:action}), Tile has a boolean to indicate that it is occupied 
-	and Grid contains a 2-dimensional array of {\it Tile}s. We call the game environment at a specific point in the simulation for a {\it GameState}. 
+	and \textit{Grid} contains a 2-dimensional array of {\it Tile}s. We call the game environment at a specific point in the simulation for a {\it GameState}. 
 
 \subsection{GameDataRetriever}
-	The job of the {\it GameDataRetriever} is to retrieve the game data from the {\it DAST}s. The class implements the visitor pattern
+	The job of the {\it GameDataRetriever} is to retrieve the game data from the {\it DASTs}. The class implements the visitor pattern
 	(see section \ref{impl:visitorinterface}) to traverse the decorated abstract syntax tree and retrieve the data. 
-	It starts by visiting each of the {\it Team file}s {\it DAST}s and when it visits the {\it Regiment node} it instantiates a new Regiment object, 
+	It starts by visiting each of the {\it Team file}s {\it DASTs} and when it visits the {\it Regiment node} it instantiates a new Regiment object, 
 	with the {\it UnitStat}s is contains, after this it is added to a Team object. When game data for every team have been retrieved the {\it Config file}
-	{\it DAST} is visited. The {\it Standards block node}s data is simply saved as a Regiment Object, because it is so similar to Regiment retrieving. 
+	{\it DAST} is visited. The data of the {\it Standards block node} is simply saved as a Regiment Object, because it is so similar to Regiment retrieving. 
 	The {\it Grid} data is retrieved from the Grid block. The {\it Maxima stats} is saved to a Maxima object, which contains a field for any of available 
 	Maxima stats. After all data is retrieved it is passed to the {\it GameDataRetriever}
 
@@ -58,8 +58,8 @@ The following subsections will explain what happens at the phases, but first an 
 	and the grid.
 	
 \subsection{Simulator}
-	The simulator class starts by using the {\it GameDataRetriever} and {\it GameDataValidator} classes. The GameDataValidator returns the first 
-	GameState if it succeeded. The simulator reads and modifies a \textit{GameState} in every round of the game. This is done by iterating through all 
+	The simulator class starts by using the {\it GameDataRetriever} and {\it GameDataValidator} classes. The \textit{GameDataValidator} returns the first 
+	\textit{GameState} if it succeeded. The simulator reads and modifies a \textit{GameState} in every round of the game. This is done by iterating through all 
 	regiments from the teams and interpreting their \textit{Behaviour DAST}. This main loop is showed here: \\
 	\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywords={break,case,const,continue,default,else,enum,
@@ -88,10 +88,10 @@ behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
 	}
 }
 	\end{lstlisting}
-	{\it behaviourInterpreter} is a object of the class {\it BehaviourInterpreter}, which is able to interpret \textit{Behaviour DAST}s.
+	{\it behaviourInterpreter} is an object of the class {\it BehaviourInterpreter}, which is able to interpret \textit{Behaviour DAST}s.
 	
 \subsection{BehaviourInterpreter}
-	This class is the third and last class that implements the Visitor interface (see section \ref{impl:visitorinterface}), which it uses to interpret the 
+	This class is the third and last class that implements the \textit{Visitor interface} (see section \ref{impl:visitorinterface}), which it uses to interpret the 
 	DAST, this type of interpretation is called {\it Recursive Descent Interpretation}. The interpretation starts with the call of the
 	method called {\it InterpreteBehaviour}, which can be seen below in \ref{impl:intbe}.
 	\begin{lstlisting}[basicstyle=\small\sffamily,
@@ -115,7 +115,7 @@ public GameState InterpreteBehaviour(Regiment regiment, GameState gameState)
 	return currentGameState;
 }		
 	\end{lstlisting}
-	The methods starts with resetting the list regimentAssignments, which is a list of identifiers that have been assigned to regiments. To retrive 
+	The methods starts with resetting the list regimentAssignments, which is a list of identifiers that have been assigned to regiments. To retrieve 
 	a regiment from this list the method GetRegiment can be used, which takes a string as an argument.
 	After this the method resets the current regiments movement and ability to attack and visits the {\it Behaviour DAST} of the regiment. 
 	When class visits a node which needs interpretation, e.g. the {\it UnitFunction node} they will be interpreted. To show 
