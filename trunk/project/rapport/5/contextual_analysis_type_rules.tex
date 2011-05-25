@@ -9,28 +9,40 @@
 		\item Regiment
 		\item AttackType
 	\end{itemize}
-		
+	
 	\subsubsection{Type rules of \textit{WAR}}
+	This type rule is used in expressions or when assigning a constant to a integer value.
 	\begin{typerule} 
 		$I1$ $ o $ $I2$ is type correct and of type Integer \\
 		if $I1$ and $I2$ are type correct and of type Integer \\
 		and $o$ is an operator where $o\in \{-,+,/,* \}$
 	\end{typerule}
+	This type rule is used for checking if conditional statements are type correct.
 	\begin{typerule} 
 		$C(E)\{D\}$ is type correct\\
 		if $E$ is of type Boolean and $D$ is type correct \\
 		and $C$ is a control structure where $C \in \{else$ $if, if, while\}$
 	\end{typerule}
+	This type rule is used for assignments.
 	\begin{typerule} 
 		$ID = A$ is type correct\\
 		if $ID$ and $A$ are type correct and of the same type.
 	\end{typerule}
+	This type rule is used for {\it Position(x,y)}, which is used when assigning a 
+	position to a regiment.
 	\begin{typerule} 
 		$Position(I1,I2)$ is type correct and of type Position\\
 		if $I1$ and $I2$ are type correct and of type Integer
 	\end{typerule}
+	This regiment is for boolean binary expressions.
 	\begin{typerule} 
 		$E1$ $ o $ $E2$ is type correct and of type Boolean\\
 		if $E1$ and $E2$ are type correct and of type Integer \\
 		and $o$ is an operator where $o\in \{ ==,>=,<=,<,> \}$
 	\end{typerule}
+	
+	All these type rules makes the scripting more secure, because if a argument or types of returned values is not evaluated to type correct 
+	using these type rules then an error is present. \\
+	
+	These definitions are the end of the section on semantics of WAR. 
+	With the syntax and semantics written a documentation for the language can be written, which will be the topic of the next chapter.
