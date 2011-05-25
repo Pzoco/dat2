@@ -22,33 +22,35 @@ To run a simulation you need a {\it Config File} (See \ref{doc:cfgfile}) with th
 	An {\it Identifier} is a word which starts with a letter and then follows a sequence of letters and/or digits.
 	Identifiers is used for names for {\it Blocks} (See \ref{doc:blocks}) and for {\it Regiment Assignment} (See \ref{doc:regass}).
 \section{Reserved Keywords}
-	\begin{itemize}
-		\item Team
-		\item Regiment
-		\item Rules
-		\item Maxima
-		\item Config
-		\item Behaviour
-		\item if
-		\item else
-		\item while
-		\item Attack
-		\item SearchForEnemies
-		\item SearchForFriends
-		\item Distance
-		\item Size
-		\item Type 
-		\item Melee
-		\item Movement
-		\item Position
-		\item Ranged
-		\item Range
-		\item Damage
-		\item Health
-		\item Movement
-		\item AttackSpeed
-		\item RegimentPosition
-	\end{itemize}
+
+The following table \ref{reserved_keywords} shows the reserved words of the WAR language. One cannot use the reserved words as an identifier.
+
+\begin{table}[H]
+
+\begin{tabular}{|c | c | c|}
+\hline
+ Team			&			Regiment					&		Rules				\\
+\hline
+ Maxima		&			Config						&		Behaviour 		\\						
+\hline
+ if					&			else							&		 while 				\\							
+\hline
+ Attack			&			SearchForEnemies 	&	SearchForFriends	\\					
+\hline
+ Distance		&		 	Size							&		Type					\\ 									
+\hline
+ Melee			&			Movement				&		Position			\\								
+\hline
+ Ranged		&			Range						&		Damage			\\								
+\hline
+ Health			&			Movement				&		AttackSpeed		\\						
+\hline
+ RegimentPosition & 								&								\\				
+\hline
+\end{tabular}
+\caption{Reserved keywords}
+\label{reserved_keywords}
+\end{table}
 \section{Data Types}
 	In WAR we use the following data types: \\
 	\begin{itemize}
