@@ -5,7 +5,7 @@ This chapter will describe how we implemented the simulator. The simulator consi
 	\item Simulation
 \end{enumerate}
 
-The following figure \ref{fig:scripttosimu} shows the process from script files to output on the screen.
+The following figure shows the process from script files to output on the screen.
 
 \begin{figure}[H]
 \centering
@@ -22,7 +22,7 @@ The following figure \ref{fig:scripttosimu} shows the process from script files 
 	also important to choose a strategy for parsing, which we will look at in \ref{impl:parsestrats}.
 	
 	\subsection{Scanner}
-		The scanner, also called a lexer, is used to convert tex,t in the text files, to tokens. 
+		The scanner, also called a lexer, is used to convert text, in the text files, to tokens. 
 		It reads a text file as a stream of characters and tries to identify which token it is currently reading.
 		To identify tokens a table with the correct spellings of tokens is used.			 
 		
@@ -33,7 +33,7 @@ The following figure \ref{fig:scripttosimu} shows the process from script files 
 		at a time to determine the production rule.
 		There are two common strategies for parsing code, called {\it Bottom-up Parsing} and {\it Top-Down Parsing}, that are explained next\cite{dragonbook}.
 	\paragraph{Bottom-up Parsing}
-		This way of parsing takes simple structures and combining them to more complex structures.
+		This way of parsing takes simple structures and combines them into more complex structures.
 		This type of parsing is commonly called {\it LR parsing} because we read the text from the left and reduces to the right.
 		A LR parser with $k$ lookahead is called a LR($k$) parser.
 		\begin{figure}[H]
@@ -130,7 +130,7 @@ The following figure \ref{fig:scripttosimu} shows the process from script files 
 		\end{enumerate}		 
 		
 		\subsubsection{Accepting terminals}
-			The parser uses an accept method to check if the current token is the token that was expects, if not an error is given.
+			The parser uses an accept method to check if the current token is the token that was expected, if not an error is reported.
 			The following example shows the {\it Accept method} from our Parser.
 			\begin{lstlisting}[basicstyle=\small\sffamily,
 					keywords={break,case,const,continue,default,else,enum,
@@ -155,12 +155,12 @@ private void Accept(Token.TokenType expectedType)
     }
 }
 			\end{lstlisting}
-			This method checks if the expected token matches the current token, and then retrieve the next token from the scanner, if it was a match.
+			This method checks if the expected token matches the current token, and then retrieves the next token from the scanner, if it was a match.
 			If there is a mismatch, an error will be reported.
 			
 		\subsubsection{Parse methods}
 			\label{parsemethods}
-			The parse methods perform in a mutual recursive way, where a parse methods representing the higher level nodes in an 
+			The parse methods perform in a mutually recursive way, where a parse methods representing the higher level nodes in an 
 			AST calls parse methods representing its children. When a lower level node is done parsing it returns this node to a higher level node. This way an AST will be constructed. \\
 			Here is a parse method from our code:
 			\begin{lstlisting}[basicstyle=\small\sffamily,
