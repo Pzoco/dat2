@@ -29,12 +29,12 @@ The following subsections will explain what happens at the phases, but first an 
 	To emulate the game we have to create objects, which represent what is seen in the game such as regiments, the grid and the teams.
 	This was simply done by making a class called {\it Regiment}, {\it Grid}, {\it Team} and {\it Tile}. 
 	Team contains a list of regiments, Regiment have methods for the three {\it UnitFunctions} {\it Attack}, 
-	{\it MoveTowards} and {\it MoveAway} (see \ref{rules:action}), Tile has a boolean to indicate that it is occupied 
+	{\it MoveTowards} and {\it MoveAway} (see section \ref{rules:action}), Tile has a boolean to indicate that it is occupied 
 	and Grid contains a 2-dimensional array of {\it Tile}s. We call the game environment at a specific point in the simulation for a {\it GameState}. 
 
 \subsection{GameDataRetriever}
 	The job of the {\it GameDataRetriever} is to retrieve the game data from the {\it DAST}s. The class implements the visitor pattern
-	(see \ref{impl:visitorinterface}) to traverse the decorated abstract syntax tree and retrieve the data. 
+	(see section \ref{impl:visitorinterface}) to traverse the decorated abstract syntax tree and retrieve the data. 
 	It starts by visiting each of the {\it Team file}s {\it DAST}s and when it visits the {\it Regiment node} it instantiates a new Regiment object, 
 	with the {\it UnitStat}s is contains, after this it is added to a Team object. When game data for every team have been retrieved the {\it Config file}
 	{\it DAST} is visited. The {\it Standards block node}s data is simply saved as a Regiment Object, because it is so similar to Regiment retrieving. 
@@ -91,7 +91,7 @@ behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
 	{\it behaviourInterpreter} is a object of the class {\it BehaviourInterpreter}, which is able to interpret \textit{Behaviour DAST}s.
 	
 \subsection{BehaviourInterpreter}
-	This class is the third and last class that implements the Visitor interface (see \ref{impl:visitorinterface}), which it uses to interpret the 
+	This class is the third and last class that implements the Visitor interface (see section \ref{impl:visitorinterface}), which it uses to interpret the 
 	DAST, this type of interpretation is called {\it Recursive Descent Interpretation}. The interpretation starts with the call of the
 	method called {\it InterpreteBehaviour}, which can be seen below in \ref{impl:intbe}.
 	\begin{lstlisting}[basicstyle=\small\sffamily,
@@ -192,7 +192,7 @@ if (v1 is IntValue)
 		CheckBinaryExpression has similar handling for expressions with type expressions.
 		
 	\subsubsection{UnitFunctions}
-		UnitFunctions are the three actions (see \ref{rules:action}) that a regiment can perform.
+		UnitFunctions are the three actions (see section \ref{rules:action}) that a regiment can perform.
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 			keywords={break,case,const,continue,default,else,enum,
 			for,if,return,switch,while,do,long,void,int,float,double,
@@ -231,7 +231,8 @@ public Object VisitUnitFunction(UnitFunction ast, Object obj)
 		Using a switch case the correct action of the current regiment is performed.
 		
 	\subsubsection{RegimentSearch}
-		The {\it RegimentSearch methods} is used for finding either enemy or friendly regiments on the grid (see usage at \ref{sec:regimentsearch}). 
+		The {\it RegimentSearch methods} is used for finding either enemy or friendly regiments on 
+		the grid (see usage at section \ref{sec:regimentsearch}). 
 		We will here explain how the the visit to a {\it RegimentSearch node} looks like in multiple code snippets.
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 			keywords={break,case,const,continue,default,else,enum,
