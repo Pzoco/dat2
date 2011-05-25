@@ -15,12 +15,12 @@ caption={Scripting}]
 \end{lstlisting}
 This illustrates that n terms can be written here. \\
 
-To run a simulation you need a {\it Config File} (See \ref{doc:cfgfile}) with the file ending {\it .cfg} and at least two {\it Team File}s 
-(See \ref{doc:teamfile}) with the file ending {\it .war}.
+To run a simulation you need a {\it Config File} (See section \ref{doc:cfgfile}) with the file ending {\it .cfg} and at least two {\it Team File}s 
+(See section \ref{doc:teamfile}) with the file ending {\it .war}.
 
 \section{Identifier}
 	An {\it Identifier} is a word which starts with a letter and then follows a sequence of letters and/or digits.
-	Identifiers is used for names for {\it Blocks} (See \ref{doc:blocks}) and for {\it Regiment Assignment} (See \ref{doc:regass}).
+	Identifiers is used for names for {\it Blocks} (See section \ref{doc:blocks}) and for {\it Regiment Assignment} (See section \ref{doc:regass}).
 \section{Reserved Keywords}
 
 The following table \ref{reserved_keywords} shows the reserved words of the WAR language. One cannot use the reserved words as an identifier.
@@ -112,8 +112,7 @@ Range = <Int>;
 		caption={Type of regiment}]
 Type = <AttackType>; 
 			\end{lstlisting}	
-		\paragraph{Damage}
-			Damage defines how much Health an opposing regiment lose when attacked.
+		\paragraph{Damage} defines how much Health an opposing regiment lose when attacked.
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
@@ -143,6 +142,28 @@ Movement = <Int>;
 		caption={AttackSpeed of the regiment}]
 AttackSpeed = <Int>;
 			\end{lstlisting}
+			
+\paragraph{An example} of the above UnitStats.
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Example: Using the UnitStats}]
+Regiment PirateWarrior
+{
+	Size = 10;
+	Type = Melee;
+	Damage = 8;
+	Health = 4;
+	Movement = 1;
+	AttackSpeed = 1;
+	RegimentPosition = Position(2,3);
+	.
+	..
+	...
+\end{lstlisting}
+			
 
 \section{UnitStatType}
 	A {\it UnitStatType} is any of the UnitStats, except for Position, which is replaced by {\it Distance}. We use the UnitStatTypes in 
@@ -318,6 +339,7 @@ Regiment <Identifier>
 }
 		\end{lstlisting}
 \section{RegimentSearch Functions}
+\label{sec:regimentSearch}
 	To get information of regiments on the map one can use {\it RegimentSearch Functions}. There are two RegimentSearch Functions in WAR.\\
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
