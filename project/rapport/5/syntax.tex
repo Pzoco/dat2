@@ -1,13 +1,13 @@
 In this chapter the WAR language will be defined. This design phase starts with a {\it Syntax} part, then followed by {\it Contextual analysis}.
 \section{Syntax}
 	The first step in writing our interpreter was to construct a BNF of our language. 
-	BNF stands for {\it Backus Naur form}, which is a way of
+	BNF is an acronym for {\it Backus Naur form}, which is a way of
 	structuring the language in a formal way, to further ease implementation. 
 	A BNF consists of a set of {\it production rules} and each
 	production rule consists of: \\
 	\begin{itemize}
-		 \item Terminals: A {\it terminal } is a literal string that appears in the language in hand.
-		 \item Non-terminal: A {\it non-terminal } consists of Non-terminals and Terminals, used for structuring the language.
+		 \item Terminals: A {\it terminal } is a literal string or character as it appears in the code.
+		 \item Non-terminal: A {\it non-terminal } may consist of an arbitrary number of Non-terminals and Terminals, used for structuring the language.
 	\end{itemize}
 	
 	\subsection*{Production Rule}
@@ -25,6 +25,8 @@ In this chapter the WAR language will be defined. This design phase starts with 
 		If we have two production rules on the form:\\
 		\begin{equation}
 			N ::= X 
+		\end{equation}
+		\begin{equation}
 			N ::= Y 
 		\end{equation}
 		we are allowed to make a transformation: \\
