@@ -22,12 +22,11 @@ The following figure \ref{fig:scripttosimu} shows the process from script files 
 	also important to choose a strategy for parsing, which we will look at in \ref{impl:parsestrats}.
 	
 	\subsection{Scanner}
-		The scanner, also called a lexer, is used to convert text in the text files to tokens. 
+		The scanner, also called a lexer, is used to convert tex,t in the text files, to tokens. 
 		It reads a text file as a stream of characters and tries to identify which token it is currently reading.
 		To identify tokens a table with the correct spellings of tokens is used.			 
 		
-	\subsection{Parse Strategies}
-		\label{impl:parsestrats}
+	\subsection{Parse Strategies}\label{impl:parsestrats}
 		A parse strategy is, beside checking that the code is syntactically correct a way to build our AST. 
 		To determine which production rule the parser is currently reading, 
 		a parser is using {\it lookahead}, which is a number representing how many tokens we have to look at, 
@@ -46,7 +45,7 @@ The following figure \ref{fig:scripttosimu} shows the process from script files 
 		
 	\paragraph{Top-down Parsing}
 		Top-down parsing figure \ref{fig:top_down} starts from the complex structures, and breaks them down into smaller parts.
-		This type of parsing is commonly called {\it LL parsing} because we read the text from the left and make derivations to the left.
+		This type of parsing is called {\it LL parsing} because we read the text from the left and make derivations to the left.
 		A LL parser with $k$ lookahead is called a LL($k$) parser.
 	\paragraph{Strengths and weaknesses}
 		The most commonly used parsing strategy of the two is LR parsing, the reason for this is because it is faster than LL parsing.
