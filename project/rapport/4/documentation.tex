@@ -2,17 +2,16 @@ This chapter will show how to program scripts for the simulator. Scripts written
 When a term is defined we use $<$Term$>$ to refer to the given term. 
 When a multiple terms are used we illustrate it like this: \\
 
-		\begin{lstlisting}[basicstyle=\small\sffamily,
-		keywordstyle={\color{blue}},
-		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
-		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
-		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
-	<Term-1>
-	..
-	.
-	<Term-n>
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Regiment Assignment}]
+<Term-1>
+..
+.
+<Term-n>
 \end{lstlisting}
 This illustrates that n terms can be written here. \\
 
@@ -68,40 +67,39 @@ To run a simulation you need a {\it Config File} (See \ref{doc:cfgfile}) with th
 			Sets the size of the regiment, it's an integer.
 			If the size of the regiment is bigger than 1 it will cover multiple tiles.
 
-		\begin{lstlisting}[basicstyle=\small\sffamily,
-		keywordstyle={\color{blue}},
-		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
-		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
-		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
-				Size = <Int>;
-			\end{lstlisting}
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Regiment Assignment},
+label=RegimentAssignment]
+Size = <Int>;
+\end{lstlisting}
 		\paragraph{Position}
 			Sets the position of the regiment. If the size of the regiment is bigger than 1 them 
 			only 1 tile of the regiment touches the position. Usage: 
 
-		\begin{lstlisting}[basicstyle=\small\sffamily,
-		keywordstyle={\color{blue}},
-		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
-		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
-		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
-				RegimentPosition = Position(<Int>,<Int>);
-			\end{lstlisting}
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Regiment Assignment},
+label=RegimentAssignment]
+RegimentPosition = Position(<Int>,<Int>);
+\end{lstlisting}
 		\paragraph{Range}
 			Range sets how tiles away regiment can attack another regiment.
 
-		\begin{lstlisting}[basicstyle=\small\sffamily,
-		keywordstyle={\color{blue}},
-		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
-		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
-		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
-				Range = <Int>;
-			\end{lstlisting}
+\begin{lstlisting}[basicstyle=\small\sffamily,
+keywordstyle={\color{blue}},
+comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+frameround=fftt, frame=shadowbox, captionpos=b,
+caption={Regiment Assignment}]
+Range = <Int>;
+\end{lstlisting}
 		\paragraph{Type}
 			Type defines which way the regiment attacks. The type can either be Melee or Ranged.
 			Melee means that the regiment can only attack other regiments which it touches. Ranged means 
