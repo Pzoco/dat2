@@ -4,6 +4,11 @@
 \label{sec:describeWAR}
 As mentioned earlier the \textit{WAR}-Game is a simulation where the players will program the behaviour of their armies with a script, and let the game being executed without further interaction. The winner of the simulation will be the one with the best script, as decided by the simulation engine. \\
 	\subsection{The simulation}
+	\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{rapport/2/figures/FlowChartSimulation}
+	\caption{ Flowchart of the simulation } \label{fig:FlowChartSimulation}
+	\end{figure}		
 		To run a simulation in the \textit{WAR} simulation, a configuration file and at least two team files has to be fed to the simulation upon start up. 
 		These files are written in the \textit{WAR} scripting language.
 		\\
@@ -59,8 +64,16 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 				
 		\paragraph{Grid}
 		The grid is a 2 dimensional map where the teams will battle.
-		The grid, might be seen as a map, table, or battlefield where the 'battle' will take place. 
+		The grid, might be seen as a map, table, or battlefield where the 'battle' will take place.
+		Figure \ref{fig:grid} shows how a grid with the size of 10 by 10 would look like, this grid is without regiments.
 %		Each 'Grid' will have a name, and certain properties which \textbf{must} be defined in the configuration file.
+		
+		\begin{figure}
+		\centering
+		\includegraphics[scale=0.25]{rapport/2/figures/grid}
+		\caption{ A 10x10 grid } \label{fig:grid}
+			\end{figure}		
+		
 																		
 		\subsubsection{Terms in the team file }
 	
