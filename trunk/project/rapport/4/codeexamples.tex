@@ -13,9 +13,9 @@
 					frameround=fftt, frame=shadowbox, captionpos=b,
 					caption={Team file},
 					label=LST:code31]
-Team "Ninja Monkeys"
+Team Ninja Monkeys
 
-Regiment "Silent Monkeys"
+Regiment Silent Monkeys
 //Archers
 {
 	Size = 200;
@@ -26,7 +26,7 @@ Regiment "Silent Monkeys"
 	AttackSpeed = 1;
 	
 	//Defining the behaviour of the regiment
-	Behaviour
+	Behaviour ArchSearchAndDestroy
 	{
 		Regiment enemy = SearchForEnemies();
 		if (enemy.Distance <= Range && enemy.Type == Melee)
@@ -37,13 +37,13 @@ Regiment "Silent Monkeys"
 		{
 			while(enemy.Distance < Range)
 			{
-				MoveTowards(enemy)
+				MoveTowards(enemy);
 			}
 			Attack(enemy);
 		}
 		if (enemy.position <= Range)
 		{
-			MoveAway(enemy)
+			MoveAway(enemy);
 			if(enemy.position <= Range)
 			{
 				Attack(enemy);
@@ -54,11 +54,11 @@ Regiment "Silent Monkeys"
 
 Regiment HeroMonkey
 {
-	Type=Melee;
+	Type = Melee;
 	Movement = 50;
 	Damage = 30
 	AttackSpeed = 5;
-	Behaviour
+	Behaviour MonkeySeeMonkeyDo
 	{
 		Regiment enemy = SearchForEnemies(Range >= 5);
 		if(enemy)
