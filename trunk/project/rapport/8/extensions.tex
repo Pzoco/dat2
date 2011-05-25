@@ -5,7 +5,7 @@ The notion of having a special unit being responsible for different parts of a t
 \subsubsection*{General}
 An interesting aspect to have was to have a leader or a 'General' leading the army. It is up to the script to define a behaviour for your army which best protects your general. Your General would serve as a large power of the army, and as mentioned earlier victory conditions could be set to admit defeat upon the death of a general.\label{moral} The general could also serve the purpose of a moral change of the entire regiment, so if the general is near the death, the regiment will gain a higher moral, and if the general dies the regiment might loose some moral, and fight less powerful. This would mean an addition to the language, enabling the possibility of specifying a General in your team configuration.
 \begin{lstlisting}
-Team "Monkey Ninjas"
+Team Monkey Ninjas
 {
 	General
 	{
@@ -86,10 +86,10 @@ The language could have some more basic functionalities, with would not affect t
 The possibility of including libraries to your script, and calling certain things from those libraries. This would open many possibilities of saving your behaviours, or developing more and more complex behaviour packages over time. This would mean including a certain library in your script, enabling you to call behaviours or functions from that library. Calling such a library behaviour would appear like this:
 
 \begin{lstlisting}
-Team "Ninjutsu"
+Team Ninjutsu
 #include AssassinationTechniques
 
-Regiment "Assassins"
+Regiment Assassins
 {
 	Size = 10;
 	Type = Ranged;
@@ -97,7 +97,7 @@ Regiment "Assassins"
 	Movement = 70;
 	AttackSpeed = 1;
 	
-	Behaviour
+	Behaviour AssPlan
 	{
 		Regiment enemy = SearchForEnemies(General);
 		if(enemy.Distance <= Range)
