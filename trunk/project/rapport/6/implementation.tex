@@ -215,7 +215,8 @@ public Object VisitUnitFunction(UnitFunction ast, Object obj)
 	Regiment regiment = GetRegiment(spelling);
 	if (regiment != null)
 	{
-//Checks which UnitFunction we are trying to call and calls it from the regiment class
+//Checks which UnitFunction we are trying to call 
+//and calls it from the regiment class
 		switch (functionName)
 		{
 		case "Attack": currentRegiment.Attack(regiment); break;
