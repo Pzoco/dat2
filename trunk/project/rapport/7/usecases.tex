@@ -1,13 +1,12 @@
 This chapter will show use cases showing how the simulator can be used.
 
-\section{Use case 1}
-\label{sec:usecase1}
+\section{Use case 1}\label{sec:usecase1}
 	\subsection*{2 Versus 2}
 	In this first usecase, we demonstrate a simple battle between two teams, each with two regiments. For this simple battle, a $4\times4$ grid is provided by the config file, as can be seen by the Width and Height definitions. The additional standard-values and maxima-values can also be seen in the configurations file.\\
 	As mentioned above, each team use the same two regiments - the only difference is the RegimentPosition, i.e. the start position of the regiments. \\
 	The first regiment of PirateArchers have the following stats; The regiment consist of 10 ranged units, with 2 range, dealing 4 damage with an attackspeed of 1. They have 4 health points an can perform 1 move action per turn. Their behaviour is quite simple; if the enemy is within range, they attack the enemy. if the enemy is within 2 tiles of the regiment, the regiment retreats. If the regiment is not within range of an enemy, the regiment moves towards the nearest enemy.\\
 	The other regiment consist of 10 melee warriors with 8 damage and 1 attack speed. These warriors have 8 health points and can perform 1 movement action per turn. This regiments behaviour is also quite simple; If able, they attack the enemy - otherwise they move towards the enemy and, if possible, attack the enemy.\\
-	The fight was quite even, but in the end, the blue Ninjas won. Three screenshots from the epic battle can be seen in figure \ref{pic:case11}, \ref{case12} and \ref{case13}.
+	The fight was quite even, but in the end, the blue Ninjas won. Three screenshots from the epic battle can be seen in figure \ref{pic:case11}, \ref{pic:case12} and \ref{pic:case13}.
 \begin{lstlisting}
 Config
 
@@ -102,7 +101,7 @@ Regiment PirateWarrior
 		\begin{figure}[H]
 			\center
 			\includegraphics[scale=0.6]{rapport/7/figures/case1-1.png}
-			\caption{Both teams take up an agressive position in front of the opposing teams army.}
+			\caption{Both teams take up an aggressive position in front of the opposing teams army.}
 		\label{pic:case11}		
 		\end{figure}
 		\begin{figure}[H]
@@ -116,7 +115,7 @@ Regiment PirateWarrior
 		\center
 			\includegraphics[scale=0.6]{rapport/7/figures/case1-3.png}
 			\caption{Team 2 (The Ninjas) won!}
-		\label{pic:case12}
+		\label{pic:case13}
 		\end{figure}
 		
 \section{Use case 2}
@@ -255,10 +254,10 @@ Behaviour StupidBehaviour
 
 	\subsection*{Screenshots from use case 3}
 		\begin{figure}[H]
-		\label{pic:case31}
 			\center
 			\includegraphics[scale=0.6]{rapport/7/figures/case3-1.png}
 			\caption{The battle begins.}
+		\label{pic:case31}
 		\end{figure}
 		\begin{figure}[H]
 		\center
