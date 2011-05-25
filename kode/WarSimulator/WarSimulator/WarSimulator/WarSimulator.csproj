@@ -220,12 +220,6 @@
     <None Include="TestData\config.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestData\team4.war">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestData\team3.war">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="TestData\team2.war">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
