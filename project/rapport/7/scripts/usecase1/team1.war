@@ -1,0 +1,52 @@
+Team Pirates
+
+Regiment PirateArcher
+{
+	Size = 10;
+	Type = Ranged;
+	Range = 2;
+	Damage = 4;
+	Health = 4;
+	Movement = 1;
+	AttackSpeed = 1;
+	RegimentPosition = Position(4,5);
+	Behaviour SilentMonkeysBehavoiur1
+	{
+		Regiment enemy = SearchForEnemies();
+		if (enemy.Distance <= Range)
+		{
+			Attack(enemy);
+			if(enemy.Distance < 2)
+			{
+				MoveAway(enemy);
+			}
+		}
+		else
+		{
+			MoveTowards(enemy);
+		}
+	}
+}
+Regiment PirateWarrior
+{
+	Size = 10;
+	Type = Melee;
+	Damage = 8;
+	Health = 4;
+	Movement = 1;
+	AttackSpeed = 1;
+	RegimentPosition = Position(2,5);
+	Behaviour SilentMonkeysBehavoiur1
+	{
+		Regiment enemy = SearchForEnemies();
+		if (enemy.Distance <= Range)
+		{
+			Attack(enemy);
+		}
+		else
+		{
+			MoveTowards(enemy);
+			Attack(enemy);
+		}
+	}
+}
