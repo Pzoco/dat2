@@ -1,18 +1,19 @@
+In this final chapter of the report we summarize the work done, and how well the goals of the project were fulfilled.
 \section{Conclusion}
-	The goal of the project was to make language, that when interpreted could emulate a battle between multiple armies. 
-	This goal has been fulfilled by programming a simulator, which can do syntactical analysis, semantic analysis and interpretation.
-	Syntactical analysis was done by recursive descent parsing the scripts written in our own scripting language - WAR. The semantic analysis was applied by using 
-	a visitor pattern that could check for type and scope rules. The simulator contains an interpreter that can interpret the Decorated Abstract Syntax Tree, provided by the semantic analysis.
-	The most difficult part of the interpretation, was to interpret a regiments behaviour. \\
+	The goal of the project was to create a language, that when interpreted could emulate a battle between multiple armies. 
+	This goal has been fulfilled by programming a simulator, which does syntactical analysis, semantic analysis and interpretation.
+	Syntactical analysis was done by recursive descent parsing the scripts written in our own scripting language - \textit{WAR}. The semantic analysis was applied by using 
+	a visitor pattern that could check for type and scope rules. The simulator contains an interpreter interprets the Decorated Abstract Syntax Tree, provided by semantic analysis.
+	The most challenging part of the interpretation, was to interpret a regiments behaviour. \\
 	
-	Looking back at chapter \ref{chap:DesCrit} and our design criteria described in table \ref{tab:DesCrit}, we see that not all of our design criteria were fulfilled. \\
-	The scripting language has a very high writeability and readability - we assume that most amateur programmers should be able to write their own unique script only using another script as reference. Unfortunately, there was no time to test the readability and writeability of the langauge. \\
+	Looking back at chapter \ref{chap:DesCrit} and our design criteria described in table \ref{tab:criteria_tabular}, we see that not all of our design criteria were fulfilled. \\
+	The scripting language has a very high writeability and readability - we assume that most amateur programmers should be able to write their own unique script only using another script as reference. Unfortunately, there was no time to test the readability and writeability of the language. \\
 	The reliability of the program is also well established, but some scripters may be surprised when not all their planned behaviours are performed in a turn, due to the limited actions per turn. The straightforward composition of the language, should provide very few misunderstandings to the functionality of the various commands provided by the language.\\
-	The criterion of low Orthogonality of the scripting language is implicitly fulfilled, due to the rigid nature of the team files and configuration files.\\ 
+	The criterion of low Orthogonality of the scripting language is fulfilled implicitly, due to the rigid nature of the team files and configuration files.\\ 
 	Because each regiment-declaration bears great resemblance to the declarations in the configuration file, it is safe to say that the scripting language is designed for high uniformity. \\
 	It is relatively easy to find errors in a script, when trying interpret it, because the syntactical and semantic analysis is implemented with an error reporter, which provides error messages with reference to the line containing the error. However, the error reporter is not very specific in explaining which file the error occurred in. In addition, some of the error messages are of debatable precision and quality. As such, the design criterion of very high maintainability is not fully satisfied.\\
 	Generality was estimated to be of mediocre importance as a design criterion, but the aforementioned structure of the team files and configuration files provide great generality for our language.\\
-	Providing extensibility for our language is simply impossible - there is no command or function provided by the language, which could extent the language in any way. To extent the language, a complete re-write of the EBNF, parser, interpreter and simulator would be required. \\
+	Providing extensibility for our language is simply impossible - there is no command or function provided by the language, which could extent the language in any way. To extent the language, extensions to the EBNF, parser, interpreter and simulator would be required. \\
 	The language can be transported to any other computer, provided it has an implementation for the .NET-framework. This provides the mediocre standardization we desired in our design criteria.\\
 	Because we were able to implement an interpreter for the language, the design criterion implementability, is surely fully fulfilled.\\
 	\\
