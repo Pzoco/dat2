@@ -183,19 +183,6 @@ namespace WarSimulator_Handmade.Simulation
 				}
 			}
 			#endregion
-			#region Bool expressions
-			else if (v1 is BoolValue)
-			{
-				bool b1 = ((BoolValue)v1).b;
-				bool b2 = ((BoolValue)v2).b;
-				BoolValue b = new BoolValue();
-				switch (op)
-				{
-					case "&&": if (b1 && b2) { b.b = true; } else { b.b = false; } return b;
-					case "||": if (b1 && b2) { b.b = true; } else { b.b = false; } return b;
-				}
-			}
-			#endregion
 			#region Type expressions
 			else if (v1 is TypeValue)
 			{
