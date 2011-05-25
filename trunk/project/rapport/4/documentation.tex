@@ -14,16 +14,16 @@ caption={Scripting}]
 <Term-n>
 \end{lstlisting}
 This illustrates that n terms can be written here. \\
+The \textit{WAR} Simulation framework consists of a relationship between the simulation engine of \textit{WAR}, the interpreter for the script - which is effectively the implementation of the language itself, and the script files needed to describe the simulation.
+To begin this simulation a {\it Config File} (See section \ref{doc:cfgfile}) with the file extension {\it .cfg} and at least two {\it Team Files} 
+(See section \ref{doc:teamfile}) with the file extension {\it .war}.
 
-To run a simulation you need a {\it Config File} (See section \ref{doc:cfgfile}) with the file ending {\it .cfg} and at least two {\it Team File}s 
-(See section \ref{doc:teamfile}) with the file ending {\it .war}.
-
-\section{Identifier}
+\section{Identifiers}
 	An {\it Identifier} is a word which starts with a letter and then follows a sequence of letters and/or digits.
-	Identifiers is used for names for {\it Blocks} (See section \ref{doc:blocks}) and for {\it Regiment Assignment} (See section \ref{doc:regass}).
+	Identifiers are used for naming {\it Blocks} (See section \ref{doc:blocks}) and for {\it Regiment Assignment} (See section \ref{doc:regass}).
 \section{Reserved Keywords}
 
-The following table \ref{reserved_keywords} shows the reserved words of the WAR language. One cannot use the reserved words as an identifier.
+Table \ref{reserved_keywords} shows reserved words of the WAR language. Reserved words cannot be used as identifiers.
 
 \begin{table}[H]
 
@@ -52,7 +52,7 @@ The following table \ref{reserved_keywords} shows the reserved words of the WAR 
 \label{reserved_keywords}
 \end{table}
 \section{Data Types}
-	In WAR we use the following data types: \\
+	WAR has the following data-types: \\
 	\begin{itemize}
 		\item Integer
 		\item Boolean
@@ -60,14 +60,14 @@ The following table \ref{reserved_keywords} shows the reserved words of the WAR 
 		\item Regiment
 		\item AttackType
 	\end{itemize}
-	To show the need for a element of a given data type we use $<$DataType$>$.
+	To show the need for an element for a given data typeuse $<$DataType$>$ is used.
 	To show that an identifier is of a specific data type we write $<$Identifier:DataType$>$.
 
 \section{Unitstats}
-	Unit stats defines the stats of a regiment. The unitstats are used in both the config and team file. Here are the unitstats used in WAR
+	Unit stats define the stats of a regiment. The unitstats are used in both the config and team file. Here are the unitstats used in WAR
 		\paragraph{Size}
-			Sets the size of the regiment, it's an integer.
-			If the size of the regiment is bigger than 1 it will cover multiple tiles.
+			Sets the size of the regiment, expressed as an integer.
+			If the size of the regiment is larger than one it will occupy multiple tiles.
 
 \begin{lstlisting}[basicstyle=\small\sffamily,
 keywordstyle={\color{blue}},
@@ -89,7 +89,7 @@ frameround=fftt, frame=shadowbox, captionpos=b,
 caption={Position of the regiment}]
 RegimentPosition = Position(<Int>,<Int>);
 \end{lstlisting}
-		\paragraph{Range} sets how many tiles away the regiment can attack another regiment. 
+		\paragraph{Range} sets from how many tiles away the regiment may attack another regiment. 
 		
 \begin{lstlisting}[basicstyle=\small\sffamily,
 keywordstyle={\color{blue}},
@@ -100,7 +100,7 @@ caption={Range}]
 Range = <Int>;
 \end{lstlisting}
 		\paragraph{Type}
-			Type defines which way the regiment attacks. The type can either be Melee or Ranged.
+			defines what type of attack a regiment uses. The type can either be Melee or Ranged.
 			Melee means that the regiment can only attack other regiments which it touches. Ranged means 
 			that the regiment can attack any regiment where the distance in number of tiles is less than the Range.
 
@@ -112,7 +112,7 @@ Range = <Int>;
 		caption={Type of regiment}]
 Type = <AttackType>; 
 			\end{lstlisting}	
-		\paragraph{Damage} defines how much Health an opposing regiment lose when attacked.
+		\paragraph{Damage} defines how much Health an opposing regiment will lose if attacked.
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
@@ -132,7 +132,7 @@ Damage = <Int>;
 		caption={Movement of the regiment}]
 Movement = <Int>;
 			\end{lstlisting}
-		\subparagraph{AttackSpeed} defines how many attacks a regiment can attack in a turn.
+		\subparagraph{AttackSpeed} defines how many attacks a regiment can perform in a round.
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
@@ -162,18 +162,17 @@ Regiment PirateWarrior
 	...
 }
 \end{lstlisting}
-			
+To set up a regiment you need to name your regiment block. This is done by writing out Regiment and then your regiment name. Enclose your regiment in curly brackets, and assignment of the unitstats is now possible. In the case of missing unitstats assignments default standards from the configuration will be assigned.
 
 \section{UnitStatType}
 	A {\it UnitStatType} is any of the UnitStats, except for Position, which is replaced by {\it Distance}. We use the UnitStatTypes in 
 	{\it Regiment Assignment} and {\it RegimentStat}.
-	Distance is defined as:
-	\paragraph{Distance} is an integer, which expresses how many tiles a given regiment is away.
+	\paragraph{Distance} is an integer, which expresses how many tiles a given regiment is away from a certain point.
+	The distance is expressed in the number of grid tiles two given regiments might be away from each other. It can be noted that distances are expressed in integers, and might be subject to truncation.
 
 \section{Regiment Assignment}
 \label{doc:regass}
-	One is able to assign an identifier to a given regiment, that way one can use the identifier when attacking or moving.
-	
+	You can assign an identifier to any given regiment - this allows you to use the identifier when attacking or moving to steer towards that particular regiment.
 		\begin{lstlisting}[basicstyle=\small\sffamily, keywordstyle={\color{blue}}, comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape, columns={[l]flexible}, numbers=left, numberstyle=\tiny, frameround=fftt, frame=shadowbox, captionpos=b,
 		caption={Regiment Assignment}]
 Regiment <Identifier> = <RegimentSearchFunction>			
@@ -189,7 +188,7 @@ Regiment PirateWarrior
 		
 
 \section{RegimentStat}
-	A {\it RegimentStat} is used to get the stats of a regiment. A RegimentStat can be used in Expressions. Usage:\\
+	A {\it RegimentStat} is used to get the stats of a regiment. A RegimentStat can be used in Expressions.\\
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
@@ -206,7 +205,7 @@ Regiment PirateWarrior
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Example of an assignment in use}
+		caption={Example of an assignment in use},
 		label={example:regi_assignment}]
 Regiment PirateArcher
 {
@@ -257,10 +256,10 @@ Grid <Identifier>
 	Height = <Int>;
 }
 		\end{lstlisting}	
-		The Width determines how many tiles wide the map will be and Height determines how many tiles high the map will be.
+		The width of the grid determines the size of the grid on the $x$-axis and the height determines the height $y$.
 	\paragraph{Behaviour Block}
-		The behaviour block determines how a regiment will behave in the simulation. To control the a regiment one can 
-		use the conditional statements {\it if-else if-else} and a {\it while loop} and using unit functions. Please note that 
+		The behaviour block controls how a regiment will behave in the simulation. To control regiments it is possible to 
+		use conditional statements such as {\it if-else if-else} and {\it while loops} and using unit functions. Note that 
 		conditional statements and expressions can only be used in behaviour blocks.
 		\subparagraph{if-else if-else Statement} Example of the structure of an {\it if-else if-else} statement:
 
@@ -283,9 +282,8 @@ else if (<Expression>)
 	//Code
 }
 			\end{lstlisting}
-			If the expression inside the parenthesis after if or else if is evaluated to true then the code inside the block will be executed.
-			If none of the expressions is evaluated to true the the code inside the else block will be executed. Please not that only the if block
-			is required, there can be 1 to multiple else if blocks and only 1 else block which has to end the statement. \\
+			If the expression inside the parenthesis after if or else if returns true then the code inside the block will be executed.
+			If none of the expressions return true the the code inside the else block will be executed. Please note that only the \textit{if} block is required, there can be one to multiple \textit{else if }blocks and only one else block which has to end the statement. \\
 		\subparagraph{while Loop}
 			Structure of a {\it while} loop: \\			
 
@@ -300,7 +298,7 @@ while(<Expression>)
 //Code
 }
 			\end{lstlisting}
-			If the expression is evaluated to true the code inside the block is executed. After it is executed the expression will be checked again.
+			If the expression returns true the code inside the block is executed. After execution the expression will be checked again.
 		\subparagraph{Unit Functions}
 			Unit functions are used to move the regiment or attacking with the regiment.
 
@@ -332,11 +330,11 @@ Standards
 	<Behaviour-Block>
 }
 		\end{lstlisting}
-		If a regiment in one of the team files haven't declared all the unit stats
-		or defined a behaviour, then the stats/behaviour will be taken from the standards block.
+		If a regiment in one of the team files are missing declarations or behaviour definitions, the missing values will be assigned with the values from the standards block.
 	\subsection{Maxima Block}
-		The Maxima block determines what are the limits for the unit stats. It also sets the maximum number of teams and regiments allowed.
-		In the block one is allowed to write UnitStat and MaximaStat.
+		The Maxima block determines what the limits are for the unit stats. 
+		It also sets the maximum number of teams and regiments allowed.
+		In the block the declarations UnitStat and MaximaStat are possible.
 		MaximaStat is one of these:
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
@@ -384,7 +382,7 @@ Regiment <Identifier>
 		\end{lstlisting}
 \section{RegimentSearch Functions}
 \label{sec:regimentSearch}
-	To get information of regiments on the map one can use {\it RegimentSearch Functions}. There are two RegimentSearch Functions in WAR.\\
+	To get information about regiments on the map use {\it RegimentSearch Functions}. There are two RegimentSearch Functions in \textit{WAR}.\\
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
@@ -395,7 +393,7 @@ Regiment <Identifier>
 SearchForEnemies(Parameters);
 SearchForFriend(Parameters);
 	\end{lstlisting}
-	Here {\it Parameters} is one or more expressions made with UnitStatType. Between two expressions there has to be a comma (,).
+	{\it Parameters} is one or more expressions made with UnitStatType. Between two expressions there has to be a comma (,).
 	Example: \\
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
