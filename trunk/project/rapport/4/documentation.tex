@@ -1,4 +1,4 @@
-This chapter will show how to program scripts for the simulator. Scripts written for the simulator is written in the {\it WAR langage}. 
+This chapter will show how to program scripts for the simulator. Scripts written for the simulator is written in the {\it WAR language}. 
 When a term is defined we use $<$Term$>$ to refer to the given term. 
 When a multiple terms are used we illustrate it like this: \\
 
@@ -7,7 +7,7 @@ keywordstyle={\color{blue}},
 comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
-caption={Regiment Assignment}]
+caption={Scripting}]
 <Term-1>
 ..
 .
@@ -72,8 +72,7 @@ keywordstyle={\color{blue}},
 comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
-caption={Regiment Assignment},
-label=RegimentAssignment]
+caption={Size of a regiment}]
 Size = <Int>;
 \end{lstlisting}
 		\paragraph{Position}
@@ -85,19 +84,17 @@ keywordstyle={\color{blue}},
 comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
-caption={Regiment Assignment},
-label=RegimentAssignment]
+caption={Position of the regiment}]
 RegimentPosition = Position(<Int>,<Int>);
 \end{lstlisting}
-		\paragraph{Range}
-			Range sets how tiles away regiment can attack another regiment.
-
+		\paragraph{Range} sets how many tiles away the regiment can attack another regiment. 
+		
 \begin{lstlisting}[basicstyle=\small\sffamily,
 keywordstyle={\color{blue}},
 comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 frameround=fftt, frame=shadowbox, captionpos=b,
-caption={Regiment Assignment}]
+caption={Range}]
 Range = <Int>;
 \end{lstlisting}
 		\paragraph{Type}
@@ -110,9 +107,8 @@ Range = <Int>;
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
-				Type = <AttackType>; 
+		caption={Type of regiment}]
+Type = <AttackType>; 
 			\end{lstlisting}	
 		\paragraph{Damage}
 			Damage defines how much Health an opposing regiment lose when attacked.
@@ -122,53 +118,42 @@ Range = <Int>;
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
-				Damage = <Int>;
+		caption={Damage of the regiment}]
+Damage = <Int>;
 			\end{lstlisting}
-		\paragraph{Movement}
-			Movement means how many tiles the regiment can move.
+		\paragraph{Movement} means how many tiles the regiment can move.
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
-				Movement = <Int>;
+		caption={Movement of the regiment}]
+Movement = <Int>;
 			\end{lstlisting}
-		\subparagraph{AttackSpeed}
-			AttackSpeed defines how many attacks a regiment can attack in a turn.
+		\subparagraph{AttackSpeed} defines how many attacks a regiment can attack in a turn.
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
-				AttackSpeed = <Int>;
+		caption={AttackSpeed of the regiment}]
+AttackSpeed = <Int>;
 			\end{lstlisting}
 
 \section{UnitStatType}
 	A {\it UnitStatType} is any of the UnitStats, except for Position, which is replaced by {\it Distance}. We use the UnitStatTypes in 
 	{\it Regiment Assignment} and {\it RegimentStat}.
 	Distance is defined as:
-	\paragraph{Distance}
-		Distance is an integer, which expresses how many tiles away a given regiment is away.
+	\paragraph{Distance} is an integer, which expresses how many tiles a given regiment is away.
 
 \section{Regiment Assignment}
 \label{doc:regass}
 	One is able to assign an identifier to a given regiment, that way one can use the identifier when attacking or moving.
 	
-		\begin{lstlisting}[basicstyle=\small\sffamily,
-		keywordstyle={\color{blue}},
-		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
-		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
-		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		\begin{lstlisting}[basicstyle=\small\sffamily, keywordstyle={\color{blue}}, comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape, columns={[l]flexible}, numbers=left, numberstyle=\tiny, frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment}]
 Regiment <Identifier> = <RegimentSearchFunction>			
 		\end{lstlisting}	
 
@@ -180,8 +165,7 @@ Regiment <Identifier> = <RegimentSearchFunction>
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Regiment Stat}]
 <Identifier:Regiment>.<UnitStatType>
 	\end{lstlisting}
 	Please note that the identifier must be from a Regiment Assignment.
@@ -198,8 +182,7 @@ Regiment <Identifier> = <RegimentSearchFunction>
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Grid Block}]
 Grid <Identifier>
 {
 	Width = <Int>;
@@ -219,8 +202,7 @@ Grid <Identifier>
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={if and else if statements}]
 if(<Expression>)
 {
 	//Code
@@ -245,8 +227,7 @@ else if (<Expression>)
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={While loop}]
 while(<Expression>)
 {
 //Code
@@ -261,8 +242,7 @@ while(<Expression>)
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Unit functions}]
 MoveTowards(<Regiment>);
 MoveAway(<Regiment>);
 Attack(<Regiment>);
@@ -275,8 +255,7 @@ Attack(<Regiment>);
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Standards block}]
 Standards
 {
 	<Unit-Stat-1>
@@ -291,27 +270,25 @@ Standards
 	\subsection{Maxima Block}
 		The Maxima block determines what are the limits for the unit stats. It also sets the maximum number of teams and regiments allowed.
 		In the block one is allowed to write UnitStat and MaximaStat.
-		MaximaStat is one of these:\\
+		MaximaStat is one of these:
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Maxima block}]
 Teams = <Int>;
 Regiments = <Int>;
 		\end{lstlisting}
-		The Maxima Block is written as: \\
+		The Maxima Block is written as:
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Maxima stat}]
 Maxima
 {
 	<UnitStat-1> or <MaximaStat-1>
@@ -328,8 +305,7 @@ Maxima
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Regiment block}]
 Regiment <Identifier>
 {
 <Unit-Stat-1>
@@ -347,8 +323,7 @@ Regiment <Identifier>
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={RegimentSearch Functions}]
 SearchForEnemies(Parameters);
 SearchForFriend(Parameters);
 	\end{lstlisting}
@@ -360,8 +335,7 @@ SearchForFriend(Parameters);
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Functions with parameters}]
 SearchForEnemies(Distance > 5,Size == 200);
 	\end{lstlisting}
 	This will return all the enemy regiments, which are more than 5 tiles away and is of Size 200.		
@@ -394,8 +368,7 @@ Team <Identifier>
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Regiment Assignment},
-		label=RegimentAssignment]
+		caption={Config file}]
 Config
 <Grid-Block>
 <Standards-Block>
