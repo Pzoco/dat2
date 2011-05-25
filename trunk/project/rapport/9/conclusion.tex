@@ -16,6 +16,13 @@ In this final chapter of the report we summarize the work done, and how well the
 	Providing extensibility for our language is simply impossible - there is no command or function provided by the language, which could extent the language in any way. To extent the language, extensions to the EBNF, parser, interpreter and simulator would be required. \\
 	The language can be transported to any other computer, provided it has an implementation for the .NET-framework. This provides the mediocre standardization we desired in our design criteria.\\
 	Because we were able to implement an interpreter for the language, the design criterion implementability, is surely fully fulfilled.\\
-	\\
+	There was no design criterion related to the speed of the interpretation, but because the language is so simple, the syntactical and semantic analysis is very fast, as well as the interpretation. \\
 	
-	There was no design criterion related to the speed of the interpretation, but because the language is so simple, the syntactical and semantic analysis is very fast, as well as the interpretation.
+	We wrote in the introduction that this language will be a language which is quite unlike most modern programming languages that supports 
+	multiple paradigm and having powerful tools in the sense that WAR is only made to make simulations. The scripts can change the simulation, but 
+	to do advanced simulations a lot of abstractions found in other programming languages is missing like variables, functions or even classes. We 
+	reasoned for the lack of these in WAR by saying that inexperienced programmers should be able to make scripts for the simulator, but one could 
+	imagine a language where both these ways of programming could be read. This would cause the language to have a broader appeal. \\ 
+	
+	By having these thoughts in mind, the previous discussion of the design criteria and by building on the experience given from the project 
+	it should be able to make a new extension or even a new revision of a War Game scripting language.
