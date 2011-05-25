@@ -13,9 +13,9 @@
 					frameround=fftt, frame=shadowbox, captionpos=b,
 					caption={Team file},
 					label=LST:code31]
-Team Ninja Monkeys
+Team NinjaMonkeys
 
-Regiment Silent Monkeys
+Regiment SilentMonkeys
 //Archers
 {
 	Size = 200;
@@ -41,10 +41,10 @@ Regiment Silent Monkeys
 			}
 			Attack(enemy);
 		}
-		if (enemy.position <= Range)
+		if (enemy.Distance <= Range)
 		{
 			MoveAway(enemy);
-			if(enemy.position <= Range)
+			if(enemy.Distance <= Range)
 			{
 				Attack(enemy);
 			}
@@ -61,7 +61,7 @@ Regiment HeroMonkey
 	Behaviour MonkeySeeMonkeyDo
 	{
 		Regiment enemy = SearchForEnemies(Range >= 5);
-		if(enemy)
+		if(enemy.Health > 0)
 		{
 			Attack(enemy);
 		}

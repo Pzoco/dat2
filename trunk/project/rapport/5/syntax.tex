@@ -1,4 +1,4 @@
-In this chapter the WAR language will be defined. This design phase starts with a {\it Syntax} part, then followed by {\it Contextual analysis}.
+In this chapter the syntax, scope rules and type rules of the WAR language will be defined. The Syntax will be defined by a BNF, which will be extended to an EBNF - both can be found in the Appendix. The scope rules and type rules are defined within this chapter.
 \section{Syntax}
 	The first step in writing our interpreter was to construct a BNF of our language. 
 	BNF is an acronym for {\it Backus Naur form}, which is a way of
@@ -114,8 +114,7 @@ In this chapter the WAR language will be defined. This design phase starts with 
 %		\end{tabular}
 	\end{comment}
 	\subsubsection{BNF}
-		The BNF was made by looking at example code \\
-		and can be seen in Appendix \ref{app:bnf}. \\
+		The BNF was made by looking at an example code - a code we wrote ourselves as an example of how we would like the final code to look. This example code can be seen in Listing \ref{LST:code31}. The BNF can be seen Appendix \ref{app:bnf}. \\
 		Here is a production rule from the BNF: \\
 		\begin{tabular}{l l l}
 		Identifier			&	::=	&Letter\\
@@ -124,7 +123,7 @@ In this chapter the WAR language will be defined. This design phase starts with 
 		\end{tabular}
 	
 	\subsection{EBNF}
-		{\it EBNF} stands for {\it Extendend Backus Naur Form} and is, as the name refers to an extension of BNF.
+		{\it EBNF} is an acronym for {\it Extendend Backus Naur Form} and is, as the name refers to an extension of BNF.
 		The EBNF allows us to use regular expressions to express production rules. 
 		This makes our rule set more compact and easier to implement.
 	
@@ -192,7 +191,7 @@ In this chapter the WAR language will be defined. This design phase starts with 
 				T		&	::=		&	({\bf ab} $\mid$ {\bf ba}) $\mid$ A ({\bf ab} $\mid$ {\bf ba})B \\
 			\end{tabular}
 	\subsection{The EBNF of the WAR Language}
-		The EBNF was made by applying left factorization, elimination of left recursion and substitution of non-terminals on the BNF 
+		To obtain the EBNF we applied left factorization, elimination of left recursion and substitution of non-terminals on the BNF 
 		and can be seen in Appendix \ref{app:ebnf}.
 		To illustrate how we transformed our BNF to an EBNF we will look at an example.
 		\subsubsection{Transformation of production rule of Identifier}
