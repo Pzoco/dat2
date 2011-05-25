@@ -1,38 +1,17 @@
-%Description - Contains A description of how to make to script files battle each other, 
-
-\section{ Description of The \textit{WAR}-Game }
-\label{sec:describeWAR}
-As mentioned earlier the \textit{WAR}-Game is a simulation where the players will program the behaviour of their armies with a script, and let the game being executed without further interaction. The winner of the simulation will be the one with the best script, as decided by the simulation engine. \\
+\section{Description of The \textit{WAR}-Game}\label{sec:describeWAR}
+As mentioned earlier the \textit{WAR}-Game is a simulation where the players will script the behaviour of their armies, and let the game being executed without further interaction. The winner of the simulation will be the one with the best script, as decided by the simulation engine.
 	\subsection{The simulation}
 	\begin{figure}
 	\centering
 	\includegraphics[scale=0.4]{rapport/2/figures/FlowChartSimulation}
 	\caption{ Flowchart of the simulation } \label{fig:FlowChartSimulation}
 	\end{figure}		
-		To run a simulation in the \textit{WAR} simulation, a configuration file and at least two team files has to be fed to the simulation upon start up. 
-		These files are written in the \textit{WAR} scripting language.
-		\\
-		The configuration file is used to establish basic rules for the war simulation, i.e. the size of the battlefield, the maximal values of properties and the standard properties of regiments.
+		To run a simulation in the \textit{WAR} simulator, a configuration file and at least two team files has to be included into the simulation upon start up. These files are written in the \textit{WAR} scripting language.
+		The configuration file is used to establish basic rules for the war simulation i.e. the size of the battlefield, the maximal values of properties and the standard properties of regiments.
 		This allows for some flexibility in altering the simulation from game to game.
-		Each participant will make a script file over their team of regiments, which will be provided to the simulator, 
-		which then will interpret the script and simulate the battle. 
-		These script files contain how many units and what kind of units the participant would like to use. 
-		They may also contain information regarding the behaviour of specific regiments. 
-		\\
-		The one who makes the best script will win the game, so every participant should strive to make the best script, 
-		and place their regiments in the best locations on the grid.
-		\\
-%		When both players are coding their scripts, they will provide the script-files with information about their regiments, 
-%		but if the player chooses to leave the information out, or even forgets to specify it, 
-%		the simulator will assign a default value - given by the standard values found in the configuration file. 
-%		This helps both rookie scriptwriters and forgetful scriptwriters to provide the simulator 
-%		with the amount of information required to initiate the simulation.
-
+		Each participant will make a script file over their team of regiments, which will be provided to the simulator, 	which then will interpret the script and simulate the battle. These script files contain how many units and what kind of units the participant would like to use.	They may also contain information regarding the behaviour of specific regiments. The one who makes the best script will win the game, so every participant should strive to make the best script, and place their regiments in the best locations on the grid.
 	\subsection{The Language}
-		We designed the WAR language as a simple imperative scripting language. 
-		indeed we wanted the language to be easy to program, so that inexperienced programmers could be able to control a simulation. Thus the imperative paradigm is what we felt best supported the idea of a simple programming language. We do not need the	powerful abstractions of object oriented programming nor the task-solving capabilities of the functional languages. At the same time, the language should provide enough support, that more experienced programmers have an advantage over inexperienced programmers - the winner should be determined by their scripting skills.
-		
-		 
+		We designed the WAR language as a simple imperative scripting language.	Indeed we wanted the language to be easy to program, so that inexperienced scripters could be able to control a simulation. Thus the imperative paradigm is what we felt best supported the idea of a simple programming language. We do not need the powerful abstractions of object oriented programming nor the task-solving capabilities of the functional languages. At the same time, the language should provide enough support, that more experienced scripters have an advantage over inexperienced scripters - the winner should be determined by their scripting skills. 
 	\subsection{Game Specification}
 	In this section we define the terminology we use in the description of the game.
 	These correspond with the terms used in the configuration- and team file.
@@ -43,11 +22,10 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		A team consists of 1 or more regiments. In the simulation two or more teams will battle to win the simulation. Here, a team is synonymous to an army.
 		
 		\paragraph{Turn}
-		Each of the regiment will have a turn each round where they can perform a limited number of actions. 
+		Each of the regiment will have a turn each round where they can perform a limited number of actions.
+		The regiment have a \textit{movement} constant declared which declares the maximum of movements the regiment can make.
+		If the regiment have to attack, it can attack once and then its turn is over. 
 		The actions a regiment is allowed to do is described in \ref{rules:action}.
-%		The number of actions allowed per regiment per turn, is defined in the simulator.
-%		The turn will end if the regiment is out of action or if the regiment doesn't want to perform any Actions. 
-%		The actions performed by a regiment is predefined in the behaviour. 
 		Further description of events during a turn, will be described in the following section.
 		
 		\paragraph{Round}
@@ -73,16 +51,11 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		\includegraphics[scale=0.25]{rapport/2/figures/grid}
 		\caption{ A 10x10 grid } \label{fig:grid}
 			\end{figure}		
-		
-																		
-		\subsubsection{Terms in the team file }
-	
+																				
+		\subsubsection{Terms in the team file }	
 		\paragraph{Size}
 		The size of the regiment is, in abstraction, the number of soldiers in the current regiment. 
 		The size is closely connected with the total health of the regiment, as well as total damage done by the regiment.
-		%The size also provides information about how much space the regiment takes up on the grid. A regiment off size $200$ would take up $200$ grid tiles.
-%		One might consider it as the overall health of the regiment. While size may be an abstraction of health,
-%		it's important to notice that a regiment with a larger size takes up more integers on the grid.
 
 		\paragraph{Health}
 		Health describes the initial health of each unit in the regiment.
@@ -175,7 +148,6 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		\begin{itemize}\itemsep0.0001cm
 			\item The regiment will move a number of tiles equal to its movement, in the opposite direction of the specified regiment.
 		\end{itemize}
-		%The regiment will move 1 tile (left,right,up down) towards the friendly/enemy regiment and movement is decreased by 1.
 				
 		\subsubsection{Configuration of the Playing Field}
 		The simulation will need basic instructions which is a common limitation of both teams, to ensure even 'armies'. 
