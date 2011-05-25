@@ -20,8 +20,8 @@
 			(D) edge 					node{A team won} (E);
 			
 \end{tikzpicture}
-\label{fig:sim}
 \caption{Diagram showing the simulation}
+\label{fig:sim}
 \end{figure}
 
 The following subsections will explain what happens at the phases, but first an explanation of how the game world is emulated.
@@ -42,9 +42,9 @@ The following subsections will explain what happens at the phases, but first an 
 	Maxima stats. After all data is retrieved it is passed to the {\it GameDataRetriever}
 
 \subsection{GameDataValidator}\label{sec:gdv}
-	After all the data have been retrieved from the DAST we have to validate if the data is correct. 
-	By correct we mean that every regiment have all the {\it UnitStats} or that the {\it UnitStat} 
-	of a regiment does not exceed the {\it MaximaStat} written. 
+	After all the data has been retrieved from the DAST we have to validate whether or not the entered the data is correct. 
+	By correct we mean that every regiment has all the {\it UnitStats} or that the {\it UnitStat} 
+	of a regiment does not exceed the {\it MaximaStat}s. 
 	The class {\it GameDataValidator} is started by using the Team objects, standards regiment and maxima object passed from the {\it GameDataRetriever}.
 	The process of the validation: \\
 	\begin{enumerate}
@@ -188,7 +188,7 @@ if (v1 is IntValue)
 }
 		\end{lstlisting}
 		The code snippet \ref{impl:chkbexp} shows how the method handles binary expressions 
-		where both the expressions are integers, here {\it op} is a string which represent the operator of the binary expression. 
+		where both the expressions are integers, here {\it op} is a string which represents the operator of the binary expression. 
 		CheckBinaryExpression has similar handling for expressions with type expressions.
 		
 	\subsubsection{UnitFunctions}
@@ -232,8 +232,8 @@ public Object VisitUnitFunction(UnitFunction ast, Object obj)
 		
 	\subsubsection{RegimentSearch}
 		The {\it RegimentSearch methods} is used for finding either enemy or friendly regiments on 
-		the grid (see usage at section \ref{sec:regimentsearch}). 
-		We will here explain how the the visit to a {\it RegimentSearch node} looks like in multiple code snippets.
+		the grid (see usage at section \ref{sec:regimentSearch}). 
+		We will here explain how the the visit to a {\it RegimentSearch node} appears in multiple code snippets.
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 			keywords={break,case,const,continue,default,else,enum,
 			for,if,return,switch,while,do,long,void,int,float,double,
