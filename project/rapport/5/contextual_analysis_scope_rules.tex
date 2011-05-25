@@ -5,7 +5,15 @@ This section will define the scope rules and type rules of WAR.
 		Scope rules dictate the accessibility of identifiers from one scope to another.
 		A scope placed inside another scope is called a {\it nested scope}. A {\it scope level} denotes how nested a given scope is,
 		e.g. identifiers at scope level 0 is outside any scope, identifiers at scope level 1 is inside one scope etc.
-		\begin{lstlisting}
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b,
+			caption={Scope levels}]	
 //Scope level 0
 Scope
 {
