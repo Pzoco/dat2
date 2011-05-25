@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace WarSimulator_Handmade
 {
@@ -16,7 +17,7 @@ namespace WarSimulator_Handmade
 
         static void Main(string[] args)
         {
-            if (args.Length == 0)
+            if (args.Length == 0 && Directory.Exists("TestData"))
             {
                 args = new string[3];
                 args[0] = "TestData/config.cfg";
