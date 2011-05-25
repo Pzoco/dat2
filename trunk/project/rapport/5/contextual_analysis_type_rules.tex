@@ -1,4 +1,6 @@
 \subsection{Type rules}
+	Type rules regulate the expected types of arguments and 
+	types of returned values for the operations of a language \cite{TypeRule}.
 	The following types are present in \textit{WAR}: \\
 	\begin{itemize}
 		\item Integer
@@ -9,7 +11,6 @@
 	\end{itemize}
 		
 	\subsubsection{Type rules of \textit{WAR}}
-
 	\begin{typerule} 
 		$I1$ $ o $ $I2$ is type correct and of type Integer \\
 		if $I1$ and $I2$ are type correct and of type Integer \\
@@ -33,5 +34,3 @@
 		if $E1$ and $E2$ are type correct and of type Integer \\
 		and $o$ is an operator where $o\in \{ ==,>=,<=,<,> \}$
 	\end{typerule}
-	
-	
