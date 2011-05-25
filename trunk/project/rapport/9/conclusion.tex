@@ -3,11 +3,11 @@ In this final chapter of the report we summarize the work done, and how well the
 	The goal of the project was to create a language, that when interpreted could emulate a battle between multiple armies. 
 	This goal has been fulfilled by programming a simulator, which does syntactical analysis, semantic analysis and interpretation.
 	Syntactical analysis was done by recursive descent parsing the scripts written in our own scripting language - \textit{WAR}. The semantic analysis was applied by using 
-	a visitor pattern that could check for type and scope rules. The simulator contains an interpreter interprets the Decorated Abstract Syntax Tree, provided by semantic analysis.
+	a visitor pattern that could check for type and scope rules. The simulator contains an interpreter that interprets the Decorated Abstract Syntax Tree, provided by semantic analysis.
 	The most challenging part of the interpretation, was to interpret a regiments behaviour. \\
 	
-	Looking back at chapter \ref{chap:DesCrit} and our design criteria described in table \ref{tab:criteria_tabular}, we see that not all of our design criteria were fulfilled. \\
-	The scripting language has a very high writeability and readability - we assume that most amateur programmers should be able to write their own unique script only using another script as reference. Unfortunately, there was no time to test the readability and writeability of the language. \\
+	Looking back at chapter \ref{chap:DesCrit} on page \pageref{chap:DesCrit} and our design criteria described in table \ref{tab:criteria_tabular}, we see that not all of our design criteria were fulfilled. \\
+	The scripting language has a very high writeability and readability - we assume that most inexperienced programmers should be able to write their own unique script only using another script as reference. Unfortunately, there was no time to test the readability and writeability of the language. \\
 	The reliability of the program is also well established, but some scripters may be surprised when not all their planned behaviours are performed in a turn, due to the limited actions per turn. The straightforward composition of the language, should provide very few misunderstandings to the functionality of the various commands provided by the language.\\
 	The criterion of low Orthogonality of the scripting language is fulfilled implicitly, due to the rigid nature of the team files and configuration files.\\ 
 	Because each regiment-declaration bears great resemblance to the declarations in the configuration file, it is safe to say that the scripting language is designed for high uniformity. \\
