@@ -19,14 +19,16 @@ for (int i = 1; i < args.Length; i++)
 {
 	if (!args[i].EndsWith(".war"))
     {
-    	Console.WriteLine("Incorrect filename of teamfile at {0} - Correct usage: .war", (i+1));
+    	Console.WriteLine("Incorrect filename of teamfile at {0} 
+    				- Correct usage: .war", (i+1));
         correctUsage = false;
     }
     teamFilesArgs.Add(args[i]);
 }
     if (!args[0].EndsWith(".cfg"))
     {
-    	Console.WriteLine("Incorrect filename of configfile - Correct usage: .cfg");
+    	Console.WriteLine("Incorrect filename of configfile 
+    				- Correct usage: .cfg");
         correctUsage = false;
     }
 		\end{lstlisting}
