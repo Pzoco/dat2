@@ -7,9 +7,16 @@ This chapter will show use cases showing how the simulator can be used.
 	The first regiment of PirateArchers have the following stats; The regiment consist of 10 ranged units, with 2 range, dealing 4 damage with an attackspeed of 1. They have 4 health points an can perform 1 move action per turn. Their behaviour is quite simple; if the enemy is within range, they attack the enemy. if the enemy is within 2 tiles of the regiment, the regiment retreats. If the regiment is not within range of an enemy, the regiment moves towards the nearest enemy.\\
 	The other regiment consist of 10 melee warriors with 8 damage and 1 attack speed. These warriors have 8 health points and can perform 1 movement action per turn. This regiments behaviour is also quite simple; If able, they attack the enemy - otherwise they move towards the enemy and, if possible, attack the enemy.\\
 	The fight was quite even, but in the end, the blue Ninjas won. Three screenshots from the battle can be seen in figure \ref{pic:case11}, \ref{pic:case12} and \ref{pic:case13}.
-\begin{lstlisting}
+	\newpage
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b]	
 Config
-
 Grid BananaIsland
 {
 	Width = 4;
@@ -44,7 +51,14 @@ Rules
 	}
 }
 \end{lstlisting}
-\begin{lstlisting}
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b]
 Regiment PirateArcher
 {
 	Size = 10;
@@ -148,9 +162,15 @@ In this usecase, we will explore the scripts of an experienced scripter versus a
 Team 2 consist of one slow, but dangerous melee regiment called KlamBymilits. The scriptwriter behind team 2 in convinced this regiments high damage will make it possible for him to take out both of the opponents regiments. The regiment's behaviour is extremely simple - attack any nearby enemies, and if no enemies are within range, start moving towards the enemy. \\
 The scripter behind team 1 has two regiment of archers with considerably less {\it Health}. These regiments are required to use their speed and positions to defeat their enemy. The archers will spawn on each side of the enemy regiment. The behaviour of the archer regiments is designed to take advantage of the slow movement and simple tactic of the enemy. When the distance between one archer regiment and the enemy, is less than the distance between the enemy and the other archer, the archer regiment moves away from the enemy regiment. If the distance is greater, than the distance between the enemy and the friendly archer regiment, the archer regiment attacks and moves towards the enemy. \\
 The result is quite spectacular - the archers successfully kite the enemy regiment in circles, and win without taking any damage.
-\begin{lstlisting}
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b]
 Team Team1
-
 Regiment Archers1
 {
 	Size = 50;
@@ -185,8 +205,6 @@ Behaviour HitnRun
 	Attack(enemy);
 }
 }
-
-
 Regiment Archers2
 {
 	Size = 50;
@@ -221,13 +239,18 @@ Behaviour HitnRun
 	}
 	Attack(enemy);
 }
-
 }
 \end{lstlisting}
 
-\begin{lstlisting}
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b]
 Team Team2
-
 Regiment KlamBymilits
 {
 	Size = 20;
