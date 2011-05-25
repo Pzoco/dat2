@@ -16,7 +16,7 @@ The following figure \ref{fig:script_to_simu} shows the process from script file
 
 \section{Parser construction}
 	The job of a parser is to check if a program is syntactically correct and 
-	to determine the structure of the program (Here we constructed an {\it abstract syntax tree} - see \ref{ast}).
+	to determine the structure of the program (Here we constructed an {\it abstract syntax tree} - see section \ref{ast}).
 	A parser can only read {\it tokens}, which is terminals as seen in the EBNF. So before we are able to parse we need to convert 
 	the program code from characters to tokens, this is done by using a scanner, that will be explained next. Beside having a scanner it is 
 	also important to choose a strategy for parsing, which we will look at in \ref{impl:parsestrats}.
