@@ -53,8 +53,9 @@ namespace WarSimulator_Handmade.Simulation
 		public int GetDistanceTo(Regiment regiment)
 		{
 			int distance = 0;
-			distance += Math.Abs(regiment.position.x - position.x);
-			distance += Math.Abs(regiment.position.y - position.y);
+            distance = (int)Math.Sqrt(Math.Pow((regiment.position.x - position.x), 2) + Math.Pow((regiment.position.y - position.y), 2));
+            //distance += Math.Abs(regiment.position.x - position.x);
+            //distance += Math.Abs(regiment.position.y - position.y);
 			return distance;
 		}
 		public void Attack(Regiment regiment)
@@ -74,11 +75,11 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			if (currentMovement > 0)
 			{
-				double angle = GetAngle(position, regiment.position);
+				double angle = GetAngle(regiment.position, position);
 
 				if (angle > 45 && angle <= 135)
 				{
-					MoveUp();
+					MoveDown();
 				}
 				else if (angle > 135 && angle <= 215)
 				{
@@ -86,7 +87,7 @@ namespace WarSimulator_Handmade.Simulation
 				}
 				else if (angle > 215 && angle <= 305)
 				{
-					MoveDown();
+					MoveUp();
 				}
 				else if (angle > 305 || angle < 45)
 				{
@@ -98,20 +99,20 @@ namespace WarSimulator_Handmade.Simulation
 		{
 			if (currentMovement > 0)
 			{
-				double angle = GetAngle(position, regiment.position);
-				if (angle >= 215 && angle <= 305 && !Grid.tiles[position.x, position.y + 1].occupied)
+				double angle = GetAngle(regiment.position, position);
+				if (angle > 215 && angle <= 305)
 				{
 					MoveDown();
 				}
-				else if (angle >= 135 && angle <= 215 && !Grid.tiles[position.x + 1, position.y].occupied)
+				else if (angle >= 135 && angle <= 215)
 				{
 					MoveRight();
 				}
-				else if (angle >= 45 && angle <= 135 && !Grid.tiles[position.x, position.y - 1].occupied)
+				else if (angle >= 45 && angle <= 135)
 				{
 					MoveUp();
 				}
-				else if (angle >= 305 || angle <= 45 && !Grid.tiles[position.x - 1, position.y].occupied)
+				else if (angle >= 305 || angle <= 45)
 				{
 					MoveLeft();
 				}
@@ -149,13 +150,13 @@ namespace WarSimulator_Handmade.Simulation
 		}
 		private double GetAngle(Position pos1, Position pos2)
 		{
-			double radian = Math.Atan2(pos1.y - pos2.y,
-												pos1.x - pos2.x);
-			if (radian < 0)
+			double angle = Math.Atan2(pos2.y - pos1.y,
+												pos2.x - pos1.x)*(180/Math.PI);
+			if (angle < 0)
 			{
-				return (radian * (180 / Math.PI))+360;
+				return angle+360;
 			}
-			return radian * (180 / Math.PI);
+            return angle;
 		}
 		#endregion
 

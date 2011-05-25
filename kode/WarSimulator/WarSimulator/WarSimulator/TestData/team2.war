@@ -1,94 +1,24 @@
-Team Blue
+Team Team2
 
-Regiment BlueWarrior1
+Regiment KlamBymilits
 {
-	Size = 10;
+	Size = 20;
+	Damage = 20;
 	Type = Melee;
-	Damage = 4;
-	Health = 4;
-	Movement = 1;
+	Health = 50;
+	Movement = 2;
 	AttackSpeed = 1;
-	RegimentPosition = Position(8,4);
-	Behaviour SilentMonkeysBehavoiur1
+	RegimentPosition = Position(10,10);
+Behaviour StupidBehaviour
+{
+	Regiment enemy = SearchForEnemies();
+	if (enemy.Distance > 1)
 	{
-		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range)
-		{
-			Attack(enemy);
-		}
-		else
-		{
-			MoveTowards(enemy);
-			Attack(enemy);
-		}
+		MoveTowards(enemy);
+	}
+	else
+	{
+		Attack(enemy);
 	}
 }
-Regiment BlueWarrior2
-{
-	Size = 10;
-	Type = Melee;
-	Damage = 4;
-	Health = 4;
-	Movement = 1;
-	AttackSpeed = 1;
-	RegimentPosition = Position(8,5);
-	Behaviour SilentMonkeysBehavoiur1
-	{
-		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range)
-		{
-			Attack(enemy);
-		}
-		else
-		{
-			MoveTowards(enemy);
-			Attack(enemy);
-		}
-	}
-}
-Regiment BlueWarrior3
-{
-	Size = 10;
-	Type = Melee;
-	Damage = 4;
-	Health = 4;
-	Movement = 1;
-	AttackSpeed = 1;
-	RegimentPosition = Position(8,6);
-	Behaviour SilentMonkeysBehavoiur1
-	{
-		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range)
-		{
-			Attack(enemy);
-		}
-		else
-		{
-			MoveTowards(enemy);
-			Attack(enemy);
-		}
-	}
-}
-Regiment BlueWarrior4
-{
-	Size = 10;
-	Type = Melee;
-	Damage = 4;
-	Health = 4;
-	Movement = 1;
-	AttackSpeed = 1;
-	RegimentPosition = Position(8,7);
-	Behaviour SilentMonkeysBehavoiur1
-	{
-		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range)
-		{
-			Attack(enemy);
-		}
-		else
-		{
-			MoveTowards(enemy);
-			Attack(enemy);
-		}
-	}
 }

@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\gridTile.xnb</Output>
-      <Time>2011-05-20T15:11:43.8686585+02:00</Time>
+      <Output>C:\Users\DrFou\Documents\Uni\DAT2\SVN\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\gridTile.xnb</Output>
+      <Time>2011-05-25T08:46:29.1093152+02:00</Time>
     </Item>
     <Item>
       <Source>regTile.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\regTile.xnb</Output>
-      <Time>2011-05-21T13:42:30.8152128+02:00</Time>
+      <Output>C:\Users\DrFou\Documents\Uni\DAT2\SVN\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\regTile.xnb</Output>
+      <Time>2011-05-25T08:46:29.1273162+02:00</Time>
     </Item>
     <Item>
       <Source>font.spritefont</Source>
@@ -25,8 +25,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\font.xnb</Output>
-      <Time>2011-05-21T15:39:53.6887993+02:00</Time>
+      <Output>C:\Users\DrFou\Documents\Uni\DAT2\SVN\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\font.xnb</Output>
+      <Time>2011-05-25T08:46:29.1013147+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -34,10 +34,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulatorContent\</RootDirectory>
-      <LoggerRootDirectory>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulator\</LoggerRootDirectory>
-      <IntermediateDirectory>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulatorContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\DrFou\Documents\Uni\DAT2\SVN\kode\WarSimulator\WarSimulator\WarSimulatorContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\DrFou\Documents\Uni\DAT2\SVN\kode\WarSimulator\WarSimulator\WarSimulator\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\DrFou\Documents\Uni\DAT2\SVN\kode\WarSimulator\WarSimulator\WarSimulatorContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\DrFou\Documents\Uni\DAT2\SVN\kode\WarSimulator\WarSimulator\WarSimulator\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -66,7 +66,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2011-04-29T21:07:49.1514231+02:00</Value>
+        <Value>2011-05-25T16:56:01.835339+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
