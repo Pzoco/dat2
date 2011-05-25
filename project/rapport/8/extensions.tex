@@ -3,7 +3,7 @@ Improvements to the scripting of a team, and thereby the army definitions and be
 \subsection{Leaders}
 The notion of having a special unit being responsible for different parts of a team.
 \subsubsection*{General}
-An interesting aspect to have was to have a leader or a 'General' leading the army. It is up to the script to define a behaviour for your army which best protects your general. Your General would serve as a large power of the army, and victory conditions could be set to admit defeat upon the death of a general.\label{moral} The general could also serve the purpose of a moral change of the entire regiment, so if the general is near the death, the regiment will gain a higher moral, and if the general dies the regiment might loose some moral, and fight less powerful. This would mean an addition to the language, enabling the possibility of specifying a General in your team configuration.
+An interesting aspect to have, was having a leader or a 'General' leading the army. It is up to the script to define a behaviour for your army which best protects your general. Your General would serve as a large power of the army, and victory conditions could be set to admit defeat upon the death of a general.\label{moral} The general could also serve the purpose of a moral change of the entire regiment, so if the general is near the death, the regiment will gain a higher moral, and if the general dies the regiment might loose some moral, and fight less powerful. This would mean an addition to the language, enabling the possibility of specifying a General in your team configuration.
 \begin{lstlisting}
 Team MonkeyNinjas
 {
@@ -48,7 +48,6 @@ Rules
 	Defeat = General; // 'General' would be a pre-set rule.
 	}
 }
-
 \end{lstlisting}
 Other examples of a preset rule might be Last-Man-Standing, where the armies would battle until only one single unit remains.
 
@@ -65,7 +64,6 @@ Rules
 		}
 	}
 }
-
 \end{lstlisting}
 The intention would be to set up conditions easily, while also allowing for much more specific conditions, through more advanced scripting. The conditions would not be limited to regiment attributes - conquering a special field on the grid could also be a viable condition for victory or defeat.
 \subsection{Grid Obstacles}
@@ -112,7 +110,6 @@ Regiment Assassins
 		}
 	}
 }
-
 \end{lstlisting}
 
 
