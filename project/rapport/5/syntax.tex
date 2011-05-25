@@ -4,36 +4,36 @@ In this chapter the syntax and the semantics of the WAR language will be defined
 	BNF is an acronym for {\it Backus Naur form}, which is a way of
 	structuring the language in a formal way, to further ease implementation. 
 	A BNF consists of a set of {\it production rules} and each
-	production rule consists of: \\
+	production rule consists of:
 	\begin{itemize}
 		 \item Terminals: A {\it terminal } is a literal string or character as it appears in the code.
 		 \item Non-terminal: A {\it non-terminal } may consist of an arbitrary number of Non-terminals and Terminals, used for structuring the language.
 	\end{itemize}
 	
 	\subsection*{Production Rule}
-		A production rule has the form: \\
+		A production rule has the form:
 		\begin{equation}
 			N ::= X
 		\end{equation}
 		
-		where $X$ is a Non-terminal or a Terminal. \\
+		where $X$ is a Non-terminal or a Terminal.
 		
-		The elements in a production rule can be identified by: \\
+		The elements in a production rule can be identified by:
 		Terminals are written in {\bf bold } and 
 		Non-terminals are just written in plain text.
 	\subsection*{Grouping of production rules}
-		If we have two production rules on the form:\\
+		If we have two production rules on the form:
 		\begin{equation}
 			N ::= X 
 		\end{equation}
 		\begin{equation}
 			N ::= Y 
 		\end{equation}
-		we are allowed to make a transformation: \\
+		we are allowed to make a transformation:
 		\begin{equation}
 			N ::= X | Y 
 		\end{equation}
-		Meaning N is X or Y \\
+		Meaning N is X or Y
 		
 	\begin{comment}
 	\subsection*{Example of a small BNF}
@@ -43,9 +43,9 @@ In this chapter the syntax and the semantics of the WAR language will be defined
 				B		&	::=		&	{\bf b} $\mid$ {\bf n } $\mid$ {\bf f } \\
 			\end{tabular}
 		\end{center}
-		This BNF would allow us to write programs like \\(We use $\rightarrow$ to show applying of a production rule): \\
+		This BNF would allow us to write programs like \\(We use $\rightarrow$ to show applying of a production rule): 
 		{\bf bnf}: A $\rightarrow$ AB $\rightarrow$ A{\bf f} $\rightarrow$ 
-		AB{\bf f} $\rightarrow$A{\bf nf} $\rightarrow$ B{\bf nf}$\rightarrow${\bf bnf } \\
+		AB{\bf f} $\rightarrow$A{\bf nf} $\rightarrow$ B{\bf nf}$\rightarrow${\bf bnf } 
 
 	\subsubsection{Terminals}
 		\begin{longtable}[l]{l}

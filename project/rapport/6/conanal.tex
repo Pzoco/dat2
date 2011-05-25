@@ -1,9 +1,8 @@
 \section{Contextual Analyzer}
 	This section will explain how type checking and scope checking is performed on the AST which was constructed from the parser.
-	To do this a way of traversing the tree is needed, in which we chose the Visitor Pattern.
+	To do this, a way of traversing the tree is needed, in which we chose the \textit{visitor pattern}.
 	
-	\subsection{Visitor Pattern}
-		\label{impl:visitorinterface}
+	\subsection{Visitor Pattern}\label{impl:visitorinterface}
 		The Visitor Pattern is a design pattern used to traverse tree structures. 
 		The design pattern is a smart way of separating traversal of the tree and the code that has to be executed at the tree nodes. \\
 		This is done by making a {\it Visitor interface} that has a {\it Visit method} for each of the nodes that 
