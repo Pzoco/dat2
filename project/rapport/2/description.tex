@@ -1,5 +1,5 @@
 \section{Description of The \textit{WAR}-Game}\label{sec:describeWAR}
-As mentioned earlier the \textit{WAR}-Game is a simulation where the players will script the behaviour of their armies, and let the game being executed without further interaction. The winner of the simulation will be the one with the best script, as decided by the simulation engine.
+As mentioned earlier the \textit{WAR}-Game is a simulation where the players will script the behaviour of their armies, and let the 'game' execute without further interaction. The winner of the simulation will be the one with the best script, as decided by the simulation engine.
 	\subsection{The simulation}
 	\begin{figure}
 	\centering
@@ -9,7 +9,7 @@ As mentioned earlier the \textit{WAR}-Game is a simulation where the players wil
 		To run a simulation in the \textit{WAR} simulator, a configuration file and at least two team files has to be included into the simulation upon start up. These files are written in the \textit{WAR} scripting language.
 		The configuration file is used to establish basic rules for the war simulation i.e. the size of the battlefield, the maximal values of properties and the standard properties of regiments.
 		This allows for some flexibility in altering the simulation from game to game.
-		Each participant will make a script file over their team of regiments, which will be provided to the simulator, 	which then will interpret the script and simulate the battle. These script files contain how many units and what kind of units the participant would like to use.	They may also contain information regarding the behaviour of specific regiments. The one who makes the best script will win the game, so every participant should strive to make the best script, and place their regiments in the best locations on the grid.
+		Each participant will make a script file over their team of regiments, which will be provided to the simulator, which will then interpret the script and simulate the battle. These script files contain how many units and what kind of units the participant would like to use.	They may also contain information regarding the behaviour of specific regiments. The one who makes the best script will win the game, so every participant should strive to make the best script, and place their regiments in the best locations on the grid.
 	\subsection{The Language}
 		We designed the WAR language as a simple imperative scripting language.	Indeed we wanted the language to be easy to program, so that inexperienced scripters could be able to control a simulation. Thus the imperative paradigm is what we felt best supported the idea of a simple programming language. We do not need the powerful abstractions of object oriented programming nor the task-solving capabilities of the functional languages. At the same time, the language should provide enough support, that more experienced scripters have an advantage over inexperienced scripters - the winner should be determined by their scripting skills. 
 	\subsection{Game Specification}
