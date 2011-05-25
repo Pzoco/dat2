@@ -1,7 +1,7 @@
 The last chapter is about the description of the WAR language and now in this chapter the language criteria will be discussed. Later in this chapter the language paradigm will be presented, why and how we made our mind on paradigms and lastly tombstone diagrams will be presented, both how the WAR language get interpret and how the interpreter gets compiled.
 \section{Design Criteria}
 \label{chap:DesCrit}
-When designing a new language there are many different criteria one have to relate to, so we have asked ourselves how easy we think this language should be to script in. It is also a factor how fast a script programmer can develop a functioning script. We have valued the main criteria below in table \ref{tab:criteria_tabular} to create an overview of which criteria are the more important ones, and which we can agree on not being important.   
+When designing a new language there are many different criteria one have to relate to \cite{SPOBOG2}, so we have asked ourselves how easy we think this language should be to script in. It is also a factor how fast a script programmer can develop a functioning script. We have valued the main criteria below in table \ref{tab:criteria_tabular} to create an overview of which criteria are the more important ones, and which we can agree on not being important.   
 
 \begin{table}[H]
 	\begin{tabular}{| 	l	|	 l	| p{7cm}	|}
@@ -42,7 +42,7 @@ Table \ref{tab:criteria_tabular} lists an overview of the design criteria we con
 
 \paragraph{Extensibility} The ability to extend the language in itself. This is not very important for a purpose-directed language.
 
-\paragraph{Standard-ability} The interpreter is written in the language C$\sharp$ which runs in the virtual machine .NET just like Java do in JVM. If the computer can run the .NET Framework the interpreter can run on the machine as well. This means that the standardabiity is dependant on .NET implementations, such as \textit{Mono}.
+\paragraph{Standard-ability} The interpreter is written in the language C$\sharp$ which runs in the virtual machine .NET just like Java do in JVM. If the computer can run the .NET Framework the interpreter can run on the machine as well. This means that the standardabiity is dependant on .NET implementations, such as \textit{Mono} \cite{CIL}.
 
 \paragraph{Implementability} The implementation of the language is of course high. In this case it is more practical to use an interpreter, but it should also be possible to use a compiler. However since interpretation is more practical being able to implement it through the use of a compiler.
 
@@ -51,6 +51,6 @@ The primary focus of this language, has been on \textit{write-ability} and somew
 
 
 \subsection{Paradigm}
-The design criteria of the WAR language set up the main characteristics of the language, how advanced or how simple it should be e.g. the main focus area and what sort of paradigm it should be. We have chosen the imperative programming paradigm in contrast to the object-oriented programming paradigm which is used to program in a more abstract sense. The imperative programming paradigm describes computation in terms of statements that changes the state of a program, in contrast to the functional programming paradigm which does not directly influence the state of an application, but rather is rooted in computational purposes. The imperative paradigm has been chosen to the WAR language since it uses statements, to change the flow of the simulation through the script.
+The design criteria of the WAR language set up the main characteristics of the language, how advanced or how simple it should be e.g. the main focus area and what sort of paradigm it should be. We have chosen the imperative programming paradigm in contrast to the object-oriented programming paradigm which is used to program in a more abstract sense. The imperative programming paradigm describes computation in terms of statements that changes the state of a program \cite{SPOBOG2}, in contrast to the functional programming paradigm which does not directly influence the state of an application, but rather is rooted in computational purposes. The imperative paradigm has been chosen to the WAR language since it uses statements, to change the flow of the simulation through the script.
 
 
