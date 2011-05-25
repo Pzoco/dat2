@@ -1,58 +1,74 @@
-Team Red
+Team Team1
 
-Regiment RedArcher1
+Regiment Archers1
 {
-	Size = 4;
-	Type = Ranged;
+	Size = 50;
 	Range = 10;
-	Damage = 8;
-	Health = 4;
-	Movement = 2;
-	AttackSpeed = 1;
-	RegimentPosition = Position(1,5);
-	Behaviour NormalArcherBehaviour
+	Damage = 10;
+	Movement = 5;
+	AttackSpeed = 2;
+	Health = 50;
+	Type = Ranged;
+	RegimentPosition = Position(5,5);
+Behaviour HitnRun
+{
+	Regiment enemy = SearchForEnemies();
+	Regiment friend = SearchForFriends();
+	if(enemy.Distance < (friend.Distance-enemy.Distance))
 	{
-		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range)
+		MoveAway(enemy);
+		MoveAway(enemy);
+	}
+	else
+	{
+		if(enemy.Distance < Range)
 		{
 			Attack(enemy);
-			if(enemy.Distance < 5)
-			{
-				MoveAway(enemy);
-				MoveAway(enemy);
-			}
-			else
-			{
-				MoveTowards(enemy);
-			}
+		}
+		else
+		{
+			MoveTowards(enemy);
+			MoveTowards(enemy);
 		}
 	}
+	Attack(enemy);
 }
-Regiment RedArcher2
+}
+
+
+Regiment Archers2
 {
-	Size = 12;
-	Type = Ranged;
+	Size = 50;
 	Range = 10;
-	Damage = 8;
-	Health = 4;
-	Movement = 2;
-	AttackSpeed = 1;
-	RegimentPosition = Position(17,5);
-	Behaviour NormalArcherBehaviour
+	Damage = 10;
+	Movement = 5;
+	AttackSpeed = 2;
+	Health = 50;
+	Type = Ranged;
+	RegimentPosition = Position(15,15);
+Behaviour HitnRun
+{
+	Regiment enemy = SearchForEnemies();
+	Regiment friend = SearchForFriends();
+	if(enemy.Distance < (friend.Distance-enemy.Distance))
 	{
-		Regiment enemy = SearchForEnemies();
-		if (enemy.Distance <= Range)
+		MoveAway(enemy);
+		MoveAway(enemy);
+	}
+	else
+	{
+		if(enemy.Distance < Range)
 		{
 			Attack(enemy);
-			if(enemy.Distance < 5)
-			{
-				MoveAway(enemy);
-				MoveAway(enemy);
-			}
-			else
-			{
-				MoveTowards(enemy);
-			}
+		}
+		else
+		{
+			MoveTowards(enemy);
+			MoveTowards(enemy);
+			MoveTowards(enemy);
 		}
 	}
+	Attack(enemy);
+}
+
 }

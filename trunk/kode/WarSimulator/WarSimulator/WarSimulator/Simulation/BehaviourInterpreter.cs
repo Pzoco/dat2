@@ -68,7 +68,7 @@ namespace WarSimulator_Handmade.Simulation
 		private Regiment GetClosestRegiment(List<Regiment> regiments)
 		{
 			Regiment closestRegiment = new Regiment();
-			int closestDistance = 1000000;
+			double closestDistance = 1000000;
 			foreach (Regiment regiment in regiments)
 			{
 				int distance = regiment.GetDistanceTo(currentRegiment);
