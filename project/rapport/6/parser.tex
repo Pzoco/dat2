@@ -50,22 +50,22 @@ The following figure \ref{fig:script_to_simu} shows the process from script file
 		A LL parser with $k$ lookahead is called a LL($k$) parser.
 	\paragraph{Strengths and weaknesses}
 		The most commonly used parsing strategy of the two is LR parsing, the reason for this is because it is faster than LL parsing.
-		In this project, however we have chosen to make a LL parser because it's easy to implement, furthermore speed is not important for us. 
+		In this project, however we have chosen to make a LL parser because it is easy to implement, furthermore speed is not important for us. 
 		The type of LL parser we made is called a recursive descent parser, which can parse LL(1) grammars.
 		
 	\subsection{Abstract Syntax Tree}
 		\label{ast}
-		The structure of the parsed program is stored as an AST. The tree structure is called abstract because it doesn't contain the concrete
-		structure of the EBNF, but rather a abstract representation of the source code. Because of this there isn't a straightforward way to 
-		construct such a tree.  We constructed the AST-structure by making a class for each of the node we wanted represented, e.g. we have 
+		The structure of the parsed program is stored as an AST. The tree structure is called abstract because it does not contain the concrete
+		structure of the EBNF, but rather an abstract representation of the source code. Because of this there is not a straightforward way to 
+		construct such a tree.  We constructed the AST-structure by making a class for each of the node we wanted represented, i.e. we have 
 		classes for expressions, declarations and different datatypes. \\
 		
-		Compared to the EBNF the AST is more specific in that matter that e.g. a Expression 
+		Compared to the EBNF the AST is more specific i.e. an Expression 
 		is not simply an Expression, but it can be an {\it IntegerExpression} or a {\it RegimentStatExpression}. 
 		To make parsing easier we use polymorphism so that all variants of an expression 
 		will inherit from the class Expression and likewise for similar constructs. 
-		Furthermore will all classes which isn't a subtype of another inherit from a class called {\it AST}, 
-		the reason for this will be explained in \ref{impl:visitor}, which is the only place we directly use it.
+		Furthermore all classes which are not a subtype of another, inherit from a class called {\it AST}, 
+		the reason for this will be explained in section \ref{impl:visitor}, which is the only place we directly use it.
 		
 		\paragraph{Small example}
 			Here is a small example of how an AST could look like when parsing our code.
@@ -128,12 +128,12 @@ The following figure \ref{fig:script_to_simu} shows the process from script file
 			\item A scanner for reading chars and identifying them as terminals.
 			\item A parse method for each non-terminal in the EBNF.
 			\item A method or multiple methods that can accept terminals.
-			\item In each of the parse method accept tokens and/or call other parse methods.
+			\item In each of the parse methods accept tokens and call other parse methods, as required.
 		\end{enumerate}		 
 		
 		\subsubsection{Accepting terminals}
-			The parser uses an accept method to check if the current token is the token that it expects, if not an error is given.
-			The following example shows in {\it Accept method} from our code.
+			The parser uses an accept method to check if the current token is the token that was expects, if not an error is given.
+			The following example shows the {\it Accept method} from our Parser.
 			\begin{lstlisting}[basicstyle=\small\sffamily,
 					keywords={break,case,const,continue,default,else,enum,
 					for,if,return,switch,while,do,long,void,int,float,double,
@@ -157,14 +157,13 @@ private void Accept(Token.TokenType expectedType)
     }
 }
 			\end{lstlisting}
-			This method checks if the expected token matches the current token, if this is the case then we retrieve the next token from the scanner.
-			If this is not the case an error will be reported.
+			This method checks if the expected token matches the current token, and then retrieve the next token from the scanner, if it was a match.
+			If there is a mismatch, an error will be reported.
 			
 		\subsubsection{Parse methods}
 			\label{parsemethods}
-			The parse methods functions in a mutual recursive way, where a parse methods representing the higher level nodes in a 
-			AST calls parse methods representing its children. When a lower level node is done parsing it returns this node to a higher level node,
-			this way a AST will be constructed. \\
+			The parse methods perform in a mutual recursive way, where a parse methods representing the higher level nodes in an 
+			AST calls parse methods representing its children. When a lower level node is done parsing it returns this node to a higher level node. This way an AST will be constructed. \\
 			Here is a parse method from our code:
 			\begin{lstlisting}[basicstyle=\small\sffamily,
 					keywords={break,case,const,continue,default,else,enum,

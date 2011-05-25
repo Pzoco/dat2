@@ -111,8 +111,7 @@ public Object VisitRegimentBlock(RegimentBlock ast, Object obj)
 		
 		\subsubsection{Type checking}			
 			When the checker visits a node where type checking is needed (e.g. RegimentStat), the checker visits the nodes 
-			in need of identification. Here the datatype of the node is retrieved from the identification table, if the datatype matches the 
-			expected datatype, it simply proceeds, else it reports an error and then proceeds. \\
+			in need of identification. Here the datatype of the node is retrieved from the identification table. If the datatype matches the expected datatype, the analysis proceeds, otherwise an error is reported then the analysis continues. \\
 \begin{lstlisting}[basicstyle=\small\sffamily,
 					keywords={break,case,const,continue,default,else,enum,
 					for,if,return,switch,while,do,long,void,int,float,double,

@@ -34,7 +34,7 @@ The following subsections will explain what happens at the phases, but first an 
 
 \subsection{GameDataRetriever}
 	The job of the {\it GameDataRetriever} is to retrieve the game data from the {\it DAST}s. The class implements the visitor pattern
-	(see \ref{impl:visitorinterface} to traverse the decorated abstract syntax tree and retrieve the data. 
+	(see \ref{impl:visitorinterface}) to traverse the decorated abstract syntax tree and retrieve the data. 
 	It starts by visiting each of the {\it Team file}'s {\it DAST}s and when it visits the {\it Regiment node} it instantiates a new Regiment object, 
 	with the {\it UnitStat}s is contains, after this it's added to a Team object. When game data for every team have been retrieved the {\it Config file}
 	{\it DAST} is visited. The {\it Standards block node}'s data is simply saved as a Regiment Object, because it is so similar to Regiment retrieving. 
@@ -75,11 +75,12 @@ foreach (Regiment regiment in regimentTurnOrder)
 {
 	if (regiment.currentSize > 0)
 	{
-		currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
+		currentGameState = 
+behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
 	}
 	else
 	{
-		currentGameState.teams[regiment.team].regiments.Remove(regiment);
+	currentGameState.teams[regiment.team].regiments.Remove(regiment);
 		if (currentGameState.teams[regiment.team].regiments.Count <= 0)
 		{
 			teamsLeft--;
@@ -172,17 +173,17 @@ if (v1 is IntValue)
 	IntValue i = new IntValue();
 	switch (op)
 	{
-		case "<": if (i1 < i2) { b.b = true; } else { b.b = false; } return b;
-		case ">": if (i1 > i2) { b.b = true; } else { b.b = false; } return b;
-		case "==": if (i1 == i2) { b.b = true; } else { b.b = false; } return b;
-		case ">=": if (i1 >= i2) { b.b = true; } else { b.b = false; } return b;
-		case "<=": if (i1 <= i2) { b.b = true; } else { b.b = false; } return b;
-		case "!=": if (i1 != i2) { b.b = true; } else { b.b = false; } return b;
+	case "<": if (i1 < i2) { b.b = true; } else { b.b = false; } return b;
+	case ">": if (i1 > i2) { b.b = true; } else { b.b = false; } return b;
+	case "==": if (i1 == i2) { b.b = true; } else { b.b = false; } return b;
+	case ">=": if (i1 >= i2) { b.b = true; } else { b.b = false; } return b;
+	case "<=": if (i1 <= i2) { b.b = true; } else { b.b = false; } return b;
+	case "!=": if (i1 != i2) { b.b = true; } else { b.b = false; } return b;
 
-		case "+": i.i = i1 + i2; return i;
-		case "-": i.i = i1 - i2; return i;
-		case "/": i.i = i1 / i2; return i;
-		case "*": i.i = i1 * i2; return i;
+	case "+": i.i = i1 + i2; return i;
+	case "-": i.i = i1 - i2; return i;
+	case "/": i.i = i1 / i2; return i;
+	case "*": i.i = i1 * i2; return i;
 	}
 }
 		\end{lstlisting}
@@ -214,12 +215,12 @@ public Object VisitUnitFunction(UnitFunction ast, Object obj)
 	Regiment regiment = GetRegiment(spelling);
 	if (regiment != null)
 	{
-		//Checks which UnitFunction we are trying to call and calls it from the regiment class
+//Checks which UnitFunction we are trying to call and calls it from the regiment class
 		switch (functionName)
 		{
-			case "Attack": currentRegiment.Attack(regiment); break;
-			case "MoveTowards": currentRegiment.MoveTowards(regiment); break;
-			case "MoveAway": currentRegiment.MoveAway(regiment); break;
+		case "Attack": currentRegiment.Attack(regiment); break;
+		case "MoveTowards": currentRegiment.MoveTowards(regiment); break;
+		case "MoveAway": currentRegiment.MoveAway(regiment); break;
 		}
 	}
 	return null;
@@ -252,7 +253,7 @@ public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
 	if (regimentSearchSpelling == "SearchForFriends")
 	{
 		//Looks for regiments which are friends
-		regimentsFound = currentGameState.teams[currentRegiment.team].regiments;
+	regimentsFound = currentGameState.teams[currentRegiment.team].regiments;
 	}
 	else
 	{
@@ -286,8 +287,8 @@ public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
 			//Retrieves the parameter from the ast
 			Parameter parameter = (Parameter)p.Visit(this, null);
 
-					//Gets all the regiments which matches the parameter
-			regimentsFound = GetRegiments(regimentsFound, parameter);
+		//Gets all the regiments which matches the parameter
+		regimentsFound = GetRegiments(regimentsFound, parameter);
 			if (regimentsFound.Count == 0) { break; }
 		}
 	}
