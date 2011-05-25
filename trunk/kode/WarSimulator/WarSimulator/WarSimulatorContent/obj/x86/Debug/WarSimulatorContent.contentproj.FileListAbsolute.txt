@@ -1,2 +1,0 @@
-E:\Dokumenter\Uni\Dat 2\kode\WarSimulator\WarSimulator\WarSimulatorContent\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\DrFou\Documents\Uni\DAT2\SVN\kode\WarSimulator\WarSimulator\WarSimulatorContent\obj\x86\Debug\ResolveAssemblyReference.cache
