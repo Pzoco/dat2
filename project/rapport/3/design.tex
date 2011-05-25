@@ -1,6 +1,7 @@
 The last chapter is about the description of the WAR language and now in this chapter the language criteria will be discussed. Later in this chapter the language paradigm will be presented, why and how we made our mind on paradigms and lastly tombstone diagrams will be presented, both how the WAR language get interpret and how the interpreter gets compiled.
 \section{Design Criteria}\label{chap:DesCrit}
-When designing a new language there are many different criteria one have to relate to \cite{SPOBOG2}, so we have asked ourselves how easy we think this language should be to script in. It is also a factor how fast a script programmer can develop a functioning script. We have valued the main criteria below in table \ref{tab:criteria_tabular} to create an overview of which criteria are the more important ones, and which we can agree on not being important.   
+When designing a new language one can use design criteria.A design criterion is a guideline for how the language will be. 
+We have valued the main criteria below in table \ref{tab:criteria_tabular} to create an overview of which criteria are the more important ones, and which we can agree on not being important.   
 
 \begin{table}[H]
 	\begin{tabular}{| 	l	|	 l	| p{7cm}	|}
@@ -15,8 +16,8 @@ When designing a new language there are many different criteria one have to rela
 	Maintainability		& 	Very high	&		How fast can an error be found and corrected\\
 	Generality			& 	Medium		&		No or few special cases, combine the special cases and construct a more general one\\
 	Extensibility		& 	Low			&		Able to add new constructs to the language\\
-	Standard-ability		& 	Medium		&		Able to transport the language to other computers\\
-	Implementability	& 	High			&		Ensure a translator or interpreter can be written\\
+	Standard-ability	& 	Medium		&		Able to transport the language to other computers\\
+	Implementability	& 	High		&		Ensure a translator or interpreter can be written\\
 	\hline
 	\end{tabular}
 	\caption{Design criteria \cite{criteria}}
@@ -26,14 +27,13 @@ When designing a new language there are many different criteria one have to rela
 
 Table \ref{tab:criteria_tabular} lists an overview of the design criteria we considered when designing the WAR language, and the associated level of priority.
 
-\paragraph{Read- and Write-ability} These are very important since this is a scripting language for designing a virtual game, and non-programmer should be able to script their regiments, and make a simple behaviour block, and even make scripting fun. This is also our main focus and our goal to fulfil an easy written script, and of course easy to read as well.
+\paragraph{Read- and Write-ability} These criteria are very important since this is a scripting language for designing a virtual game, and non-programmer should be able to script their regiments, and their behaviour, and even make scripting fun. This is also our main focus and our goal to fulfil an easy written script, and of course easy to read as well.
 
-\paragraph{Reliability} This is rated medium and this is because if the interpreter or simulator behaves different than a user might expect it to do, the user will not trust his own script and then the write-ability will not be as fulfilled as we would like. The reliability is not something we have used a lot of strength to fulfil, but after the tests we have made, we think this is easily fulfilled.
+\paragraph{Reliability} This is rated medium, because if the interpreter or simulator behaves different than a user might expect it to do, the user will not trust his own script and then the write-ability will not be as fulfilled as we would like. The reliability is not something we have used a lot of strength to fulfil, but after the tests we have made, we think this is easily fulfilled.
 
 \paragraph{Orthogonality} When talking about orthogonality we mean to consider how much one component in a system affects the other. If orthogonality is important to the software, we want to be able to change components of the system without affecting the rest of the system too much. Since this is a very specific language with a very specific purpose this is not something that is valued very highly.
  
 \paragraph{Uniformity} This is valued high, because of the write-ability and readability which are valued high too. The way of assigning constants is done in the same way to all of the different variables scripters can define.
-
 
 \paragraph{Maintainability} This is valued very high, because we still have the 'game' in mind, and a new inexperienced scripter would give it less time than an experienced one, so debugging must be easy to perform. Since the simulation might fail with a faulty script, it is important to be able to quickly determine where the error lies, or else the language would not be very practical.
 
@@ -43,13 +43,15 @@ Table \ref{tab:criteria_tabular} lists an overview of the design criteria we con
 
 \paragraph{Standard-ability} The interpreter is written in the language C$\sharp$ which runs in the virtual machine .NET just like Java do in JVM. If the computer can run the .NET Framework the interpreter can run on the machine as well. This means that the standardabiity is dependant on .NET implementations, such as \textit{Mono} \cite{CIL}.
 
-\paragraph{Implementability} The implementation of the language is of course high. In this case it is more practical to use an interpreter, but it should also be possible to use a compiler. However since interpretation is more practical being able to implement it through the use of a compiler.
+\paragraph{Implementability} The implementability of the language is of high, because of this project's purpose. 
+In this case it is more practical to use an interpreter, but it should also be possible to use a compiler. 
 
-
-The primary focus of this language, has been on \textit{write-ability} and somewhat readability which is easily fulfilled when \textit{write-ability} is the main goal. By having the \textit{write-ability} as a very important choice we think that beginners in programming should be able to write their own script, and the \textit{maintainability} is also rated very high, so the programmer of the language easy can debug the script, and find the errors that might have occurred and rapidly fix them. The \textit{uniformity} of the language is of a high importance since this helps the beginners to rapidly learn the language and understand how the different part of the language works.
-
+The primary focus of this language, has been on \textit{write-ability} and somewhat readability which is easily fulfilled when \textit{write-ability} is the main goal. By having the \textit{write-ability} as a very important goal we think that beginners in programming should be able to write their own scripts, and the \textit{maintainability} is also rated very high, so the programmer of the language easy can debug the script, and find the errors that might have occurred and rapidly fix them. The \textit{uniformity} of the language is of a high importance since this helps the beginners to rapidly learn the language and understand how the different part of the language works.
 
 \subsection{Paradigm}
-The design criteria of the WAR language set up the main characteristics of the language, how advanced or how simple it should be e.g. the main focus area and what sort of paradigm it should be. We have chosen the imperative programming paradigm\cite{paradigms} in contrast to the object-oriented programming paradigm which is used to program in a more abstract sense. The imperative programming paradigm describes computation in terms of statements that changes the state of a program \cite{SPOBOG2}, in contrast to the functional programming paradigm which does not directly influence the state of an application, but rather is rooted in computational purposes. The imperative paradigm has been chosen to the WAR language since it uses statements, to change the flow of the simulation through the script.
+The design criteria of the WAR language set up the main characteristics of the language, how advanced or how simple it should be e.g. the main focus area and what sort of paradigm it should be. We want the language to be simple, which we feel fit the imperative programming paradigm the best, 
+because e.g. one of the strong point object-oriented programming paradigm is the ability to create powerful abstractions. 
+Another paradigm choice could be the functional paradigm, 
+but one of the strong point of this paradigm is for problem solving, which neither is important. 
 
 
