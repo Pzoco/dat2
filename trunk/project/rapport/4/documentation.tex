@@ -159,9 +159,8 @@ Regiment PirateWarrior
 	Movement = 1;
 	AttackSpeed = 1;
 	RegimentPosition = Position(2,3);
-	.
-	..
 	...
+}
 \end{lstlisting}
 			
 
@@ -180,6 +179,15 @@ Regiment PirateWarrior
 Regiment <Identifier> = <RegimentSearchFunction>			
 		\end{lstlisting}	
 
+		\begin{lstlisting}[basicstyle=\small\sffamily, keywordstyle={\color{blue}}, comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape, columns={[l]flexible}, numbers=left, numberstyle=\tiny, frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Example of a regiment assignment}]
+Regiment PirateWarrior
+{
+... //Here comes UnitStats
+}
+		\end{lstlisting}
+		
+
 \section{RegimentStat}
 	A {\it RegimentStat} is used to get the stats of a regiment. A RegimentStat can be used in Expressions. Usage:\\
 
@@ -192,6 +200,43 @@ Regiment <Identifier> = <RegimentSearchFunction>
 <Identifier:Regiment>.<UnitStatType>
 	\end{lstlisting}
 	Please note that the identifier must be from a Regiment Assignment.
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Example of an assignment in use}
+		label={example:regi_assignment}]
+Regiment PirateArcher
+{
+	Size = 10;
+	Type = Ranged;
+	Range = 2;
+	Damage = 4;
+	Health = 4;
+	Movement = 1;
+	AttackSpeed = 1;
+	RegimentPosition = Position(3,2);
+	Behaviour SilentMonkeysBehavoiur1
+	{
+		Regiment enemy = SearchForEnemies();
+		if (enemy.Distance <= Range)
+		{
+			Attack(enemy);
+			if(enemy.Distance < 2)
+			{
+				MoveAway(enemy);
+			}
+		}
+		else
+		{
+			MoveTowards(enemy);
+		}
+	}
+}
+\end{lstlisting}
+In listing \ref{example:regi_assignment} line 5 we see that the range is getting assigned the value of 2, and later in line 13 the range is getting used in an \textit{if} statement, whether the enemy is in range the PirateArcher will attack.
 
 \section{Blocks}
 \label{doc:blocks}
@@ -217,8 +262,7 @@ Grid <Identifier>
 		The behaviour block determines how a regiment will behave in the simulation. To control the a regiment one can 
 		use the conditional statements {\it if-else if-else} and a {\it while loop} and using unit functions. Please note that 
 		conditional statements and expressions can only be used in behaviour blocks.
-		\subparagraph{if-else if-else Statement}
-			Structure of a {\it if-else if-else} statement: \\
+		\subparagraph{if-else if-else Statement} Example of the structure of an {\it if-else if-else} statement:
 
 		\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywordstyle={\color{blue}},
