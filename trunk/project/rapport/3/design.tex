@@ -18,7 +18,7 @@ When designing a new language there are many different criteria one have to rela
 	Generality			& 	Medium		&		No or few special cases, combine the special cases and construct a more general one\\
 	Extensibility		& 	Low			&		Able to add new constructs to the language\\
 	Standard-ability		& 	Medium		&		Able to transport the language to other computers\\
-	Implementability	& 	Low			&		Ensure a translator or interpreter can be written\\
+	Implementability	& 	High			&		Ensure a translator or interpreter can be written\\
 	\hline
 	\end{tabular}
 	\caption{Design criteria \cite{criteria}}
@@ -45,7 +45,7 @@ Table \ref{tab:criteria_tabular} lists an overview of the design criteria we con
 
 \paragraph{Standard-ability} The interpreter is written in the language C$\sharp$ which runs in the virtual machine .NET just like Java do in JVM. If the computer can run the .NET Framework the interpreter can run on the machine as well. This means that the standardabiity is dependant on .NET implementations, such as \textit{Mono}.
 
-\paragraph{Implementability} This is low, since it is not possible to do and will not be.
+\paragraph{Implementability} The implementation of the language is of course high. In this case it is more practical to use an interpreter, but it should also be possible to use a compiler. However since interpretation is more practical being able to implement it through the use of a compiler.
 
 
 The primary focus of this language, has been on \textit{write-ability} and somewhat readability which is easily fulfilled when \textit{write-ability} is the main goal. By having the \textit{write-ability} as a very important choice we think that beginners in programming should be able to write their own script, and the \textit{maintainability} is also rated very high, so the programmer of the language easy can debug the script, and find the errors that might have occurred and rapidly fix them. The \textit{uniformity} of the language is of a high importance since this helps the beginners to rapidly learn the language and understand how the different part of the language works.
