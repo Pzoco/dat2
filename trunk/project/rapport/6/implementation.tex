@@ -1,40 +1,67 @@
-\section{Implementation}
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=1]{rapport/6/figures/parser}
-\label{fig:parser}
-\caption{Parser}
+\section{Simulator}
+\begin{figure}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+	\tikzstyle{every state}=[fill=black,draw=none,text=white]
+	
+	\node[initial,state] (A)	{A};
+	\node[state] (B)[below of=A] {B};
+	\node[state] (C)[right of=B,node distance=4cm] {C};
+	\node[state] (D)[below of=B] {D};
+	\node[state] (E)[below of=D] {E};
+	
+	\path 	(A) edge					node{Game Data} (B)
+			(B)	edge					node{Validated Game Data} (D)
+			(B) edge 					node{Error found} (C)
+			(D) edge [loop right] 		node{Updating the current GameState}(D)
+			(D) edge 					node{A team won} (E);
+			
+\end{tikzpicture}
+\caption{Automaton showing the simulation \\ 
+A:GameData Retriever \\ 
+B:GameData Validator \\ 
+C:Simulation Failed \\ 
+D:GameState \\
+E:Simulation Success}
 \end{figure}
 
-\subsubsection{Getting the data}
-Inside the simulator figure \ref{fig:simulator} we implemented a \textit{GameDataRetriever} class which retrieves data from the Decorated Abstract Syntax Tree[DAST], so we have reused the visitor pattern to run through the tree and collect all the data needed to run the simulator. The \textit{GameDataRetriever} saves the data in the GameClasses which contains Regiment, Grid, Team and Tile- classes. These classes contains all the useful data for the simulator to run.
-\subsubsection{Validating the data}
-After all the data have been retrieved from the DAST we have to validate if the data is correct. By correct we mean that e.g. in the config.cfg file a \textit{Maxima} is present, and if the teamfiles.war contains larger numbers than the \textit{Maxima} requires, there will be an error. The config.cfg file contains standards for which the programmers teamfiles.war will be assigned to if they haven't assigned their own constants. An example: if the teamfile.war does contain a regiment with some size and a name of the regiment, but nothing more, the regiment will then be assigned the default/standard values, if the standard values is nowhere to be found in the config.cfg file there will be an error as well.
+\subsection{Game Classes}
+	To emulate the game we have to create objects, which represent what is seen in the game such as regiments, the grid and the teams.
+	This was simply done by making a class called {\it Regiment}, {\it Grid}, {\it Team} and {\it Tile}. 
+	Team contains a list of regiments, Regiment have methods for the three {\it UnitFunctions} {\it Attack}, 
+	{\it MoveTowards} and {\it MoveAway} (see \ref{rules:action}), Tile has a boolean to indicate that it is occupied 
+	and Grid contains a 2-dimensional array of {\it Tile}s. We call the game environment at a specific point in the simulation for a {\it GameState}. 
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=1]{rapport/6/figures/contextual_analyzer}
-\label{fig:contextual_analyzer}
-\caption{Contextual Analyzer}
-\end{figure}
+\subsection{GameDataRetriever}
+	The job of the {\it GameDataRetriever} is to retrieve the game data from the {\it DAST}s. The class implements the visitor pattern
+	(see \ref{impl:visitorinterface} to traverse the decorated abstract syntax tree and retrieve the data. 
+	It starts by visiting each of the {\it Team file}'s {\it DAST}s and when it visits the {\it Regiment node} it instantiates a new Regiment object, 
+	with the {\it UnitStat}s is contains, after this it's added to a Team object. When game data for every team have been retrieved the {\it Config file}
+	{\it DAST} is visited. The {\it Standards block node}'s data is simply saved as a Regiment Object, because it is so similar to Regiment retrieving. 
+	The {\it Grid} data is retrieved from the Grid block. The {\it Maxima stats} is saved to a Maxima object, which contains a field for any of available 
+	Maxima stats. After all data is retrieved it is passed to the {\it GameDataRetriever}
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=1]{rapport/6/figures/simulator}
-\label{fig:simulator}
-\caption{Simulator}
-\end{figure}
-
-
-\subsection{Simulation}
-
-After getting the data and validating it, we are now able to start the simulator with the required data. 
-The simulator reads and modifies a \textit{GameState} in every iteration or turn of the game. The \textit{GameState} contains the present formation of the game, where all the units are and how large the grid size is. In every iteration the interpreter updates the \textit{GameState}, the interpreter computes the \textit{Behaviour} from the teamfile.war script. Everytime a unit comes close to another unit and attacks, the interpreter computes how much damage is made, and in the end picks a winner. The output to the screen is made simple, and with the help of the Microsoft XNA \cite{XNA} Framework we have a simple simulation that can show several regiments behave differently and attacking each other.
-
-%Pseudo-code for the algoritm
-\subsubsection{Pseudo-code for the algorithm}
-		\begin{lstlisting}[basicstyle=\small\sffamily,
+\subsection{GameDataValidator}
+	After all the data have been retrieved from the DAST we have to validate if the data is correct. 
+	By correct we mean that every regiment have all the {\it UnitStats} or that the {\it UnitStat} 
+	of a regiment doesn't exceed the {\it MaximaStat} written. 
+	The class {\it GameDataValidator} is started by using the Team objects, standards regiment and maxima object passed from the {\it GameDataRetriever}.
+	The process of the validation: \\
+	\begin{enumerate}
+		\item Check if there are more teams than allowed according to the config file
+		\item Check if the teams have more regiments than allowed according to the config file
+		\item Check if every regiment doesn't exceed Maxima Stats
+		\item Check if every regiment is missing UnitStats, if so the UnitStat from the standards regiment is given
+		\item Check if any of the regiments have the same positions
+	\end{enumerate}
+	If any of the steps fail, an error is given and the simulation will not start. If it succeeds it returns a new {\it GameState} containing the teams 
+	and the grid.
+	
+\subsection{Simulator}
+	The simulator class starts by using the {\it GameDataRetriever} and {\it GameDataValidator} classes. The GameDataValidator returns the first 
+	GameState if it succeeded. The simulator reads and modifies a \textit{GameState} in every round of the game. This is done by iterating through all 
+	regiments from the teams and interpreting their \textit{Behaviour DAST}. This main loop is showed here: \\
+	\begin{lstlisting}[basicstyle=\small\sffamily,
 		keywords={break,case,const,continue,default,else,enum,
 		for,if,return,switch,while,do,long,void,int,float,double,
 		char,struct,typedef,include,size\_t},
@@ -42,39 +69,236 @@ The simulator reads and modifies a \textit{GameState} in every iteration or turn
 		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
 		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
 		frameround=fftt, frame=shadowbox, captionpos=b,
-		caption={Team file},
-		label=LST:code31]
-While(Simulation == true)
+		caption={Main loop of the simulation},
+		label=impl:regimentloop]
+foreach (Regiment regiment in regimentTurnOrder)
 {
-	VisitorPattern(DAST); 		
-	//Goes through the tree to gather data
-	if(ValidateTheInput(DAST))	
-	//Validates the data if there is anything missing
+	if (regiment.currentSize > 0)
 	{
-		if(!GameState)			
-		//Is this is the first iteration
+		currentGameState = behaviourInterpreter.InterpreteBehaviour(regiment, currentGameState);
+	}
+	else
+	{
+		currentGameState.teams[regiment.team].regiments.Remove(regiment);
+		if (currentGameState.teams[regiment.team].regiments.Count <= 0)
 		{
-			CreateGameState(); 	
-			//Creates a new GameState
+			teamsLeft--;
 		}
-		ComputTheNextStep(BehaviourFromTeamfiles); 	
-		//Next iteration, and computes the behaviour
-		UpdateGameState();		
-		//Updates a new GameState
-		if (AnyWinner){Simulation = false}	
-		//Checks for the winner, if any stop the simulation
 	}
 }
 	\end{lstlisting}
+	{\it behaviourInterpreter} is a object of the class {\it BehaviourInterpreter}, which is able to interpret \textit{Behaviour DAST}s.
+	
+\subsection{BehaviourInterpreter)
+	This class is the third and last class that implements the Visitor interface (see \ref{impl:visitorinterface}), which it uses to interpret the 
+	DAST, this type of interpretation is called {\it Recursive Descent Interpretation}. The interpretation starts with the call of the
+	method called {\it InterpreteBehaviour}, which can be seen below in \ref{impl:intbe}.
+	\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywords={break,case,const,continue,default,else,enum,
+		for,if,return,switch,while,do,long,void,int,float,double,
+		char,struct,typedef,include,size\_t},
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={The method InterpreteBehaviour},
+		label=impl:intbe]
+public GameState InterpreteBehaviour(Regiment regiment, GameState gameState)
+{
+	regimentAssignments.Clear();
+	currentGameState = gameState;
+	currentRegiment = regiment;
+	currentRegiment.currentMovement = currentRegiment.movement;
+	currentRegiment.hasAttacked = false;
+	currentRegiment.behaviour.Visit(this, null);
+	return currentGameState;
+}		
+	\end{lstlisting}
+	The methods starts with resetting the list regimentAssignments, which is a list of identifiers that have been assigned to regiments. To retrive 
+	a regiment from this list the method GetRegiment can be used, which takes a string as an argument.
+	After this the method resets the current regiments movement and ability to attack and visits the {\it Behaviour DAST} of the regiment. 
+	When class visits a node which needs interpretation, e.g. the {\it UnitFunction node} they will be interpreted. To show 
+	how this is actually done we will now show interpretation of conditional statements, {\it UnitFunctions} and {\it RegimentSearch}.
+	
+	\subsubsection{Conditional Statements}
+		Conditional statements consists of code that has to be executed and a condition, in our DAST the code that needs execution is a 
+		{\it SingleCommand node} and the condition is an {\it Expression node}. 
+		The code example \ref{impl:ifcmd} shows how a visit of the {\it IfCommand node} looks like.
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b,
+			caption={VisitIfCommand method from the class BehaviourInterpreter},
+			label=impl:ifcmd]
+public Object VisitIfCommand(IfCommand ast, Object obj)
+{
+	//Retrieves the boolean value of the expression
+	BoolValue b = (BoolValue)ast.e.Visit(this, null);
+	
+	//Checks if the expression evaluates to true
+	if (b.b)
+	{
+		ast.sc1.Visit(this, null);
+	}
+	//Checks if there is any else if commands and visits them if there is
+	else if (ast.eifc.Count > 0) { ast.eifc.ForEach(x => x.Visit(this, null)); }
+	//Checks if there is any else command and visits it if there is
+	else if (ast.sc2 != null) { ast.sc2.Visit(this, null); }
+	return null;
+}	
+		\end{lstlisting}
+		The evaluation of the condition is done by visiting the expression node, which is tied to the current conditional statement. 
+		The simple expressions (IntegerExpression or RegimentStatExpression) will simply return their value, but the {\it BinaryExpression} 
+		has to evaluate what the expression is by using a method called {\it CheckBinaryExpression}, which returns the value of the expression.
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b,
+			caption={Code snippet from CheckBinaryExpression},
+			label=impl:chkbexp]
+if (v1 is IntValue)
+{
+	int i1 = ((IntValue)v1).i;
+	int i2 = ((IntValue)v2).i;
+	BoolValue b = new BoolValue();
+	IntValue i = new IntValue();
+	switch (op)
+	{
+		case "<": if (i1 < i2) { b.b = true; } else { b.b = false; } return b;
+		case ">": if (i1 > i2) { b.b = true; } else { b.b = false; } return b;
+		case "==": if (i1 == i2) { b.b = true; } else { b.b = false; } return b;
+		case ">=": if (i1 >= i2) { b.b = true; } else { b.b = false; } return b;
+		case "<=": if (i1 <= i2) { b.b = true; } else { b.b = false; } return b;
+		case "!=": if (i1 != i2) { b.b = true; } else { b.b = false; } return b;
 
+		case "+": i.i = i1 + i2; return i;
+		case "-": i.i = i1 - i2; return i;
+		case "/": i.i = i1 / i2; return i;
+		case "*": i.i = i1 * i2; return i;
+	}
+}
+		\end{lstlisting}
+		The code snippet \ref{impl:chkbexp} shows how the method handles binary expressions 
+		where both the expressions are integers, here {\it op} is a string which represent the operator of the binary expression. 
+		CheckBinaryExpression has similar handling for expressions with type expressions.
+		
+	\subsubsection{UnitFunctions}
+		UnitFunctions are the three actions (see \ref{rules:action}) that a regiment can perform.
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b,
+			caption={VisitUnitFunction from the class },
+			label=impl:visituf]	
+public Object VisitUnitFunction(UnitFunction ast, Object obj)
+{
+	//spelling of the regiment identifier
+	string spelling = (string)ast.i.Visit(this, null);
+	
+	//spelling of the function name
+	string functionName = (string)ast.ufn.Visit(this, null);
+	
+	//Gets the regiment by using the method GetRegiment
+	Regiment regiment = GetRegiment(spelling);
+	if (regiment != null)
+	{
+		//Checks which UnitFunction we are trying to call and calls it from the regiment class
+		switch (functionName)
+		{
+			case "Attack": currentRegiment.Attack(regiment); break;
+			case "MoveTowards": currentRegiment.MoveTowards(regiment); break;
+			case "MoveAway": currentRegiment.MoveAway(regiment); break;
+		}
+	}
+	return null;
+}		\end{lstlisting}
+		The code snippet \ref{impl:visituf} shows how a visit of the {\it UnitFunction node} looks like. 
+		First the identifier representing the regiment is retrieved and then the UnitFunction type is retrieved.
+		The identifier, which was retrieved is then used in the function GetRegiment that returns a regiment that matches the identifier.
+		Using a switch case the correct action of the current regiment is performed.
+		
+	\subsubsection{RegimentSearch}
+		The {\it RegimentSearch methods} is used for finding either enemy or friendly regiments on the grid (see usage at \ref{sec:regimentsearch}). 
+		We will here explain how the the visit to a {\it RegimentSearch node} looks like in multiple code snippets.
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b,
+			caption={1. part of visit of RegimentSearch node in the class BehaviourInterpreter},
+			label=impl:regsearch1]		
+public Object VisitRegimentSearch(RegimentSearch ast, Object obj)
+{
+	//Retrieves the type of regimentsearch we are doing
+	string regimentSearchSpelling = (string)ast.rsn.Visit(this, null);
 
-%Pseudo-code done
+	//A list for storing all the regiments we find
+	List<Regiment> regimentsFound = new List<Regiment>();
+	if (regimentSearchSpelling == "SearchForFriends")
+	{
+		//Looks for regiments which are friends
+		regimentsFound = currentGameState.teams[currentRegiment.team].regiments;
+	}
+	else
+	{
+		//Finds all the regiments which is not friendly
+		foreach (Team team in currentGameState.teams)
+		{
+			if (team.number != currentRegiment.team)
+			{
+				regimentsFound.AddRange(team.regiments);
+			}
+		}
+	}
+		\end{lstlisting}
+		The first part of the method tries to find out which regiments the search is for where {\it regimentsFound} holds this collection. 
+		If we are searching for friends then only the regiments matching the team of the current regiment will be added to {\it regimentsFound}.
+		Else we add all the regiments, which is not matching the current regiments team.
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+			keywords={break,case,const,continue,default,else,enum,
+			for,if,return,switch,while,do,long,void,int,float,double,
+			char,struct,typedef,include,size\_t},
+			keywordstyle={\color{blue}},
+			comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+			columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+			frameround=fftt, frame=shadowbox, captionpos=b,
+			caption={1. part of visit of RegimentSearch node in the class BehaviourInterpreter},
+			label=impl:regsearch2]
+	if (ast.p != null)
+	{
+		foreach (Parameter p in ast.p)
+		{
+			//Retrieves the parameter from the ast
+			Parameter parameter = (Parameter)p.Visit(this, null);
 
-
-
-%Interpreter eksekver en behaviour
-
-
-
-
-
+					//Gets all the regiments which matches the parameter
+			regimentsFound = GetRegiments(regimentsFound, parameter);
+			if (regimentsFound.Count == 0) { break; }
+		}
+	}
+	if (regimentsFound.Count == 0)
+	{
+		return null;
+	}
+	return GetClosestRegiment(regimentsFound);
+}
+	\end{lstlisting}
+	This part of the method is about applying the parameters passed to the {\it RegimentSearch function} on the list of regiments we just found. 
+	The parameters are applied one of a time using the method GetRegiments, which returns the regiments for which the parameters are true. 
+	If no regiments was found that fits the parameters the method returns null, otherwise we get the regiment which is closest to the current regiment 
+	using the method GetClosestRegiment. 
