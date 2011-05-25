@@ -2,7 +2,7 @@
 
 A tombstone diagram shows how the interpretation or compilation is done \cite{Tombstone}.
 Elements of the diagram have a graphical semantics. 
-Interpreters' tombstone diagrams are made with a spade looking figure, with the grip in the top, and the spadestick in the bottom. In the top of the diagram one must put what program is developed, and what language the program is written in. The middle part one must put the interpreter and the machine which is should run on. The interpreter and the language which the program is written in, must be the same, since this is an interpreter. And the spadestick, or the bottom part states the machine which the program should run on.
+Interpreter tombstone diagrams are made with a spade looking figure, with the grip in the top, and the spadestick in the bottom. In the top of the diagram one must put what program is developed, and what language the program is written in. The middle part one must put the interpreter and the machine which is should run on. The interpreter and the language which the program is written in, must be the same, since this is an interpreter. And the spadestick, or the bottom part states the machine which the program should run on.
 
 			\begin{figure}
 				\centering
@@ -20,8 +20,7 @@ Compiling the interpreter written in C$\sharp$ is done by the following:
 				\caption{Tombstone Diagram of the interpreter} \label{fig:tombstone_of_interpreter}
 			\end{figure}
 
-In figure \ref{fig:tombstone_of_interpreter} you can see how the .NET Framework is working by combining different languages and their matching compilers, and compiling all the languages into a new assembly like language called CIL (Common Intermediate Language) \cite{CIL} which is very similar to the Java Virtual Machine. This is done with all the .NET compatible languages and then the platform specific CLR (Common Language Runtime) compiles the CIL to machine code for this specific machine-architecture. The CLR can be replaced by different architectures.
-
+In figure \ref{fig:tombstone_of_interpreter} you can see how the .NET Framework is working by combining different languages and their matching compilers, and compiling all the languages into a new assembly like language called CIL (Common Intermediate Language) \cite{CIL} which is very similar to the Java Virtual Machine. This is done with all the .NET compatible languages and then the platform specific CLR (Common Language Runtime) compiles the CIL to machine code for execution on the current machine.
 
 			
 			
