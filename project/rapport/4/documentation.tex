@@ -1,12 +1,19 @@
 This chapter will show how to program scripts for the simulator. Scripts written for the simulator is written in the {\it WAR langage}. 
 When a term is defined we use $<$Term$>$ to refer to the given term. 
 When a multiple terms are used we illustrate it like this: \\
-\begin{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
 	<Term-1>
 	..
 	.
 	<Term-n>
-\end{verbatim}
+\end{lstlisting}
 This illustrates that n terms can be written here. \\
 
 To run a simulation you need a {\it Config File} (See \ref{doc:cfgfile}) with the file ending {\it .cfg} and at least two {\it Team File}s 
@@ -60,42 +67,91 @@ To run a simulation you need a {\it Config File} (See \ref{doc:cfgfile}) with th
 		\paragraph{Size}
 			Sets the size of the regiment, it's an integer.
 			If the size of the regiment is bigger than 1 it will cover multiple tiles.
-			\begin{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
 				Size = <Int>;
-			\end{verbatim}
+			\end{lstlisting}
 		\paragraph{Position}
 			Sets the position of the regiment. If the size of the regiment is bigger than 1 them 
 			only 1 tile of the regiment touches the position. Usage: 
-			\begin{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
 				RegimentPosition = Position(<Int>,<Int>);
-			\end{verbatim}
+			\end{lstlisting}
 		\paragraph{Range}
 			Range sets how tiles away regiment can attack another regiment.
-			\begin{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
 				Range = <Int>;
-			\end{verbatim}
+			\end{lstlisting}
 		\paragraph{Type}
 			Type defines which way the regiment attacks. The type can either be Melee or Ranged.
 			Melee means that the regiment can only attack other regiments which it touches. Ranged means 
 			that the regiment can attack any regiment where the distance in number of tiles is less than the Range.
-			\begin{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
 				Type = <AttackType>; 
-			\end{verbatim}	
+			\end{lstlisting}	
 		\paragraph{Damage}
 			Damage defines how much Health an opposing regiment lose when attacked.
-			\begin{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
 				Damage = <Int>;
-			\end{verbatim}
+			\end{lstlisting}
 		\paragraph{Movement}
 			Movement means how many tiles the regiment can move.
-			\begin{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
 				Movement = <Int>;
-			\end{verbatim}
+			\end{lstlisting}
 		\subparagraph{AttackSpeed}
 			AttackSpeed defines how many attacks a regiment can attack in a turn.
-			\begin{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
 				AttackSpeed = <Int>;
-			\end{verbatim}
+			\end{lstlisting}
 
 \section{UnitStatType}
 	A {\it UnitStatType} is any of the UnitStats, except for Position, which is replaced by {\it Distance}. We use the UnitStatTypes in 
@@ -106,30 +162,52 @@ To run a simulation you need a {\it Config File} (See \ref{doc:cfgfile}) with th
 
 \section{Regiment Assignment}
 \label{doc:regass}
-	One is able to assign a identifier to a given regiment, that way one can use the identifier when attacking or moving.
-	\begin{verbatim}
-		Regiment <Identifier> = <RegimentSearchFunction>
-	\end{verbatim}
+	One is able to assign an identifier to a given regiment, that way one can use the identifier when attacking or moving.
+	
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+Regiment <Identifier> = <RegimentSearchFunction>			
+		\end{lstlisting}	
+
 \section{RegimentStat}
 	A {\it RegimentStat} is used to get the stats of a regiment. A RegimentStat can be used in Expressions. Usage:\\
-	\begin{verbatim}
-		<Identifier:Regiment>.<UnitStatType>
-	\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+<Identifier:Regiment>.<UnitStatType>
+	\end{lstlisting}
 	Please note that the identifier must be from a Regiment Assignment.
 
 \section{Blocks}
 \label{doc:blocks}
-	In WAR there is 5 different types of blocks: Regiment, Grid, Standards, Behaviour and Maxima blocks. 
+	In WAR there are 5 different types of blocks: Regiment, Grid, Standards, Behaviour and Maxima blocks. 
 	These blocks are being used in both Config (See \ref{doc:teamfile}) and Team file (See \ref{doc:teamfile}).
 	\subsection{Grid block}
 		A grid block contains the {\it Height} and the {\it Width }of the map.
-		\begin{verbatim}
-		Grid <Identifier>
-		{
-			Width = <Int>;
-			Height = <Int>;
-		}
-		\end{verbatim}	
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+Grid <Identifier>
+{
+	Width = <Int>;
+	Height = <Int>;
+}
+		\end{lstlisting}	
 		The Width determines how many tiles wide the map will be and Height determines how many tiles high the map will be.
 	\paragraph{Behaviour Block}
 		The behaviour block determines how a regiment will behave in the simulation. To control the a regiment one can 
@@ -137,115 +215,192 @@ To run a simulation you need a {\it Config File} (See \ref{doc:cfgfile}) with th
 		conditional statements and expressions can only be used in behaviour blocks.
 		\subparagraph{if-else if-else Statement}
 			Structure of a {\it if-else if-else} statement: \\
-			\begin{verbatim}
-				if(<Expression>)
-				{
-					//Code
-				}
-				else if (<Expression>)
-				{
-					//Code
-				}
-				else
-				{
-					//Code
-				}
-			\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+if(<Expression>)
+{
+	//Code
+}
+else if (<Expression>)
+{
+	//Code
+}
+	else
+{
+	//Code
+}
+			\end{lstlisting}
 			If the expression inside the parenthesis after if or else if is evaluated to true then the code inside the block will be executed.
 			If none of the expressions is evaluated to true the the code inside the else block will be executed. Please not that only the if block
 			is required, there can be 1 to multiple else if blocks and only 1 else block which has to end the statement. \\
 		\subparagraph{while Loop}
 			Structure of a {\it while} loop: \\			
-			\begin{verbatim}
-				while(<Expression>)
-				{
-					//Code
-				}
-			\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+while(<Expression>)
+{
+//Code
+}
+			\end{lstlisting}
 			If the expression is evaluated to true the code inside the block is executed. After it is executed the expression will be checked again.
 		\subparagraph{Unit Functions}
 			Unit functions are used to move the regiment or attacking with the regiment.
-			\begin{verbatim}
-				MoveTowards(<Regiment>);
-				MoveAway(<Regiment>);
-				Attack(<Regiment>);
-			\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+MoveTowards(<Regiment>);
+MoveAway(<Regiment>);
+Attack(<Regiment>);
+			\end{lstlisting}
 	\paragraph{Standards block}
 		A standards block consist of unit stats and a behaviour block. 
-		\begin{verbatim}
-			Standards
-			{
-				<Unit-Stat-1>
-				..
-				.
-				<Unit-Stat-6>
-				<Behaviour-Block>
-			}
-		\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+Standards
+{
+	<Unit-Stat-1>
+	..
+	.
+	<Unit-Stat-6>
+	<Behaviour-Block>
+}
+		\end{lstlisting}
 		If a regiment in one of the team files haven't declared all the unit stats
 		or defined a behaviour, then the stats/behaviour will be taken from the standards block.
 	\subsection{Maxima Block}
-		The Maxima block determines what the limits for the unit stats are. It also sets the maximum number of teams and regiments allowed.
+		The Maxima block determines what are the limits for the unit stats. It also sets the maximum number of teams and regiments allowed.
 		In the block one is allowed to write UnitStat and MaximaStat.
 		MaximaStat is one of these:\\
-		\begin{verbatim}
-			Teams = <Int>;
-			Regiments = <Int>;
-		\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+Teams = <Int>;
+Regiments = <Int>;
+		\end{lstlisting}
 		The Maxima Block is written as: \\
-		\begin{verbatim}
-			Maxima
-			{
-				<UnitStat-1> or <MaximaStat-1>
-				..
-				.
-				<UnitStat-6> or <MaximaStat-2>
-			}
-		\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+Maxima
+{
+	<UnitStat-1> or <MaximaStat-1>
+	..
+	.
+	<UnitStat-6> or <MaximaStat-2>
+}
+		\end{lstlisting}
 	\subsection{Regiment Block}
 		A Regiment block contains unit stats and a behaviour block.
-		\begin{verbatim}
-			Regiment <Identifier>
-			{
-				<Unit-Stat-1>
-				..
-				.
-				<Unit-Stat-6>
-				<Behaviour-Block>
-			}
-		\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+Regiment <Identifier>
+{
+<Unit-Stat-1>
+..
+.
+<Unit-Stat-6>
+<Behaviour-Block>
+}
+		\end{lstlisting}
 \section{RegimentSearch Functions}
 	To get information of regiments on the map one can use {\it RegimentSearch Functions}. There are two RegimentSearch Functions in WAR.\\
-	\begin{verbatim}
-		SearchForEnemies(Parameters);
-		SearchForFriend(Parameters);
-	\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+SearchForEnemies(Parameters);
+SearchForFriend(Parameters);
+	\end{lstlisting}
 	Here {\it Parameters} is one or more expressions made with UnitStatType. Between two expressions there has to be a comma (,).
 	Example: \\
-	\begin{verbatim}
-		SearchForEnemies(Distance > 5,Size == 200);
-	\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+SearchForEnemies(Distance > 5,Size == 200);
+	\end{lstlisting}
 	This will return all the enemy regiments, which are more than 5 tiles away and is of Size 200.		
 \section{Team File}
 \label{doc:teamfile}
 	A team file is written this way: \\
-		\begin{verbatim}
-			Team <Identifier>
-			<Regiment-Block-1>
-			...
-			..
-			.
-			<Regiment-Block-n>
-		\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+Team <Identifier>
+<Regiment-Block-1>
+...
+..
+.
+<Regiment-Block-n>
+		\end{lstlisting}
 	
 \section{Config File}
 \label{doc:cfgfile}
 	The config file sets the rules for the simulation, it can be limitations on the regiments and deciding the size of the map.
 	A config file is written this way: \\
-		\begin{verbatim}
-			Config
-			<Grid-Block>
-			<Standards-Block>
-			<Maxima-Block>
-		\end{verbatim}
+
+		\begin{lstlisting}[basicstyle=\small\sffamily,
+		keywordstyle={\color{blue}},
+		comment={[l]{//}}, morecomment={[s]{/*}{*/}}, commentstyle=\itshape,
+		columns={[l]flexible}, numbers=left, numberstyle=\tiny,
+		frameround=fftt, frame=shadowbox, captionpos=b,
+		caption={Regiment Assignment},
+		label=RegimentAssignment]
+Config
+<Grid-Block>
+<Standards-Block>
+<Maxima-Block>
+		\end{lstlisting}
 	
