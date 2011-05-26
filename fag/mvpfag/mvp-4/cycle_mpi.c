@@ -38,6 +38,7 @@ void test(int n)
 		MPI_Request test;
 		MPI_Isend(&send_data[i], 1, MPI_INT, destination, 123, MPI_COMM_WORLD, &test);
 		MPI_Irecv(&recv_data[i], 1, MPI_INT, source, 123, MPI_COMM_WORLD, &test);
+		MPI_Wait(&req, &status);
         // You'll need that at some point.
         memcpy(send_data, recv_data, n*sizeof(int));
     }
