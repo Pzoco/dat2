@@ -1,0 +1,74 @@
+Team Team1
+
+Regiment Archers1
+{
+	Size = 50;
+	Range = 10;
+	Damage = 10;
+	Movement = 5;
+	AttackSpeed = 2;
+	Health = 50;
+	Type = Ranged;
+	RegimentPosition = Position(5,5);
+Behaviour HitnRun
+{
+	Regiment enemy = SearchForEnemies();
+	Regiment friend = SearchForFriends();
+	if(enemy.Distance < (friend.Distance-enemy.Distance))
+	{
+		MoveAway(enemy);
+		MoveAway(enemy);
+	}
+	else
+	{
+		if(enemy.Distance < Range)
+		{
+			Attack(enemy);
+		}
+		else
+		{
+			MoveTowards(enemy);
+			MoveTowards(enemy);
+		}
+	}
+	Attack(enemy);
+}
+}
+
+
+Regiment Archers2
+{
+	Size = 50;
+	Range = 10;
+	Damage = 10;
+	Movement = 5;
+	AttackSpeed = 2;
+	Health = 50;
+	Type = Ranged;
+	RegimentPosition = Position(15,15);
+Behaviour HitnRun
+{
+	Regiment enemy = SearchForEnemies();
+	Regiment friend = SearchForFriends();
+	if(enemy.Distance < (friend.Distance-enemy.Distance))
+	{
+		MoveAway(enemy);
+		MoveAway(enemy);
+	}
+	else
+	{
+		if(enemy.Distance < Range)
+		{
+			Attack(enemy);
+		}
+		else
+		{
+			MoveTowards(enemy);
+			MoveTowards(enemy);
+			MoveTowards(enemy);
+		}
+	}
+	Attack(enemy);
+}
+
+}
