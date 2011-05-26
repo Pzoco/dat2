@@ -1,0 +1,24 @@
+Team Team2
+
+Regiment KlamBymilits
+{
+	Size = 20;
+	Damage = 20;
+	Type = Melee;
+	Health = 50;
+	Movement = 2;
+	AttackSpeed = 1;
+	RegimentPosition = Position(10,10);
+Behaviour StupidBehaviour
+{
+	Regiment enemy = SearchForEnemies();
+	if (enemy.Distance > 1)
+	{
+		MoveTowards(enemy);
+	}
+	else
+	{
+		Attack(enemy);
+	}
+}
+}
